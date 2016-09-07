@@ -1,0 +1,53 @@
+<?page title="Impuestos" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmImpuesto') @init('com.pricing.viewModel.impuestoYcobrosVM')">
+		<listbox model="@bind(vmImpuesto.listaImpuestos) @template((each.editable)? 'modeleditable':'noeditable')" height="110px" mold="paging" autopaging="true">
+			<listhead>
+				<listheader label="Nro" width="3%"/>
+				<listheader label="Impuesto Paypal"/>
+				<listheader label="Impuesto Visa"/>
+				<listheader label="Cobro Parcial (%)"/>
+				<listheader label="Operacion" width="6%"/>
+			</listhead>
+			<template name="modeleditable">
+				<listitem>
+					<listcell>
+						<label value="@bind(each.codImpuesto)" style="font-size:15px;font-weight:bold;color:blue;"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.impuestoPaypal) @save(each.impuestoPaypal,before='actualizarImpuesto')"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.impuestoVisa) @save(each.impuestoVisa,before='actualizarImpuesto')"/>
+					</listcell>
+					<listcell >
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.porcentajeCobro) @save(each.porcentajeCobro,before='actualizarImpuesto')"/>
+					</listcell>
+					<listcell >
+						<button hflex="1" label="update" onClick="@command('actualizarImpuesto',impuesto=each)"/>
+					</listcell>
+				</listitem>
+			</template>
+			<template name="noeditable">
+				<listitem>
+					<listcell>
+						<label value="@bind(each.codImpuesto)" style="font-size:15px;font-weight:bold;color:blue;"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.impuestoPaypal)" readonly="true"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.impuestoVisa)" readonly="true"/>
+					</listcell>
+					<listcell >
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.porcentajeCobro)" readonly="true"/>
+					</listcell>
+					<listcell >
+						<button hflex="1" label="Editar" onClick="@command('Editar',impuesto=each)"/>
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

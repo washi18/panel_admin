@@ -1,0 +1,67 @@
+<?page title="PAQUETES" contentType="text/html;charset=UTF-8"?>
+<zk>
+<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmPaquete') @init('com.pricing.viewModel.paquetesVM')">
+		<listbox model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
+			<listhead>
+				<listheader label="Nro" width="3%"/>
+				<listheader label="Español"/>
+				<listheader label="Ingles"/>
+				<listheader label="Portugues"/>
+				<listheader label="Idioma4"/>
+				<listheader label="Idioma5"/>
+				<listheader label="Operacion" width="6%"/>
+			</listhead>
+			<template name="modeleditable">
+				<listitem>
+					<listcell>
+						<label value="@bind(each.cPaqueteCod)" style="font-size:15px;font-weight:bold;color:blue;"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma2) @save(each.cTituloIdioma2,before='actualizarPaquete')"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma3) @save(each.cTituloIdioma3,before='actualizarPaquete')"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma4) @save(each.cTituloIdioma4,before='actualizarPaquete')"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')"/>
+					</listcell>
+					<listcell >
+						<button hflex="1" label="update" onClick="@command('actualizarPaquete',paquete=each)"/>
+					</listcell>
+				</listitem>
+			</template>
+			<template name="noeditable">
+				<listitem>
+					<listcell>
+						<label value="@bind(each.cPaqueteCod)" style="font-size:15px;font-weight:bold;color:blue;"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma1)" readonly="true"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma2)" readonly="true"/>
+					</listcell>
+					<listcell >
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma3)" readonly="true"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma4)" readonly="true"/>
+					</listcell>
+					<listcell>
+						<textbox multiline="true" hflex="1" height="100px" value="@bind(cTituloIdioma5)" readonly="true"/>
+					</listcell>
+					<listcell >
+						<button hflex="1" label="Editar" onClick="@command('Editar',paquete=each)"/>
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

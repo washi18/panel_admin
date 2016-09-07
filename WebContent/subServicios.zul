@@ -1,0 +1,117 @@
+<?page title="SUB SERVICIOS" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.subServicioVM')">
+		<listbox model="@bind(vmServicio.listaSubServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
+			<listhead>
+				<listheader label="Nro" width="3%"/>
+				<listheader label="Español"/>
+				<listheader label="Ingles"/>
+				<listheader label="Portugues"/>
+				<listheader label="Idioma4"/>
+				<listheader label="Idioma5"/>
+				<listheader label="Operacion" width="6%"/>
+			</listhead>
+			<template name="modeleditable">
+				<listitem>
+					<listcell>
+						<label value="@bind(each.nSubServicioCod)" style="font-size:15px;font-weight:bold;color:blue;"/>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma1) @save(each.cSubServicioIndioma1,before='actualizarSubServicio')"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarSubServicio')"/>
+						</div>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma2) @save(each.cSubServicioIndioma2,before='actualizarSubServicio')"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarSubServicio')"/>
+						</div>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma3) @save(each.cSubServicioIndioma3,before='actualizarSubServicio')"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarSubServicio')"/>
+						</div>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma4) @save(each.cSubServicioIndioma4,before='actualizarSubServicio')"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarSubServicio')"/>
+						</div>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma5) @save(each.cSubServicioIndioma5,before='actualizarSubServicio')"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma5) @save(each.cDescripcionIdioma5,before='actualizarSubServicio')"/>
+						</div>
+					</listcell>
+					<listcell >
+						<button hflex="1" label="update" onClick="@command('actualizarSubServicio',subServicio=each)"/>
+					</listcell>
+				</listitem>
+			</template>
+			<template name="noeditable">
+				<listitem>
+					<listcell>
+						<label value="@bind(each.nSubServicioCod)" style="font-size:15px;font-weight:bold;color:blue;"/>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma1)" readonly="true"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma1)" readonly="true"/>
+						</div>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma2)" readonly="true"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma2)" readonly="true"/>
+						</div>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma3)" readonly="true"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma3)" readonly="true"/>
+						</div>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma4)" readonly="true"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma4)" readonly="true"/>
+						</div>
+					</listcell>
+					<listcell>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cSubServicioIndioma5)" readonly="true"/>
+						</div>
+						<div width="100%">
+							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma5)" readonly="true"/>
+						</div>
+					</listcell>
+					<listcell >
+						<button hflex="1" label="Editar" onClick="@command('Editar',subServicio=each)"/>
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

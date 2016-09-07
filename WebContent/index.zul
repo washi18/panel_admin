@@ -1,0 +1,4 @@
+<?page title="PANEL ADMIN"?>
+<zk>
+	<include src="panelAdmin.zul"/>
+</zk>
