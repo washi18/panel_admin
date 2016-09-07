@@ -376,21 +376,30 @@
 	padding: 2px;
 	padding-bottom: 10px;
 }
-.estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels{
 
+.estilo_tabbox.z-tabbox.z-tabbox-top .z-tabs .z-tabs-content .z-tab{
+	text-align: center;
+	border-radius: 5px;
+	border-bottom: 1px solid #AEACAC;
+	color: black;
+	font-weight: bold;
+	font-size: 12px;
+	font-family: Arial,Sans-serif;
+}
+.estilo_div_tree {
+	width: 18%;
 }
 
-@media only screen and (max-width: 400px)
-{
-	.estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels{
-	box-shadow: 3px 3px 1px 0 rgba(0,0,0,0.5);
-}
-}
 /*====================modo responsive tablet==============*/
 @media only screen and (max-width: 700px)  {
 	.contenedor_botones {
 	    border-radius: 0;
     }
+    
+    .contenedor_cuerpo.z-div .contenedor_botones.z-div {
+       min-width: 100%; 
+	}
+	
     .z-window.z-window-noborder.z-window-noheader.z-window-popup.z-window-shadow{ 
         max-width: 200px; 
     }
@@ -399,7 +408,7 @@
     }
     .esquinavlayout {
 		padding: 0;
-		margin-left: -1px;
+		margin-left: 0;
     }
     .z-window.z-window-noborder.z-window-noheader.z-window-embedded{
        display: none;
@@ -409,7 +418,10 @@
 	    line-height: 45px; 
 	    
 	    
-	}    
+	} 
+	.contenedor_cuerpo.z-div .estilo_div_tree.z-div {
+		display: none;
+	}   
 }
 /*====================modo responsive smarphone==============*/
 @media only screen and (max-width: 400px) {
@@ -419,5 +431,8 @@
 	.boton_desplegable.z-button {
 		position: relative;
 		top: 9px;
+    }
+    .estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels{
+		box-shadow: 3px 3px 1px 0 rgba(0,0,0,0.5);
     }
 }
