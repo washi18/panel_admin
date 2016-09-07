@@ -1,64 +1,126 @@
 <?page title="PAQUETES" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
 <zk>
+<style src="css/estilos_Paquete.css"></style>
 <div apply="org.zkoss.bind.BindComposer"
-		 viewModel="@id('vmPaquete') @init('com.pricing.viewModel.paquetesVM')">
-		<listbox model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
+		 viewModel="@id('vmPaquete') @init('com.pricing.viewModel.paquetesVM')" width="100%">
+		<div>
+			<panel>
+				<caption>
+					<button id="btnGeneral" label="General" focus="true"
+						onClick="@command('pasosInsertar',Opcion=self.id)">
+					</button>
+					<button id="btnDescripcion" label="Descripcion"
+						onClick="@command('pasosInsertar',Opcion=self.id)">
+					</button>
+				</caption>
+				<panelchildren>
+					<hlayout visible="@bind(vmPaquete.visibleGeneral)" sclass="insertar">
+						<vlayout>
+							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
+							<button label="Seleccionar"
+								sclass="estilo_foto">
+							</button>
+						</vlayout>
+						<space spacing="20px"></space>
+						<vlayout>
+							<textbox placeholder="Nombre">
+							</textbox>
+							<textbox multiline="true" height="150px"
+								placeholder="Descricpion" width="100%">
+							</textbox>
+							<div height="2px"></div>
+						</vlayout>
+					</hlayout>
+					<hlayout visible="@bind(vmPaquete.visibleDescripcion)" sclass="insertar">
+						<vlayout>
+							<textbox placeholder="Noches"></textbox>
+							<textbox placeholder="Dias"></textbox>
+							<textbox placeholder="Dsiponibilidad"></textbox>
+							<combobox value="estado">
+								<comboitem>activo</comboitem>
+								<comboitem>inactivo</comboitem>
+							</combobox>
+						</vlayout>
+						<space spacing="20px"></space>
+						<vlayout>
+							<groupbox>
+								<vlayout>
+									<textbox placeholder="1 persona"></textbox>
+									<textbox placeholder="2 personas"></textbox>
+									<textbox placeholder="3 personas"></textbox>
+									<textbox placeholder="4 personas"></textbox>
+									<textbox placeholder="5 personas"></textbox>
+								</vlayout>
+							</groupbox>
+							<button label="Guardar"
+								sclass="estilo_foto">
+							</button>
+						</vlayout>
+					</hlayout>
+				</panelchildren>
+			</panel>
+		</div>
+		<listbox model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true" width="100%">
 			<listhead>
-				<listheader label="Nro" width="3%"/>
-				<listheader label="Español"/>
-				<listheader label="Ingles"/>
-				<listheader label="Portugues"/>
-				<listheader label="Idioma4"/>
-				<listheader label="Idioma5"/>
-				<listheader label="Operacion" width="6%"/>
+				<listheader sclass="estilo_numero" label="Nro" width="45px" />
+				<listheader label="Español" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Ingles" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Portugues" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Idioma4" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Idioma5" width="auto"/>
+				<listheader label="operaciones" width="auto"/>
 			</listhead>
 			<template name="modeleditable">
 				<listitem>
-					<listcell>
+					<listcell sclass="estilo_numero">
 						<label value="@bind(each.cPaqueteCod)" style="font-size:15px;font-weight:bold;color:blue;"/>
 					</listcell>
 					<listcell>
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')"/>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma2) @save(each.cTituloIdioma2,before='actualizarPaquete')"/>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma3) @save(each.cTituloIdioma3,before='actualizarPaquete')"/>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma4) @save(each.cTituloIdioma4,before='actualizarPaquete')"/>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')"/>
 					</listcell>
-					<listcell >
+					<listcell sclass="costado_operaciones">
 						<button hflex="1" label="update" onClick="@command('actualizarPaquete',paquete=each)"/>
 					</listcell>
 				</listitem>
 			</template>
 			<template name="noeditable">
 				<listitem>
-					<listcell>
+					<listcell sclass="estilo_numero">
 						<label value="@bind(each.cPaqueteCod)" style="font-size:15px;font-weight:bold;color:blue;"/>
 					</listcell>
 					<listcell>
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma1)" readonly="true"/>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma2)" readonly="true"/>
 					</listcell>
-					<listcell >
+					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma3)" readonly="true"/>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma4)" readonly="true"/>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(cTituloIdioma5)" readonly="true"/>
 					</listcell>
-					<listcell >
-						<button hflex="1" label="Editar" onClick="@command('Editar',paquete=each)"/>
+					<listcell sclass="costado_operaciones">
+					   <vbox>
+					    <button hflex="1" label="Editar" onClick="@command('Editar',paquete=each)"/>
+					    <button hflex="1" label="Activar" onClick="@command('Activar',paquete=each)"></button>
+					   </vbox>
 					</listcell>
 				</listitem>
 			</template>

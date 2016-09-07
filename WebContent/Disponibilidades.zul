@@ -1,0 +1,12 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div height="50px">
+		<div sclass="derecha_Botones">
+			<button label="subir pdf" onClick="@command('uploadFile')" />
+			<space></space>
+			<textbox id="txtNombreArchivo" placeholder="NOMBRE PDF" />
+			<space></space>
+			<label id="lblMensaje" />
+		</div>
+	</div>
+</zk>

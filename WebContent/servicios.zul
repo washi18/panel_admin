@@ -1,16 +1,65 @@
 <?page title="Servicios" contentType="text/html;charset=UTF-8"?>
 <zk>
+    <style src="css/estilos_Paquete.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.servicioVM')">
+		<div>
+			<panel>
+				<caption>
+					<button id="btnGeneral" label="General" focus="true"
+						onClick="@command('pasosInsertar',Opcion=self.id)">
+					</button>
+					<button id="btnDescripcion" label="Descripcion"
+						onClick="@command('pasosInsertar',Opcion=self.id)">
+					</button>
+				</caption>
+				<panelchildren>
+					<hlayout visible="@bind(vmServicio.visibleGeneral)" sclass="insertar">
+						<vlayout>
+							<div height="150px" width="200px"></div>
+							<button label="Seleccionar"
+								sclass="estilo_foto">
+							</button>
+						</vlayout>
+						<space spacing="40px"></space>
+						<vlayout>
+							<textbox placeholder="Nombre">
+							</textbox>
+							<textbox multiline="true" height="150px"
+								placeholder="Descricpion" width="100%">
+							</textbox>
+						</vlayout>
+					</hlayout>
+					<hlayout visible="@bind(vmServicio.visibleDescripcion)" sclass="insertar">
+						<vlayout>
+							<textbox placeholder="Restriccion 1"></textbox>
+							<textbox placeholder="Restriccion 2"></textbox>
+							<textbox placeholder="incremento"></textbox>
+							<combobox value="estado">
+								<comboitem>activo</comboitem>
+								<comboitem>inactivo</comboitem>
+							</combobox>
+						</vlayout>
+						<space spacing="40px"></space>
+						<vlayout>
+						    <textbox placeholder="precio"></textbox>
+							<button label="Guardar"
+								sclass="estilo_foto">
+							</button>
+						</vlayout>
+					</hlayout>
+				</panelchildren>
+			</panel>
+		</div>
 		<listbox model="@bind(vmServicio.listaServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
 			<listhead>
-				<listheader label="Nro" width="3%"/>
-				<listheader label="Español"/>
-				<listheader label="Ingles"/>
-				<listheader label="Portugues"/>
-				<listheader label="Idioma4"/>
-				<listheader label="Idioma5"/>
-				<listheader label="Operacion" width="6%"/>
+				<listheader label="Nro" width="5%"/>
+				<listheader label="Español" width="auto"/>
+				<listheader label="Ingles" width="auto"/>
+				<listheader label="Portugues" width="auto"/>
+				<listheader label="Idioma4" width="auto"/>
+				<listheader label="Idioma5" width="auto"/>
+				<listheader label="Operacion" width="auto"/>
 			</listhead>
 			<template name="modeleditable">
 				<listitem>
@@ -108,7 +157,10 @@
 						</div>
 					</listcell>
 					<listcell >
+					   <vbox>
 						<button hflex="1" label="Editar" onClick="@command('Editar',servicio=each)"/>
+						<button hflex="1" label="Activar"></button>
+					   </vbox>
 					</listcell>
 				</listitem>
 			</template>

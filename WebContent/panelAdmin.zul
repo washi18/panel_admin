@@ -1,239 +1,217 @@
-<?page title="ADMIN PRICING" contentType="text/html;charset=UTF-8"?>
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
 <zk>
 	<style src="css/style_zk.css"/>
-	<style src="css/Estilos_Panel_Admi.css"/>
+	<style src="css/estilo_prueba.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
-		 style="background: linear-gradient(to bottom, #3f3f3f 0%, #222222 100%);">
-		 <div sclass="contenedor_cabezera">
-		 	<image src="ICO/Profile.ico"></image>
-		 	<div sclass="cabezera">
-		 		<menubar>
-		 			<menu label="perfil" image="ICO/Profile.ico">
-		 				<menupopup>
-		 					<menuitem label="perfil 1"></menuitem>
-		 					<menuitem label="perfil 2"></menuitem>
-		 					<menuitem label="perfil 3"></menuitem>
-		 				</menupopup>
-		 			</menu>
-		 			<menu label="mensaje">
-		 				<menupopup>
-		 					<menuitem label="perfil 4"></menuitem>
-		 					<menuitem label="perfil 5"></menuitem>
-		 					<menuitem label="perfil 6"></menuitem>
-		 				</menupopup>
-		 			</menu>
-		 			<menu label="herramientas">
-		 				<menupopup>
-		 					<menuitem label="perfil 7"></menuitem>
-		 					<menuitem label="perfil 8"></menuitem>
-		 					<menuitem label="perfil 9"></menuitem>
-		 				</menupopup>
-		 			</menu>
-		 		</menubar>
-		 	</div>
-		 </div>
-		 <hlayout spacing="0px">
-		 	<vlayout width="250px" spacing="0px">
-		 		<div width="250px" height="30px"
-		 			style="background: transparent;">
-		 		</div>
-		 		<div width="250px" height="auto">
-		 			<tree sclass="paneles" width="100%">
-		 				<treechildren>
-		 					<treeitem id="item1" label="Configuracion"
-		 						open="false" tooltiptext="9">
-		 						<treechildren>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Datos de Agencia" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell label="Idiomas"
-		 										sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell label="Etiquetas"
-		 										sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Contenidos" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Recomendaciones" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Tipos de documentos" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Perfiles de Usuario" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell label="Paises"
-		 										sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Codigos de Visa" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 						</treechildren>
-		 					</treeitem>
-		 					<treeitem label="Usuarios" open="false"
-		 						tooltiptext="1">
-		 						<treechildren>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Registro de Usuarios" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 						</treechildren>
-		 					</treeitem>
-		 					<treeitem label="Sliders" open="false"
-		 						tooltiptext="1">
-		 						<treechildren>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Registro de Sliders" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 						</treechildren>
-		 					</treeitem>
-		 					<treeitem label="Paquetes" open="false"
-		 						tooltiptext="6">
-		 						<treechildren>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Categorias" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell label="Destinos"
-		 										sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Tipo de Detalles" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell label="Hoteles"
-		 										sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell label="Tours"
-		 										sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 							<treeitem>
-		 								<treerow>
-		 									<treecell
-		 										label="Tours con Hoteles" sclass="subItem">
-		 									</treecell>
-		 								</treerow>
-		 							</treeitem>
-		 						</treechildren>
-		 					</treeitem>
-		 					<treeitem label="Seguimiento" open="false"
-		 						tooltiptext="nada">
-		 					</treeitem>
-		 				</treechildren>
-		 			</tree>
-		 		</div>
-		 	</vlayout>
-		 	<vlayout hflex="1" sclass="esquinavlayout">
-		 		<div hflex="1" sclass="contenedor_botones">
-		 			<label value="Interno"></label>
-		 			<div sclass="derecha_Botones">
-		 				<button label="btn1"></button>
-		 				<button label="btn2"></button>
-		 				<button label="btn3"></button>
-		 				<button label="btn4"></button>
-		 			</div>
-		 		</div>
-		 		<div hflex="1" sclass="debajo_botones">
-		 			<label value="seccion 1"></label>
-		 			<label value="seccion 2"></label>
-		 		</div>
-		 		<div hflex="1">
-		 			<panel>
-		 				<panelchildren>
-		 				   <hbox>
-		 				   	<button label="subir pdf"
-		 				   		onClick="@command('uploadFile')" />
-		 				   	<textbox id="txtNombreArchivo"
-		 				   		placeholder="NOMBRE PDF" />
-		 				   	<label id="lblMensaje" />
-		 				   </hbox>
-		 				   <space></space>
-		 				   <label value="ETIQUETAS"
-		 				   	style="color:red;font-size:20px;" />
-		 				   <include src="etiquetas.zul" />
-		 				   <label value="PAQUETES"
-		 				   	style="color:red;font-size:20px;" />
-		 				   <include src="paquetes.zul" />
-		 				   <space></space>
-		 				   <label value="SERVICIOS"
-		 				   	style="color:red;font-size:20px;" />
-		 				   <include src="servicios.zul" />
-		 				   <space></space>
-		 				   <label value="SUBSERVICIOS"
-		 				   	style="color:red;font-size:20px;" />
-		 				   <include src="subServicios.zul" />
-		 				   <space></space>
-		 				   <label value="IMPUESTOS Y FORMAS DE COBRO"
-		 				   	style="color:red;font-size:20px;" />
-		 				   <include src="impuestos.zul" />
-		 				</panelchildren>
-		 			</panel>
-		 		</div>
-		 	</vlayout>
-		 </hlayout>
+		 style="background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%); overflow: hidden;" width="100%" vflex="1" onClientInfo="@command('muestra',width=event.desktopWidth)">
+		<div sclass="contendor_cabezera" width="100%" height="90px">
+			<div sclass="contenedor_desplegable">
+				<button width="100%" height="20px" image="ICO/menu6.png"
+					sclass="boton_desplegable" visible="@bind(vmAdmin.visibleBoton)"
+					onClick="@command('menuDesplegable')">
+				</button>
+				<label value="Admin" sclass="logoAdmi"></label>
+			</div>
+			<div sclass="cabezera">
+				<menubar style="background: transparent;">
+					<menu label="Mensajes"></menu>
+					<menu label="Cuenta">
+						<menupopup>
+							<menuitem label="CambiarCuenta"></menuitem>
+							<menuitem label="Herramientas"></menuitem>
+							<menuitem label="Cerrar Sesion"></menuitem>
+						</menupopup>
+					</menu>
+				</menubar>
+			</div>
+		</div>
+		<div sclass="contenedor_cuerpo" height="100vh">
+			<div>
+				<window width="250px" style="background: transparent;"
+					mode="@bind(vmAdmin.windowMode)"
+					visible="@bind(vmAdmin.visibleMenu)">
+					<vlayout spacing="0px">
+						<div height="40px" sclass="encima_tree"></div>
+						<div height="90vh"
+							style="background: linear-gradient(to top, #1f1f1f 0%, #222222 100%);">
+							<tree sclass="paneles" width="100%">
+								<treechildren>
+									<treeitem id="itemConfiguracion"
+										label="Configuracion" open="@bind(vmAdmin.openItemConfig)"
+										onClick="@command('CambioApertura',cambioApertura=self.id)">
+										<treechildren>
+											<treeitem >
+												<treerow>
+													<treecell
+														id="itemDisponibilidad" label="Actualizar Disponibilidad" sclass="subItem"
+														onClick="@command('Cambio',cambioInterfaz=self.id)">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														id="itemEtiqueta" label="Etiquetas" sclass="subItem"
+														onClick="@command('Cambio',cambioInterfaz=self.id)">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														id="itemPaquete" label="Paquetes" sclass="subItem"
+														onClick="@command('Cambio',cambioInterfaz=self.id)">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														id="itemServicio" label="Servicios" sclass="subItem"
+														onClick="@command('Cambio',cambioInterfaz=self.id)">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														id="itemSubServicio" label="Sub Servicios"
+														sclass="subItem"
+														onClick="@command('Cambio',cambioInterfaz=self.id)">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														id="itemImpuesto" label="Impuestos" sclass="subItem"
+														onClick="@command('Cambio',cambioInterfaz=self.id)">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Paises" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Codigos de Visa" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+										</treechildren>
+									</treeitem>
+									<treeitem label="Usuarios"
+										id="itemUsuarios" open="@bind(vmAdmin.openItemUsuarios)"
+										onClick="@command('CambioApertura',cambioApertura=self.id)">
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Registro de Usuarios" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+										</treechildren>
+									</treeitem>
+									<treeitem label="Paquetes"
+										id="itemPaquetes" open="@bind(vmAdmin.openItemPaquetes)"
+										onClick="@command('CambioApertura',cambioApertura=self.id)">
+										<treechildren>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Categorias" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Destinos" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Tipo de Detalles" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Hoteles" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Tours" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+											<treeitem>
+												<treerow>
+													<treecell
+														label="Tours con Hoteles" sclass="subItem">
+													</treecell>
+												</treerow>
+											</treeitem>
+										</treechildren>
+									</treeitem>
+									<treeitem label="Reportes"
+										open="false">
+									</treeitem>
+								</treechildren>
+							</tree>
+						</div>
+					</vlayout>
+				</window>
+			</div >
+			<div sclass="contenedor_botones" height="500px" width="100%" >
+			    <div height="18px"></div>
+				<div  width="100%" height="600px" style="overflow: auto;">
+					<tabbox sclass="estilo_tabbox" width="100%">
+						<tabs>
+							<tab id="tabDisponibilidad" label="Disponibilidad" closable="true" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
+							<tab id="tabEtiqueta" label="Etiquetas" closable="true" visible="@bind(vmAdmin.visibleEtiqueta)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
+							<tab id="tabPaquete" label="Paquetes" closable="true" visible="@bind(vmAdmin.visiblePaquetes)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
+							<tab id="tabServicio" label="Servicios" closable="true" visible="@bind(vmAdmin.visibleServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
+							<tab id="tabSubServicio" label="Sub_Servicios" closable="true" visible="@bind(vmAdmin.visibleSubServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
+							<tab id="tabImpuesto" label="Impuestos" closable="true" visible="@bind(vmAdmin.visibleImpuestos)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
+						</tabs>
+						<tabpanels>
+							<tabpanel>
+								<include src="Disponibilidades.zul"/>	
+							</tabpanel>
+							<tabpanel>
+								<include src="etiquetas.zul"/>
+							</tabpanel>
+							<tabpanel>
+							   <include src="paquetes.zul"/>
+							</tabpanel>
+							<tabpanel>
+							  <include src="servicios.zul"/>
+							</tabpanel>
+							<tabpanel>
+								<include src="subServicios.zul"/>
+							</tabpanel>
+							<tabpanel>
+								<include src="impuestos.zul"/>
+							</tabpanel>
+						</tabpanels>
+					</tabbox>
+				</div>
+			</div>
+		</div>
 	</div>
 </zk>

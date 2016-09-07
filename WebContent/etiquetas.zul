@@ -1,16 +1,17 @@
 <?page title="Etiquetas" contentType="text/html;charset=UTF-8"?>
 <zk>
+    <style src="css/estilos_Paquete.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
-		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')">
-		<listbox model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
+		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')" hflex="1">
+		<listbox model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true" hflex="1">
 			<listhead>
-				<listheader label="Nro" width="3%"/>
-				<listheader label="Español"/>
-				<listheader label="Ingles"/>
-				<listheader label="Portugues"/>
-				<listheader label="Idioma4"/>
-				<listheader label="Idioma5"/>
-				<listheader label="Operacion" width="6%"/>
+				<listheader label="Nro" width="5%"/>
+				<listheader label="Español" width="auto"/>
+				<listheader label="Ingles" width="auto"/>
+				<listheader label="Portugues" width="auto"/>
+				<listheader label="Idioma4" width="auto"/>
+				<listheader label="Idioma5" width="auto"/>
+				<listheader label="Operacion" width="auto"/>
 			</listhead>
 			<template name="modeleditable">
 				<listitem>
@@ -58,7 +59,10 @@
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma5)" readonly="true"/>
 					</listcell>
 					<listcell >
-						<button hflex="1" label="Editar" onClick="@command('Editar',etiqueta=each)"/>
+					    <vbox>
+							<button hflex="1" label="Editar" onClick="@command('Editar',etiqueta=each)"/>
+							<button hflex="1" label="Activar"></button>
+						</vbox>
 					</listcell>
 				</listitem>
 			</template>
