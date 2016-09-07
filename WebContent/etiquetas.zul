@@ -7,10 +7,10 @@
 			<listhead>
 				<listheader label="Nro" width="5%"/>
 				<listheader label="Español" width="auto"/>
-				<listheader label="Ingles" width="auto"/>
-				<listheader label="Portugues" width="auto"/>
-				<listheader label="Idioma4" width="auto"/>
-				<listheader label="Idioma5" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Ingles" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Portugues" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Idioma4" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Idioma5" width="auto"/>
 				<listheader label="Operacion" width="auto"/>
 			</listhead>
 			<template name="modeleditable">

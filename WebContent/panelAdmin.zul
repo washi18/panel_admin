@@ -27,9 +27,9 @@
 				</menubar>
 			</div>
 		</div>
-		<div sclass="contenedor_cuerpo" height="100vh">
-			<div>
-				<window width="250px" style="background: transparent;"
+		<div sclass="contenedor_cuerpo" height="100vh" width="100%">
+			<div sclass="estilo_div_tree">
+				<window width="100%" style="background: transparent;"
 					mode="@bind(vmAdmin.windowMode)"
 					visible="@bind(vmAdmin.visibleMenu)">
 					<vlayout spacing="0px">
@@ -177,9 +177,9 @@
 					</vlayout>
 				</window>
 			</div >
-			<div sclass="contenedor_botones" height="500px" width="100%" >
+			<div sclass="contenedor_botones" height="660px" width="82%">
 			    <div height="18px"></div>
-				<div  width="100%" height="600px" style="overflow: auto;">
+				<div  width="100%" height="650px" style="overflow: auto;">
 					<tabbox sclass="estilo_tabbox" width="100%">
 						<tabs>
 							<tab id="tabDisponibilidad" label="Disponibilidad" closable="true" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>

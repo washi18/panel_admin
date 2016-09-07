@@ -16,7 +16,7 @@
 				<panelchildren>
 					<hlayout visible="@bind(vmServicio.visibleGeneral)" sclass="insertar">
 						<vlayout>
-							<div height="150px" width="200px"></div>
+							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
 							<button label="Seleccionar"
 								sclass="estilo_foto">
 							</button>

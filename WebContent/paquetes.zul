@@ -61,7 +61,7 @@
 				</panelchildren>
 			</panel>
 		</div>
-		<listbox model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true" width="100%">
+		<listbox model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
 			<listhead>
 				<listheader sclass="estilo_numero" label="Nro" width="45px" />
 				<listheader label="Español" width="auto"/>

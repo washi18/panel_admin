@@ -90,7 +90,7 @@
 .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-button {
 	background: #717375;
 	text-shadow: none;
-	width: 120px;
+	width: 100%;
 	height: 30px;
 }
 
