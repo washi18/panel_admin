@@ -1,0 +1,14 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/UpdateDispo.css"/>
+	<div height="50px" apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmUpdateDispo') @init('com.pricing.viewModel.UpdateDispoVM')" >
+		<div sclass="div_ActualizarDispo">
+			<button label="subir pdf" zclass="btn_subir_pdf" onClick="@command('uploadFile')" />
+			<space></space>
+			<textbox id="txtNombreArchivo" placeholder="NOMBRE PDF" />
+			<space></space>
+			<label id="lblMensaje" />
+		</div>
+	</div>
+</zk>

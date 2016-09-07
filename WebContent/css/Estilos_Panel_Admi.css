@@ -242,12 +242,6 @@
 .esquinavlayout {
 	background: transparent;
 }
-
-.derecha_Botones {
-	position: absolute;
-	top: 10%;
-	right: 1%;
-}
 .cabezera.z-div .z-button {
 	width: 44px;
     height: 44px;
@@ -344,28 +338,52 @@
 .hboxbotones {
 	background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%);
 }
-
-.z-tabbox.z-tabbox-top .z-tabs .z-tabs-content .z-tab.z-tab-selected .z-tab-content .z-tab-text{
-	color: red;
-	font-size: 16px;
-	height: 35px;
-}
-
 .estilo_tabbox {
 	box-sizing: border-box;
 	padding-left: 1%;
 }
-
-.estilo_tabbox.z-tabbox.z-tabbox-top .z-toolbar.z-toolbar-tabs .z-toolbar-content.z-toolbar-start .z-button .z-button-image:HOVER{
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab a .z-tab-button{
+/* 	background: red; */
 }
-
-.estilo_tabbox.z-tabbox.z-tabbox-top .z-tabbox-icon.z-tabbox-right-scroll i .z-icon-chevron-scroll{
-    background: yellow;
+.estilo_tabbox .z-tabs .z-tabs-content,
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab{
+/* 	background: rgba(0,0,0,0.2); */
+/* 	height: 50px; */
+/* 	border-radius:10px; */
+	background: transparent;
+	border: none;
+	height: 50px;
+	width: auto;
 }
-.z-tabbox.z-tabbox-top .z-tabs .z-tabs-content .z-tab.z-tab-selected .z-tab-content{
-	height: 24px;
-	padding-left: 0;
-	padding-top: 0;
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab,
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab.z-tab-selected{
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	transition: 0.3s all ease;
+	margin: 0 2px 0 2px;
+}
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab.z-tab-selected{
+	background: #2f2f2f;
+	height: 50px;
+	border-radius:15px;
+}
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab:hover{
+	background: #2f2f2f;
+	height: 50px;
+	border-radius:15px;
+}
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab:hover .z-tab-content .z-tab-text{
+	color: white;
+	font-weight: bold;
+}
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab.z-tab-selected .z-tab-content .z-tab-text{
+	color: white;
+	font-weight: bold;
+}
+.estilo_tabbox .z-tabs .z-tabs-content .z-tab .z-tab-content .z-tab-text{
+	color: black;
+	font-weight: bold;
 }
 .estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels .z-tabpanel,
 .estilo_tabbox.z-tabbox.z-tabbox-top .z-tabs .z-tabs-content, 

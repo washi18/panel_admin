@@ -182,16 +182,16 @@
 				<div  width="100%" height="650px" style="overflow: auto;">
 					<tabbox sclass="estilo_tabbox" width="100%">
 						<tabs>
-							<tab id="tabDisponibilidad" label="Disponibilidad" closable="true" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
-							<tab id="tabEtiqueta" label="Etiquetas" closable="true" visible="@bind(vmAdmin.visibleEtiqueta)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
-							<tab id="tabPaquete" label="Paquetes" closable="true" visible="@bind(vmAdmin.visiblePaquetes)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
-							<tab id="tabServicio" label="Servicios" closable="true" visible="@bind(vmAdmin.visibleServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
-							<tab id="tabSubServicio" label="Sub_Servicios" closable="true" visible="@bind(vmAdmin.visibleSubServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
-							<tab id="tabImpuesto" label="Impuestos" closable="true" visible="@bind(vmAdmin.visibleImpuestos)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
+							<tab id="tabDisponibilidad" label="Disponibilidad" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
+							<tab id="tabEtiqueta" label="Etiquetas" visible="@bind(vmAdmin.visibleEtiqueta)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
+							<tab id="tabPaquete" label="Paquetes" visible="@bind(vmAdmin.visiblePaquetes)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
+							<tab id="tabServicio" label="Servicios" visible="@bind(vmAdmin.visibleServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
+							<tab id="tabSubServicio" label="Sub Servicios" visible="@bind(vmAdmin.visibleSubServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
+							<tab id="tabImpuesto" label="Impuestos" visible="@bind(vmAdmin.visibleImpuestos)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
 						</tabs>
 						<tabpanels>
 							<tabpanel>
-								<include src="Disponibilidades.zul"/>	
+								<include src="UpdateDispo.zul"/>	
 							</tabpanel>
 							<tabpanel>
 								<include src="etiquetas.zul"/>
