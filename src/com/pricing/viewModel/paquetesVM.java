@@ -6,11 +6,13 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.dao.CPaqueteDAO;
 import com.pricing.model.CEtiqueta;
 import com.pricing.model.CPaquete;
+import com.pricing.model.CServicio;
 
 public class paquetesVM 
 {
@@ -20,12 +22,15 @@ public class paquetesVM
 	private CPaquete oPaquete;
 	private CPaqueteDAO paqueteDao;
 	private ArrayList<CPaquete> listaPaquetes;
+	private boolean visibleGeneral=true;
+	private boolean visibleDescripcion=false;
 	/**
 	 * GETTER AND SETTER
 	 */
 	public CPaquete getoPaquete() {
 		return oPaquete;
 	}
+	
 	public void setoPaquete(CPaquete oPaquete) {
 		this.oPaquete = oPaquete;
 	}
@@ -40,6 +45,21 @@ public class paquetesVM
 	}
 	public void setListaPaquetes(ArrayList<CPaquete> listaPaquetes) {
 		this.listaPaquetes = listaPaquetes;
+	}
+
+	public boolean isVisibleGeneral() {
+		return visibleGeneral;
+	}
+
+	public void setVisibleGeneral(boolean visibleGeneral) {
+		this.visibleGeneral = visibleGeneral;
+	}
+
+	public boolean isVisibleDescripcion() {
+		return visibleDescripcion;
+	}
+	public void setVisibleDescripcion(boolean visibleDescripcion) {
+		this.visibleDescripcion = visibleDescripcion;
 	}
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
@@ -78,6 +98,27 @@ public class paquetesVM
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
 		refrescaFilaTemplate(p);
    }
+	@Command
+	 public void Activar(@BindingParam("servicio") CServicio s ) 
+	{
+		
+	}
+	@Command
+	 public void Desactivar(@BindingParam("servicio") CServicio s ) 
+	{
+		
+	}
+	@Command
+	@NotifyChange({ "visibleGeneral", "visibleDescripcion" })
+	public void pasosInsertar(@BindingParam("Opcion") String idOpcion) {
+		if (idOpcion.equals("btnGeneral")) {
+			visibleGeneral = true;
+			visibleDescripcion = false;
+		} else {
+			visibleGeneral = false;
+			visibleDescripcion = true;
+		}
+	}
 	public void refrescaFilaTemplate(CPaquete p)
 	{
 		BindUtils.postNotifyChange(null, null, p, "editable");

@@ -6,8 +6,10 @@ import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
+import org.zkoss.bind.annotation.NotifyChange;
 
 import com.pricing.dao.CServicioDAO;
+import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
 
 public class subServicioVM 
@@ -18,11 +20,26 @@ public class subServicioVM
 	private CSubServicio oSubServicio;
 	private CServicioDAO servicioDao;
 	private ArrayList<CSubServicio> listaSubServicios;
+	private boolean visibleGeneral=true;
+	private boolean visibleDescripcion=false;
 	/**
 	 * GETTER AND SETTER
 	 */
+	
 	public CServicioDAO getServicioDao() {
 		return servicioDao;
+	}
+	public boolean isVisibleGeneral() {
+		return visibleGeneral;
+	}
+	public void setVisibleGeneral(boolean visibleGeneral) {
+		this.visibleGeneral = visibleGeneral;
+	}
+	public boolean isVisibleDescripcion() {
+		return visibleDescripcion;
+	}
+	public void setVisibleDescripcion(boolean visibleDescripcion) {
+		this.visibleDescripcion = visibleDescripcion;
 	}
 	public void setServicioDao(CServicioDAO servicioDao) {
 		this.servicioDao = servicioDao;
@@ -77,6 +94,27 @@ public class subServicioVM
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
 		refrescaFilaTemplate(s);
    }
+	@Command
+	 public void Activar(@BindingParam("servicio") CServicio s ) 
+	{
+		
+	}
+	@Command
+	 public void Desactivar(@BindingParam("servicio") CServicio s ) 
+	{
+		
+	}
+	@Command
+	@NotifyChange({ "visibleGeneral", "visibleDescripcion" })
+	public void pasosInsertar(@BindingParam("Opcion") String idOpcion) {
+		if (idOpcion.equals("btnGeneral")) {
+			visibleGeneral = true;
+			visibleDescripcion = false;
+		} else {
+			visibleGeneral = false;
+			visibleDescripcion = true;
+		}
+	}
 	public void refrescaFilaTemplate(CSubServicio s)
 	{
 		BindUtils.postNotifyChange(null, null, s, "editable");

@@ -2,7 +2,7 @@
 <?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
 <zk>
 	<style src="css/style_zk.css"/>
-	<style src="css/estilo_prueba.css"></style>
+	<style src="css/Estilos_Panel_Admi.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
 		 style="background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%); overflow: hidden;" width="100%" vflex="1" onClientInfo="@command('muestra',width=event.desktopWidth)">
