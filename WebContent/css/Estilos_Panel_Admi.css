@@ -450,7 +450,4 @@
 		position: relative;
 		top: 9px;
     }
-    .estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels{
-		box-shadow: 3px 3px 1px 0 rgba(0,0,0,0.5);
-    }
 }
