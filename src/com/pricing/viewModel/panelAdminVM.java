@@ -50,6 +50,8 @@ public class panelAdminVM
 	private boolean visibleBoton= false;
 	private String nombres="";
 	private boolean visibleTabbox=false;
+	private boolean visibleEditar=false;
+	private int anchoDispositivo;
 	
 	//===============SELECCION TABS==================
 	private boolean seleccionDisponibilidad=false;
@@ -60,8 +62,25 @@ public class panelAdminVM
 	private boolean seleccionImpuestos=false;
 	
 	//=================GET Y SET SELECCION TABS=======
+	
 	public boolean isSeleccionDisponibilidad() {
 		return seleccionDisponibilidad;
+	}
+
+	public boolean isVisibleEditar() {
+		return visibleEditar;
+	}
+
+	public void setVisibleEditar(boolean visibleEditar) {
+		this.visibleEditar = visibleEditar;
+	}
+
+	public int getAnchoDispositivo() {
+		return anchoDispositivo;
+	}
+
+	public void setAnchoDispositivo(int anchoDispositivo) {
+		this.anchoDispositivo = anchoDispositivo;
 	}
 
 	public void setSeleccionDisponibilidad(boolean seleccionDisponibilidad) {
@@ -242,17 +261,17 @@ public class panelAdminVM
 		if(windowMode.equals("popup"))
 		{
 			if (cambios.equals("itemDisponibilidad")) {
-				visibleDisponibilidad = true; visibleMenu=false;
+				visibleDisponibilidad= seleccionDisponibilidad= true; visibleMenu=false;
 			} else if (cambios.equals("itemEtiqueta")) {
-				visibleEtiqueta = true; visibleMenu=false; 
+				visibleEtiqueta =seleccionEtiquetas= true; visibleMenu=false; 
 			} else if (cambios.equals("itemPaquete")) {
-				visiblePaquetes = true; visibleMenu=false;
+				visiblePaquetes=seleccionPaquetes = true; visibleMenu=false;
 			} else if (cambios.equals("itemServicio")) {
-				visibleServicios = true; visibleMenu=false;
+				visibleServicios=seleccionServicios = true; visibleMenu=false;
 			} else if (cambios.equals("itemSubServicio")) {
-				visibleSubServicios = true; visibleMenu=false;
+				visibleSubServicios =seleccionSubServicios= true; visibleMenu=false;
 			} else if (cambios.equals("itemImpuesto")) {
-				visibleImpuestos= true; visibleMenu=false;
+				visibleImpuestos=seleccionImpuestos= true; visibleMenu=false;
 			}
 		}else {
 			if (cambios.equals("itemDisponibilidad")) {
@@ -332,6 +351,7 @@ public class panelAdminVM
 	  @Command
 	  @NotifyChange({"visibleBoton","visibleMenu","windowMode"})
 	  public void muestra(@BindingParam("width")int ancho){
+		      anchoDispositivo=ancho;
 			  if(ancho<700){visibleBoton=true;}
 			  else {visibleBoton=false; windowMode="embedded"; visibleMenu=true;}
 	  }
@@ -350,5 +370,21 @@ public class panelAdminVM
 	  public void CerrarPopup()
 	  {
 		  visibleMenu=false;
+	  }
+	  
+	  @Command
+	  @NotifyChange("visibleEditar")
+	  public void Editar()
+	  {
+		  String ancho=String.valueOf(anchoDispositivo);
+		  Messagebox.show(ancho);
+		  if(anchoDispositivo<400)
+		  {
+			  visibleEditar=true;
+		  }
+		  else
+		  {
+			  visibleEditar=false;
+		  }
 	  }
 }

@@ -430,9 +430,6 @@
 		position: relative;
 		top: 9px;
     }
-    .estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels{
-		box-shadow: 3px 3px 1px 0 rgba(0,0,0,0.5);
-    }
 }
 /*==NUEVA FORMA DE LA PARTE DE MANTENIMIENTO==*/
 .div_mantenimiento{
@@ -483,17 +480,6 @@
 	position:absolute;
 	right: 0px;
 }
-/* .div_mantenimiento_items:hover div:after{ */
-/* 	content: ''; */
-/* 	width: 0px; */
-/* 	height: 0px; */
-/* 	border-left:8px solid transparent; */
-/* 	border-bottom:8px solid transparent; */
-/* 	border-right: 8px solid white; */
-/* 	border-top: 8px solid transparent; */
-/* 	position:absolute; */
-/* 	right: 0px; */
-/* } */
 .div_mantenimiento_items_sub div{
 	border-top: 1px solid rgba(255,255,255,0.2);
 	text-align: center;

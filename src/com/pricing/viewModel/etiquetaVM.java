@@ -7,9 +7,11 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zul.Messagebox;
 
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.model.CEtiqueta;
+import com.sun.mail.handlers.message_rfc822;
 
 public class etiquetaVM 
 {
@@ -19,11 +21,26 @@ public class etiquetaVM
 	private CEtiqueta oEtiqueta;
 	private CEtiquetaDAO etiquetaDao;
 	private ArrayList<CEtiqueta> listaEtiquetas;
+	private boolean visibleEditar=false;
+	private int anchoDispositivo;
 	/**
 	 * GETTER AND SETTER
 	 */
+	
 	public CEtiqueta getoEtiqueta() {
 		return oEtiqueta;
+	}
+	public int getAnchoDispositivo() {
+		return anchoDispositivo;
+	}
+	public void setAnchoDispositivo(int anchoDispositivo) {
+		this.anchoDispositivo = anchoDispositivo;
+	}
+	public boolean isVisibleEditar() {
+		return visibleEditar;
+	}
+	public void setVisibleEditar(boolean visibleEditar) {
+		this.visibleEditar = visibleEditar;
 	}
 	public void setoEtiqueta(CEtiqueta oEtiqueta) {
 		this.oEtiqueta = oEtiqueta;
@@ -60,9 +77,21 @@ public class etiquetaVM
 		System.out.println("-->"+etiqueta.getCodEtiqueta());
 		
 	}
+	
 	@Command
+	public void anchoDisp(@BindingParam("ancho")int anchoD)
+	{
+		String numero=String.valueOf(anchoD);
+		Messagebox.show(numero);
+		anchoDispositivo=anchoD;
+	}
+	
+	@Command
+	@NotifyChange({"visibleEditar","oEtiqueta"})
 	 public void Editar(@BindingParam("etiqueta") CEtiqueta e ) 
 	{
+		if(anchoDispositivo<400){visibleEditar=true;} 
+		else{visibleEditar=false;}
 		oEtiqueta.setEditable(false);
 		refrescaFilaTemplate(oEtiqueta);
 		oEtiqueta=e;
@@ -71,6 +100,7 @@ public class etiquetaVM
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
 		refrescaFilaTemplate(e);
    }
+	
 	public void refrescaFilaTemplate(CEtiqueta e)
 	{
 		BindUtils.postNotifyChange(null, null, e, "editable");
