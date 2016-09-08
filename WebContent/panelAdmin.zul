@@ -2,7 +2,9 @@
 <?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
 <zk>
 	<style src="css/style_zk.css"/>
-	<style src="css/Estilos_Panel_Admi.css"></style>
+	<style src="fonts/style.css"/>
+	<style src="fonts/bootstrap.css"/>
+	<style src="css/Estilos_Panel_Admi.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
 		 style="background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%); overflow: hidden;" width="100%" vflex="1" onClientInfo="@command('muestra',width=event.desktopWidth)">
@@ -29,153 +31,140 @@
 		</div>
 		<div sclass="contenedor_cuerpo" height="100vh" width="100%">
 			<div sclass="estilo_div_tree">
-				<window width="100%" style="background: transparent;"
-					mode="@bind(vmAdmin.windowMode)"
-					visible="@bind(vmAdmin.visibleMenu)">
 					<vlayout spacing="0px">
 						<div height="40px" sclass="encima_tree"></div>
 						<div height="90vh"
 							style="background: linear-gradient(to top, #1f1f1f 0%, #222222 100%);">
-							<tree sclass="paneles" width="100%">
-								<treechildren>
-									<treeitem id="itemConfiguracion"
-										label="Configuracion" open="@bind(vmAdmin.openItemConfig)"
-										onClick="@command('CambioApertura',cambioApertura=self.id)">
-										<treechildren>
-											<treeitem >
-												<treerow>
-													<treecell
-														id="itemDisponibilidad" label="Actualizar Disponibilidad" sclass="subItem"
-														onClick="@command('Cambio',cambioInterfaz=self.id)">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														id="itemEtiqueta" label="Etiquetas" sclass="subItem"
-														onClick="@command('Cambio',cambioInterfaz=self.id)">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														id="itemPaquete" label="Paquetes" sclass="subItem"
-														onClick="@command('Cambio',cambioInterfaz=self.id)">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														id="itemServicio" label="Servicios" sclass="subItem"
-														onClick="@command('Cambio',cambioInterfaz=self.id)">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														id="itemSubServicio" label="Sub Servicios"
-														sclass="subItem"
-														onClick="@command('Cambio',cambioInterfaz=self.id)">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														id="itemImpuesto" label="Impuestos" sclass="subItem"
-														onClick="@command('Cambio',cambioInterfaz=self.id)">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Paises" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Codigos de Visa" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-										</treechildren>
-									</treeitem>
-									<treeitem label="Usuarios"
-										id="itemUsuarios" open="@bind(vmAdmin.openItemUsuarios)"
-										onClick="@command('CambioApertura',cambioApertura=self.id)">
-										<treechildren>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Registro de Usuarios" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-										</treechildren>
-									</treeitem>
-									<treeitem label="Paquetes"
-										id="itemPaquetes" open="@bind(vmAdmin.openItemPaquetes)"
-										onClick="@command('CambioApertura',cambioApertura=self.id)">
-										<treechildren>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Categorias" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Destinos" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Tipo de Detalles" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Hoteles" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Tours" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-											<treeitem>
-												<treerow>
-													<treecell
-														label="Tours con Hoteles" sclass="subItem">
-													</treecell>
-												</treerow>
-											</treeitem>
-										</treechildren>
-									</treeitem>
-									<treeitem label="Reportes"
-										open="false">
-									</treeitem>
-								</treechildren>
-							</tree>
+							<div zclass="div_mantenimiento">
+								<!-- ==CONFIGURACION== -->
+								<div zclass="div_mantenimiento_items" onClick="d_config.setVisible(d_config.isVisible()?false:true)">
+									<div>
+										<span sclass="icon-cog estilos-iconos"/>
+										<label value="CONFIGURACION" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_config" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemDisponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-accessibility estilos-iconos"/>
+											<label value="Actualizar Disponibilidad" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemEtiqueta" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-bookmark estilos-iconos"/>
+											<label value="Etiquetas" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemPaquete" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-package estilos-iconos"/>
+											<label value="Paquetes" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemServicio" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-cogs estilos-iconos"/>
+											<label value="Servicios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemSubServicio" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-package estilos-iconos"/>
+											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemImpuesto" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-package estilos-iconos"/>
+											<label value="Impuestos" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemPaises" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-package estilos-iconos"/>
+											<label value="Paises" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemVisa" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-package estilos-iconos"/>
+											<label value="Codigos de Visa" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
+								<!-- ==USUARIOS== -->
+								<div zclass="div_mantenimiento_items" onClick="d_usuarios.setVisible(d_usuarios.isVisible()?false:true)">
+									<div>
+										<span sclass="icon-users estilos-iconos"/>
+										<label value="USUARIOS" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_usuarios" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemUsuario" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Registro de Usuarios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
+								<!-- ==PAQUETES== -->
+								<div zclass="div_mantenimiento_items" onClick="d_paquete.setVisible(d_paquete.isVisible()?false:true)">
+									<div>
+										<span sclass="icon-package estilos-iconos"/>
+										<label value="PAQUETES" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_paquete" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Categorias" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Destinos" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Hoteles" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Tours" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Tours Con Hoteles" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
+								<!-- ==REPORTES== -->
+								<div zclass="div_mantenimiento_items" onClick="d_reporte.setVisible(d_reporte.isVisible()?false:true)">
+									<div>
+										<span sclass="icon-stats-dots estilos-iconos"/>
+										<label value="REPORTES" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_reporte" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Categorias" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</vlayout>
-				</window>
 			</div >
 			<div sclass="contenedor_botones" height="660px" width="82%">
 			    <div height="18px"></div>

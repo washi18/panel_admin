@@ -338,18 +338,13 @@
 .hboxbotones {
 	background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%);
 }
+/*=====CONTENIDO TABBOX========*/
 .estilo_tabbox {
 	box-sizing: border-box;
 	padding-left: 1%;
 }
-.estilo_tabbox .z-tabs .z-tabs-content .z-tab a .z-tab-button{
-/* 	background: red; */
-}
 .estilo_tabbox .z-tabs .z-tabs-content,
 .estilo_tabbox .z-tabs .z-tabs-content .z-tab{
-/* 	background: rgba(0,0,0,0.2); */
-/* 	height: 50px; */
-/* 	border-radius:10px; */
 	background: transparent;
 	border: none;
 	height: 50px;
@@ -394,16 +389,6 @@
 	padding: 2px;
 	padding-bottom: 10px;
 }
-
-.estilo_tabbox.z-tabbox.z-tabbox-top .z-tabs .z-tabs-content .z-tab{
-	text-align: center;
-	border-radius: 5px;
-	border-bottom: 1px solid #AEACAC;
-	color: black;
-	font-weight: bold;
-	font-size: 12px;
-	font-family: Arial,Sans-serif;
-}
 .estilo_div_tree {
 	width: 18%;
 }
@@ -434,12 +419,7 @@
     .logoAdmi {
 	    font-size: 30px;
 	    line-height: 45px; 
-	    
-	    
 	} 
-	.contenedor_cuerpo.z-div .estilo_div_tree.z-div {
-		display: none;
-	}   
 }
 /*====================modo responsive smarphone==============*/
 @media only screen and (max-width: 400px) {
@@ -453,4 +433,113 @@
     .estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels{
 		box-shadow: 3px 3px 1px 0 rgba(0,0,0,0.5);
     }
+}
+/*==NUEVA FORMA DE LA PARTE DE MANTENIMIENTO==*/
+.div_mantenimiento{
+	width: 100%;
+	height: auto;
+	background:  linear-gradient(to bottom, #3f3f3f 0%, #222222 5%);
+}
+.div_mantenimiento_items{
+	border-top: 1px solid rgba(255,255,255,0.2);
+	text-align: center;
+	color: rgb(196, 204, 218); 
+/* 	color:white; */
+	font-size: 17px;
+	height: 50px;
+	font-weight: bold;
+	cursor: pointer;
+	background:  linear-gradient(to bottom, #3f3f3f 0%, #222222 5%);
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	padding:0 0 0 10px;
+	box-sizing:border-box;	
+	justify-content:flex-start;
+	-webkit-justify-content:flex-start;
+	-moz-justify-content:flex-start;
+	-ms-justify-content:flex-start;
+	-o-justify-content:flex-start;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.div_mantenimiento_items:hover,
+.div_mantenimiento_items_sub div:hover{
+	background: linear-gradient(to bottom, #3f3f3f 0%, #222222 100%);	
+}
+.div_mantenimiento_items_sub:hover div:after{
+	content: '';
+	width: 0px;
+	height: 0px;
+	border-left:8px solid transparent;
+	border-bottom:8px solid transparent;
+	border-right: 8px solid white;
+	border-top: 8px solid transparent;
+	position:absolute;
+	right: 0px;
+}
+/* .div_mantenimiento_items:hover div:after{ */
+/* 	content: ''; */
+/* 	width: 0px; */
+/* 	height: 0px; */
+/* 	border-left:8px solid transparent; */
+/* 	border-bottom:8px solid transparent; */
+/* 	border-right: 8px solid white; */
+/* 	border-top: 8px solid transparent; */
+/* 	position:absolute; */
+/* 	right: 0px; */
+/* } */
+.div_mantenimiento_items_sub div{
+	border-top: 1px solid rgba(255,255,255,0.2);
+	text-align: center;
+	color: rgb(196, 204, 218); 
+/* 	color:white; */
+	font-size: 17px;
+	height: 50px;
+	font-weight: bold;
+	cursor: pointer;
+	background:#2f2f2f;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	box-sizing:border-box;	
+	padding:0 0 0 40px;
+	justify-content:flex-start;
+	-webkit-justify-content:flex-start;
+	-moz-justify-content:flex-start;
+	-ms-justify-content:flex-start;
+	-o-justify-content:flex-start;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.lbls_mantenimientos{
+	margin: 0 0 0 10px;
+}
+.estilos-iconos{
+	font-weight: bold;
+}
+@media (max-width:700px){
+	.lbls_mantenimientos{
+		display: none;
+	}
+	.div_mantenimiento{
+		width: 45px;	
+	}
+	.div_mantenimiento_items_sub div{
+		padding: 0 0 0 10px;
+		background:rgba(255,255,255,0.3);
+	}
+	.estilos-iconos{
+		font-size: 25px;
+	}
 }
