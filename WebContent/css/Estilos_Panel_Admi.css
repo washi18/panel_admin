@@ -422,13 +422,17 @@
 	} 
 }
 /*====================modo responsive smarphone==============*/
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 416px) {
 	.logoAdmi.z-label {
 	    display: none;
 	}
 	.boton_desplegable.z-button {
 		position: relative;
 		top: 9px;
+    }
+    
+    .desaparece_div_curvatura {
+    	display: none;
     }
 }
 /*==NUEVA FORMA DE LA PARTE DE MANTENIMIENTO==*/

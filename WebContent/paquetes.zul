@@ -92,7 +92,7 @@
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')"/>
 					</listcell>
 					<listcell sclass="costado_operaciones">
-						<button hflex="1" label="update" onClick="@command('actualizarPaquete',paquete=each)"/>
+						<button label="update" onClick="@command('actualizarPaquete',paquete=each)"/>
 					</listcell>
 				</listitem>
 			</template>
@@ -118,8 +118,8 @@
 					</listcell>
 					<listcell sclass="costado_operaciones">
 					   <vbox>
-					    <button hflex="1" label="Editar" onClick="@command('Editar',paquete=each)"/>
-					    <button hflex="1" label="Activar" onClick="@command('Activar',paquete=each)"></button>
+					    <button label="Editar" onClick="@command('Editar',paquete=each)"/>
+					    <button label="Activar" onClick="@command('Activar',paquete=each)"></button>
 					   </vbox>
 					</listcell>
 				</listitem>

@@ -51,7 +51,6 @@ public class panelAdminVM
 	private String nombres="";
 	private boolean visibleTabbox=false;
 	private boolean visibleEditar=false;
-	private int anchoDispositivo;
 	
 	//===============SELECCION TABS==================
 	private boolean seleccionDisponibilidad=false;
@@ -65,22 +64,6 @@ public class panelAdminVM
 	
 	public boolean isSeleccionDisponibilidad() {
 		return seleccionDisponibilidad;
-	}
-
-	public boolean isVisibleEditar() {
-		return visibleEditar;
-	}
-
-	public void setVisibleEditar(boolean visibleEditar) {
-		this.visibleEditar = visibleEditar;
-	}
-
-	public int getAnchoDispositivo() {
-		return anchoDispositivo;
-	}
-
-	public void setAnchoDispositivo(int anchoDispositivo) {
-		this.anchoDispositivo = anchoDispositivo;
 	}
 
 	public void setSeleccionDisponibilidad(boolean seleccionDisponibilidad) {
@@ -127,8 +110,17 @@ public class panelAdminVM
 		this.seleccionImpuestos = seleccionImpuestos;
 	}
 	//================RESPONSIVE======================
+	
 	public String getNombres() {
 		return nombres;
+	}
+
+	public boolean isVisibleEditar() {
+		return visibleEditar;
+	}
+
+	public void setVisibleEditar(boolean visibleEditar) {
+		this.visibleEditar = visibleEditar;
 	}
 
 	public void setNombres(String nombres) {
@@ -349,11 +341,10 @@ public class panelAdminVM
 	}
 	//==============CAMBIO RESPONSIVE=============
 	  @Command
-	  @NotifyChange({"visibleBoton","visibleMenu","windowMode"})
+	  @NotifyChange({"visibleBoton","visibleMenu","windowMode","visibleEditar"})
 	  public void muestra(@BindingParam("width")int ancho){
-		      anchoDispositivo=ancho;
-			  if(ancho<700){visibleBoton=true;}
-			  else {visibleBoton=false; windowMode="embedded"; visibleMenu=true;}
+			  if(ancho<700){visibleBoton=true; visibleEditar=true;}
+			  else {visibleBoton=false; windowMode="embedded"; visibleMenu=true; visibleEditar=false;}
 	  }
 	  
 	  @Command
@@ -370,21 +361,5 @@ public class panelAdminVM
 	  public void CerrarPopup()
 	  {
 		  visibleMenu=false;
-	  }
-	  
-	  @Command
-	  @NotifyChange("visibleEditar")
-	  public void Editar()
-	  {
-		  String ancho=String.valueOf(anchoDispositivo);
-		  Messagebox.show(ancho);
-		  if(anchoDispositivo<400)
-		  {
-			  visibleEditar=true;
-		  }
-		  else
-		  {
-			  visibleEditar=false;
-		  }
 	  }
 }
