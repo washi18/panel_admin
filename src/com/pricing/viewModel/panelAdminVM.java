@@ -45,9 +45,6 @@ public class panelAdminVM
 	private boolean openItemPaquetes;
 	
 	//===============VARIABLES RESPONSIVE===========
-	private boolean visibleMenu = false;
-	private String windowMode = "embedded";
-	private boolean visibleBoton= false;
 	private String nombres="";
 	private boolean visibleTabbox=false;
 	private boolean visibleEditar=false;
@@ -142,30 +139,6 @@ public class panelAdminVM
 	public void setVisibleTabbox(boolean visibleTabbox) {
 		this.visibleTabbox = visibleTabbox;
 	}
-	
-	public boolean isVisibleMenu() {
-		return visibleMenu;
-	}
-
-	public void setVisibleMenu(boolean visibleMenu) {
-		this.visibleMenu = visibleMenu;
-	}
-
-	public String getWindowMode() {
-		return windowMode;
-	}
-
-	public void setWindowMode(String windowMode) {
-		this.windowMode = windowMode;
-	}
-
-	public boolean isVisibleBoton() {
-		return visibleBoton;
-	}
-
-	public void setVisibleBoton(boolean visibleBoton) {
-		this.visibleBoton = visibleBoton;
-	}
 	//================CAMBIOS ITEMS==============
 	public boolean isOpenItemConfig() {
 		return openItemConfig;
@@ -258,22 +231,20 @@ public class panelAdminVM
 	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes", "visibleServicios", "visibleSubServicios", "visibleImpuestos", "visibleMenu", "visibleDisponibilidad",
 		"seleccionDisponibilidad","seleccionEtiquetas", "seleccionPaquetes", "seleccionServicios", "seleccionSubServicios", "seleccionImpuestos" })
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
-		if(windowMode.equals("popup"))
-		{
 			if (cambios.equals("itemDisponibilidad")) {
-				visibleDisponibilidad= seleccionDisponibilidad= true; visibleMenu=false;
+				visibleDisponibilidad= seleccionDisponibilidad= true;
 			} else if (cambios.equals("itemEtiqueta")) {
-				visibleEtiqueta =seleccionEtiquetas= true; visibleMenu=false; 
+				visibleEtiqueta =seleccionEtiquetas= true; 
 			} else if (cambios.equals("itemPaquete")) {
-				visiblePaquetes=seleccionPaquetes = true; visibleMenu=false;
+				visiblePaquetes=seleccionPaquetes = true;
 			} else if (cambios.equals("itemServicio")) {
-				visibleServicios=seleccionServicios = true; visibleMenu=false;
+				visibleServicios=seleccionServicios = true;
 			} else if (cambios.equals("itemSubServicio")) {
-				visibleSubServicios =seleccionSubServicios= true; visibleMenu=false;
+				visibleSubServicios =seleccionSubServicios= true;
 			} else if (cambios.equals("itemImpuesto")) {
-				visibleImpuestos=seleccionImpuestos= true; visibleMenu=false;
+				visibleImpuestos=seleccionImpuestos= true;
 			}
-		}else {
+			
 			if (cambios.equals("itemDisponibilidad")) {
 				visibleDisponibilidad = seleccionDisponibilidad=true; 
 				seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
@@ -293,29 +264,13 @@ public class panelAdminVM
 				visibleImpuestos= seleccionImpuestos=true;
 				seleccionEtiquetas=seleccionDisponibilidad=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
-		} 
 	}
 	
 	//=================CERRRAR TABS===============
 	@Command
 	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes", "visibleServicios", "visibleSubServicios", "visibleImpuestos","visibleMenu","nombres","visibleDisponibilidad"})
 	public void CerrarTab(@BindingParam("cerrarInterfaz") String cambios) {
-		if(windowMode.equals("popup"))
-		{
-			if (cambios.equals("tabDisponibilidad")) {
-				visibleDisponibilidad = false; visibleMenu=false;
-			} else if (cambios.equals("tabEtiqueta")) {
-				visibleEtiqueta = false; visibleMenu=false; 
-			} else if (cambios.equals("tabPaquete")) {
-				visiblePaquetes = false; visibleMenu=false;
-			} else if (cambios.equals("tabServicio")) {
-				visibleServicios = false; visibleMenu=false;
-			} else if (cambios.equals("tabSubServicio")) {
-				visibleSubServicios = false; visibleMenu=false;
-			} else if (cambios.equals("tabImpuesto")) {
-				visibleImpuestos= false; visibleMenu=false;
-			}
-		}else {
+
 			if (cambios.equals("tabDisponibilidad")) {
 				visibleDisponibilidad = false;
 			} else if (cambios.equals("tabEtiqueta")) {
@@ -329,7 +284,20 @@ public class panelAdminVM
 			} else if (cambios.equals("tabImpuesto")) {
 				visibleImpuestos= false;
 			}
-		} 
+			
+			if (cambios.equals("tabDisponibilidad")) {
+				visibleDisponibilidad = false;
+			} else if (cambios.equals("tabEtiqueta")) {
+				visibleEtiqueta = false;
+			} else if (cambios.equals("tabPaquete")) {
+				visiblePaquetes = false;
+			} else if (cambios.equals("tabServicio")) {
+				visibleServicios = false;
+			} else if (cambios.equals("tabSubServicio")) {
+				visibleSubServicios = false;
+			} else if (cambios.equals("tabImpuesto")) {
+				visibleImpuestos= false;
+			}
 	}
 	
 	//================CAMBIO DE APERTURA==========
@@ -352,26 +320,15 @@ public class panelAdminVM
 	  @NotifyChange({"visibleBoton","visibleMenu","windowMode"})
 	  public void muestra(@BindingParam("width")int ancho){
 		      anchoDispositivo=ancho;
-			  if(ancho<700){visibleBoton=true;}
-			  else {visibleBoton=false; windowMode="embedded"; visibleMenu=true;}
+			  
 	  }
 	  
 	  @Command
-	  @NotifyChange({"visibleMenu","windowMode","openItemConfig","openItemUsuarios","openItemPaquetes"})
+	  @NotifyChange({"windowMode","openItemConfig","openItemUsuarios","openItemPaquetes"})
 	  public void menuDesplegable()
 	  {   
-		  openItemConfig=openItemUsuarios=openItemPaquetes=false;
-		  windowMode="popup"; 
-		  visibleMenu=true;		  
+		  openItemConfig=openItemUsuarios=openItemPaquetes=false;	  
 	  }
-	  
-	  @Command
-	  @NotifyChange("visibleMenu")
-	  public void CerrarPopup()
-	  {
-		  visibleMenu=false;
-	  }
-	  
 	  @Command
 	  @NotifyChange("visibleEditar")
 	  public void Editar()

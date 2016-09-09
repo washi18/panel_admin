@@ -9,32 +9,37 @@
 		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
 		 style="background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%); overflow: hidden;" width="100%" vflex="1" onClientInfo="@command('muestra',width=event.desktopWidth)">
 		<div sclass="contendor_cabezera" width="100%" height="90px">
+			<label value="Admin" sclass="logoAdmi"></label>
 			<div sclass="contenedor_desplegable">
-				<button width="100%" height="20px" image="ICO/menu6.png"
-					sclass="boton_desplegable" visible="@bind(vmAdmin.visibleBoton)"
-					onClick="@command('menuDesplegable')">
+				<button width="40px" height="30px" image="ICO/menu6.png"
+					zclass="boton_desplegable" onClick="@command('menuDesplegable')">
 				</button>
-				<label value="Admin" sclass="logoAdmi"></label>
+			</div>
+			<div sclass="contenedor_desplegable_responsive">
+				<button width="40px" height="30px" image="ICO/menu6.png"
+					zclass="boton_desplegable" onClick="div_config_perfil.setVisible(div_config_perfil.isVisible()?false:true)">
+				</button>
 			</div>
 			<div sclass="cabezera">
-				<menubar style="background: transparent;">
-					<menu label="Mensajes"></menu>
-					<menu label="Cuenta">
+				<image sclass="style_foto_admin" src="http://api.randomuser.me/portraits/thumb/men/10.jpg"/>
+				<space></space>
+				<menubar sclass="cabezera_menubar">
+					<menu label="Jorge Dueñas">
 						<menupopup>
 							<menuitem label="CambiarCuenta"></menuitem>
 							<menuitem label="Herramientas"></menuitem>
 							<menuitem label="Cerrar Sesion"></menuitem>
 						</menupopup>
 					</menu>
+					<menu label="Mensajes"></menu>
 				</menubar>
 			</div>
 		</div>
 		<div sclass="contenedor_cuerpo" height="100vh" width="100%">
 			<div sclass="estilo_div_tree">
 					<vlayout spacing="0px">
-						<div height="40px" sclass="encima_tree"></div>
-						<div height="90vh"
-							style="background: linear-gradient(to top, #1f1f1f 0%, #222222 100%);">
+						<div height="40px" zclass="encima_tree"></div>
+						<div height="90vh" zclass="div_tree">
 							<div zclass="div_mantenimiento">
 								<!-- ==CONFIGURACION== -->
 								<div zclass="div_mantenimiento_items" onClick="d_config.setVisible(d_config.isVisible()?false:true)">
@@ -167,11 +172,24 @@
 					</vlayout>
 			</div >
 			<div sclass="contenedor_botones" height="660px" width="82%">
-			    <div height="18px"></div>
+			    <div id="div_config_perfil" width="100%" visible="false" zclass="div_perfil_responsive">
+			    	<image sclass="style_foto_admin" src="http://api.randomuser.me/portraits/thumb/men/10.jpg"/>
+					<space></space>
+					<menubar sclass="cabezera_menubar">
+						<menu label="Jorge Dueñas">
+							<menupopup>
+								<menuitem label="CambiarCuenta"></menuitem>
+								<menuitem label="Herramientas"></menuitem>
+								<menuitem label="Cerrar Sesion"></menuitem>
+							</menupopup>
+						</menu>
+						<menu label="Mensajes"></menu>
+					</menubar>
+			    </div>
 				<div  width="100%" height="650px" style="overflow: auto;">
 					<tabbox sclass="estilo_tabbox" width="100%">
 						<tabs>
-							<tab id="tabDisponibilidad" label="Disponibilidad" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
+							<tab id="tabDisponibilidad" label="Disponibilidad" iconSclass="icon-accessibility estilos-iconos" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
 							<tab id="tabEtiqueta" label="Etiquetas" visible="@bind(vmAdmin.visibleEtiqueta)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
 							<tab id="tabPaquete" label="Paquetes" visible="@bind(vmAdmin.visiblePaquetes)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
 							<tab id="tabServicio" label="Servicios" visible="@bind(vmAdmin.visibleServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
