@@ -2,15 +2,22 @@
 <zk>
     <style src="css/estilos_Paquete.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
-		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')" hflex="1" onClientInfo="@command('anchoDisp',ancho=event.desktopWidth)">
-		<div sclass="estilo_editar" visible="@bind(vmEtiqueta.visibleEditar)">
-			<textbox placeholder="Español" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma1)"></textbox>
-			<textbox placeholder="Ingles" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma2)"></textbox>
-			<textbox placeholder="Portugues" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma3)"></textbox>
-			<textbox placeholder="Idioma 4" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma4)"></textbox>
-			<textbox placeholder="Idioma 5" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma5)"></textbox>
+		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')">
+		<div sclass="estilo_editar" visible="@bind(vmAdmin.visibleEditar)">
+			<combobox id="cmb" placeholder="Español" value="@bind(self.selectedItem.label)" visible="@bind(vmEtiqueta.visiblecmbIdiomas)" readonly="true" onSelect="@command('EditarIdiomas',idioma=self.selectedItem.id)" sclass="estilo_combobox">
+				<comboitem id="cmbEspañol" label="Español">1</comboitem>
+				<comboitem id="cmbIngles" label="Ingles">2</comboitem>
+				<comboitem id="cmbPortugues" label="Portugues">3</comboitem>
+				<comboitem id="cmbIdioma4" label="Idioma4">4</comboitem>
+				<comboitem id="cmbIdioma5" label="Idioma5">5</comboitem>
+			</combobox>
+			<textbox placeholder="Español" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma1)" visible="@bind(vmEtiqueta.visibleEspaniol)"></textbox>
+			<textbox placeholder="Ingles" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma2)" visible="@bind(vmEtiqueta.visibleIngles)"></textbox>
+			<textbox placeholder="Portugues" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma3)" visible="@bind(vmEtiqueta.visiblePortugues)"></textbox>
+			<textbox placeholder="Idioma 4" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma4)" visible="@bind(vmEtiqueta.visibleIdioma4)"></textbox>
+			<textbox placeholder="Idioma 5" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma5)" visible="@bind(vmEtiqueta.visibleIdioma5)"></textbox>
 		</div>
-		<listbox model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" selectedItem="@bind(vmEtiqueta.oEtiqueta)" height="500px" mold="paging" autopaging="true">
+		<listbox model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
 			<listhead>
 				<listheader label="Nro" width="45px"/>
 				<listheader label="Español" width="auto"/>
@@ -22,53 +29,55 @@
 			</listhead>
 			<template name="modeleditable">
 				<listitem>
-					<listcell sclass="estilo_numero">
+					<listcell sclass="estilo_numero" style="@bind(each.color)">
 						<label value="@bind(each.codEtiqueta)" style="font-size:15px;font-weight:bold;color:blue;"/>
 					</listcell>
-					<listcell>
+					<listcell style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma1) @save(each.cIdioma1,before='actualizarEtiqueta')"/>
 					</listcell>
-					<listcell sclass="desaparece_idiomas" >
+					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma2) @save(each.cIdioma2,before='actualizarEtiqueta')"/>
 					</listcell>
-					<listcell sclass="desaparece_idiomas" >
+					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma3) @save(each.cIdioma3,before='actualizarEtiqueta')"/>
 					</listcell>
-					<listcell sclass="desaparece_idiomas">
+					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma4) @save(each.cIdioma4,before='actualizarEtiqueta')"/>
 					</listcell>
-					<listcell sclass="desaparece_idiomas">
+					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma5) @save(each.cIdioma5,before='actualizarEtiqueta')"/>
 					</listcell>
-					<listcell sclass="costado_operaciones">
-						<button hflex="1" label="update" onClick="@command('actualizarEtiqueta',etiqueta=each)"/>
+					<listcell style="@bind(each.color)">
+					  <vbox>
+						<button label="update" onClick="@command('actualizarEtiqueta',etiqueta=each)"/>
+					  </vbox>
 					</listcell>
 				</listitem>
 			</template>
 			<template name="noeditable">
 				<listitem>
-					<listcell sclass="estilo_numero">
+					<listcell sclass="estilo_numero" style="@bind(each.color)">
 						<label value="@bind(each.codEtiqueta)" style="font-size:15px;font-weight:bold;color:blue;"/>
 					</listcell>
-					<listcell>
+					<listcell style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma1)" readonly="true"/>
 					</listcell>
-					<listcell sclass="desaparece_idiomas">
+					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma2)" readonly="true"/>
 					</listcell>
-					<listcell sclass="desaparece_idiomas">
+					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma3)" readonly="true"/>
 					</listcell>
-					<listcell sclass="desaparece_idiomas">
+					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma4)" readonly="true"/>
 					</listcell>
-					<listcell sclass="desaparece_idiomas">
+					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma5)" readonly="true"/>
 					</listcell>
-					<listcell sclass="costado_operaciones">
+					<listcell style="@bind(each.color)">
 					    <vbox>
-							<button hflex="1" label="Editar" onClick="@command('Editar',etiqueta=each)"/>
-							<button hflex="1" label="Activar"></button>
+							<button label="Editar" onClick="@command('Editar',etiqueta=each)"/>
+							<button label="Activar"></button>
 						</vbox>
 					</listcell>
 				</listitem>

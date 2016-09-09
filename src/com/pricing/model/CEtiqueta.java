@@ -8,7 +8,10 @@ public class CEtiqueta
 	private String cIdioma3;// text,
 	private String cIdioma4;// text,
 	private String cIdioma5;// text,
+	public String COLOR_SELECT="background:#e7ecf1;";
+	public String COLOR_NO_SELECT="background:white;";
 	private boolean editable;
+	private String color;
 	//GETTER AND SETTER
 	public int getCodEtiqueta() {
 		return codEtiqueta;
@@ -52,6 +55,12 @@ public class CEtiqueta
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
 	//===METODOS===
 	public CEtiqueta()
 	{
@@ -70,5 +79,7 @@ public class CEtiqueta
 		this.cIdioma4 = cIdioma4;
 		this.cIdioma5 = cIdioma5;
 		this.editable=false;
+		this.color=COLOR_NO_SELECT;
 	}
+	
 }
