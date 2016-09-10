@@ -7,7 +7,7 @@
 	<style src="css/Estilos_Panel_Admi.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
-		 style="background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%); overflow: hidden;" width="100%" vflex="1" onClientInfo="@command('muestra',width=event.desktopWidth)">
+		 zclass="contenedor_admin" onClientInfo="@command('muestra',width=event.desktopWidth)">
 		<div sclass="contendor_cabezera" width="100%" height="90px">
 			<label value="Admin" sclass="logoAdmi"></label>
 			<div sclass="contenedor_desplegable">
@@ -36,10 +36,9 @@
 			</div>
 		</div>
 		<div sclass="contenedor_cuerpo" height="100vh" width="100%">
-			<div sclass="estilo_div_tree">
-					<vlayout spacing="0px">
+			<div zclass="estilo_div_tree">
 						<div height="40px" zclass="encima_tree"></div>
-						<div height="90vh" zclass="div_tree">
+						<div height="100vh" zclass="div_tree">
 							<div zclass="div_mantenimiento">
 								<!-- ==CONFIGURACION== -->
 								<div zclass="div_mantenimiento_items" onClick="d_config.setVisible(d_config.isVisible()?false:true)">
@@ -50,31 +49,31 @@
 								</div>
 								<div id="d_config" visible="false">
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemDisponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemDisponibilidad" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-accessibility estilos-iconos"/>
 											<label value="Actualizar Disponibilidad" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemEtiqueta" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemEtiqueta" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-bookmark estilos-iconos"/>
 											<label value="Etiquetas" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemPaquete" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemPaquete" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-package estilos-iconos"/>
 											<label value="Paquetes" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemServicio" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-cogs estilos-iconos"/>
 											<label value="Servicios" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemSubServicio" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-package estilos-iconos"/>
 											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
 										</div>
@@ -169,9 +168,8 @@
 								</div>
 							</div>
 						</div>
-					</vlayout>
 			</div >
-			<div sclass="contenedor_botones" height="660px" width="82%">
+			<div zclass="contenedor_botones" height="auto">
 			    <div id="div_config_perfil" width="100%" visible="false" zclass="div_perfil_responsive">
 			    	<image sclass="style_foto_admin" src="http://api.randomuser.me/portraits/thumb/men/10.jpg"/>
 					<space></space>
@@ -186,43 +184,43 @@
 						<menu label="Mensajes"></menu>
 					</menubar>
 			    </div>
-			<div  width="100%" height="650px" style="overflow: auto;">
-			<div sclass="contenedor_botones" height="760px" width="82%">
-				<div  width="100%" height="530px" style="overflow: auto;">
-					<tabbox sclass="estilo_tabbox" width="100%">
-						<tabs>
-							<tab id="tabDisponibilidad" label="Disponibilidad" iconSclass="icon-accessibility estilos-iconos" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
-							<tab id="tabEtiqueta" label="Etiquetas" visible="@bind(vmAdmin.visibleEtiqueta)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
-							<tab id="tabPaquete" label="Paquetes" visible="@bind(vmAdmin.visiblePaquetes)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
-							<tab id="tabServicio" label="Servicios" visible="@bind(vmAdmin.visibleServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
-							<tab id="tabSubServicio" label="Sub Servicios" visible="@bind(vmAdmin.visibleSubServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
-							<tab id="tabImpuesto" label="Impuestos" visible="@bind(vmAdmin.visibleImpuestos)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
-						</tabs>
-						<tabpanels>
-							<tabpanel>
-								<include src="UpdateDispo.zul"/>	
-							</tabpanel>
-							<tabpanel>
-								<include src="etiquetas.zul"/>
-							</tabpanel>
-							<tabpanel>
-							   <include src="paquetes.zul"/>
-							</tabpanel>
-							<tabpanel>
-							  <include src="servicios.zul"/>
-							</tabpanel>
-							<tabpanel>
-								<include src="subServicios.zul"/>
-							</tabpanel>
-							<tabpanel>
-								<include src="impuestos.zul"/>
-							</tabpanel>
-						</tabpanels>
-					</tabbox>
+				<div  width="100%" height="auto">
+					<div sclass="contenedor_botones" width="100%">
+						<div  width="100%" height="auto">
+							<tabbox sclass="estilo_tabbox" width="100%">
+								<tabs>
+									<tab id="tabDisponibilidad" label="Disponibilidad" iconSclass="icon-accessibility estilos-iconos" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
+									<tab id="tabEtiqueta" label="Etiquetas" visible="@bind(vmAdmin.visibleEtiqueta)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
+									<tab id="tabPaquete" label="Paquetes" visible="@bind(vmAdmin.visiblePaquetes)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
+									<tab id="tabServicio" label="Servicios" visible="@bind(vmAdmin.visibleServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
+									<tab id="tabSubServicio" label="Sub Servicios" visible="@bind(vmAdmin.visibleSubServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
+									<tab id="tabImpuesto" label="Impuestos" visible="@bind(vmAdmin.visibleImpuestos)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
+								</tabs>
+								<tabpanels>
+									<tabpanel>
+										<include src="UpdateDispo.zul"/>	
+									</tabpanel>
+									<tabpanel>
+										<include src="etiquetas.zul"/>
+									</tabpanel>
+									<tabpanel>
+									   <include src="paquetes.zul"/>
+									</tabpanel>
+									<tabpanel>
+									  <include src="servicios.zul"/>
+									</tabpanel>
+									<tabpanel>
+										<include src="subServicios.zul"/>
+									</tabpanel>
+									<tabpanel>
+										<include src="impuestos.zul"/>
+									</tabpanel>
+								</tabpanels>
+							</tabbox>
+						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 		</div>
 	</div>
 </zk>
