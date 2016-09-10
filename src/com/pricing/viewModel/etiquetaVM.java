@@ -27,6 +27,7 @@ public class etiquetaVM
 	private boolean visibleIdioma4=false;
 	private boolean visibleIdioma5=false;
 	private boolean visiblecmbIdiomas=false;
+	private boolean visiblebtnActualizar=false;
 	/**
 	 * GETTER AND SETTER
 	 */
@@ -35,6 +36,14 @@ public class etiquetaVM
 		return oEtiqueta;
 	}
 	
+	public boolean isVisiblebtnActualizar() {
+		return visiblebtnActualizar;
+	}
+
+	public void setVisiblebtnActualizar(boolean visiblebtnActualizar) {
+		this.visiblebtnActualizar = visiblebtnActualizar;
+	}
+
 	public boolean isVisiblecmbIdiomas() {
 		return visiblecmbIdiomas;
 	}
@@ -109,8 +118,10 @@ public class etiquetaVM
 		setListaEtiquetas(etiquetaDao.getListaEtiquetas());
 	}
 	@Command
+	@NotifyChange({"visibleEspaniol","visibleIngles","visiblePortugues","visiblebtnActualizar","visibleIdioma4","visibleIdioma5","visiblecmbIdiomas"})
 	public void actualizarEtiqueta(@BindingParam("etiqueta")CEtiqueta etiqueta)
 	{
+		visiblecmbIdiomas=visiblebtnActualizar=visibleEspaniol=visibleIngles=visiblePortugues=visibleIdioma4=visibleIdioma5=false;
 		etiqueta.setEditable(false);
 		refrescaFilaTemplate(etiqueta);
 		/**Actualizar datos de la etiqueta en la BD**/
@@ -121,10 +132,10 @@ public class etiquetaVM
 	}
 	
 	@Command
-	@NotifyChange({"oEtiqueta","visiblecmbIdiomas"})
+	@NotifyChange({"oEtiqueta","visiblecmbIdiomas","visiblebtnActualizar"})
 	 public void Editar(@BindingParam("etiqueta") CEtiqueta e ) 
 	{
-		visiblecmbIdiomas=true;
+		visiblecmbIdiomas=visiblebtnActualizar=true;
 		oEtiqueta.setEditable(false);
 		refrescaFilaTemplate(oEtiqueta);
 		oEtiqueta=e;

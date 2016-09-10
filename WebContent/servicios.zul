@@ -1,6 +1,7 @@
 <?page title="Servicios" contentType="text/html;charset=UTF-8"?>
 <zk>
-    <style src="css/estilos_Paquete.css"></style>
+	<style src="css/estilos_Generales.css"></style>
+    <style src="css/estilos_Servicios.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.servicioVM')">
 		<div>
@@ -14,24 +15,24 @@
 					</button>
 				</caption>
 				<panelchildren>
-					<hlayout visible="@bind(vmServicio.visibleGeneral)" sclass="insertar">
-						<vlayout>
+					<div visible="@bind(vmServicio.visibleGeneral)" sclass="insertar">
+						<div>
 							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
 							<button label="Seleccionar"
 								sclass="estilo_foto">
 							</button>
-						</vlayout>
+						</div>
 						<space spacing="40px"></space>
-						<vlayout>
+						<div>
 							<textbox placeholder="Nombre">
 							</textbox>
 							<textbox multiline="true" height="150px"
 								placeholder="Descricpion" width="100%">
 							</textbox>
-						</vlayout>
-					</hlayout>
-					<hlayout visible="@bind(vmServicio.visibleDescripcion)" sclass="insertar">
-						<vlayout>
+						</div>
+					</div>
+					<div visible="@bind(vmServicio.visibleDescripcion)" sclass="insertar">
+						<div>
 							<textbox placeholder="Restriccion 1"></textbox>
 							<textbox placeholder="Restriccion 2"></textbox>
 							<textbox placeholder="incremento"></textbox>
@@ -39,26 +40,41 @@
 								<comboitem>activo</comboitem>
 								<comboitem>inactivo</comboitem>
 							</combobox>
-						</vlayout>
+						</div>
 						<space spacing="40px"></space>
-						<vlayout>
+						<div>
 						    <textbox placeholder="precio"></textbox>
 							<button label="Guardar"
 								sclass="estilo_foto">
 							</button>
-						</vlayout>
-					</hlayout>
+						</div>
+					</div>
 				</panelchildren>
 			</panel>
 		</div>
+		<div sclass="estilo_editar" visible="@bind(vmAdmin.visibleEditar)" >
+			<combobox id="cmb" placeholder="Español" value="@bind(self.selectedItem.label)" visible="@bind(vmServicio.visiblecmbIdiomas)" readonly="true" onSelect="@command('EditarIdiomas',idioma=self.selectedItem.id)" sclass="estilo_combobox">
+				<comboitem id="cmbEspañol" label="Español">1</comboitem>
+				<comboitem id="cmbIngles" label="Ingles">2</comboitem>
+				<comboitem id="cmbPortugues" label="Portugues">3</comboitem>
+				<comboitem id="cmbIdioma4" label="Idioma4">4</comboitem>
+				<comboitem id="cmbIdioma5" label="Idioma5">5</comboitem>
+			</combobox>
+			<textbox placeholder="Español" multiline="true" value="@bind(vmServicio.oServicio.cServicioIndioma1)" visible="@bind(vmServicio.visibleEspaniol)"></textbox>
+			<textbox placeholder="Ingles" multiline="true" value="@bind(vmServicio.oServicio.cServicioIndioma2)" visible="@bind(vmServicio.visibleIngles)"></textbox>
+			<textbox placeholder="Portugues" multiline="true" value="@bind(vmServicio.oServicio.cServicioIndioma3)" visible="@bind(vmServicio.visiblePortugues)"></textbox>
+			<textbox placeholder="Idioma 4" multiline="true" value="@bind(vmServicio.oServicio.cServicioIndioma4)" visible="@bind(vmServicio.visibleIdioma4)"></textbox>
+			<textbox placeholder="Idioma 5" multiline="true" value="@bind(vmServicio.oServicio.cServicioIndioma5)" visible="@bind(vmServicio.visibleIdioma5)"></textbox>
+			<button label="Actualizar" onClick="@command('actualizarEtiqueta',servicio=each)" style="background: #78cd51; border-color: #78cd51; text-shadow:none; margin-top: 4px; margin-bottom: 4px;" visible="@bind(vmServicio.visiblebtnActualizar)"/>
+		</div>
 		<listbox model="@bind(vmServicio.listaServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
 			<listhead>
-				<listheader label="Nro" width="5%"/>
+				<listheader label="Nro" width="45px"/>
 				<listheader label="Español" width="auto"/>
-				<listheader label="Ingles" width="auto"/>
-				<listheader label="Portugues" width="auto"/>
-				<listheader label="Idioma4" width="auto"/>
-				<listheader label="Idioma5" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Ingles" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Portugues" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Idioma4" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Idioma5" width="auto"/>
 				<listheader label="Operacion" width="auto"/>
 			</listhead>
 			<template name="modeleditable">
@@ -74,7 +90,7 @@
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarServicio')"/>
 						</div>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<div width="100%">
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cServicioIndioma2) @save(each.cServicioIndioma2,before='actualizarServicio')"/>
 						</div>
@@ -82,7 +98,7 @@
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarServicio')"/>
 						</div>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<div width="100%">
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cServicioIndioma3) @save(each.cServicioIndioma3,before='actualizarServicio')"/>
 						</div>
@@ -90,7 +106,7 @@
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarServicio')"/>
 						</div>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<div width="100%">
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cServicioIndioma4) @save(each.cServicioIndioma4,before='actualizarServicio')"/>
 						</div>
@@ -98,7 +114,7 @@
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarServicio')"/>
 						</div>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<div width="100%">
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cServicioIndioma5) @save(each.cServicioIndioma5,before='actualizarServicio')"/>
 						</div>
@@ -107,7 +123,7 @@
 						</div>
 					</listcell>
 					<listcell >
-						<button hflex="1" label="update" onClick="@command('actualizarServicio',servicio=each)"/>
+						<button label="Actualizar" onClick="@command('actualizarServicio',servicio=each)" style="background: #78cd51; border-color: #78cd51;" sclass="update_aparece"/>
 					</listcell>
 				</listitem>
 			</template>
@@ -124,7 +140,7 @@
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma1)" readonly="true"/>
 						</div>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<div width="100%">
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cServicioIndioma2)" readonly="true"/>
 						</div>
@@ -132,7 +148,7 @@
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma2)" readonly="true"/>
 						</div>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<div width="100%">
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cServicioIndioma3)" readonly="true"/>
 						</div>
@@ -140,7 +156,7 @@
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma3)" readonly="true"/>
 						</div>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<div width="100%">
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cServicioIndioma4)" readonly="true"/>
 						</div>
@@ -148,7 +164,7 @@
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cDescripcionIdioma4)" readonly="true"/>
 						</div>
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 						<div width="100%">
 							<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cServicioIndioma5)" readonly="true"/>
 						</div>
@@ -158,8 +174,8 @@
 					</listcell>
 					<listcell >
 					   <vbox>
-						<button hflex="1" label="Editar" onClick="@command('Editar',servicio=each)"/>
-						<button hflex="1" label="Activar"></button>
+						<button label="Editar" onClick="@command('Editar',servicio=each)" style="background:#fabb3d; border-color:#fabb3d;"/>
+						<button label="Activar" style="background: #78cd51; border-color: #78cd51;"></button>
 					   </vbox>
 					</listcell>
 				</listitem>

@@ -505,6 +505,14 @@
 .estilo_tabbox.z-tabbox.z-tabbox-top .z-tabs .z-tabs-content .z-tab.z-tab-selected {
 	border: none;
 }
+.estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels,
+.estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels .z-tabpanel{
+	width: 100%;
+}
+.estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels .z-tabpanel {
+	padding-top: 0;
+	margin-top: 0;	
+}
 .estilo_tabbox.z-tabbox.z-tabbox-top{
 	padding: 2px;
 	padding-bottom: 10px;

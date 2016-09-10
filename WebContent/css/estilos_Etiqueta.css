@@ -56,6 +56,7 @@
 }
 
 .insertar {
+	display: flex;
 	box-sizing: border-box;
 	padding: 10px;
 }
@@ -118,16 +119,18 @@
 	border: 1.8px solid #868585;
 }
 
-.estilo_numero {
-	text-align: center;
-}
-
 @media only screen and (max-width: 416px)
 {
-	.desaparece_idiomas { 
-		display: none;
-	}
+	
 	.z-listbox .z-listbox-header table tbody .z-listhead .z-listheader, .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell{
 		width: 100%;
-	}	
+	}
+	.estilo_combobox {
+		margin-top: 4px; 
+		margin-bottom: 4px;
+	}
+	
+	.estilo_combobox.z-combobox .z-combobox-input {
+		width: 150px;
+	}
 }

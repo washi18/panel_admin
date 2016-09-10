@@ -22,11 +22,61 @@ public class servicioVM {
 	private ArrayList<CServicio> listaServicios;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
+	private boolean visibleEspaniol=false;
+	private boolean visiblePortugues=false;
+	private boolean visibleIngles=false;
+	private boolean visibleIdioma4=false;
+	private boolean visibleIdioma5=false;
+	private boolean visiblecmbIdiomas=false;
+	private boolean visiblebtnActualizar=false;
 	/**
 	 * GETTER AND SETTER
 	 */
+	
 	public CServicio getoServicio() {
 		return oServicio;
+	}
+	public boolean isVisibleEspaniol() {
+		return visibleEspaniol;
+	}
+	public void setVisibleEspaniol(boolean visibleEspaniol) {
+		this.visibleEspaniol = visibleEspaniol;
+	}
+	public boolean isVisiblePortugues() {
+		return visiblePortugues;
+	}
+	public void setVisiblePortugues(boolean visiblePortugues) {
+		this.visiblePortugues = visiblePortugues;
+	}
+	public boolean isVisibleIngles() {
+		return visibleIngles;
+	}
+	public void setVisibleIngles(boolean visibleIngles) {
+		this.visibleIngles = visibleIngles;
+	}
+	public boolean isVisibleIdioma4() {
+		return visibleIdioma4;
+	}
+	public void setVisibleIdioma4(boolean visibleIdioma4) {
+		this.visibleIdioma4 = visibleIdioma4;
+	}
+	public boolean isVisibleIdioma5() {
+		return visibleIdioma5;
+	}
+	public void setVisibleIdioma5(boolean visibleIdioma5) {
+		this.visibleIdioma5 = visibleIdioma5;
+	}
+	public boolean isVisiblecmbIdiomas() {
+		return visiblecmbIdiomas;
+	}
+	public void setVisiblecmbIdiomas(boolean visiblecmbIdiomas) {
+		this.visiblecmbIdiomas = visiblecmbIdiomas;
+	}
+	public boolean isVisiblebtnActualizar() {
+		return visiblebtnActualizar;
+	}
+	public void setVisiblebtnActualizar(boolean visiblebtnActualizar) {
+		this.visiblebtnActualizar = visiblebtnActualizar;
 	}
 	public boolean isVisibleGeneral() {
 		return visibleGeneral;
@@ -71,8 +121,10 @@ public class servicioVM {
 		setListaServicios(servicioDao.getListaServicios());
 	}
 	@Command
+	@NotifyChange({"visibleEspaniol","visibleIngles","visiblePortugues","visiblebtnActualizar","visibleIdioma4","visibleIdioma5","visiblecmbIdiomas"})
 	public void actualizarServicio(@BindingParam("servicio")CServicio servicio)
 	{	
+		visiblecmbIdiomas=visiblebtnActualizar=visibleEspaniol=visibleIngles=visiblePortugues=visibleIdioma4=visibleIdioma5=false;
 		System.out.println("--> "+servicio);
 		servicio.setEditable(false);
 		refrescaFilaTemplate(servicio);
@@ -83,8 +135,11 @@ public class servicioVM {
 		
 	}
 	@Command
+	@NotifyChange({"oServicio","visiblecmbIdiomas","visiblebtnActualizar"})
 	 public void Editar(@BindingParam("servicio") CServicio s ) 
 	{
+		visiblecmbIdiomas=visiblebtnActualizar=true;
+		s.setEditable(false);
 		oServicio.setEditable(false);
 		refrescaFilaTemplate(oServicio);
 		oServicio=s;
@@ -93,6 +148,17 @@ public class servicioVM {
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
 		refrescaFilaTemplate(s);
    }
+	
+	@Command
+	@NotifyChange({"visibleEspaniol","visibleIngles","visiblePortugues","visibleIdioma4","visibleIdioma5"})
+	public void EditarIdiomas(@BindingParam("idioma")String idIdioma){
+		if(idIdioma.equals("cmbEspañol")){visibleEspaniol=true; visibleIngles=visiblePortugues=visibleIdioma4=visibleIdioma5=false;}
+		else if(idIdioma.equals("cmbIngles")){visibleIngles=true; visibleEspaniol=visiblePortugues=visibleIdioma4=visibleIdioma5=false;}
+		else if(idIdioma.equals("cmbPortugues")){visiblePortugues=true; visibleIngles=visibleEspaniol=visibleIdioma4=visibleIdioma5=false;}
+		else if(idIdioma.equals("cmbIdioma4")){visibleIdioma4=true; visibleIngles=visiblePortugues=visibleEspaniol=visibleIdioma5=false;}
+		else if(idIdioma.equals("cmbIdioma5")){visibleIdioma5=true; visibleIngles=visiblePortugues=visibleIdioma4=visibleEspaniol=false;}
+	}
+	
 	@Command
 	 public void Activar(@BindingParam("servicio") CServicio s ) 
 	{
