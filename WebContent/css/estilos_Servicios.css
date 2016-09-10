@@ -1,0 +1,6 @@
+@media only screen and (max-width: 416px)
+{	
+    .insertar {
+    	flex-direction: column;
+    }
+}

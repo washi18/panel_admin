@@ -1,9 +1,10 @@
 <?page title="Etiquetas" contentType="text/html;charset=UTF-8"?>
 <zk>
-    <style src="css/estilos_Paquete.css"></style>
+    <style src="css/estilos_Etiqueta.css"></style>
+    <style src="css/estilos_generales.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')">
-		<div sclass="estilo_editar" visible="@bind(vmAdmin.visibleEditar)">
+		<div sclass="estilo_editar" visible="@bind(vmAdmin.visibleEditar)" >
 			<combobox id="cmb" placeholder="Español" value="@bind(self.selectedItem.label)" visible="@bind(vmEtiqueta.visiblecmbIdiomas)" readonly="true" onSelect="@command('EditarIdiomas',idioma=self.selectedItem.id)" sclass="estilo_combobox">
 				<comboitem id="cmbEspañol" label="Español">1</comboitem>
 				<comboitem id="cmbIngles" label="Ingles">2</comboitem>
@@ -16,8 +17,10 @@
 			<textbox placeholder="Portugues" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma3)" visible="@bind(vmEtiqueta.visiblePortugues)"></textbox>
 			<textbox placeholder="Idioma 4" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma4)" visible="@bind(vmEtiqueta.visibleIdioma4)"></textbox>
 			<textbox placeholder="Idioma 5" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma5)" visible="@bind(vmEtiqueta.visibleIdioma5)"></textbox>
+			<button label="Actualizar" onClick="@command('actualizarEtiqueta',etiqueta=each)" style="background: #78cd51; border-color: #78cd51; text-shadow:none; margin-top: 4px; margin-bottom: 4px;" visible="@bind(vmEtiqueta.visiblebtnActualizar)"/>
 		</div>
-		<listbox model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
+		<separator spacing="2px"></separator>
+		<listbox model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true" style="border-radius:4px;">
 			<listhead>
 				<listheader label="Nro" width="45px"/>
 				<listheader label="Español" width="auto"/>
@@ -49,7 +52,7 @@
 					</listcell>
 					<listcell style="@bind(each.color)">
 					  <vbox>
-						<button label="update" onClick="@command('actualizarEtiqueta',etiqueta=each)"/>
+						<button label="Actualizar" onClick="@command('actualizarEtiqueta',etiqueta=each)" style="background: #78cd51; border-color: #78cd51;" sclass="update_aparece"/>
 					  </vbox>
 					</listcell>
 				</listitem>
@@ -76,8 +79,8 @@
 					</listcell>
 					<listcell style="@bind(each.color)">
 					    <vbox>
-							<button label="Editar" onClick="@command('Editar',etiqueta=each)"/>
-							<button label="Activar"></button>
+							<button label="Editar" onClick="@command('Editar',etiqueta=each)" style="background:#fabb3d; border-color:#fabb3d;"/>
+							<button label="Activar" style="background: #78cd51; border-color: #78cd51;"></button>
 						</vbox>
 					</listcell>
 				</listitem>

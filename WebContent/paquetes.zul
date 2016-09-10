@@ -15,25 +15,25 @@
 					</button>
 				</caption>
 				<panelchildren>
-					<hlayout visible="@bind(vmPaquete.visibleGeneral)" sclass="insertar">
-						<vlayout>
+					<div visible="@bind(vmPaquete.visibleGeneral)" sclass="insertar">
+						<div>
 							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
 							<button label="Seleccionar"
 								sclass="estilo_foto">
 							</button>
-						</vlayout>
+						</div>
 						<space spacing="20px"></space>
-						<vlayout>
+						<div>
 							<textbox placeholder="Nombre">
 							</textbox>
 							<textbox multiline="true" height="150px"
 								placeholder="Descricpion" width="100%">
 							</textbox>
 							<div height="2px"></div>
-						</vlayout>
-					</hlayout>
-					<hlayout visible="@bind(vmPaquete.visibleDescripcion)" sclass="insertar">
-						<vlayout>
+						</div>
+					</div>
+					<div visible="@bind(vmPaquete.visibleDescripcion)" sclass="insertar">
+						<div>
 							<textbox placeholder="Noches"></textbox>
 							<textbox placeholder="Dias"></textbox>
 							<textbox placeholder="Dsiponibilidad"></textbox>
@@ -41,9 +41,9 @@
 								<comboitem>activo</comboitem>
 								<comboitem>inactivo</comboitem>
 							</combobox>
-						</vlayout>
+						</div>
 						<space spacing="20px"></space>
-						<vlayout>
+						<div>
 							<groupbox>
 								<vlayout>
 									<textbox placeholder="1 persona"></textbox>
@@ -56,8 +56,8 @@
 							<button label="Guardar"
 								sclass="estilo_foto">
 							</button>
-						</vlayout>
-					</hlayout>
+						</div>
+					</div>
 				</panelchildren>
 			</panel>
 		</div>

@@ -187,7 +187,7 @@
 					</menubar>
 			    </div>
 			<div  width="100%" height="650px" style="overflow: auto;">
-			<div sclass="contenedor_botones" height="760px" width="82%">
+			<div sclass="contenedor_botones" height="760px" width="100%">
 				<div  width="100%" height="530px" style="overflow: auto;">
 					<tabbox sclass="estilo_tabbox" width="100%">
 						<tabs>
