@@ -7,10 +7,10 @@
 		<div>
 			<panel>
 				<caption>
-					<button id="btnGeneral" label="General" focus="true"
+					<button id="btnGeneral" label="General" focus="true" zclass="btn_desc_general"
 						onClick="@command('pasosInsertar',Opcion=self.id)">
 					</button>
-					<button id="btnDescripcion" label="Descripcion"
+					<button id="btnDescripcion" label="Descripcion" zclass="btn_desc_general"
 						onClick="@command('pasosInsertar',Opcion=self.id)">
 					</button>
 				</caption>

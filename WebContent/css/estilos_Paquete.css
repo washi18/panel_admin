@@ -45,9 +45,9 @@
 	background: #717375;
 }
 
-.z-combobox-input {
-	width: 80px;
-}
+/* .z-combobox-input { */
+/* 	width: 80px; */
+/* } */
 
 .z-listbox .z-listbox-header table tbody .z-listhead .z-listheader .z-listheader-content {
 	background: #717375;
@@ -68,23 +68,23 @@
 	background:#F9F7F7;
 }
 
-.z-combobox .z-combobox-button:HOVER{
-	background: #1A5276;
-	border: #1A5276;
-}
-.z-combobox .z-combobox-button{
-	background: #1A5276;
-	border: #1A5276;
-}
+/* .z-combobox .z-combobox-button:HOVER{ */
+/* 	background: #1A5276; */
+/* 	border: #1A5276; */
+/* } */
+/* .z-combobox .z-combobox-button{ */
+/* 	background: #1A5276; */
+/* 	border: #1A5276; */
+/* } */
 
-.z-combobox .z-combobox-input:FOCUS {
-	border: none;
-}
+/* .z-combobox .z-combobox-input:FOCUS { */
+/* 	border: none; */
+/* } */
 
-.z-combobox .z-combobox-button .z-combobox-icon.z-icon-caret-down:before{
-	visibility: visible;
-	color: white;
-}
+/* .z-combobox .z-combobox-button .z-combobox-icon.z-icon-caret-down:before{ */
+/* 	visibility: visible; */
+/* 	color: white; */
+/* } */
 
 .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-button {
 	background: #717375;
@@ -130,4 +130,23 @@
 	.z-listbox .z-listbox-header table tbody .z-listhead .z-listheader, .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell{
 		width: 100%;
 	}	
+}
+/**BOTONES**/
+.btn_desc_general{
+	width: 100px;
+	height: 50px;
+/* 	border-radius:10px; */
+	border:none;
+/* 	background: #2f2f2f; */
+	background:rgba(0,0,0,0.2);
+	color:white;
+	transition: 0.3s all ease;
+}
+.btn_desc_general:hover{
+	    background:#2f2f2f;
+	    border-radius:10px;
+}
+.btn_desc_general:focus{
+	    background:#2f2f2f;
+	    border-radius:10px;
 }

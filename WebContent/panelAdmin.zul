@@ -74,13 +74,13 @@
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
 										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-package estilos-iconos"/>
+											<span sclass="icon-tree estilos-iconos"/>
 											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
 										<div id="itemImpuesto" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-package estilos-iconos"/>
+											<span sclass="icon-coin-dollar estilos-iconos"/>
 											<label value="Impuestos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
@@ -187,14 +187,50 @@
 				<div  width="100%" height="auto">
 					<div sclass="contenedor_botones" width="100%">
 						<div  width="100%" height="auto">
-							<tabbox sclass="estilo_tabbox" width="100%">
+							<tabbox sclass="estilo_tabbox visible_peque" width="100%">
 								<tabs>
-									<tab id="tabDisponibilidad" label="Disponibilidad" iconSclass="icon-accessibility estilos-iconos" visible="@bind(vmAdmin.visibleDisponibilidad)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
-									<tab id="tabEtiqueta" label="Etiquetas" visible="@bind(vmAdmin.visibleEtiqueta)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
-									<tab id="tabPaquete" label="Paquetes" visible="@bind(vmAdmin.visiblePaquetes)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
-									<tab id="tabServicio" label="Servicios" visible="@bind(vmAdmin.visibleServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
-									<tab id="tabSubServicio" label="Sub Servicios" visible="@bind(vmAdmin.visibleSubServicios)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
-									<tab id="tabImpuesto" label="Impuestos" visible="@bind(vmAdmin.visibleImpuestos)" onClose="@command('CerrarTab',cerrarInterfaz=self.id)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
+									<tab id="tabDisponibilidad" label="Actualizar Disponibilidad" iconSclass="icon-accessibility estilos-iconos" visible="@bind(vmAdmin.visibleDisponibilidad)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
+									<tab id="tabEtiqueta" label="Etiquetas" iconSclass="icon-bookmark estilos-iconos" visible="@bind(vmAdmin.visibleEtiqueta)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
+									<tab id="tabPaquete" label="Paquetes" iconSclass="icon-package estilos-iconos" visible="@bind(vmAdmin.visiblePaquetes)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
+									<tab id="tabServicio" label="Servicios" iconSclass="icon-cogs estilos-iconos" visible="@bind(vmAdmin.visibleServicios)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
+									<tab id="tabSubServicio" label="Sub Servicios" iconSclass="icon-tree estilos-iconos" visible="@bind(vmAdmin.visibleSubServicios)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
+									<tab id="tabImpuesto" label="Impuestos" iconSclass="icon-coin-dollar estilos-iconos" visible="@bind(vmAdmin.visibleImpuestos)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
+								</tabs>
+								<tabpanels>
+									<tabpanel>
+										<include src="UpdateDispo.zul"/>	
+									</tabpanel>
+									<tabpanel>
+										<include src="etiquetas.zul"/>
+									</tabpanel>
+									<tabpanel>
+									   <include src="paquetes.zul"/>
+									</tabpanel>
+									<tabpanel>
+									  <include src="servicios.zul"/>
+									</tabpanel>
+									<tabpanel>
+										<include src="subServicios.zul"/>
+									</tabpanel>
+									<tabpanel>
+										<include src="impuestos.zul"/>
+									</tabpanel>
+								</tabpanels>
+							</tabbox>
+						</div>
+					</div>
+				</div>
+				<div  width="100%" height="auto" sclass="visible_grande">
+					<div sclass="contenedor_botones" width="100%">
+						<div  width="100%" height="auto">
+							<tabbox sclass="estilo_tabbox" width="100%" visible="@bind(vmAdmin.visibleConfiguracion)">
+								<tabs>
+									<tab label="Actualizar Disponibilidad" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
+									<tab label="Etiquetas" selected="@bind(vmAdmin.seleccionEtiquetas)"/>
+									<tab label="Paquetes" selected="@bind(vmAdmin.seleccionPaquetes)"/>
+									<tab label="Servicios" selected="@bind(vmAdmin.seleccionServicios)"/>
+									<tab label="Sub Servicios" selected="@bind(vmAdmin.seleccionSubServicios)"/>
+									<tab label="Impuestos" selected="@bind(vmAdmin.seleccionImpuestos)"/>
 								</tabs>
 								<tabpanels>
 									<tabpanel>

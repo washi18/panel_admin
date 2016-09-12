@@ -69,23 +69,23 @@
 	background:#F9F7F7;
 }
 
-.z-combobox .z-combobox-button:HOVER{
-	background: #1A5276;
-	border: #1A5276;
-}
-.z-combobox .z-combobox-button{
-	background: #1A5276;
-	border: #1A5276;
-}
+/* .z-combobox .z-combobox-button:HOVER{ */
+/* 	background: #1A5276; */
+/* 	border: #1A5276; */
+/* } */
+/* .z-combobox .z-combobox-button{ */
+/* 	background: #1A5276; */
+/* 	border: #1A5276; */
+/* } */
 
-.z-combobox .z-combobox-input:FOCUS {
-	border: none;
-}
+/* .z-combobox .z-combobox-input:FOCUS { */
+/* 	border: none; */
+/* } */
 
-.z-combobox .z-combobox-button .z-combobox-icon.z-icon-caret-down:before{
-	visibility: visible;
-	color: white;
-}
+/* .z-combobox .z-combobox-button .z-combobox-icon.z-icon-caret-down:before{ */
+/* 	visibility: visible; */
+/* 	color: white; */
+/* } */
 
 .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-button {
 	background: #717375;

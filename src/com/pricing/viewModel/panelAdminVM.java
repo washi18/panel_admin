@@ -30,13 +30,15 @@ import com.pricing.util.Util;
 
 public class panelAdminVM
 {
+	//==============TABBOX LAPTOP============
+	private boolean visibleConfiguracion;
 	//==============VARIABLES INTERFACES==============
-	private boolean visibleEtiqueta=false;
-	private boolean visiblePaquetes=false;
-	private boolean visibleServicios=false;
-	private boolean visibleSubServicios=false;
-	private boolean visibleImpuestos=false;
-	private boolean visibleDisponibilidad=false;
+	private boolean visibleEtiqueta;
+	private boolean visiblePaquetes;
+	private boolean visibleServicios;
+	private boolean visibleSubServicios;
+	private boolean visibleImpuestos;
+	private boolean visibleDisponibilidad;
 	
 	//===============VARIABLES SUBITEMS================
 	private boolean openItemConfig;
@@ -58,11 +60,15 @@ public class panelAdminVM
 	private boolean seleccionImpuestos=false;
 	
 	//=================GET Y SET SELECCION TABS=======
-	
+	public boolean isVisibleConfiguracion() {
+		return visibleConfiguracion;
+	}
+	public void setVisibleConfiguracion(boolean visibleConfiguracion) {
+		this.visibleConfiguracion = visibleConfiguracion;
+	}
 	public boolean isSeleccionDisponibilidad() {
 		return seleccionDisponibilidad;
 	}
-
 	public void setSeleccionDisponibilidad(boolean seleccionDisponibilidad) {
 		this.seleccionDisponibilidad = seleccionDisponibilidad;
 	}
@@ -216,45 +222,52 @@ public class panelAdminVM
 	public void Inicializar() {
 		seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 		visibleDisponibilidad=visibleEtiqueta = visiblePaquetes = visibleServicios = visibleSubServicios = visibleImpuestos =false;
+		visibleConfiguracion=false;
 	}
 
 	//================CAMBIO DE VISIBILIDAD========
 	@Command
 	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes", "visibleServicios", "visibleSubServicios", "visibleImpuestos", "visibleMenu", "visibleDisponibilidad",
-		"seleccionDisponibilidad","seleccionEtiquetas", "seleccionPaquetes", "seleccionServicios", "seleccionSubServicios", "seleccionImpuestos" })
+		"seleccionDisponibilidad","seleccionEtiquetas", "seleccionPaquetes", "seleccionServicios", "seleccionSubServicios", "seleccionImpuestos",
+		"visibleConfiguracion"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
-			if (cambios.equals("itemDisponibilidad")) {
-				visibleDisponibilidad= seleccionDisponibilidad= true;
-			} else if (cambios.equals("itemEtiqueta")) {
-				visibleEtiqueta =seleccionEtiquetas= true; 
-			} else if (cambios.equals("itemPaquete")) {
-				visiblePaquetes=seleccionPaquetes = true;
-			} else if (cambios.equals("itemServicio")) {
-				visibleServicios=seleccionServicios = true;
-			} else if (cambios.equals("itemSubServicio")) {
-				visibleSubServicios =seleccionSubServicios= true;
-			} else if (cambios.equals("itemImpuesto")) {
-				visibleImpuestos=seleccionImpuestos= true;
-			}
-			
-			if (cambios.equals("itemDisponibilidad")) {
-				visibleDisponibilidad = seleccionDisponibilidad=true; 
+		visibleConfiguracion=true;	
+		if (cambios.equals("itemDisponibilidad")) {
+				visibleDisponibilidad=true;
+				visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;
+				visibleSubServicios=visibleImpuestos=false;
+				seleccionDisponibilidad=true;
 				seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			} else if (cambios.equals("itemEtiqueta")) {
-				visibleEtiqueta = seleccionEtiquetas=true;
+				visibleEtiqueta = true;
+				visibleDisponibilidad=visiblePaquetes=visibleServicios=visibleSubServicios=false;
+				visibleImpuestos=false;
+				seleccionEtiquetas=true;
 				seleccionDisponibilidad=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			} else if (cambios.equals("itemPaquete")) {
-				visiblePaquetes = seleccionPaquetes=true;
-				seleccionEtiquetas=seleccionImpuestos=seleccionDisponibilidad=seleccionServicios=seleccionSubServicios=false;
+				visiblePaquetes=true;
+				visibleDisponibilidad=visibleEtiqueta=visibleServicios=false;
+				visibleSubServicios=visibleImpuestos=false;
+				seleccionPaquetes=true;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionServicios=seleccionSubServicios=false;
 			} else if (cambios.equals("itemServicio")) {
-				visibleServicios = seleccionServicios=true;
-				seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionDisponibilidad=seleccionSubServicios=false;
+				visibleServicios=true;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=false;
+				visibleSubServicios=visibleImpuestos=false;
+				seleccionServicios=true;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionSubServicios=false;
 			} else if (cambios.equals("itemSubServicio")) {
-				visibleSubServicios = seleccionSubServicios=true;
-				seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionDisponibilidad=false;
+				visibleSubServicios =true;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
+				visibleImpuestos=false;
+				seleccionSubServicios=true;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=false;
 			} else if (cambios.equals("itemImpuesto")) {
-				visibleImpuestos= seleccionImpuestos=true;
-				seleccionEtiquetas=seleccionDisponibilidad=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
+				visibleImpuestos=true;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
+				visibleSubServicios=false;
+				seleccionImpuestos=true;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
 	}
 	
