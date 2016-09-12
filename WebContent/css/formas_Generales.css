@@ -1,0 +1,222 @@
+/********************* ESTILOS COMPONENTE PANEL ************************/
+.z-panel.z-panel-noborder.z-panel-noframe .z-panel-head .z-panel-header, .z-panel.z-panel-noborder.z-panel-noframe .z-panel-body .z-panelchildren.z-panelchildren-noborder{
+	 background: #eeeeee;
+	 border-radius: 4px; 
+}
+
+.z-panel.z-panel-noborder.z-panel-noframe .z-panel-head {
+	 background: #eeeeee;
+	 border-bottom: 1px solid black;
+	 border-left: none;
+	 border-right: none;
+	 border-top: none;
+}
+
+.z-panel.z-panel-noborder.z-panel-noframe .z-panel-head .z-panel-header .z-caption .z-button {
+	border-radius: 10px;
+	background:  transparent;
+	text-shadow: none;
+	color: black;
+	height: 30px;
+	border: none;
+}
+
+.z-panel.z-panel-noborder.z-panel-noframe .z-panel-head .z-panel-header .z-caption .z-button:FOCUS {
+	background: #717375;
+}
+
+.z-panel.z-panel-noborder.z-panel-noframe .z-panel-head .z-panel-header .z-caption .z-button:HOVER {
+	background: #717375;
+}
+/*********************ESTILO OBTENER FOTO **************************/
+.estilo_btn_foto {
+	background: #717375;
+	border-radius: 20px;
+	text-shadow: none;
+}
+
+.estilo_btn_foto:HOVER {
+	background: #717375;
+}
+/********************* ESTILO PANEL INSERTAR **************************/
+.insertar {
+	display:flex;
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.insertar.z-hlayout {
+	box-sizing: border-box;
+	padding: 10px;
+}
+
+.insertar .z-textbox {
+	background: white;
+	border: 1px solid #AEACAC;
+    border-radius: 22px;
+    box-shadow: 0 3px 1px 0 rgba(0,0,0,0.5);
+    height: 40px;
+    width: 200px;
+    margin: 4px;
+}
+
+.insertar.z-hlayout .z-hlayout-inner .z-vlayout .z-vlayout-inner .z-textbox {
+	border: 1px solid #AEACAC;
+	border-radius: 22px;
+	box-shadow: 0 3px 1px 0 rgba(0,0,0,0.5);
+	height: 40px;
+	width: 200px;
+}
+
+.insertar.z-hlayout .z-hlayout-inner .z-vlayout .z-vlayout-inner .z-textbox:HOVER {
+	border: 1.8px solid #868585;
+}
+/********************* ESTILO LISTBOX **************************/
+.z-listbox .z-listbox-header table tbody .z-listhead .z-listheader .z-listheader-content {
+	background: #717375;
+	text-align: center;
+	color: black;
+}
+
+.z-listbox .z-listbox-body table tbody .z-listitem.z-listbox-odd{
+	background: none;
+}
+
+.z-listbox .z-listbox-body table tbody tr:HOVER .z-listcell, .z-listbox .z-listbox-body table tbody tr:VISITED .z-listcell{
+	background:#F9F7F7;
+}
+
+.z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-button {
+	background: #717375;
+	text-shadow: none;
+	width: auto;
+	height: 30px;
+}
+
+.z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-button:HOVER{
+	border: 1px solid lightblue;
+}
+
+.z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+/********************* ESTILO ACCION EDITAR **************************/
+.estilo_editar {
+	/*  display: block !important; */
+		padding:0;
+		background: #717375;
+		border-radius: 4px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column; 
+}
+.estilo_editar .z-textbox{
+		border: 1px solid #AEACAC;
+		border-radius: 22px;
+		box-shadow: 0 3px 1px 0 rgba(0,0,0,0.5);
+		height: 150px;
+		width: 180px;
+		margin:3px 0 3px 0;
+		font-size: 15px;
+		text-align: center;
+}
+.estilo_editar .z-textbox:FOCUS{
+  	 border: 1px solid #1A5276;
+}
+@-webkit-keyframes animation {
+   10%,30% {background-color: #B3FF04;}
+   50%,100% {background-color: #78cd51;}
+}
+.estilo_btn_foto{
+   animation-name: animation;
+   animation-duration: 2s;
+   animation-iteration-count:infinite;
+}
+
+.estilo_numero_respons{
+	width: 5%;
+	text-align: center;
+}
+
+.estilo_operacion_respons {
+	width: 12%;
+	text-align: center;
+}
+
+@media only screen and (max-width: 416px)
+{
+	.estilo_numero_respons {
+		width: 30% !important;
+	}
+	
+	.estilo_operacion_respons {
+		width: 70% !important;
+	}
+	.z-listbox .z-listbox-header table tbody .z-listhead .z-listheader, .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell{
+		width: 100%;
+	}
+	.desaparece_idiomas { 
+		display: none;
+	}
+	
+	.z-paging-info {
+		display: none;
+	}
+	
+	.z-paging{
+		display:flex;
+		justify-content: center;
+		align-items: center;
+		background: linear-gradient(to bottom, #3f3f3f 0%, #222222 100%);
+	}
+	
+	.z-paging .z-paging-input{
+		color: black;
+		text-align: center;
+	}
+	
+	.z-paging .z-paging-text{
+		color: white;
+	}
+	
+	.update_aparece {
+		visibility: hidden;
+	}
+	
+	.insertar {
+    	flex-direction: column;
+    }
+    
+    .insertar.z-div {
+    	border-radius: 4px;
+    }
+    
+    .centrar_inserciones {
+    	display: flex;
+    	flex-direction: column;
+    	justify-content: center;
+    	align-items: center;
+    }
+}
+/**BOTONES**/
+.btn_desc_general{
+	width: 100px;
+	height: 50px;
+/* 	border-radius:10px; */
+	border:none;
+/* 	background: #2f2f2f; */
+	background:rgba(0,0,0,0.2);
+	color:white;
+	transition: 0.3s all ease;
+}
+.btn_desc_general:hover{
+	    background:#2f2f2f;
+	    border-radius:10px;
+}
+.btn_desc_general:focus{
+	    background:#2f2f2f;
+	    border-radius:10px;
+}

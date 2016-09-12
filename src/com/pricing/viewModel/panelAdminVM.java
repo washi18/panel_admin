@@ -270,41 +270,6 @@ public class panelAdminVM
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
 	}
-	
-	//=================CERRRAR TABS===============
-	@Command
-	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes", "visibleServicios", "visibleSubServicios", "visibleImpuestos","visibleMenu","nombres","visibleDisponibilidad"})
-	public void CerrarTab(@BindingParam("cerrarInterfaz") String cambios) {
-
-			if (cambios.equals("tabDisponibilidad")) {
-				visibleDisponibilidad = false;
-			} else if (cambios.equals("tabEtiqueta")) {
-				visibleEtiqueta = false;
-			} else if (cambios.equals("tabPaquete")) {
-				visiblePaquetes = false;
-			} else if (cambios.equals("tabServicio")) {
-				visibleServicios = false;
-			} else if (cambios.equals("tabSubServicio")) {
-				visibleSubServicios = false;
-			} else if (cambios.equals("tabImpuesto")) {
-				visibleImpuestos= false;
-			}
-			
-			if (cambios.equals("tabDisponibilidad")) {
-				visibleDisponibilidad = false;
-			} else if (cambios.equals("tabEtiqueta")) {
-				visibleEtiqueta = false;
-			} else if (cambios.equals("tabPaquete")) {
-				visiblePaquetes = false;
-			} else if (cambios.equals("tabServicio")) {
-				visibleServicios = false;
-			} else if (cambios.equals("tabSubServicio")) {
-				visibleSubServicios = false;
-			} else if (cambios.equals("tabImpuesto")) {
-				visibleImpuestos= false;
-			}
-	}
-	
 	//================CAMBIO DE APERTURA==========
 	@Command
 	@NotifyChange({ "openItemConfig","openItemUsuarios","openItemPaquetes" })

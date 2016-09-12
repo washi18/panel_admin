@@ -1,15 +1,14 @@
 <?page title="SUB SERVICIOS" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<style src="css/estilos_Paquete.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.subServicioVM')">
 		<div>
 			<panel>
 				<caption>
-					<button id="btnGeneral" label="General" focus="true"
+					<button id="btnGeneral" label="General" focus="true" zclass="btn_desc_general"
 						onClick="@command('pasosInsertar',Opcion=self.id)">
 					</button>
-					<button id="btnDescripcion" label="Descripcion"
+					<button id="btnDescripcion" label="Descripcion" zclass="btn_desc_general"
 						onClick="@command('pasosInsertar',Opcion=self.id)">
 					</button>
 				</caption>

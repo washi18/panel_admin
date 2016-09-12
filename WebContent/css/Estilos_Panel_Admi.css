@@ -277,8 +277,6 @@
 }
 .contenedor_botones {
 	background:transparent;
-/* 	background: linear-gradient(to bottom, #ffffff 0%, #eeeeee 100%); */
-	border-radius: 20px 0 0 0;
 	z-index: 3;
 	width: 82%;
 }
@@ -475,11 +473,13 @@
 		width: 100%;
 	}
 }
+
 .estilo_tabbox .z-tabs .z-tabs-content .z-tab.z-tab-selected{
 	background: #2f2f2f;
 	height: 50px;
-	border-radius:15px;
+	border-radius: 15px;
 }
+
 .estilo_tabbox .z-tabs .z-tabs-content .z-tab:hover{
 	background: #2f2f2f;
 	height: 50px;
@@ -515,7 +515,7 @@
 	width: 100%;
 }
 .estilo_tabbox.z-tabbox.z-tabbox-top .z-tabpanels .z-tabpanel {
-	padding-top: 0;
+	padding-top: 1%;
 	margin-top: 0;	
 }
 .estilo_tabbox.z-tabbox.z-tabbox-top{
