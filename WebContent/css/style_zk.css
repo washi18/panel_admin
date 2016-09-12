@@ -63,9 +63,9 @@
 	-ms-transition: all 0.5s ease;
 	-o-transition: all 0.5s ease;
 	transition: all 0.5s ease;
-	background: #eae7e7  no-repeat;
+	background: #2f2f2f  no-repeat;
 	border: 1px solid #c8c8c8;
-	color: #777;
+	color: white;
 	font: 13px Helvetica, Arial, sans-serif;
 	width: auto;
 	height: 30px;

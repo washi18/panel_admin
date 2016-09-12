@@ -1,8 +1,8 @@
 <?page title="PAQUETES" contentType="text/html;charset=UTF-8"?>
 <?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
 <zk>
-<style src="css/estilos_Paquete.css"></style>
-<div apply="org.zkoss.bind.BindComposer"
+	<style src="css/estilos_Generales.css"></style>
+	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmPaquete') @init('com.pricing.viewModel.paquetesVM')" width="100%">
 		<div>
 			<panel>
@@ -18,8 +18,7 @@
 					<div visible="@bind(vmPaquete.visibleGeneral)" sclass="insertar">
 						<div>
 							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
-							<button label="Seleccionar"
-								sclass="estilo_foto">
+							<button label="Seleccionar">
 							</button>
 						</div>
 						<space spacing="20px"></space>
@@ -91,8 +90,10 @@
 					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')"/>
 					</listcell>
-					<listcell sclass="costado_operaciones">
-						<button label="update" onClick="@command('actualizarPaquete',paquete=each)"/>
+					<listcell>
+						<vbox sclass="centrado_listcell_operaciones">
+							<button label="update" onClick="@command('actualizarPaquete',paquete=each)"/>
+						</vbox>
 					</listcell>
 				</listitem>
 			</template>
@@ -116,8 +117,8 @@
 					<listcell sclass="desaparece_idiomas">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(cTituloIdioma5)" readonly="true"/>
 					</listcell>
-					<listcell sclass="costado_operaciones">
-					   <vbox>
+					<listcell>
+					   <vbox sclass="centrado_listcell_operaciones">
 					    <button label="Editar" onClick="@command('Editar',paquete=each)"/>
 					    <button label="Activar" onClick="@command('Activar',paquete=each)"></button>
 					   </vbox>

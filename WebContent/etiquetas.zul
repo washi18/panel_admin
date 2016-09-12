@@ -1,7 +1,6 @@
 <?page title="Etiquetas" contentType="text/html;charset=UTF-8"?>
 <zk>
-    <style src="css/estilos_Etiqueta.css"></style>
-    <style src="css/estilos_generales.css"></style>
+    <style src="css/estilos_Generales.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')">
 		<div sclass="estilo_editar" visible="@bind(vmAdmin.visibleEditar)" >
@@ -17,22 +16,22 @@
 			<textbox placeholder="Portugues" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma3)" visible="@bind(vmEtiqueta.visiblePortugues)"></textbox>
 			<textbox placeholder="Idioma 4" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma4)" visible="@bind(vmEtiqueta.visibleIdioma4)"></textbox>
 			<textbox placeholder="Idioma 5" multiline="true" value="@bind(vmEtiqueta.oEtiqueta.cIdioma5)" visible="@bind(vmEtiqueta.visibleIdioma5)"></textbox>
-			<button label="Actualizar" onClick="@command('actualizarEtiqueta',etiqueta=vmEtiqueta.oEtiqueta)" style="background: #78cd51; border-color: #78cd51; text-shadow:none; margin-top: 4px; margin-bottom: 4px;" visible="@bind(vmEtiqueta.visiblebtnActualizar)"/>
+			<button label="Actualizar" onClick="@command('actualizarEtiqueta',etiqueta=vmEtiqueta.oEtiqueta)" style="background: #78cd51; border-color: #78cd51; text-shadow:none; margin-top: 4px; margin-bottom: 4px;" visible="@bind(vmEtiqueta.visiblebtnActualizar)" sclass="estilo_btn_foto"/>
 		</div>
 		<separator spacing="2px"></separator>
 		<listbox model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true" style="border-radius:4px;">
 			<listhead>
-				<listheader label="Nro" width="45px"/>
+				<listheader label="Nro" sclass="estilo_numero_respons"/>
 				<listheader label="Español" width="auto"/>
 				<listheader sclass="desaparece_idiomas" label="Ingles" width="auto"/>
 				<listheader sclass="desaparece_idiomas" label="Portugues" width="auto"/>
 				<listheader sclass="desaparece_idiomas" label="Idioma4" width="auto"/>
 				<listheader sclass="desaparece_idiomas" label="Idioma5" width="auto"/>
-				<listheader label="Operacion" width="auto"/>
+				<listheader sclass="estilo_operacion_respons" label="Operacion"/>
 			</listhead>
 			<template name="modeleditable">
 				<listitem>
-					<listcell sclass="estilo_numero" style="@bind(each.color)">
+					<listcell sclass="estilo_numero_respons" style="@bind(each.color)">
 						<label value="@bind(each.codEtiqueta)" style="font-size:15px;font-weight:bold;color:blue;"/>
 					</listcell>
 					<listcell style="@bind(each.color)">
@@ -50,16 +49,14 @@
 					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma5) @save(each.cIdioma5,before='actualizarEtiqueta')"/>
 					</listcell>
-					<listcell style="@bind(each.color)">
-					  <vbox>
+					<listcell sclass="estilo_operacion_respons" style="@bind(each.color)">
 						<button label="Actualizar" onClick="@command('actualizarEtiqueta',etiqueta=each)" style="background: #78cd51; border-color: #78cd51;" sclass="update_aparece"/>
-					  </vbox>
 					</listcell>
 				</listitem>
 			</template>
 			<template name="noeditable">
 				<listitem>
-					<listcell sclass="estilo_numero" style="@bind(each.color)">
+					<listcell sclass="estilo_numero_respons" style="@bind(each.color)">
 						<label value="@bind(each.codEtiqueta)" style="font-size:15px;font-weight:bold;color:blue;"/>
 					</listcell>
 					<listcell style="@bind(each.color)">
@@ -77,7 +74,7 @@
 					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
 						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma5)" readonly="true"/>
 					</listcell>
-					<listcell style="@bind(each.color)">
+					<listcell sclass="estilo_operacion_respons" style="@bind(each.color)">
 					    <vbox>
 							<button label="Editar" onClick="@command('Editar',etiqueta=each)" style="background:#fabb3d; border-color:#fabb3d;"/>
 							<button label="Activar" style="background: #78cd51; border-color: #78cd51;"></button>

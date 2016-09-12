@@ -1,10 +1,10 @@
 <?page title="Servicios" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<style src="css/estilos_Generales.css"></style>
-    <style src="css/estilos_Servicios.css"></style>
+	<style src="css/estilos_Servicios.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.servicioVM')">
-		<div>
+		<div style="border-radius: 4px;">
 			<panel>
 				<caption>
 					<button id="btnGeneral" label="General" focus="true"
@@ -16,14 +16,15 @@
 				</caption>
 				<panelchildren>
 					<div visible="@bind(vmServicio.visibleGeneral)" sclass="insertar">
-						<div>
+						<div sclass="centrar_inserciones">
 							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
+							<separator spacing="5px"></separator>
 							<button label="Seleccionar"
-								sclass="estilo_foto">
+								sclass="boton_seleccionar_imag">
 							</button>
 						</div>
 						<space spacing="40px"></space>
-						<div>
+						<div sclass="centrar_inserciones">
 							<textbox placeholder="Nombre">
 							</textbox>
 							<textbox multiline="true" height="150px"
@@ -32,26 +33,28 @@
 						</div>
 					</div>
 					<div visible="@bind(vmServicio.visibleDescripcion)" sclass="insertar">
-						<div>
+						<div sclass="centrar_inserciones">
 							<textbox placeholder="Restriccion 1"></textbox>
 							<textbox placeholder="Restriccion 2"></textbox>
 							<textbox placeholder="incremento"></textbox>
-							<combobox value="estado">
-								<comboitem>activo</comboitem>
-								<comboitem>inactivo</comboitem>
-							</combobox>
+							<textbox placeholder="precio"></textbox>
 						</div>
 						<space spacing="40px"></space>
-						<div>
-						    <textbox placeholder="precio"></textbox>
+						<div sclass="centrar_inserciones">
+						    <combobox value="@bind(self.selectedItem.label)" readonly="true" >
+								<comboitem label="activo"></comboitem>
+								<comboitem label="inactivo"></comboitem>
+							</combobox>
+							<separator spacing="5px"></separator>
 							<button label="Guardar"
-								sclass="estilo_foto">
+								sclass="boton_guardar_insercion">
 							</button>
 						</div>
 					</div>
 				</panelchildren>
 			</panel>
 		</div>
+		<separator spacing="5px"></separator>
 		<div sclass="estilo_editar" visible="@bind(vmAdmin.visibleEditar)" >
 			<combobox id="cmb" placeholder="Español" value="@bind(self.selectedItem.label)" visible="@bind(vmServicio.visiblecmbIdiomas)" readonly="true" onSelect="@command('EditarIdiomas',idioma=self.selectedItem.id)" sclass="estilo_combobox">
 				<comboitem id="cmbEspañol" label="Español">1</comboitem>
@@ -67,6 +70,7 @@
 			<textbox placeholder="Idioma 5" multiline="true" value="@bind(vmServicio.oServicio.cServicioIndioma5)" visible="@bind(vmServicio.visibleIdioma5)"></textbox>
 			<button label="Actualizar" onClick="@command('actualizarEtiqueta',servicio=each)" style="background: #78cd51; border-color: #78cd51; text-shadow:none; margin-top: 4px; margin-bottom: 4px;" visible="@bind(vmServicio.visiblebtnActualizar)"/>
 		</div>
+		<separator spacing="5px"></separator>
 		<listbox model="@bind(vmServicio.listaServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
 			<listhead>
 				<listheader label="Nro" width="45px"/>
@@ -123,7 +127,9 @@
 						</div>
 					</listcell>
 					<listcell >
+					   <vbox sclass="centrado_listcell_operaciones">
 						<button label="Actualizar" onClick="@command('actualizarServicio',servicio=each)" style="background: #78cd51; border-color: #78cd51;" sclass="update_aparece"/>
+					   </vbox>
 					</listcell>
 				</listitem>
 			</template>
@@ -173,7 +179,7 @@
 						</div>
 					</listcell>
 					<listcell >
-					   <vbox>
+					   <vbox sclass="centrado_listcell_operaciones">
 						<button label="Editar" onClick="@command('Editar',servicio=each)" style="background:#fabb3d; border-color:#fabb3d;"/>
 						<button label="Activar" style="background: #78cd51; border-color: #78cd51;"></button>
 					   </vbox>
