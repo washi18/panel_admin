@@ -1,6 +1,6 @@
 <?page title="Etiquetas" contentType="text/html;charset=UTF-8"?>
 <zk>
-    <style src="css/estilos_Generales.css"/>
+    <style src="css/formas_Generales.css"/>
     <style src="css/estilos_Etiqueta.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')">

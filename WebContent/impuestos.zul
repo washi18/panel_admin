@@ -1,5 +1,6 @@
 <?page title="Impuestos" contentType="text/html;charset=UTF-8"?>
 <zk>
+	<style src="css/formas_Generales.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmImpuesto') @init('com.pricing.viewModel.impuestoYcobrosVM')">
 		<listbox model="@bind(vmImpuesto.listaImpuestos) @template((each.editable)? 'modeleditable':'noeditable')" height="110px" mold="paging" autopaging="true">

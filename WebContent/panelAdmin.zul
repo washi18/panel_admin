@@ -217,13 +217,7 @@
 									</tabpanel>
 								</tabpanels>
 							</tabbox>
-						</div>
-					</div>
-				</div>
-				<div  width="100%" height="auto" sclass="visible_grande">
-					<div sclass="contenedor_botones" width="100%">
-						<div  width="100%" height="auto">
-							<tabbox sclass="estilo_tabbox" width="100%" visible="@bind(vmAdmin.visibleConfiguracion)">
+							<tabbox sclass="estilo_tabbox visible_grande" width="100%" visible="@bind(vmAdmin.visibleConfiguracion)">
 								<tabs>
 									<tab label="Actualizar Disponibilidad" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
 									<tab label="Etiquetas" selected="@bind(vmAdmin.seleccionEtiquetas)"/>

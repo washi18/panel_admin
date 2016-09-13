@@ -1,5 +1,6 @@
 <?page title="SUB SERVICIOS" contentType="text/html;charset=UTF-8"?>
 <zk>
+	<style src="css/formas_Generales.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.subServicioVM')">
 		<div>

@@ -1,6 +1,6 @@
 <?page title="Servicios" contentType="text/html;charset=UTF-8"?>
 <zk>
-	<style src="css/estilos_Generales.css"></style>
+	<style src="css/formas_Generales.css"></style>
 	<style src="css/estilos_Servicios.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.servicioVM')">
