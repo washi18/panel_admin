@@ -4,14 +4,16 @@
 	<style src="css/estilos_Servicios.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.servicioVM')">
-		<div>
-			<div>
-				<div zclass="div_btn_nuevo">
+		<div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_servicios.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="150px">
 					<span sclass="icon-plus"/>
+					<space></space>
 					<label value="NUEVO SERVICIO"/>
 				</div>
 			</div>
-			<div>
+			<div id="div_llenar_servicios" visible="false">
+				<space></space>
 				<div>
 					<div height="150px" width="200px" style="border: 1px dashed blue;">
 						<image width="100%" height="100%" src="img/loading_7.gif"/>
@@ -20,7 +22,7 @@
 				</div>
 				<div>
 					<div>
-						<div>
+						<div zclass="div_contiene_banderas">
 							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
 									onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
 											txtPortuName.setVisible(false);txtSpainDesc.setVisible(true);
