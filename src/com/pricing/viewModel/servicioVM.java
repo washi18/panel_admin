@@ -20,8 +20,6 @@ public class servicioVM {
 	private CServicio oServicio;
 	private CServicioDAO servicioDao;
 	private ArrayList<CServicio> listaServicios;
-	private boolean visibleGeneral=true;
-	private boolean visibleDescripcion=false;
 	private boolean visibleEspaniol=false;
 	private boolean visiblePortugues=false;
 	private boolean visibleIngles=false;
@@ -29,12 +27,48 @@ public class servicioVM {
 	private boolean visibleIdioma5=false;
 	private boolean visiblecmbIdiomas=false;
 	private boolean visiblebtnActualizar=false;
+	
+	private boolean visibleIdiomaEspaniol=true;
+	private boolean visibleIdiomaIngles=false;
+	private boolean visibleIdiomaPortugues=false;
+	private boolean visibleIdiomaCuatro=false;
+	private boolean visibleIdiomaCinco=false;
 	/**
 	 * GETTER AND SETTER
 	 */
 	
 	public CServicio getoServicio() {
 		return oServicio;
+	}
+	public boolean isVisibleIdiomaEspaniol() {
+		return visibleIdiomaEspaniol;
+	}
+	public void setVisibleIdiomaEspaniol(boolean visibleIdiomaEspaniol) {
+		this.visibleIdiomaEspaniol = visibleIdiomaEspaniol;
+	}
+	public boolean isVisibleIdiomaIngles() {
+		return visibleIdiomaIngles;
+	}
+	public void setVisibleIdiomaIngles(boolean visibleIdiomaIngles) {
+		this.visibleIdiomaIngles = visibleIdiomaIngles;
+	}
+	public boolean isVisibleIdiomaPortugues() {
+		return visibleIdiomaPortugues;
+	}
+	public void setVisibleIdiomaPortugues(boolean visibleIdiomaPortugues) {
+		this.visibleIdiomaPortugues = visibleIdiomaPortugues;
+	}
+	public boolean isVisibleIdiomaCuatro() {
+		return visibleIdiomaCuatro;
+	}
+	public void setVisibleIdiomaCuatro(boolean visibleIdiomaCuatro) {
+		this.visibleIdiomaCuatro = visibleIdiomaCuatro;
+	}
+	public boolean isVisibleIdiomaCinco() {
+		return visibleIdiomaCinco;
+	}
+	public void setVisibleIdiomaCinco(boolean visibleIdiomaCinco) {
+		this.visibleIdiomaCinco = visibleIdiomaCinco;
 	}
 	public boolean isVisibleEspaniol() {
 		return visibleEspaniol;
@@ -77,18 +111,6 @@ public class servicioVM {
 	}
 	public void setVisiblebtnActualizar(boolean visiblebtnActualizar) {
 		this.visiblebtnActualizar = visiblebtnActualizar;
-	}
-	public boolean isVisibleGeneral() {
-		return visibleGeneral;
-	}
-	public void setVisibleGeneral(boolean visibleGeneral) {
-		this.visibleGeneral = visibleGeneral;
-	}
-	public boolean isVisibleDescripcion() {
-		return visibleDescripcion;
-	}
-	public void setVisibleDescripcion(boolean visibleDescripcion) {
-		this.visibleDescripcion = visibleDescripcion;
 	}
 	public void setoServicio(CServicio oServicio) {
 		this.oServicio = oServicio;
@@ -169,16 +191,31 @@ public class servicioVM {
 	{
 		
 	}
+	
 	@Command
-	@NotifyChange({ "visibleGeneral", "visibleDescripcion" })
-	public void pasosInsertar(@BindingParam("Opcion") String idOpcion) {
-		if (idOpcion.equals("btnGeneral")) {
-			visibleGeneral = true;
-			visibleDescripcion = false;
-		} else {
-			visibleGeneral = false;
-			visibleDescripcion = true;
+	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("servicio")CServicio servicio)
+	{
+		if(idIdioma.equals("Espanol"))
+		{
+				servicio.setVisibleEspanol(true);
+				servicio.setVisibleIngles(false);
+				servicio.setVisiblePortugues(false);
 		}
+		else if(idIdioma.equals("Ingles"))
+		{
+				servicio.setVisibleEspanol(false);
+				servicio.setVisibleIngles(true);
+				servicio.setVisiblePortugues(false);
+		}
+		else if(idIdioma.equals("Portugues"))
+		{
+				servicio.setVisibleEspanol(false);
+				servicio.setVisibleIngles(false);
+				servicio.setVisiblePortugues(true);
+		}
+		BindUtils.postNotifyChange(null, null, servicio, "visibleEspanol");
+		BindUtils.postNotifyChange(null, null, servicio, "visibleIngles");
+		BindUtils.postNotifyChange(null, null, servicio, "visiblePortugues");
 	}
 	public void refrescaFilaTemplate(CServicio s)
 	{
