@@ -31,6 +31,9 @@ public class CServicio
 	private String precioTotalServicio;
 	private String link;
 	private String Servicio;
+	private boolean visibleEspanol;
+	private boolean visibleIngles;
+	private boolean visiblePortugues;
 	private boolean editable;
 	//=============================
 	public int getnServicioCod() {
@@ -201,6 +204,24 @@ public class CServicio
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
+	public boolean isVisibleEspanol() {
+		return visibleEspanol;
+	}
+	public void setVisibleEspanol(boolean visibleEspanol) {
+		this.visibleEspanol = visibleEspanol;
+	}
+	public boolean isVisibleIngles() {
+		return visibleIngles;
+	}
+	public void setVisibleIngles(boolean visibleIngles) {
+		this.visibleIngles = visibleIngles;
+	}
+	public boolean isVisiblePortugues() {
+		return visiblePortugues;
+	}
+	public void setVisiblePortugues(boolean visiblePortugues) {
+		this.visiblePortugues = visiblePortugues;
+	}
 	//========================================
 	public CServicio() {
 		// TODO Auto-generated constructor stub
@@ -242,5 +263,8 @@ public class CServicio
 		this.precioTotalServicio="0.00";
 		this.link="";
 		this.editable=false;
+		this.visibleEspanol=true;
+		this.visibleIngles=false;
+		this.visiblePortugues=false;
 	}
 }

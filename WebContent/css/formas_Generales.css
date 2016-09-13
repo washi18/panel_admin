@@ -102,6 +102,22 @@
 	justify-content: center;
 	align-items: center;
 }
+
+.centrado_datos{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+
+.centrar_banderas {
+	display: flex;
+	align-items: center;
+}
+
+.estilo_etiquetas {
+	position: relative !important;
+	left: 0 !important;
+}
 /********************* ESTILO ACCION EDITAR **************************/
 .estilo_editar {
 	/*  display: block !important; */
