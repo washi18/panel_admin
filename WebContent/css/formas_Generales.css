@@ -220,3 +220,29 @@
 	    background:#2f2f2f;
 	    border-radius:10px;
 }
+.estilo_subir_imagen{
+	width: 200px;
+	height: 50px;
+/* 	border-radius:10px; */
+	border:none;
+/* 	background: #2f2f2f; */
+	background:rgba(0,0,0,0.5);
+	color:white;
+	transition: 0.3s all ease;
+}
+.estilo_subir_imagen:hover,
+.estilo_subir_imagen:FOCUS{
+	background:#2f2f2f;
+/* 	border-radius:10px; */
+}
+.estilo_banderas{
+	width: 40px;
+	height: 40px;
+	border-radius:50%;
+	transition: 0.3s all ease;
+	cursor: pointer;
+}
+.estilo_banderas:HOVER{
+	width: 45px;
+	height: 45px;
+}

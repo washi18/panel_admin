@@ -104,17 +104,6 @@ public class subServicioVM
 	{
 		
 	}
-	@Command
-	@NotifyChange({ "visibleGeneral", "visibleDescripcion" })
-	public void pasosInsertar(@BindingParam("Opcion") String idOpcion) {
-		if (idOpcion.equals("btnGeneral")) {
-			visibleGeneral = true;
-			visibleDescripcion = false;
-		} else {
-			visibleGeneral = false;
-			visibleDescripcion = true;
-		}
-	}
 	public void refrescaFilaTemplate(CSubServicio s)
 	{
 		BindUtils.postNotifyChange(null, null, s, "editable");

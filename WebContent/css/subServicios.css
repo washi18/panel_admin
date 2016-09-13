@@ -1,0 +1,7 @@
+.div_contenedor_nuevo_subServicio{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}

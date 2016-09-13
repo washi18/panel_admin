@@ -1,55 +1,71 @@
 <?page title="SUB SERVICIOS" contentType="text/html;charset=UTF-8"?>
 <zk>
 	<style src="css/formas_Generales.css"/>
+	<style src="css/subServicios.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.subServicioVM')">
 		<div>
-			<panel>
-				<caption>
-					<button id="btnGeneral" label="General" focus="true" zclass="btn_desc_general"
-						onClick="@command('pasosInsertar',Opcion=self.id)">
+			<div>
+				<button label="NUEVO"/>
+			</div>
+			<div>
+				<label value="SERVICIO: "/>
+				<combobox >
+					<comboitem/>
+				</combobox>
+			</div>
+			<div zclass="div_contenedor_nuevo_subServicio">
+				<div>
+					<div height="150px" width="200px" style="border: 1px dashed blue;">
+						<image width="100%" height="100%" src="img/loading_7.gif"/>
+					</div>
+					<button label="Subir Imagen de Servicio" zclass="estilo_subir_imagen"/>
+				</div>
+				<div>
+					<div>
+						<div>
+							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+									onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+											txtPortuName.setVisible(false);txtSpainDesc.setVisible(true);
+											txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(false)"/>
+							<image src="img/en.png" sclass="estilo_banderas"
+									onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+											txtPortuName.setVisible(false);txtSpainDesc.setVisible(false);
+											txtInglesDesc.setVisible(true);txtPortuDesc.setVisible(false)"/>
+							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+									onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+											txtPortuName.setVisible(true);txtSpainDesc.setVisible(false);
+											txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(true)"/>
+						</div>
+						<div>
+							<label value="SUB SERVICIO: "/>
+							<textbox id="txtSpainName" placeholder="NOMBRE DE SUB_SERVICIO ESPAÑOL" width="250px" visible="true"/>
+							<textbox id="txtInglesName" placeholder="NOMBRE DE SUB_SERVICIO INGLES" width="250px" visible="false"/>
+							<textbox id="txtPortuName" placeholder="NOMBRE DE SUB_SERVICIO PORTUGUES" width="250px" visible="false"/>
+						</div>
+						<div>
+							<label value="DESCRIPCION: "/>
+							<textbox id="txtSpainDesc" multiline="true" height="150px"
+								placeholder="DESCRIPCION DE SUB_SERVICIO ESPAÑOL" width="250px" visible="true"/>
+							<textbox id="txtInglesDesc" multiline="true" height="150px"
+								placeholder="DESCRIPCION DE SUB_SERVICIO INGLES" width="250px" visible="false"/>
+							<textbox id="txtPortuDesc" multiline="true" height="150px"
+								placeholder="DESCRIPCION DE SUB_SERVICIO PORTUGUES" width="250px" visible="false"/>
+						</div>
+					</div>
+					<div>
+						<label value="URL DEL SUB SERVICIO: "/>
+						<textbox width="200px" placeholder="LINK"/>
+					</div>
+					<div>
+						<label value="COSTO ($): "/>
+						<textbox placeholder="PRECIO"/>
+					</div>
+					<button label="Guardar"
+							sclass="estilo_foto">
 					</button>
-					<button id="btnDescripcion" label="Descripcion" zclass="btn_desc_general"
-						onClick="@command('pasosInsertar',Opcion=self.id)">
-					</button>
-				</caption>
-				<panelchildren>
-					<hlayout visible="@bind(vmServicio.visibleGeneral)" sclass="insertar">
-						<vlayout>
-							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
-							<button label="Seleccionar"
-								sclass="estilo_foto">
-							</button>
-						</vlayout>
-						<space spacing="20px"></space>
-						<vlayout>
-							<textbox placeholder="Nombre">
-							</textbox>
-							<textbox multiline="true" height="150px"
-								placeholder="Descricpion" width="100%">
-							</textbox>
-						</vlayout>
-					</hlayout>
-					<hlayout visible="@bind(vmServicio.visibleDescripcion)" sclass="insertar">
-						<vlayout>
-							<textbox placeholder="Restriccion 1"></textbox>
-							<textbox placeholder="Restriccion 2"></textbox>
-							<textbox placeholder="incremento"></textbox>
-							<combobox value="estado">
-								<comboitem>activo</comboitem>
-								<comboitem>inactivo</comboitem>
-							</combobox>
-						</vlayout>
-						<space spacing="20px"></space>
-						<vlayout>
-									<textbox placeholder="precio"></textbox>
-							<button label="Guardar"
-								sclass="estilo_foto">
-							</button>
-						</vlayout>
-					</hlayout>
-				</panelchildren>
-			</panel>
+				</div>
+			</div>
 		</div>
 		<listbox model="@bind(vmServicio.listaSubServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
 			<listhead>

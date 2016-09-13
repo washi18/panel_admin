@@ -4,55 +4,89 @@
 	<style src="css/estilos_Servicios.css"></style>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.servicioVM')">
-		<div style="border-radius: 4px;">
-			<panel>
-				<caption>
-					<button id="btnGeneral" label="General" focus="true" zclass="btn_desc_general"
-						onClick="@command('pasosInsertar',Opcion=self.id)">
-					</button>
-					<button id="btnDescripcion" label="Descripcion" zclass="btn_desc_general"
-						onClick="@command('pasosInsertar',Opcion=self.id)">
-					</button>
-				</caption>
-				<panelchildren>
-					<div visible="@bind(vmServicio.visibleGeneral)" sclass="insertar">
-						<div sclass="centrar_inserciones">
-							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
-							<separator spacing="5px"></separator>
-							<button label="Seleccionar"
-								sclass="boton_seleccionar_imag">
-							</button>
+		<div>
+			<div>
+				<div zclass="div_btn_nuevo">
+					<span sclass="icon-plus"/>
+					<label value="NUEVO SERVICIO"/>
+				</div>
+			</div>
+			<div>
+				<div>
+					<div height="150px" width="200px" style="border: 1px dashed blue;">
+						<image width="100%" height="100%" src="img/loading_7.gif"/>
+					</div>
+					<button label="Subir Imagen de Servicio" zclass="estilo_subir_imagen"/>
+				</div>
+				<div>
+					<div>
+						<div>
+							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+									onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+											txtPortuName.setVisible(false);txtSpainDesc.setVisible(true);
+											txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(false)"/>
+							<image src="img/en.png" sclass="estilo_banderas"
+									onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+											txtPortuName.setVisible(false);txtSpainDesc.setVisible(false);
+											txtInglesDesc.setVisible(true);txtPortuDesc.setVisible(false)"/>
+							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+									onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+											txtPortuName.setVisible(true);txtSpainDesc.setVisible(false);
+											txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(true)"/>
 						</div>
-						<space spacing="40px"></space>
-						<div sclass="centrar_inserciones">
-							<textbox placeholder="Nombre">
-							</textbox>
-							<textbox multiline="true" height="150px"
-								placeholder="Descricpion" width="100%">
-							</textbox>
+						<div>
+							<label value="SUB SERVICIO: "/>
+							<textbox id="txtSpainName" placeholder="NOMBRE DE SUB_SERVICIO ESPAÑOL" width="250px" visible="true"/>
+							<textbox id="txtInglesName" placeholder="NOMBRE DE SUB_SERVICIO INGLES" width="250px" visible="false"/>
+							<textbox id="txtPortuName" placeholder="NOMBRE DE SUB_SERVICIO PORTUGUES" width="250px" visible="false"/>
+						</div>
+						<div>
+							<label value="DESCRIPCION: "/>
+							<textbox id="txtSpainDesc" multiline="true" height="150px"
+								placeholder="DESCRIPCION DE SUB_SERVICIO ESPAÑOL" width="250px" visible="true"/>
+							<textbox id="txtInglesDesc" multiline="true" height="150px"
+								placeholder="DESCRIPCION DE SUB_SERVICIO INGLES" width="250px" visible="false"/>
+							<textbox id="txtPortuDesc" multiline="true" height="150px"
+								placeholder="DESCRIPCION DE SUB_SERVICIO PORTUGUES" width="250px" visible="false"/>
 						</div>
 					</div>
-					<div visible="@bind(vmServicio.visibleDescripcion)" sclass="insertar">
-						<div sclass="centrar_inserciones">
-							<textbox placeholder="Restriccion 1"></textbox>
-							<textbox placeholder="Restriccion 2"></textbox>
-							<textbox placeholder="incremento"></textbox>
-							<textbox placeholder="precio"></textbox>
+					<div>
+						<label value="TIPOS DE RESTRICCIONES:"/>
+						<separator bar="true"/>
+						<div>
+							<label value="Elegir sólo una de las restricciones"/>
 						</div>
-						<space spacing="40px"></space>
-						<div sclass="centrar_inserciones">
-						    <combobox value="@bind(self.selectedItem.label)" readonly="true" >
-								<comboitem label="activo"></comboitem>
-								<comboitem label="inactivo"></comboitem>
+						<div>
+							<label value="¿TENDRA RESTRICCION SI/NO?"/>
+							<combobox value="@bind(self.selectedItem.label)">
+								<comboitem label="SI" value="si"/>
+								<comboitem label="NO" value="no"/>
 							</combobox>
-							<separator spacing="5px"></separator>
-							<button label="Guardar"
-								sclass="boton_guardar_insercion">
-							</button>
+						</div>
+						<div>
+							<label value="¿TENDRA RESTRICCION NUMERICA?"/>
+							<combobox value="@bind(self.selectedItem.label)">
+								<comboitem label="SI" value="si"/>
+								<comboitem label="NO" value="no"/>
+							</combobox>
+						</div>
+						<div>
+							<label value="¿TENDRA SUB SERVICIOS?"/>
+							<combobox value="@bind(self.selectedItem.label)">
+								<comboitem label="SI" value="si"/>
+								<comboitem label="NO" value="no"/>
+							</combobox>
 						</div>
 					</div>
-				</panelchildren>
-			</panel>
+					<div>
+						<label value="COSTO ($): "/>
+						<textbox placeholder="PRECIO"/>
+					</div>
+					<button label="Guardar"
+							sclass="estilo_foto">
+					</button>
+				</div>
+			</div>
 		</div>
 		<separator spacing="5px"></separator>
 		<div sclass="estilo_editar" visible="@bind(vmAdmin.visibleEditar)" >
