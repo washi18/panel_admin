@@ -20,10 +20,32 @@ public class CSubServicio
 	private boolean bEstado;// boolean,
 	private String tituloSubServicio;
 	private String cDescripcion;
+	private boolean visibleEspanol;
+	private boolean visibleIngles;
+	private boolean visiblePortugues;
 	private boolean editable;
 	//============================
+	
 	public int getnSubServicioCod() {
 		return nSubServicioCod;
+	}
+	public boolean isVisibleEspanol() {
+		return visibleEspanol;
+	}
+	public void setVisibleEspanol(boolean visibleEspanol) {
+		this.visibleEspanol = visibleEspanol;
+	}
+	public boolean isVisibleIngles() {
+		return visibleIngles;
+	}
+	public void setVisibleIngles(boolean visibleIngles) {
+		this.visibleIngles = visibleIngles;
+	}
+	public boolean isVisiblePortugues() {
+		return visiblePortugues;
+	}
+	public void setVisiblePortugues(boolean visiblePortugues) {
+		this.visiblePortugues = visiblePortugues;
 	}
 	public void setnSubServicioCod(int nSubServicioCod) {
 		this.nSubServicioCod = nSubServicioCod;
@@ -167,6 +189,9 @@ public class CSubServicio
 		this.nPrecioServicio = nPrecioServicio;
 		this.bEstado = bEstado;
 		this.editable=false;
+		this.visibleEspanol=true;
+		this.visibleIngles=false;
+		this.visiblePortugues=false;
 	}
 	
 }

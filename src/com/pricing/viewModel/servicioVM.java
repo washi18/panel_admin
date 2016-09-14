@@ -33,12 +33,20 @@ public class servicioVM {
 	private boolean visibleIdiomaPortugues=false;
 	private boolean visibleIdiomaCuatro=false;
 	private boolean visibleIdiomaCinco=false;
+	
+	private boolean visibleEditarRespons=false;
 	/**
 	 * GETTER AND SETTER
 	 */
 	
 	public CServicio getoServicio() {
 		return oServicio;
+	}
+	public boolean isVisibleEditarRespons() {
+		return visibleEditarRespons;
+	}
+	public void setVisibleEditarRespons(boolean visibleEditarRespons) {
+		this.visibleEditarRespons = visibleEditarRespons;
 	}
 	public boolean isVisibleIdiomaEspaniol() {
 		return visibleIdiomaEspaniol;
@@ -157,10 +165,10 @@ public class servicioVM {
 		
 	}
 	@Command
-	@NotifyChange({"oServicio","visiblecmbIdiomas","visiblebtnActualizar"})
+	@NotifyChange({"oServicio","visiblecmbIdiomas","visiblebtnActualizar","visibleEditarRespons"})
 	 public void Editar(@BindingParam("servicio") CServicio s ) 
 	{
-		visiblecmbIdiomas=visiblebtnActualizar=true;
+		visiblecmbIdiomas=visiblebtnActualizar=visibleEditarRespons=true;
 		s.setEditable(false);
 		oServicio.setEditable(false);
 		refrescaFilaTemplate(oServicio);

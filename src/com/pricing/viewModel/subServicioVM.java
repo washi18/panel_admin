@@ -22,12 +22,19 @@ public class subServicioVM
 	private ArrayList<CSubServicio> listaSubServicios;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
+	private boolean visibleEditarRespons=false;
 	/**
 	 * GETTER AND SETTER
 	 */
 	
 	public CServicioDAO getServicioDao() {
 		return servicioDao;
+	}
+	public boolean isVisibleEditarRespons() {
+		return visibleEditarRespons;
+	}
+	public void setVisibleEditarRespons(boolean visibleEditarRespons) {
+		this.visibleEditarRespons = visibleEditarRespons;
 	}
 	public boolean isVisibleGeneral() {
 		return visibleGeneral;
@@ -84,8 +91,10 @@ public class subServicioVM
 		
 	}
 	@Command
+	@NotifyChange("visibleEditarRespons")
 	 public void Editar(@BindingParam("subServicio") CSubServicio s ) 
 	{
+		visibleEditarRespons=true;
 		oSubServicio.setEditable(false);
 		refrescaFilaTemplate(oSubServicio);
 		oSubServicio=s;
@@ -103,6 +112,32 @@ public class subServicioVM
 	 public void Desactivar(@BindingParam("servicio") CServicio s ) 
 	{
 		
+	}
+	
+	@Command
+	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("subServicio")CServicio servicio)
+	{
+		if(idIdioma.equals("Espanol"))
+		{
+				servicio.setVisibleEspanol(true);
+				servicio.setVisibleIngles(false);
+				servicio.setVisiblePortugues(false);
+		}
+		else if(idIdioma.equals("Ingles"))
+		{
+				servicio.setVisibleEspanol(false);
+				servicio.setVisibleIngles(true);
+				servicio.setVisiblePortugues(false);
+		}
+		else if(idIdioma.equals("Portugues"))
+		{
+				servicio.setVisibleEspanol(false);
+				servicio.setVisibleIngles(false);
+				servicio.setVisiblePortugues(true);
+		}
+		BindUtils.postNotifyChange(null, null, servicio, "visibleEspanol");
+		BindUtils.postNotifyChange(null, null, servicio, "visibleIngles");
+		BindUtils.postNotifyChange(null, null, servicio, "visiblePortugues");
 	}
 	public void refrescaFilaTemplate(CSubServicio s)
 	{
