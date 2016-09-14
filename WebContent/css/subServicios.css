@@ -5,6 +5,11 @@
 	display: -ms-flex;
 	display: -o-flex;
 }
+@MEDIA (max-width:700px) {
+	.div_contenedor_nuevo_subServicio{
+		flex-direction:column;
+	}
+}
 .div_content_img{
 	background: rgba(0,0,0,0.1);
 	border-radius:5px;

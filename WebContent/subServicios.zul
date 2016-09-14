@@ -15,9 +15,10 @@
 			<div id="div_llenar_subservicios" visible="false">
 				<space></space>
 				<div>
-					<label value="SERVICIO: "/>
-					<combobox >
-						<comboitem/>
+					<label value="SERVICIO: " zclass="lbl_llenar_datos"/>
+					<combobox value="@bind(self.selectedItem.label)" sclass="cbox_llenar_datos">
+						<comboitem label="hola"/>
+						<comboitem label="hola2"/>
 					</combobox>
 				</div>
 				<space></space>
@@ -31,7 +32,7 @@
 					<space></space>
 					<div zclass="div_content_datos">
 						<div>
-							<div>
+							<div zclass="div_contiene_banderas">
 								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
 										onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
 												txtPortuName.setVisible(false);txtSpainDesc.setVisible(true);
@@ -46,28 +47,30 @@
 												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(true)"/>
 							</div>
 							<div>
-								<label value="SUB SERVICIO: "/>
-								<textbox id="txtSpainName" placeholder="NOMBRE DE SUB_SERVICIO ESPAÑOL" width="250px" visible="true"/>
-								<textbox id="txtInglesName" placeholder="NOMBRE DE SUB_SERVICIO INGLES" width="250px" visible="false"/>
-								<textbox id="txtPortuName" placeholder="NOMBRE DE SUB_SERVICIO PORTUGUES" width="250px" visible="false"/>
+								<label value="SUB SERVICIO: " zclass="lbl_llenar_datos"/>
+								<textbox zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true"/>
+								<textbox zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false"/>
+								<textbox zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false"/>
 							</div>
 							<div>
-								<label value="DESCRIPCION: "/>
-								<textbox id="txtSpainDesc" multiline="true" height="150px"
-									placeholder="DESCRIPCION DE SUB_SERVICIO ESPAÑOL" width="250px" visible="true"/>
-								<textbox id="txtInglesDesc" multiline="true" height="150px"
-									placeholder="DESCRIPCION DE SUB_SERVICIO INGLES" width="250px" visible="false"/>
-								<textbox id="txtPortuDesc" multiline="true" height="150px"
-									placeholder="DESCRIPCION DE SUB_SERVICIO PORTUGUES" width="250px" visible="false"/>
+								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
+								<textbox zclass="txt_llenar_datos" id="txtSpainDesc" multiline="true" height="150px"
+									placeholder="ESPAÑOL" width="250px" visible="true"/>
+								<textbox zclass="txt_llenar_datos" id="txtInglesDesc" multiline="true" height="150px"
+									placeholder="INGLES" width="250px" visible="false"/>
+								<textbox zclass="txt_llenar_datos" id="txtPortuDesc" multiline="true" height="150px"
+									placeholder="PORTUGUES" width="250px" visible="false"/>
 							</div>
 						</div>
+						<separator bar="true"/>
 						<div>
-							<label value="URL DEL SUB SERVICIO: "/>
-							<textbox width="200px" placeholder="LINK"/>
+							<label value="URL DEL SUB SERVICIO: " zclass="lbl_llenar_datos"/>
+							<textbox width="200px" zclass="txt_llenar_datos" placeholder="LINK"/>
 						</div>
 						<div>
-							<label value="COSTO ($): "/>
-							<textbox placeholder="PRECIO"/>
+							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+							<space></space>
 						</div>
 						<button label="Guardar" zclass="btn_guardar"/>
 					</div>

@@ -50,26 +50,121 @@
 	padding: 10px;
 }
 
-.insertar .z-textbox {
+.txt_llenar_datos{
 	background: white;
-	border: 1px solid #AEACAC;
-    border-radius: 22px;
-    box-shadow: 0 3px 1px 0 rgba(0,0,0,0.5);
+	border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 5px;
+    box-shadow:0 0 5px rgba(0,0,0,0.1);
+	-webkit-transition: all 0.1s ease;
+	-moz-transition: all 0.1s ease;
+	-ms-transition: all 0.1s ease;
+	-o-transition: all 0.1s ease;
+	transition: all 0.1s ease;
     height: 40px;
-    width: 200px;
     margin: 4px;
+    padding-left:10px;
+    box-sizing:border-box;
+    text-align: justify;
 }
-
-.insertar.z-hlayout .z-hlayout-inner .z-vlayout .z-vlayout-inner .z-textbox {
-	border: 1px solid #AEACAC;
-	border-radius: 22px;
-	box-shadow: 0 3px 1px 0 rgba(0,0,0,0.5);
+.txt_llenar_datos:focus{
+	border: 1px solid #C40C23;
+	box-shadow:0 0 8px #C40C23;
+}
+.txt_llenar_datos:hover{
+	border: 1px solid #C40C23;
+	box-shadow:0 0 8px #C40C23;
+}
+/*==COMBOBOX PARA LLENADO DE DATOS==*/
+.cbox_llenar_datos.z-combobox:HOVER .z-icon-caret-down{
+	color:white;
+}
+.cbox_llenar_datos.z-combobox .z-icon-caret-down{
+/* 	height: 40px; */
+/* 	margin-top: 10px; */
+	font-size: 25px;
+}
+.cbox_llenar_datos .z-combobox-input:focus{
+	border: 1px solid #053351;
+	box-shadow:0 0 5px #053351;
+	background-color: white;
+}
+.cbox_llenar_datos .z-combobox-input:focus + a{
+	background: #053351;
+	border: 1px solid #053351;
+	box-shadow:0 0 5px #053351;
+}
+.cbox_llenar_datos .z-combobox-input:focus + a .z-icon-caret-down{
+	color: white;
+}
+.cbox_llenar_datos.z-combobox:HOVER .z-combobox-input{
+	border: 1px solid #053351;
+	box-shadow:0 0 5px #053351;
+	background-color: white;
+}
+.cbox_llenar_datos.z-combobox:HOVER .z-combobox-button{
+	border: 1px solid #053351;
+	box-shadow:0 0 5px #053351;/*azul marino*/
+	background: #053351;
+}
+.cbox_llenar_datos .z-combobox-input{
+	border-top-left-radius: 5px;
+	border-bottom-left-radius: 5px;
+	box-shadow:0 0 5px rgba(0,0,0,0.1);
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	background: white  no-repeat;
+	border: 1px solid rgba(0,0,0,0.4);
+	color: black;
+	font-weight:bold;
+	font: 13px Helvetica, Arial, sans-serif;
+	width: auto;
 	height: 40px;
-	width: 200px;
+	text-align: center;
 }
-
-.insertar.z-hlayout .z-hlayout-inner .z-vlayout .z-vlayout-inner .z-textbox:HOVER {
-	border: 1.8px solid #868585;
+.cbox_llenar_datos.z-combobox .z-combobox-button{
+	border-top-right-radius: 5px;
+	border-bottom-right-radius: 5px;
+	box-shadow:0 0 5px rgba(0,0,0,0.1);
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	background: white  no-repeat;
+	border: 1px solid rgba(0,0,0,0.4);
+	color: #777;
+	font: 13px Helvetica, Arial, sans-serif;
+	width: 30px;
+	height: 40px;
+}
+.cbox_llenar_datos.z-combobox{
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-ms-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	box-shadow:0 0 5px rgba(0,0,0,0.1);
+	-webkit-transition: all 0.5s ease;
+	-moz-transition: all 0.5s ease;
+	-ms-transition: all 0.5s ease;
+	-o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+	background: white  no-repeat;
+	border: 1px solid rgba(0,0,0,0.4);
+	color: #777;
+	font: 13px Helvetica, Arial, sans-serif;
+	width: auto;
+	height: 40px;
+}
+/*==COMBOITEM==*/
+.cbox_llenar_datos .z-comboitem.z-comboitem-selected{
+	background: #053351;
+}
+.cbox_llenar_datos .z-comboitem.z-comboitem-selected .z-comboitem-text{
+	color: white;
 }
 /********************* ESTILO LISTBOX **************************/
 .z-listbox .z-listbox-header table tbody .z-listhead .z-listheader .z-listheader-content {
@@ -231,17 +326,33 @@
 	height: 50px;
 /* 	border-radius:10px; */
 	border:none;
-/* 	background: #2f2f2f; */
-	background:rgba(0,0,0,0.5);
+	background: #2f2f2f;
+/* 	background:rgba(0,0,0,0.5); */
 	color:white;
 	transition: 0.3s all ease;
 }
 .estilo_subir_imagen:hover,
 .estilo_subir_imagen:FOCUS{
-	background:#2f2f2f;
-/* 	border-radius:10px; */
+	background:#053351;
+	border-radius:5px;
 }
 /*==BANDERAS==*/
+.div_contiene_banderas{
+	background: #2f2f2f;
+	border-radius:5px;
+	height: 60px;
+	padding: 5px 0 5px 5px;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
 .estilo_banderas{
 	width: 40px;
 	height: 40px;
@@ -257,7 +368,8 @@
 .div_contenedor_nuevo{
 	padding: 10px;
 	box-sizing:border-box;
-	background: rgba(0,0,0,0.2);
+	background: rgba(0,0,0,0.1);
+/* 	background:#1a1f21; */
 	border-radius:5px;
 }
 .div_contendor_btn_nuevo{
@@ -297,10 +409,22 @@
 	color:white;
 	font-size:18px;
 	border: none;
-	background: rgba(0,0,0,0.4);
+	background: #2f2f2f;
 	transition: 0.3s all ease;
 }
 .btn_guardar:HOVER {
-	background: #2f2f2f;
+/* 	background: #2f2f2f; */
+	background:#053351;
 	border-radius:5px;
+}
+.btn_guardar:focus {
+/* 	background: #2f2f2f; */
+	background:#053351;
+	border-radius:5px;
+}
+/*==LABEL LLENAR DATOS==*/
+.lbl_llenar_datos{
+	color: #053351;
+	font-weight: bold;
+	font-size: 16px;
 }
