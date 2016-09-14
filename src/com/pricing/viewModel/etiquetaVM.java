@@ -11,6 +11,7 @@ import org.zkoss.zul.Messagebox;
 
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.model.CEtiqueta;
+import com.pricing.model.CServicio;
 import com.sun.mail.handlers.message_rfc822;
 
 public class etiquetaVM 
@@ -28,6 +29,7 @@ public class etiquetaVM
 	private boolean visibleIdioma5=false;
 	private boolean visiblecmbIdiomas=false;
 	private boolean visiblebtnActualizar=false;
+	private boolean visibleEditarRespons=false;
 	/**
 	 * GETTER AND SETTER
 	 */
@@ -36,6 +38,14 @@ public class etiquetaVM
 		return oEtiqueta;
 	}
 	
+	public boolean isVisibleEditarRespons() {
+		return visibleEditarRespons;
+	}
+
+	public void setVisibleEditarRespons(boolean visibleEditarRespons) {
+		this.visibleEditarRespons = visibleEditarRespons;
+	}
+
 	public boolean isVisiblebtnActualizar() {
 		return visiblebtnActualizar;
 	}
@@ -132,10 +142,10 @@ public class etiquetaVM
 	}
 	
 	@Command
-	@NotifyChange({"oEtiqueta","visiblecmbIdiomas","visiblebtnActualizar"})
+	@NotifyChange({"oEtiqueta","visiblecmbIdiomas","visiblebtnActualizar","visibleEditarRespons"})
 	 public void Editar(@BindingParam("etiqueta") CEtiqueta e ) 
 	{
-		visiblecmbIdiomas=visiblebtnActualizar=true;
+		visiblecmbIdiomas=visiblebtnActualizar=visibleEditarRespons=true;
 		oEtiqueta.setEditable(false);
 		refrescaFilaTemplate(oEtiqueta);
 		oEtiqueta=e;
@@ -154,6 +164,32 @@ public class etiquetaVM
 		else if(idIdioma.equals("cmbPortugues")){visiblePortugues=true; visibleIngles=visibleEspaniol=visibleIdioma4=visibleIdioma5=false;}
 		else if(idIdioma.equals("cmbIdioma4")){visibleIdioma4=true; visibleIngles=visiblePortugues=visibleEspaniol=visibleIdioma5=false;}
 		else if(idIdioma.equals("cmbIdioma5")){visibleIdioma5=true; visibleIngles=visiblePortugues=visibleIdioma4=visibleEspaniol=false;}
+	}
+	
+	@Command
+	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("etiqueta")CEtiqueta etiqueta)
+	{
+		if(idIdioma.equals("Espanol"))
+		{
+				etiqueta.setVisibleEspanol(true);
+				etiqueta.setVisibleIngles(false);
+				etiqueta.setVisiblePortugues(false);
+		}
+		else if(idIdioma.equals("Ingles"))
+		{
+				etiqueta.setVisibleEspanol(false);
+				etiqueta.setVisibleIngles(true);
+				etiqueta.setVisiblePortugues(false);
+		}
+		else if(idIdioma.equals("Portugues"))
+		{
+				etiqueta.setVisibleEspanol(false);
+				etiqueta.setVisibleIngles(false);
+				etiqueta.setVisiblePortugues(true);
+		}
+		BindUtils.postNotifyChange(null, null, etiqueta, "visibleEspanol");
+		BindUtils.postNotifyChange(null, null, etiqueta, "visibleIngles");
+		BindUtils.postNotifyChange(null, null, etiqueta, "visiblePortugues");
 	}
 	public void refrescaFilaTemplate(CEtiqueta e)
 	{

@@ -12,9 +12,43 @@ public class CEtiqueta
 	public String COLOR_NO_SELECT="background:white;";
 	private boolean editable;
 	private String color;
+	private boolean visibleEspanol;
+	private boolean visibleIngles;
+	private boolean visiblePortugues;
 	//GETTER AND SETTER
+	
 	public int getCodEtiqueta() {
 		return codEtiqueta;
+	}
+	public String getCOLOR_SELECT() {
+		return COLOR_SELECT;
+	}
+	public void setCOLOR_SELECT(String cOLOR_SELECT) {
+		COLOR_SELECT = cOLOR_SELECT;
+	}
+	public String getCOLOR_NO_SELECT() {
+		return COLOR_NO_SELECT;
+	}
+	public void setCOLOR_NO_SELECT(String cOLOR_NO_SELECT) {
+		COLOR_NO_SELECT = cOLOR_NO_SELECT;
+	}
+	public boolean isVisibleEspanol() {
+		return visibleEspanol;
+	}
+	public void setVisibleEspanol(boolean visibleEspanol) {
+		this.visibleEspanol = visibleEspanol;
+	}
+	public boolean isVisibleIngles() {
+		return visibleIngles;
+	}
+	public void setVisibleIngles(boolean visibleIngles) {
+		this.visibleIngles = visibleIngles;
+	}
+	public boolean isVisiblePortugues() {
+		return visiblePortugues;
+	}
+	public void setVisiblePortugues(boolean visiblePortugues) {
+		this.visiblePortugues = visiblePortugues;
 	}
 	public void setCodEtiqueta(int codEtiqueta) {
 		this.codEtiqueta = codEtiqueta;
@@ -80,6 +114,9 @@ public class CEtiqueta
 		this.cIdioma5 = cIdioma5;
 		this.editable=false;
 		this.color=COLOR_NO_SELECT;
+		this.visibleEspanol=true;
+		this.visibleIngles=false;
+		this.visiblePortugues=false;
 	}
 	
 }

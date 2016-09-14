@@ -238,8 +238,8 @@
   	 border: 1px solid #1A5276;
 }
 @-webkit-keyframes animation {
-   10%,30% {background-color: #B3FF04;}
-   50%,100% {background-color: #78cd51;}
+   10%,30% {background-color: #1CF320;}
+   50%,100% {background-color: #13E616;}
 }
 .estilo_btn_foto{
    animation-name: animation;
@@ -257,14 +257,41 @@
 	text-align: center;
 }
 
+/*==========estilos pie listbox============*/
+.z-paging{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	background: #62666B;
+}
+	
+.z-paging .z-paging-input{
+	color: black;
+	text-align: center;
+}
+	
+.z-paging .z-paging-text{
+	color: white;
+}
+
+.z-paging-info {
+	color: black;
+}
+
 @media only screen and (max-width: 416px)
 {
+	.estilo_editar_respons {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+	}
+	
 	.estilo_numero_respons {
-		width: 30% !important;
+		width: 20% !important;
 	}
 	
 	.estilo_operacion_respons {
-		width: 70% !important;
+		width: 60% !important;
 	}
 	.z-listbox .z-listbox-header table tbody .z-listhead .z-listheader, .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell{
 		width: 100%;
@@ -273,28 +300,11 @@
 		display: none;
 	}
 	
-	.z-paging-info {
-		display: none;
-	}
-	
 	.z-paging{
-		display:flex;
-		justify-content: center;
-		align-items: center;
 		background: linear-gradient(to bottom, #3f3f3f 0%, #222222 100%);
 	}
-	
-	.z-paging .z-paging-input{
-		color: black;
-		text-align: center;
-	}
-	
-	.z-paging .z-paging-text{
-		color: white;
-	}
-	
-	.update_aparece {
-		visibility: hidden;
+	.z-paging-info {
+		display: none;
 	}
 	
 	.insertar {
