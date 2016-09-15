@@ -1,0 +1,12 @@
+.div_contenedor_nuevo_paquete{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+@MEDIA (max-width:700px) {
+	.div_contenedor_nuevo_paquete{
+		flex-direction:column;
+	}
+}

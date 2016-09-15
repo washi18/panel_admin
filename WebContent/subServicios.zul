@@ -27,7 +27,7 @@
 						<div height="150px" width="200px" zclass="div_img">
 							<image width="100%" height="100%" src="img/loading_7.gif"/>
 						</div>
-						<button label="Subir Imagen de Servicio" zclass="estilo_subir_imagen"/>
+						<button label="Subir Imagen" zclass="estilo_subir_imagen"/>
 					</div>
 					<space></space>
 					<div zclass="div_content_datos">
@@ -62,9 +62,11 @@
 									placeholder="PORTUGUES" width="250px" visible="false"/>
 							</div>
 						</div>
-						<separator bar="true"/>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
 						<div>
-							<label value="URL DEL SUB SERVICIO: " zclass="lbl_llenar_datos"/>
+							<label value="URL : " zclass="lbl_llenar_datos"/>
 							<textbox width="200px" zclass="txt_llenar_datos" placeholder="LINK"/>
 						</div>
 						<div>

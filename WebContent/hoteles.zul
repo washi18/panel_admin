@@ -1,0 +1,88 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<style src="css/formas_Generales.css"></style>
+	<style src="css/estilos_Servicios.css"></style>
+	<div >
+		<div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_servicios.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="150px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO HOTEL"/>
+				</div>
+			</div>
+			<div id="div_llenar_servicios" visible="false">
+				<space></space>
+				<div zclass="div_contenedor_nuevo_servicio">
+					<div zclass="div_content_datos">
+						<div>
+							<div>
+								<label value="HOTEL: " zclass="lbl_llenar_datos"/>
+								<textbox zclass="txt_llenar_datos" placeholder="NOMBRE HOTEL" width="250px" visible="true"/>
+							</div>
+							<div zclass="div_contiene_banderas">
+								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+										onClick="txtSpainDesc.setVisible(true);
+												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(false)"/>
+								<image src="img/en.png" sclass="estilo_banderas"
+										onClick="txtSpainDesc.setVisible(false);
+												txtInglesDesc.setVisible(true);txtPortuDesc.setVisible(false)"/>
+								<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+										onClick="txtSpainDesc.setVisible(false);
+												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(true)"/>
+							</div>
+							<div>
+								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
+								<textbox zclass="txt_llenar_datos" id="txtSpainDesc" multiline="true" height="150px"
+									placeholder="ESPAÑOL" width="250px" visible="true"/>
+								<textbox zclass="txt_llenar_datos" id="txtInglesDesc" multiline="true" height="150px"
+									placeholder="INGLES" width="250px" visible="false"/>
+								<textbox zclass="txt_llenar_datos" id="txtPortuDesc" multiline="true" height="150px"
+									placeholder="PORTUGUES" width="250px" visible="false"/>
+							</div>
+						</div>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div>
+							<label value="ELEGIR LA CATEGORIA DEL HOTEL:" zclass="lbl_llenar_datos"/>
+							<separator bar="true" zclass="lbl_llenar_datos"/>
+							<div>
+								<radiogroup sclass="style_restricciones">
+									<radio label="ECONOMICO" value=""/>
+									<radio label="TURISTICO" value="numerica"/>
+									<radio label="TURISTICO SUPERIOR" value="sub_servicios"/>
+									<radio label="PRIMERA" value="sub_servicios"/>
+									<radio label="PRIMERA SUPERIOR" value="sub_servicios"/>
+									<radio label="LUJO" value="sub_servicios"/>
+									<radio label="LUJO SUPERIOR" value="sub_servicios"/>
+								</radiogroup>
+							</div>
+						</div>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div>
+							<label value="URL : " zclass="lbl_llenar_datos"/>
+							<textbox width="200px" zclass="txt_llenar_datos" placeholder="LINK"/>
+						</div>
+						<div>
+							<label value="COSTO SIMPLE($): " zclass="lbl_llenar_datos"/>
+							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+						</div>
+						<div>
+							<label value="COSTO DOBLE($): " zclass="lbl_llenar_datos"/>
+							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+						</div>
+						<div>
+							<label value="COSTO TRIPLE($): " zclass="lbl_llenar_datos"/>
+							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+						</div>
+						<button label="Guardar" zclass="btn_guardar">
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

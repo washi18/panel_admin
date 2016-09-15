@@ -39,6 +39,7 @@ public class panelAdminVM
 	private boolean visibleSubServicios;
 	private boolean visibleImpuestos;
 	private boolean visibleDisponibilidad;
+	private boolean visibleHoteles;
 	
 	//===============VARIABLES SUBITEMS================
 	private boolean openItemConfig;
@@ -58,6 +59,7 @@ public class panelAdminVM
 	private boolean seleccionServicios=false;
 	private boolean seleccionSubServicios=false;
 	private boolean seleccionImpuestos=false;
+	private boolean seleccionHoteles;
 	
 	//=================GET Y SET SELECCION TABS=======
 	public boolean isVisibleConfiguracion() {
@@ -114,6 +116,18 @@ public class panelAdminVM
 	}
 	//================RESPONSIVE======================
 	
+	public boolean isVisibleHoteles() {
+		return visibleHoteles;
+	}
+	public void setVisibleHoteles(boolean visibleHoteles) {
+		this.visibleHoteles = visibleHoteles;
+	}
+	public boolean isSeleccionHoteles() {
+		return seleccionHoteles;
+	}
+	public void setSeleccionHoteles(boolean seleccionHoteles) {
+		this.seleccionHoteles = seleccionHoteles;
+	}
 	public String getNombres() {
 		return nombres;
 	}
@@ -221,7 +235,9 @@ public class panelAdminVM
 	@Init
 	public void Inicializar() {
 		seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
+		seleccionHoteles=false;
 		visibleDisponibilidad=visibleEtiqueta = visiblePaquetes = visibleServicios = visibleSubServicios = visibleImpuestos =false;
+		visibleHoteles=false;
 		visibleConfiguracion=false;
 	}
 
@@ -229,7 +245,7 @@ public class panelAdminVM
 	@Command
 	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes", "visibleServicios", "visibleSubServicios", "visibleImpuestos", "visibleMenu", "visibleDisponibilidad",
 		"seleccionDisponibilidad","seleccionEtiquetas", "seleccionPaquetes", "seleccionServicios", "seleccionSubServicios", "seleccionImpuestos",
-		"visibleConfiguracion"})
+		"visibleConfiguracion","visibleHoteles","seleccionHoteles"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
 		visibleConfiguracion=true;	
 		if (cambios.equals("itemDisponibilidad")) {
@@ -268,7 +284,16 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				seleccionImpuestos=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
+			}else if (cambios.equals("itemHoteles")) {
+				visibleHoteles=true;
+				visibleImpuestos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
+				visibleSubServicios=false;
+				seleccionHoteles=true;
+				seleccionImpuestos=false;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
+			
 	}
 	//================CAMBIO DE APERTURA==========
 	@Command

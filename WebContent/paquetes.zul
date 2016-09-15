@@ -5,62 +5,51 @@
 	<style src="css/estilos_Paquete.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmPaquete') @init('com.pricing.viewModel.paquetesVM')" width="100%">
-		<div>
-			<panel>
-				<caption>
-					<button id="btnGeneral" label="General" focus="true" zclass="btn_desc_general"
-						onClick="@command('pasosInsertar',Opcion=self.id)">
-					</button>
-					<button id="btnDescripcion" label="Descripcion" zclass="btn_desc_general"
-						onClick="@command('pasosInsertar',Opcion=self.id)">
-					</button>
-				</caption>
-				<panelchildren>
-					<div visible="@bind(vmPaquete.visibleGeneral)" sclass="insertar">
+		<div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_paquetes.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="180px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO PAQUETE"/>
+				</div>
+			</div>
+			<div id="div_llenar_paquetes" visible="false">
+				<space></space>
+				<div zclass="div_contenedor_nuevo_paquete">
+					<div zclass="div_content_datos">
 						<div>
-							<div height="150px" width="200px" style="border: 1px dashed blue;"></div>
-							<button label="Seleccionar">
-							</button>
-						</div>
-						<space spacing="20px"></space>
-						<div>
-							<textbox placeholder="Nombre">
-							</textbox>
-							<textbox multiline="true" height="150px"
-								placeholder="Descricpion" width="100%">
-							</textbox>
-							<div height="2px"></div>
-						</div>
-					</div>
-					<div visible="@bind(vmPaquete.visibleDescripcion)" sclass="insertar">
-						<div>
-							<textbox placeholder="Noches"></textbox>
-							<textbox placeholder="Dias"></textbox>
-							<textbox placeholder="Dsiponibilidad"></textbox>
-							<combobox value="estado">
-								<comboitem>activo</comboitem>
-								<comboitem>inactivo</comboitem>
-							</combobox>
-						</div>
-						<space spacing="20px"></space>
-						<div>
-							<groupbox>
-								<vlayout>
-									<textbox placeholder="1 persona"></textbox>
-									<textbox placeholder="2 personas"></textbox>
-									<textbox placeholder="3 personas"></textbox>
-									<textbox placeholder="4 personas"></textbox>
-									<textbox placeholder="5 personas"></textbox>
-								</vlayout>
-							</groupbox>
-							<button label="Guardar"
-								sclass="estilo_foto">
-							</button>
+							<div zclass="div_contiene_banderas">
+								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(false)"/>
+								<image src="img/en.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+												txtPortuName.setVisible(false)"/>
+								<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(true)"/>
+							</div>
+							<div>
+								<label value="PAQUETE: " zclass="lbl_llenar_datos"/>
+								<textbox zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true"/>
+								<textbox zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false"/>
+								<textbox zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false"/>
+							</div>
 						</div>
 					</div>
-				</panelchildren>
-			</panel>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div>
+							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+							<space></space>
+						</div>
+						<button label="Guardar" zclass="btn_guardar"/>
+					</div>
+				</div>
+			</div>
 		</div>
+		<space></space>
 		<listbox model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
 			<listhead>
 				<listheader sclass="estilo_numero" label="Nro" width="45px" />
