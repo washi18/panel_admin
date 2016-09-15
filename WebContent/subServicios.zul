@@ -78,15 +78,15 @@
 			</div>
 		</div>
 		<space></space>
-		<listbox model="@bind(vmServicio.listaSubServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
+		<listbox model="@bind(vmServicio.listaSubServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="auto" mold="paging" autopaging="true">
 			<listhead>
 				<listheader label="Nro" sclass="estilo_numero_respons"/>
 				<listheader sclass="desaparece_idiomas" label="Servicio" width="auto"/>
 				<listheader label="Nombre-Descripcion" width="auto"/>
 				<listheader sclass="desaparece_idiomas" label="Imagen" width="auto"/>
 				<listheader sclass="desaparece_idiomas" label="URL" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Precio" width="auto"/>
-				<listheader label="Operacion" sclass="estilo_operacion_respons" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="COSTO($)" width="auto"/>
+				<listheader label="Operacion" sclass="desaparece_idiomas" width="auto"/>
 			</listhead>
 			<template name="noeditable">
 				<listitem>
@@ -106,18 +106,18 @@
 					<listcell sclass="desaparece_idiomas">
 					<div>
 						<div sclass="centrado_datos">
-							<label value="imagen"></label>
+							<label value="imagen..."></label>
 						</div>
 					</div>
 					</listcell>
 					<listcell sclass="desaparece_idiomas">
 					 <div sclass="centrado_datos">
-					 	<label value="url pagina"></label>
+					 	<label value="url pagina..."></label>
 					 </div>
 					</listcell>
 					<listcell sclass="desaparece_idiomas">
 					 <div sclass="centrado_datos">
-					 	<label value="costo"></label>
+					 	<label value="Costo..."></label>
 					 </div>
 					</listcell>
 					<listcell sclass="estilo_operacion_respons">
@@ -133,7 +133,7 @@
 					<listcell sclass="estilo_numero_respons" >
 						<label value="@bind(each.nSubServicioCod)" style="font-size:15px;font-weight:bold;color:#21759b;"/>
 					</listcell>
-					<listcell sclass="estilo_numero_respons" >
+					<listcell sclass="desaparece_idiomas">
 						<label value="@bind(each.nServicioCod)" style="font-size:15px;font-weight:bold;color:#21759b;"/>
 					</listcell>
 					<listcell>
@@ -216,6 +216,7 @@
 								<comboitem label="Servicio 2"></comboitem>
 							</combobox>
 						</div>
+						<separator spacing="2px"></separator>
 						<div sclass="centrado_datos" width="100%">
 							<div width="100%">
 								<div height="150px" width="200px" style="border: 1px dashed blue;">
@@ -228,7 +229,7 @@
 						    <div width="100%">
 								<label value="URL pagina:"></label>
 							</div>
-							<textbox></textbox>
+							<textbox width="100%"></textbox>
 						</div>
 					 	<div sclass="centrado_datos" width="100%"> 
 					 		<div width="100%">
@@ -236,13 +237,20 @@
 					 	    </div>
 					 		<textbox width="100%"></textbox>
 					 	</div>
+					 	<separator spacing="1px"></separator>
+					 	<div sclass="centrado_datos" width="100%" >
+					 		<button label="Actualizar" onClick="@command('actualizarSubServicio',subServicio=each)" style="background: #78cd51; border-color: #78cd51;" sclass="estilo_btn_foto"/>
+					 	</div>
 					  </div>
 					 </div>
 					</div> 	 
 					</listcell>
-					<listcell>
+					<listcell sclass="desaparece_idiomas">
 					  <div sclass="centrado_datos">
-							<label value="imagen"></label>
+							<div height="150px" width="200px" style="border: 1px dashed blue;">
+								<image width="100%" height="100%" src="img/loading_7.gif"/>
+							</div>
+							<button label="Subir Imagen de Servicio" zclass="estilo_subir_imagen"/>
 					  </div>
 					</listcell>
 					<listcell sclass="desaparece_idiomas">
@@ -254,11 +262,14 @@
 					 </div>
 					</listcell>
 					<listcell sclass="desaparece_idiomas">
-					 <div sclass="centrado_datos"> 
+					 <div sclass="centrado_datos">
+					 	<div width="100%">
+								<label value="Precio:"></label>	
+						</div> 
 					 	<textbox ></textbox>
 					 </div>
 					</listcell>
-					<listcell sclass="estilo_operacion_respons">
+					<listcell sclass="desaparece_idiomas">
 					   <vbox sclass="centrado_listcell_operaciones">
 							<button label="Actualizar" onClick="@command('actualizarSubServicio',subServicio=each)" style="background: #78cd51; border-color: #78cd51;" sclass="estilo_btn_foto"/>
 					   </vbox>

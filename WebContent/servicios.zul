@@ -94,14 +94,14 @@
 		</div>
 		<separator spacing="5px"></separator>
 		<separator spacing="5px"></separator>
-		<listbox model="@bind(vmServicio.listaServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="555px" mold="paging" autopaging="true">
+		<listbox model="@bind(vmServicio.listaServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="580px" mold="paging" autopaging="true">
 			<listhead>
 				<listheader label="Nro" sclass="estilo_numero_respons"/>
 				<listheader label="Nombre-Descripcion" width="auto"/>
 				<listheader sclass="desaparece_idiomas" label="Restricciones" width="auto"/>
 				<listheader sclass="desaparece_idiomas" label="Imagen" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Precio" width="auto"/>
-				<listheader label="Operacion" sclass="estilo_operacion_respons" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="COSTO($)" width="auto"/>
+				<listheader sclass="desaparece_idiomas" label="Operacion" width="auto"/>
 			</listhead>
 			<template name="noeditable">
 				<listitem>
@@ -124,15 +124,15 @@
 					</listcell>
 					<listcell sclass="desaparece_idiomas">
 					 <div sclass="centrado_datos">
-					 	<image></image>
+					 	<label value="Imagen..."></label>
 					 </div>
 					</listcell>
 					<listcell sclass="desaparece_idiomas">
 					 <div sclass="centrado_datos">
-					 	<label></label>
+					 	<label value="Costo..."></label>
 					 </div>
 					</listcell>
-					<listcell sclass="estilo_operacion_respons">
+					<listcell>
 					   <vbox sclass="centrado_listcell_operaciones">
 					    <button label="Editar" onClick="@command('Editar',servicio=each)" style="background:#fabb3d; border-color:#fabb3d; border-radius: 20px;"/>
 						<button label="Activar" style="background: #13E616; border-color: #13E616; border-radius: 20px;"></button>
@@ -251,9 +251,12 @@
 					 	</div>
 					 	<div sclass="centrado_datos" width="100%"> 
 					 		<div width="100%">
-					 	    	<label value="Precio:"></label>
+					 	    	<label value="Costo:"></label>
 					 	    </div>
 					 		<textbox width="100%"></textbox>
+					 	</div>
+					 	<div sclass="centrado_datos" width="100%">
+					 		<button label="Actualizar" onClick="@command('actualizarServicio',servicio=each)" style="background: #78cd51; border-color: #78cd51;" sclass="estilo_btn_foto"/>
 					 	</div>
 					  </div>
 					 </div>
@@ -303,7 +306,7 @@
 					 	<textbox ></textbox>
 					 </div>
 					</listcell>
-					<listcell sclass="estilo_operacion_respons">
+					<listcell sclass="desaparece_idiomas">
 					   <vbox sclass="centrado_listcell_operaciones">
 							<button label="Actualizar" onClick="@command('actualizarServicio',servicio=each)" style="background: #78cd51; border-color: #78cd51;" sclass="estilo_btn_foto"/>
 					   </vbox>
