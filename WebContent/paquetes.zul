@@ -40,6 +40,16 @@
 					<space></space>
 					<div zclass="div_content_datos">
 						<div>
+							<label value="NRO DIAS: " zclass="lbl_llenar_datos"/>
+							<textbox width="80px" placeholder="DIAS" zclass="txt_llenar_datos"/>
+							<space></space>
+						</div>
+						<div>
+							<label value="NRO NOCHES: " zclass="lbl_llenar_datos"/>
+							<textbox width="80px" placeholder="NOCHES" zclass="txt_llenar_datos"/>
+							<space></space>
+						</div>
+						<div>
 							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
 							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
 							<space></space>

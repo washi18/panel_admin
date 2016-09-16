@@ -61,10 +61,13 @@
 	-o-transition: all 0.1s ease;
 	transition: all 0.1s ease;
     height: 40px;
-    margin: 4px;
+    margin: 4px 0 4px 0;
     padding-left:10px;
     box-sizing:border-box;
     text-align: justify;
+    font-size: 15px;
+    font-weight: bold;
+    color: black;
 }
 .txt_llenar_datos:focus{
 	border: 1px solid #C40C23;
@@ -375,6 +378,16 @@
 	height: 45px;
 }
 /*==DIV AGREGAR NUEVO==*/
+.div_content_img{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+}
+.div_content_datos{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+}
 .div_contenedor_nuevo{
 	padding: 10px;
 	box-sizing:border-box;
@@ -437,4 +450,33 @@
 	color: #053351;
 	font-weight: bold;
 	font-size: 16px;
+}
+/*==BOTONES EDITAR, ACTUALIZAR Y ACTIVAR==*/
+.btn_editar{
+	background:#3EAFC5; 
+	border-color:#3EAFC5;
+	border-radius: 5px;
+	width: 100px;
+	height: 50px;
+	border: none;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+}
+.btn_actualizar{
+	background:#3BA420; 
+	border-color:#3BA420;
+	border-radius: 5px;
+	width: 100px;
+	height: 50px;
+	border: none;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+}
+@media (max-width:400px){
+	.btn_editar,
+	.btn_actualizar{
+		width: 100%;
+	}
 }

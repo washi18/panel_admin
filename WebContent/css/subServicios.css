@@ -10,13 +10,3 @@
 		flex-direction:column;
 	}
 }
-.div_content_img{
-	background: rgba(0,0,0,0.1);
-	border-radius:5px;
-	padding: 10px;
-}
-.div_content_datos{
-	background: rgba(0,0,0,0.1);
-	border-radius:5px;
-	padding: 10px;
-}

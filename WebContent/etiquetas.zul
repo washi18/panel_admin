@@ -5,81 +5,54 @@
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')">
 		<separator spacing="2px"></separator>
-		<listbox model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" height="530px" mold="paging" autopaging="true" style="border-radius:4px;">
+		<listbox sclass="listados" model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" mold="paging" pageSize="10"  pagingPosition="both">
 			<listhead>
-				<listheader label="Nro" sclass="estilo_numero_respons"/>
-				<listheader label="Español" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Ingles" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Portugues" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Idioma4" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Idioma5" width="auto"/>
-				<listheader sclass="estilo_operacion_respons" label="Operacion"/>
+				<listheader/>
 			</listhead>
 			<template name="modeleditable">
 				<listitem>
-					<listcell sclass="estilo_numero_respons" style="@bind(each.color)">
-						<label value="@bind(each.codEtiqueta)" style="font-size:15px;font-weight:bold;color:#21759b;"/>
-					</listcell>
-					<listcell style="@bind(each.color)">
-					 <div sclass="estilo_editar_respons">
-					  <div sclass="centrar_banderas" visible="@bind(vmAdmin.visibleEditar)">
-					 	<image src="img/Flag-of-Spain.png" height="30px" width="30" onClick="@command('cambioIdiomas',idioma='Espanol',etiqueta=each)"></image>
-					 	<image src="img/en.png" height="30px" width="30" onClick="@command('cambioIdiomas',idioma='Ingles',etiqueta=each)"></image>
-					 	<image src="img/Flag_of_Brazil.png" height="30px" width="30" onClick="@command('cambioIdiomas',idioma='Portugues',etiqueta=each)"></image>
-					  </div>
-						<textbox visible="@bind(each.visibleEspanol)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma1) @save(each.cIdioma1,before='actualizarEtiqueta')"/>
-					   <div visible="@bind(vmAdmin.visibleEditar)">
-					   	<div visible="@bind(vmEtiqueta.visibleEditarRespons)" sclass="estilo_editar_respons">
-							<textbox visible="@bind(each.visibleIngles)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma2) @save(each.cIdioma2,before='actualizarEtiqueta')"/>
-							<textbox visible="@bind(each.visiblePortugues)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma3) @save(each.cIdioma3,before='actualizarEtiqueta')"/>
-							<textbox visible="false" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma4) @save(each.cIdioma4,before='actualizarEtiqueta')"/>
-							<textbox visible="false" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma5) @save(each.cIdioma5,before='actualizarEtiqueta')"/>
-					  	</div>
-					  </div>
-					 </div> 
-					</listcell>
-					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma2) @save(each.cIdioma2,before='actualizarEtiqueta')"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma3) @save(each.cIdioma3,before='actualizarEtiqueta')"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma4) @save(each.cIdioma4,before='actualizarEtiqueta')"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma5) @save(each.cIdioma5,before='actualizarEtiqueta')"/>
-					</listcell>
-					<listcell sclass="estilo_operacion_respons" style="@bind(each.color)">
-						<button label="Actualizar" onClick="@command('actualizarEtiqueta',etiqueta=each)" style="background: #78cd51; border-color: #78cd51;" sclass="estilo_btn_foto"/>
+					<listcell>
+						 <div width="100%" zclass="div_list_cell">
+						 	<div zclass="div_numeracion">
+								<label value="@bind(each.codEtiqueta)"/>
+							</div>
+							<div zclass="div_content_etiqueta_desc">
+							  <div zclass="div_contiene_banderas">
+							 	<image src="img/Flag-of-Spain.png" sclass="estilo_banderas" onClick="@command('cambioIdiomas',idioma='Espanol',etiqueta=each)"></image>
+							 	<image src="img/en.png" sclass="estilo_banderas" onClick="@command('cambioIdiomas',idioma='Ingles',etiqueta=each)"></image>
+							 	<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas" onClick="@command('cambioIdiomas',idioma='Portugues',etiqueta=each)"></image>
+							  </div>
+							  <div sclass="estilo_editar_respons">
+								<textbox zclass="txt_llenar_datos" visible="@bind(each.visibleEspanol)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma1) @save(each.cIdioma1,before='actualizarEtiqueta')"/>
+								<textbox zclass="txt_llenar_datos" visible="@bind(each.visibleIngles)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma2) @save(each.cIdioma2,before='actualizarEtiqueta')"/>
+								<textbox zclass="txt_llenar_datos" visible="@bind(each.visiblePortugues)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma3) @save(each.cIdioma3,before='actualizarEtiqueta')"/>
+								<textbox zclass="txt_llenar_datos" visible="false" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma4) @save(each.cIdioma4,before='actualizarEtiqueta')"/>
+								<textbox zclass="txt_llenar_datos" visible="false" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma5) @save(each.cIdioma5,before='actualizarEtiqueta')"/>
+							  </div>
+							</div>
+							<space></space> 
+							<div zclass="div_operacion_etiqueta">
+								<button label="Actualizar" onClick="@command('actualizarEtiqueta',etiqueta=each)" zclass="btn_actualizar"/>
+							</div>
+						 </div>
 					</listcell>
 				</listitem>
 			</template>
 			<template name="noeditable">
 				<listitem>
-					<listcell sclass="estilo_numero_respons" style="@bind(each.color)">
-						<label value="@bind(each.codEtiqueta)" style="font-size:15px;font-weight:bold;color:#21759b;"/>
-					</listcell>
-					<listcell style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma1)" readonly="true"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma2)" readonly="true"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma3)" readonly="true"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma4)" readonly="true"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas" style="@bind(each.color)">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cIdioma5)" readonly="true"/>
-					</listcell>
-					<listcell sclass="estilo_operacion_respons" style="@bind(each.color)">
-					    <vbox>
-							<button label="Editar" onClick="@command('Editar',etiqueta=each)" style="background:#fabb3d; border-color:#fabb3d;border-radius: 20px;"/>
-							<button label="Activar" style="background: #13E616; border-color: #13E616;border-radius: 20px;"></button>
-						</vbox>
+					<listcell>
+						<div width="100%" zclass="div_list_cell">
+							<div zclass="div_numeracion">
+								<label value="@bind(each.codEtiqueta)"/>
+							</div>
+							<div zclass="div_content_etiqueta_desc">
+								<label value="@bind(each.cIdioma1)" sclass="lbl_idioma_etiqueta"/>
+							</div>
+							<space></space>
+							<div zclass="div_operacion_etiqueta">
+								<button label="Editar" onClick="@command('Editar',etiqueta=each)" zclass="btn_editar"/>
+							</div>
+						</div>
 					</listcell>
 				</listitem>
 			</template>
