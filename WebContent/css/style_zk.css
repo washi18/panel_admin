@@ -410,11 +410,11 @@ body{
 	height: 35px;
     width:40px;
     border: 2px solid;
-    border-color: #589442 #2f582c #2f582c #589442;
+    border-color: #053351 #212F3C #212F3C #053351;
     padding: 7px 0 0 0;
     box-sizing:border-box;
     text-align: center;
-    background: #589442;
+    background: #053351;
 }
 .z-paging ul li a .z-paging-icon{
 	color: #fff;
