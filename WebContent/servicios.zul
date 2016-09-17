@@ -87,10 +87,10 @@
 				<listitem>
 				   		<listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion">
+				    		<div zclass="div_numeracion" width="50px">
 								<label value="@bind(each.nServicioCod)"/>
 							</div>
-							<div zclass="div_contenedor_datos_servicio">
+							<div zclass="div_contenedor_datos_servicio" width="97%">
 					    		<div zclass="div_content_img_list" width="20%">
 					    			<div height="150px" zclass="div_img_list">
 					    				<image width="100%" height="100%"
@@ -116,21 +116,22 @@
 					    			<div>
 					    				<label value="$500 /noche" sclass="estilo_costo"></label>
 					    			</div>
+					    			<div
+					    				zclass="div_operacion_etiqueta">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',servicio=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activar"
+					    					zclass="btn_actualizar">
+					    				</button>
+					    			</div>
 					    		</div>
 					    		<space></space>
 					    		<div sclass="estilo_contenedor_costo" width="20%">
 					    			<label value="$500 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		</div>
 					    	</div>
-				    		<div zclass="div_operacion_etiqueta">
-				    			<button label="Editar"
-				    					onClick="@command('Editar',servicio=each)"
-				    					zclass="btn_editar" />
-				    				<separator spacing="2px"></separator>	
-				    				<button label="Activar"
-				    					zclass="btn_actualizar">
-				    				</button>
-				    			</div>
 				    	</div>
 				    </listcell>
 				</listitem>
@@ -139,247 +140,145 @@
 				<listitem>
 				    <listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion">
+				    		<div zclass="div_numeracion" width="50px">
 								<label value="@bind(each.nServicioCod)"/>
 							</div>
-				    		<div zclass="div_content_img" width="20%">
+				    		<div zclass="div_content_img_lista">
 				    			<div height="150px"
 				    				zclass="div_img">
 				    				<image width="100%" height="100%"
 				    					src="img/loading_7.gif" />
 				    			</div>
 				    			<button label="Subir Imagen"
-				    				zclass="estilo_subir_imagen" />
+				    				zclass="estilo_subir_imagen" width="100%"/>
 				    		</div>
 				    		<space></space>
-				    		<div zclass="div_content_datos" width="50%">
-				    					<div sclass="estilo_editar_respons">
-				    						<div sclass="div_contiene_banderas">
-				    								<image sclass="estilo_banderas"
-				    									src="img/Flag-of-Spain.png"
-				    									onClick="@command('cambioIdiomas',idioma='Espanol',servicio=each)">
-				    								</image>
-				    								<image sclass="estilo_banderas"
-				    									src="img/en.png"
-				    									onClick="@command('cambioIdiomas',idioma='Ingles',servicio=each)">
-				    								</image>
-				    								<image sclass="estilo_banderas"
-				    									src="img/Flag_of_Brazil.png"
-				    									onClick="@command('cambioIdiomas',idioma='Portugues',servicio=each)">
-				    								</image>
+				    		<div zclass="div_content_datos_lista">
+				    			<div sclass="estilo_editar_respons">
+				    				<div
+				    					sclass="div_contiene_banderas">
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag-of-Spain.png"
+				    						onClick="@command('cambioIdiomas',idioma='Espanol',servicio=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/en.png"
+				    						onClick="@command('cambioIdiomas',idioma='Ingles',servicio=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag_of_Brazil.png"
+				    						onClick="@command('cambioIdiomas',idioma='Portugues',servicio=each)">
+				    					</image>
+				    				</div>
+				    				<separator spacing="2px"></separator>
+				    				<div
+				    					visible="@bind(each.visibleEspanol)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%"
+				    							sclass="horizontal_label_texbox">
+				    							<label value="Servicio:"
+				    								sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cServicioIndioma1) @save(each.cServicioIndioma1,before='actualizarServicio')" />
 				    						</div>
 				    						<separator spacing="2px"></separator>
-				    						<div
-				    							visible="@bind(each.visibleEspanol)">
-				    							<div width="100%"
-				    								sclass="centrado_datos" height="100%">
-				    								<div width="100%" sclass="horizontal_label_texbox">
-				    									<label
-				    										value="Servicio:" sclass="estilo_nombre_servicio">
-				    									</label>
-				    									<space></space>
-				    									<textbox
-				    									width="100%" height="30px"
-				    									value="@bind(each.cServicioIndioma1) @save(each.cServicioIndioma1,before='actualizarServicio')" />
-				    								</div>
-				    								<separator spacing="2px"></separator>
-				    								<div width="100%" sclass="horizontal_label_texbox">
-				    									<label
-				    										value="Descripcion:" sclass="estilo_nombre_servicio">
-				    									</label>
-				    									<space></space>
-				    									<textbox
-				    									multiline="true" width="100%" height="150px"
-				    									value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarServicio')" />
-				    								</div>
-				    							</div>
-				    						</div>
-				    						<div
-				    							visible="@bind(each.visibleIngles)">
-				    							<div width="100%"
-				    								sclass="centrado_datos" height="100%">
-				    								<div width="100%" sclass="horizontal_label_texbox">
-				    									<label
-				    										value="Servicio:" sclass="estilo_nombre_servicio">
-				    									</label>
-				    									<space></space>
-				    									<textbox
-				    										width="100%" height="30px"
-				    										value="@bind(each.cServicioIndioma2) @save(each.cServicioIndioma2,before='actualizarServicio')" />
-				    								</div>
-				    								<div width="100%" sclass="horizontal_label_texbox">
-				    									<label
-				    										value="Descripcion:" sclass="estilo_nombre_servicio">
-				    									</label>
-				    									<space></space>
-				    									<textbox
-				    										multiline="true" width="100%" height="150px"
-				    										value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarServicio')" />
-				    								</div>
-				    							</div>
-				    						</div>
-				    						<div
-				    							visible="@bind(each.visiblePortugues)">
-				    							<div width="100%"
-				    								sclass="centrado_datos" height="100%">
-				    								<div width="100%" sclass="horizontal_label_texbox">
-				    									<label
-				    										value="Servicio:" sclass="estilo_nombre_servicio">
-				    									</label>
-				    									<space></space>
-				    									<textbox
-				    										width="100%" height="30px"
-				    										value="@bind(each.cServicioIndioma3) @save(each.cServicioIndioma3,before='actualizarServicio')" />
-				    								</div>
-				    								<div width="100%" sclass="horizontal_label_texbox">
-				    									<label
-				    										value="Descripcion:" sclass="estilo_nombre_servicio">
-				    									</label>
-				    									<space></space>
-				    									<textbox
-				    										multiline="true" width="100%" height="150px"
-				    										value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarServicio')" />
-				    								</div>
-				    							</div>
-				    						</div>
-				    						<div visible="false">
-				    							<div width="100%"
-				    								sclass="centrado_datos">
-				    								<div width="100%">
-				    									<label
-				    										value="Nombre:">
-				    									</label>
-				    								</div>
-				    								<textbox hflex="1"
-				    									width="100%" height="30px"
-				    									value="@bind(each.cServicioIndioma4) @save(each.cServicioIndioma4,before='actualizarServicio')" />
-				    								<div width="100%">
-				    									<label
-				    										value="Descripcion:">
-				    									</label>
-				    								</div>
-				    								<textbox
-				    									multiline="true" width="100%" hflex="1" height="100px"
-				    									value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarServicio')" />
-				    							</div>
-				    						</div>
-				    						<div visible="false">
-				    							<div width="100%"
-				    								sclass="centrado_datos">
-				    								<div width="100%">
-				    									<label
-				    										value="Nombre:">
-				    									</label>
-				    								</div>
-				    								<textbox hflex="1"
-				    									width="100%" height="30px"
-				    									value="@bind(each.cServicioIndioma5) @save(each.cServicioIndioma5,before='actualizarServicio')" />
-				    								<div width="100%">
-				    									<label
-				    										value="Descripcion:">
-				    									</label>
-				    								</div>
-				    								<textbox
-				    									multiline="true" width="100%" hflex="1" height="100px"
-				    									value="@bind(each.cDescripcionIdioma5) @save(each.cDescripcionIdioma5,before='actualizarServicio')" />
-				    							</div>
-				    						</div>
-				    						<div
-				    							visible="@bind(vmAdmin.visibleEditar)">
-				    							<div
-				    								visible="@bind(vmServicio.visibleEditarRespons)">
-				    								<div
-				    									sclass="centrado_datos" width="100%">
-				    									<div
-				    										width="100%">
-				    										<label
-				    											value="Restriccion YES/NO:">
-				    										</label>
-				    									</div>
-				    									<combobox
-				    										width="100%">
-				    										<comboitem
-				    											label="SI">
-				    										</comboitem>
-				    										<comboitem
-				    											label="NO">
-				    										</comboitem>
-				    									</combobox>
-				    								</div>
-				    								<div
-				    									sclass="centrado_datos" width="100%">
-				    									<div
-				    										width="100%">
-				    										<label
-				    											value="Restriccion numerica">
-				    										</label>
-				    									</div>
-				    									<combobox
-				    										width="100%">
-				    										<comboitem
-				    											label="SI">
-				    										</comboitem>
-				    										<comboitem
-				    											label="NO">
-				    										</comboitem>
-				    									</combobox>
-				    								</div>
-				    								<div
-				    									sclass="centrado_datos" width="100%">
-				    									<div
-				    										width="100%">
-				    										<label
-				    											value="SubServicios:">
-				    										</label>
-				    									</div>
-				    									<combobox
-				    										width="100%">
-				    										<comboitem
-				    											label="SI">
-				    										</comboitem>
-				    										<comboitem
-				    											label="NO">
-				    										</comboitem>
-				    									</combobox>
-				    								</div>
-				    								<div
-				    									sclass="centrado_datos" width="100%">
-				    									<div
-				    										width="100%">
-				    										<label
-				    											value="Imagen:">
-				    										</label>
-				    									</div>
-				    									<button
-				    										label="Agregar" width="100%">
-				    									</button>
-				    								</div>
-				    								<div
-				    									sclass="centrado_datos" width="100%">
-				    									<div
-				    										width="100%">
-				    										<label
-				    											value="Costo:">
-				    										</label>
-				    									</div>
-				    									<textbox
-				    										width="100%">
-				    									</textbox>
-				    								</div>
-				    								<div
-				    									sclass="centrado_datos" width="100%">
-				    									<button
-				    										label="Actualizar"
-				    										onClick="@command('actualizarServicio',servicio=each)"
-				    										style="background: #78cd51; border-color: #78cd51;"
-				    										sclass="estilo_btn_foto" />
-				    								</div>
-				    							</div>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarServicio')" />
 				    						</div>
 				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visibleIngles)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label value="Servicio:" sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox width="100%" sclass="txt_llenar_datos" height="30px"
+				    								value="@bind(each.cServicioIndioma2) @save(each.cServicioIndioma2,before='actualizarServicio')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarServicio')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visiblePortugues)">
+				    					<div width="100%" sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label value="Servicio:" sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cServicioIndioma3) @save(each.cServicioIndioma3,before='actualizarServicio')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarServicio')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cServicioIndioma4) @save(each.cServicioIndioma4,before='actualizarServicio')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<textbox multiline="true" sclass="txt_llenar_datos"
+				    							width="100%" hflex="1" height="100px"
+				    							value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarServicio')" />
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cServicioIndioma5) @save(each.cServicioIndioma5,before='actualizarServicio')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<textbox multiline="true"
+				    							width="100%" hflex="1" height="100px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cDescripcionIdioma5) @save(each.cDescripcionIdioma5,before='actualizarServicio')" />
+				    					</div>
+				    				</div>
+				    			</div>
 				    		</div>
 				    		<space></space>
-				    		<div zclass="div_content_datos" width="20%">
+				    		<div zclass="div_content_restricciones">
 				    			<div>
 				    				<label
 				    					value="ELEGIR UNA RESTRICCION:" zclass="lbl_llenar_datos" />
@@ -397,7 +296,6 @@
 				    					</radiogroup>
 				    				</div>
 				    			</div>
-				    			<space></space>
 				    			<div>
 				    				<label value="COSTO ($): "
 				    					zclass="lbl_llenar_datos" />
@@ -405,11 +303,10 @@
 				    					placeholder="PRECIO" zclass="txt_llenar_datos" />
 				    			</div>
 				    		</div>
-				    		<div sclass="centrado_datos" width="10%">
+				    		<div sclass="div_content_actualizar">
 				    			<button label="Actualizar"
 				    				onClick="@command('actualizarServicio',servicio=each)"
-				    				style="background: #78cd51; border-color: #78cd51;"
-				    				sclass="estilo_btn_foto" />
+				    				zclass="btn_actualizar"/>
 				    		</div>
 				    	</div>
 				    </listcell>

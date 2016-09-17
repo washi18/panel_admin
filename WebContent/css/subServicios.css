@@ -5,8 +5,92 @@
 	display: -ms-flex;
 	display: -o-flex;
 }
+
+.div_content_datosAdicionales{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 25%;
+}
+
+.estilo_nombre_subServicio {
+	color: #069;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.horizontal_label_texbox_subServicio {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+
+.div_content_img_listaSub{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 20%;
+}
+
+.div_content_datos_listaSub{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 40%;
+}
+
+.div_content_actualizarSub {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 15%;
+}
+
+.div_operacion_etiqueta_subServicio{
+	width: 30%;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+}
+
+.div_contenedor_datos_subServicio{
+	display: flex;
+}
 @MEDIA (max-width:700px) {
 	.div_contenedor_nuevo_subServicio{
 		flex-direction:column;
+	}
+	.div_content_datosAdicionales{
+		width: 100%;
+	}
+	
+	.div_operacion_etiqueta_subServicio{
+		width: auto;
+	}
+	
+	.estilo_nombre_servicio {
+		font-size: 13px;
+	}
+	.horizontal_label_texbox_subServicio {
+		display: flex;
+		flex-direction: column;
+	}
+	.div_content_img_listaSub{
+		width: 100% !important;
+	}
+	
+	.div_content_datos_listaSub{
+		width: 100% !important;
+	}
+	
+	.div_content_actualizarSub{
+		width: 100% !important;
+	}
+	.div_content_img_listSub{
+		width: 40% !important;
+		padding: 1%;
 	}
 }

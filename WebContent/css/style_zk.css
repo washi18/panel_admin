@@ -107,6 +107,11 @@ body{
 /*==COMBOITEM==*/
 .z-comboitem.z-comboitem-selected{
 	background: #1A5276;
+	text-shadow: none;
+}
+
+.z-comboitem.z-comboitem-selected .z-comboitem-text{
+	color: black;
 }
 /*==TEXTBOX==*/
 .z-textbox {

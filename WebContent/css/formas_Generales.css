@@ -196,6 +196,7 @@
 	flex-direction: column;
 }
 
+
 .estilo_start_descripcion {
 	display: flex;
 	justify-content: center;
@@ -313,9 +314,9 @@
 	
 	.estilo_costo {
 		display: block;
-		font-size: 12px;
+		font-size: 14px;
 		font-weight:bold;
-		color: #13E616;
+		color: black;
 	}
 }
 /**DIV IMAGEN**/
@@ -495,7 +496,7 @@
 	}
 }
 .div_numeracion{
-	background: #451975;
+	background: #053351;
 	color: white;
 	font-size: 18px;
 	font-weight: bold;
@@ -511,8 +512,8 @@
 }
 .div_numeracion:AFTER{
 	content: '';
-	border-bottom:13px solid #451975;
-	border-top:13px solid #451975;
+	border-bottom:13px solid #053351;
+	border-top:13px solid #053351;
 /* 	border-left:10px solid #2f2f2f; */
 	border-right:10px solid transparent;
 	top:0;

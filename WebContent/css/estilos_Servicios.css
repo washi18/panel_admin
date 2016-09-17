@@ -7,12 +7,11 @@
 }
 .estilo_nombre_servicio {
 	color: #069;
-	font-size: 1.5em;
+	font-size: 16px;
 	font-weight: bold;
 }
 
-.horizontal_label_texbox {
-	display: flex;
+.horizontal_label_texbox_subServicio {
 	display: flex;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -56,7 +55,7 @@
 	}
 	
 	.estilo_nombre_servicio {
-		font-size: 1em;
+		font-size: 13px;
 	}
 	
 	.div_content_img_list{
@@ -78,6 +77,27 @@
 
 	.estilo_btnActivar {
 		width: 50px;
+	}
+	
+	.horizontal_label_texbox {
+		display: flex;
+		flex-direction: column;
+	}
+	
+	.div_content_img_lista{
+		width: 100% !important;
+	}
+	
+	.div_content_restricciones {
+		width: 100% !important;
+	}
+	
+	.div_content_datos_lista {
+		width: 100% !important;
+	}
+	
+	.div_content_actualizar {
+		width: 100% !important;
 	}
 }
 .style_restricciones.z-radiogroup{
@@ -128,6 +148,37 @@
       border-radius: 2px;
       color: #fff;
 }
+
 .div_contenedor_datos_servicio{
 	display: flex;
+}
+
+
+.div_content_img_lista{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 20%;
+}
+
+.div_content_datos_lista{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 40%;
+}
+
+.div_content_restricciones {
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 25%;
+}
+
+.div_content_actualizar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 15%;
 }
