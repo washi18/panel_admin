@@ -548,12 +548,12 @@
 /*==NUEVA FORMA DE LA PARTE DE MANTENIMIENTO==*/
 .div_mantenimiento{
 	width: 100%;
-	min-height: 1100px;
+	min-height: 1500px;
 	background:  linear-gradient(to bottom, #3f3f3f 0%, #222222 5%);
 }
 @media (max-width:700px){
 	.div_mantenimiento{
-		min-height: 1700px;
+		min-height: 2500px;
 	}
 }
 .div_mantenimiento_items{

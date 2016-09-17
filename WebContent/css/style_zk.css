@@ -355,3 +355,76 @@ body{
 /* 	padding: 0; */
 	border-radius:0 0 6px 6px;
 }
+/*==ESTILOS PAGING==*/
+.z-paging{
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	border:2px solid #053351;
+	box-shadow:2px 2px 10px 0 #053351;
+	-webkit-box-shadow:2px 2px 10px 0 #053351;
+	-moz-box-shadow:2px 2px 10px 0 #053351;
+	-ms-box-shadow:2px 2px 10px 0 #053351;
+	-o-box-shadow:2px 2px 10px 0 #053351;
+	margin: 0 0 10px 0;
+	border-radius:4px;
+	height: 50px;
+}
+	
+.z-paging .z-paging-input{
+	background: white;
+	border: 1px solid rgba(0,0,0,0.4);
+    border-radius: 5px;
+    box-shadow:0 0 5px rgba(0,0,0,0.1);
+	-webkit-transition: all 0.1s ease;
+	-moz-transition: all 0.1s ease;
+	-ms-transition: all 0.1s ease;
+	-o-transition: all 0.1s ease;
+	transition: all 0.1s ease;
+    height: 35px;
+    width:45px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #053351;
+}
+.z-paging .z-paging-input:focus{
+	border: 1px solid #C40C23;
+	box-shadow:0 0 8px #C40C23;
+}
+.z-paging .z-paging-input:hover{
+	border: 1px solid #C40C23;
+	box-shadow:0 0 8px #C40C23;
+}
+.z-paging .z-paging-text{
+	font-size: 20px;
+    font-weight: bold;
+    color: black;
+}
+.z-paging ul li a{
+	height: 35px;
+    width:40px;
+    border: 2px solid;
+    border-color: #589442 #2f582c #2f582c #589442;
+    padding: 7px 0 0 0;
+    box-sizing:border-box;
+    text-align: center;
+    background: #589442;
+}
+.z-paging ul li a .z-paging-icon{
+	color: #fff;
+	font-weight:bold;
+	font-size: 45px;
+}
+.z-paging ul li a[disabled="disabled"]{
+	border: 2px solid black;
+	background: #fff;
+}
+.z-paging ul li a[disabled="disabled"] .z-paging-icon{
+	color: black;
+	font-weight:bold;
+	font-size: 45px;
+}
+.z-paging .z-paging-info {
+	display: none !important;
+}

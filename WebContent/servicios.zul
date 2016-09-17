@@ -79,8 +79,7 @@
 			</div>
 		</div>
 		<separator spacing="5px"></separator>
-		<separator spacing="5px"></separator>
-		<listbox  sclass="listados" model="@bind(vmServicio.listaServicios) @template((each.editable)? 'modeleditable':'noeditable')" mold="paging" pageSize="5">
+		<listbox sclass="listados" model="@bind(vmServicio.listaServicios) @template((each.editable)? 'modeleditable':'noeditable')"  mold="paging" pageSize="5" pagingPosition="both">
 			<listhead>
 				<listheader/>
 			</listhead>

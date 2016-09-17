@@ -97,6 +97,17 @@ public class CHotel
 	//======================================
 	public CHotel() {
 		// TODO Auto-generated constructor stub
+		this.cHotel ="";
+		this.cDescripcionIdioma1 ="";
+		this.cDescripcionIdioma2 ="";
+		this.cDescripcionIdioma3 ="";
+		this.cDescripcionIdioma4 ="";
+		this.cDescripcionIdioma5 ="";
+		this.cUrl ="";
+		this.categoriaHotelCod =0;
+		this.nPrecioSimple =0;
+		this.nPrecioDoble =0;
+		this.nPrecioTriple =0;
 	}
 	public CHotel(int nHotelCod, String cHotel, String cDescripcionIdioma1,
 			String cDescripcionIdioma2, String cDescripcionIdioma3,

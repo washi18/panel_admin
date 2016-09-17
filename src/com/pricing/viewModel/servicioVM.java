@@ -7,6 +7,8 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zul.Listbox;
 
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.dao.CServicioDAO;

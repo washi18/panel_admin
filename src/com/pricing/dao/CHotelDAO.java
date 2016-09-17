@@ -66,4 +66,18 @@ public class CHotelDAO extends CConexion
 					(boolean)row.get("bestado")));
 		}
 	}
+	public List insertarHotel(CHotel hotel)
+	{
+		Object[] values={hotel.getcHotel(),hotel.getcDescripcionIdioma1(),hotel.getcDescripcionIdioma2(),
+				hotel.getcDescripcionIdioma3(),hotel.getcDescripcionIdioma4(),hotel.getcDescripcionIdioma5(),
+				hotel.getcUrl(),hotel.getnPrecioSimple(),hotel.getnPrecioDoble(),hotel.getnPrecioTriple()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_InsertarHotel", values);
+	}
+	public boolean isOperationCorrect(List lista)
+	{
+		Map row=(Map)lista.get(0);
+		boolean correcto=row.get("resultado").toString().equals("correcto");
+		if(correcto)return true;
+		else return false;
+	}
 }

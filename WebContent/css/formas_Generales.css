@@ -255,28 +255,7 @@
 	width: 12%;
 	text-align: center;
 }
-
-/*==========estilos pie listbox============*/
-.z-paging{
-	display:flex;
-	justify-content: center;
-	align-items: center;
-	background: #62666B;
-}
-	
-.z-paging .z-paging-input{
-	color: black;
-	text-align: center;
-}
-	
-.z-paging .z-paging-text{
-	color: white;
-}
-
-.z-paging-info {
-	color: black;
-}
-
+/************************/
 .estilo_contenedor_costo{
    display: flex;
    justify-content: center;
@@ -308,14 +287,6 @@
 	.desaparece_idiomas { 
 		display: none;
 	}
-	
-	.z-paging{
-		background: linear-gradient(to bottom, #3f3f3f 0%, #222222 100%);
-	}
-	.z-paging-info {
-		display: none;
-	}
-	
 	.insertar {
     	flex-direction: column;
     }
