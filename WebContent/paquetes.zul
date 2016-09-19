@@ -60,69 +60,300 @@
 			</div>
 		</div>
 		<space></space>
-		<listbox model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
+		<listbox sclass="listados" model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
 			<listhead>
-				<listheader sclass="estilo_numero" label="Nro" width="45px" />
-				<listheader label="Español" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Ingles" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Portugues" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Idioma4" width="auto"/>
-				<listheader sclass="desaparece_idiomas" label="Idioma5" width="auto"/>
-				<listheader label="operaciones" width="auto"/>
+				<listheader/>
 			</listhead>
-			<template name="modeleditable">
+			<template name="noeditable">
 				<listitem>
-					<listcell sclass="estilo_numero">
-						<label value="@bind(each.cPaqueteCod)" style="font-size:15px;font-weight:bold;color:blue;"/>
-					</listcell>
 					<listcell>
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma2) @save(each.cTituloIdioma2,before='actualizarPaquete')"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma3) @save(each.cTituloIdioma3,before='actualizarPaquete')"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma4) @save(each.cTituloIdioma4,before='actualizarPaquete')"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')"/>
-					</listcell>
-					<listcell>
-						<vbox sclass="centrado_listcell_operaciones">
-							<button label="update" onClick="@command('actualizarPaquete',paquete=each)"/>
-						</vbox>
+					   <div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion" width="50px">
+								<label value="@bind(each.cPaqueteCod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_paquete" width="97%">
+					    		<div zclass="div_content_img_list" width="20%">
+					    			<div height="150px" zclass="div_img_list">
+					    				<image width="100%" height="100%"
+					    					src="img/loading_7.gif" />
+					    			</div>
+					    		</div>
+					    		<space></space>
+					    		<div width="55%">
+					    			<div sclass="estilo_start_descripcion">
+					    				<label width="100%" height="30px" sclass="estilo_nombre_paquete"
+					    					value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')" />
+					    				<div sclass="descripcion_costado_paquete">
+					    				<image src="img/eticket.png"></image>
+					    				<space></space>
+					    				<label multiline="true"
+					    					width="100%" height="auto"
+					    					value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarPaquete')" sclass="estilo_desborde_descripcion"/>
+					    				</div>
+					    			</div>
+					    			<div>
+					    				<label value="Disponibilidad" style="font-style: italic; font-weight: bold;"></label>
+					    			</div>
+					    			<div>
+					    				<label value="$500 /noche" sclass="estilo_costo"></label>
+					    				<label value="$400 /noche" sclass="estilo_costo"></label>
+					    				<label value="$300 /noche" sclass="estilo_costo"></label>
+					    			</div>
+					    			<div
+					    				zclass="div_operacion_etiqueta">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',paquete=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activar"
+					    					zclass="btn_actualizar">
+					    				</button>
+					    			</div>
+					    		</div>
+					    		<space></space>
+					    		<div sclass="estilo_contenedor_costo" width="25%">
+					    		  <div sclass="horizontal_icons_personas">
+					    			<span zclass="icon-man"></span>
+					    			<label value="$500 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		  </div>
+					    		  <div sclass="horizontal_icons_personas">
+					    		    <div>
+						    			<span zclass="icon-man"></span>
+						    			<span zclass="icon-man"></span>
+					    			</div>
+					    			<label value="$400 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		  </div>
+					    		  <div sclass="horizontal_icons_personas">
+					    		    <div>
+						    			<span zclass="icon-man"></span>
+						    			<span zclass="icon-man"></span>
+						    			<span zclass="icon-man"></span>
+					    		    </div>	
+					    			<label value="$300 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		  </div>
+					    		  <div sclass="horizontal_icons_personas">
+					    		   <div >
+						    		    <span zclass="icon-man" style="background:red;"></span>
+						    		    <span zclass="icon-man"></span>
+						    		    <span zclass="icon-man"></span>
+						    		    <span zclass="icon-man"></span>
+					    		    </div>
+					    			<label value="$200 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		   </div>
+					    		   <div sclass="horizontal_icons_personas">
+					    		    <div>
+						    		    <span zclass="icon-man"></span>
+						    		    <span zclass="icon-man"></span>
+						    		    <span zclass="icon-man"></span>
+						    		    <span zclass="icon-man"></span>
+						    		    <span zclass="icon-man"></span>
+					    		    </div>
+					    			<label value="$100 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		   </div>
+					    		</div>
+					    	</div>
+				    	</div>
 					</listcell>
 				</listitem>
 			</template>
-			<template name="noeditable">
+			<template name="modeleditable">
 				<listitem>
-					<listcell sclass="estilo_numero">
-						<label value="@bind(each.cPaqueteCod)" style="font-size:15px;font-weight:bold;color:blue;"/>
-					</listcell>
-					<listcell>
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma1)" readonly="true"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma2)" readonly="true"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma3)" readonly="true"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(each.cTituloIdioma4)" readonly="true"/>
-					</listcell>
-					<listcell sclass="desaparece_idiomas">
-						<textbox multiline="true" hflex="1" height="100px" value="@bind(cTituloIdioma5)" readonly="true"/>
-					</listcell>
-					<listcell>
-					   <vbox sclass="centrado_listcell_operaciones">
-					    <button label="Editar" onClick="@command('Editar',paquete=each)"/>
-					    <button label="Activar" onClick="@command('Activar',paquete=each)"></button>
-					   </vbox>
-					</listcell>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion" width="50px">
+								<label value="@bind(each.cPaqueteCod)"/>
+							</div>
+				    		<div zclass="div_content_img_lista">
+				    			<div height="150px"
+				    				zclass="div_img">
+				    				<image width="100%" height="100%"
+				    					src="img/loading_7.gif" />
+				    			</div>
+				    			<button label="Subir Imagen"
+				    				zclass="estilo_subir_imagen" width="100%"/>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_datos_listaPaq">
+				    			<div sclass="estilo_editar_respons">
+				    				<div
+				    					sclass="div_contiene_banderas">
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag-of-Spain.png"
+				    						onClick="@command('cambioIdiomas',idioma='Espanol',paquete=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/en.png"
+				    						onClick="@command('cambioIdiomas',idioma='Ingles',paquete=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag_of_Brazil.png"
+				    						onClick="@command('cambioIdiomas',idioma='Portugues',paquete=each)">
+				    					</image>
+				    				</div>
+				    				<separator spacing="2px"></separator>
+				    				<div
+				    					visible="@bind(each.visibleEspanol)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%"
+				    							sclass="horizontal_label_texbox">
+				    							<label value="Servicio:"
+				    								sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')" />
+				    						</div>
+				    						<separator spacing="2px"></separator>
+				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_paquete">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarPaquete')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visibleIngles)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
+				    							<label value="Servicio:" sclass="estilo_nombre_paquete">
+				    							</label>
+				    							<textbox width="100%" sclass="txt_llenar_datos" height="30px"
+				    								value="@bind(each.cTituloIdioma2) @save(each.cTituloIdioma2,before='actualizarPaquete')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_paquete">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarPaquete')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visiblePortugues)">
+				    					<div width="100%" sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
+				    							<label value="Servicio:" sclass="estilo_nombre_paquete">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cTituloIdioma3) @save(each.cTituloIdioma3,before='actualizarPaquete')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_paquete">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarPaquete')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cTituloIdioma4) @save(each.cTituloIdioma4,before='actualizarPaquete')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<textbox multiline="true" sclass="txt_llenar_datos"
+				    							width="100%" hflex="1" height="100px"
+				    							value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarPaquete')" />
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<textbox multiline="true"
+				    							width="100%" hflex="1" height="100px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cDescripcionIdioma5) @save(each.cDescripcionIdioma5,before='actualizarPaquete')" />
+				    					</div>
+				    				</div>
+				    			</div>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_datosAdicionales_paq">
+				    			<div>
+				    			    <div>
+					    				<label
+					    					value="Nº Noches:" zclass="lbl_llenar_datos" />
+					    				<textbox placeholder="Ingrese nro Noches" sclass="txt_llenar_datos"></textbox>
+				    			    </div>
+				    			    <div>
+					    				<label
+					    					value="Nº Dias:" zclass="lbl_llenar_datos" />
+					    				<textbox placeholder="Ingrese nro Dias" sclass="txt_llenar_datos"></textbox>
+				    				</div>
+				    				<separator bar="true"
+				    					zclass="lbl_llenar_datos" />
+				    				<div>
+				    				  <div>
+				    					<label value="Costo($):" zclass="lbl_llenar_datos"/>
+				    					<image src="img/uno.png"></image>
+				    					<textbox placeholder="Ingrese costo 1" sclass="txt_llenar_datos"></textbox>
+				    				  </div>
+				    				  <div>
+				    					<label value="Costo($):" zclass="lbl_llenar_datos" />
+				    					<image src="img/dos.png"></image>
+				    					<textbox placeholder="Ingrese costo 2" sclass="txt_llenar_datos"></textbox>
+				    				  </div>
+				    				  <div>
+				    					<label value="Costo($):" zclass="lbl_llenar_datos" />
+				    					<image src="img/tres.png"></image>
+				    					<textbox placeholder="Ingrese costo 3" sclass="txt_llenar_datos"></textbox>
+				    				  </div>
+				    				  <div>
+				    					<label value="Costo($):" zclass="lbl_llenar_datos" />
+				    					<image src="img/cuatro.png"></image>
+				    					<textbox placeholder="Ingrese costo 4" sclass="txt_llenar_datos"></textbox>
+				    				  </div>
+				    				  <div>
+				    					<label value="Costo($):" zclass="lbl_llenar_datos" />
+				    					<image src="img/cinco.png"></image>
+				    					<textbox placeholder="Ingrese costo 5" sclass="txt_llenar_datos"></textbox>
+				    				  </div>
+				    				</div>
+				    			</div>
+				    			<div>
+				    				<label value="Disponibilidad: "
+				    					zclass="lbl_llenar_datos" />
+				    				<textbox width="80px"
+				    					placeholder="Disponibilidad" zclass="txt_llenar_datos" />
+				    			</div>
+				    		</div>
+				    		<div sclass="div_content_actualizar">
+				    			<button label="Actualizar"
+				    				onClick="@command('actualizarPaquete',paquete=each)"
+				    				zclass="btn_actualizar"/>
+				    		</div>
+				    	</div>
+				    </listcell>
 				</listitem>
 			</template>
 		</listbox>

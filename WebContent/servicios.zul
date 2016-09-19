@@ -87,14 +87,13 @@
 				<listitem>
 				   		<listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion" width="50px">
+				    		<div zclass="div_numeracion" width="3%">
 								<label value="@bind(each.nServicioCod)"/>
 							</div>
 							<div zclass="div_contenedor_datos_servicio" width="97%">
 					    		<div zclass="div_content_img_list" width="20%">
 					    			<div height="150px" zclass="div_img_list">
-					    				<image width="100%" height="100%"
-					    					src="img/loading_7.gif" />
+					    				<image width="100%" height="100%" src="@bind(each.cUrlImg)"/>
 					    			</div>
 					    		</div>
 					    		<space></space>
@@ -114,7 +113,7 @@
 					    				<label value="Restriccion YES/NO" style="font-style: italic; font-weight: bold;"></label>
 					    			</div>
 					    			<div>
-					    				<label value="$500 /noche" sclass="estilo_costo"></label>
+					    				<label value="@bind(each.nPrecioServicio)" sclass="estilo_costo"></label>
 					    			</div>
 					    			<div
 					    				zclass="div_operacion_etiqueta">
@@ -129,7 +128,7 @@
 					    		</div>
 					    		<space></space>
 					    		<div sclass="estilo_contenedor_costo" width="20%">
-					    			<label value="$500 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			<label value="@bind(each.nPrecioServicio)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		</div>
 					    	</div>
 				    	</div>
@@ -146,8 +145,7 @@
 				    		<div zclass="div_content_img_lista">
 				    			<div height="150px"
 				    				zclass="div_img">
-				    				<image width="100%" height="100%"
-				    					src="img/loading_7.gif" />
+				    				<image width="100%" height="100%" src="@bind(each.cUrlImg)" />
 				    			</div>
 				    			<button label="Subir Imagen"
 				    				zclass="estilo_subir_imagen" width="100%"/>
@@ -300,7 +298,7 @@
 				    				<label value="COSTO ($): "
 				    					zclass="lbl_llenar_datos" />
 				    				<textbox width="80px"
-				    					placeholder="PRECIO" zclass="txt_llenar_datos" />
+				    					value="@bind(each.nPrecioServicio)" zclass="txt_llenar_datos" />
 				    			</div>
 				    		</div>
 				    		<div sclass="div_content_actualizar">

@@ -23,6 +23,9 @@ public class CPaquete
 	private String cDisponibilidad;// varchar(100),                   --disponibilidad del que se requiere (CAMINO_INKA,MACHUPICCHU,NINGUNO)
 	private boolean bEstado;// boolean,				--estado del paquete
 	private String Titulo;
+	private boolean visibleEspanol;
+	private boolean visibleIngles;
+	private boolean visiblePortugues;
 	private boolean editable;
 	//==========================
 	public String getcPaqueteCod() {
@@ -157,6 +160,25 @@ public class CPaquete
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
+	
+	public boolean isVisibleEspanol() {
+		return visibleEspanol;
+	}
+	public void setVisibleEspanol(boolean visibleEspanol) {
+		this.visibleEspanol = visibleEspanol;
+	}
+	public boolean isVisibleIngles() {
+		return visibleIngles;
+	}
+	public void setVisibleIngles(boolean visibleIngles) {
+		this.visibleIngles = visibleIngles;
+	}
+	public boolean isVisiblePortugues() {
+		return visiblePortugues;
+	}
+	public void setVisiblePortugues(boolean visiblePortugues) {
+		this.visiblePortugues = visiblePortugues;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -192,6 +214,9 @@ public class CPaquete
 		this.cDisponibilidad = cDisponibilidad;
 		this.bEstado = bEstado;
 		this.editable=false;
+		this.visibleEspanol=true;
+		this.visibleIngles=false;
+		this.visiblePortugues=false;
 	}
 	
 	

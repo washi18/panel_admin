@@ -119,6 +119,32 @@ public class paquetesVM
 			visibleDescripcion = true;
 		}
 	}
+	
+	@Command
+	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("paquete")CPaquete paquete)
+	{
+		if(idIdioma.equals("Espanol"))
+		{
+			paquete.setVisibleEspanol(true);
+			paquete.setVisibleIngles(false);
+			paquete.setVisiblePortugues(false);
+		}
+		else if(idIdioma.equals("Ingles"))
+		{
+			paquete.setVisibleEspanol(false);
+			paquete.setVisibleIngles(true);
+			paquete.setVisiblePortugues(false);
+		}
+		else if(idIdioma.equals("Portugues"))
+		{
+			paquete.setVisibleEspanol(false);
+			paquete.setVisibleIngles(false);
+			paquete.setVisiblePortugues(true);
+		}
+		BindUtils.postNotifyChange(null, null, paquete, "visibleEspanol");
+		BindUtils.postNotifyChange(null, null, paquete, "visibleIngles");
+		BindUtils.postNotifyChange(null, null, paquete, "visiblePortugues");
+	}
 	public void refrescaFilaTemplate(CPaquete p)
 	{
 		BindUtils.postNotifyChange(null, null, p, "editable");
