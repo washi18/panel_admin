@@ -1,8 +1,8 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<style src="css/formas_Generales.css"></style>
+	<style src="css/formas_Generales.css"></style>
 	<style src="css/estilos_Servicios.css"></style>
-	<div >
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vmHotel') @init('com.pricing.viewModel.hotelesVM')">
 		<div zclass="div_contenedor_nuevo">
 			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_servicios.setVisible(true)">
 				<div zclass="div_btn_nuevo" width="150px">
@@ -18,7 +18,7 @@
 						<div>
 							<div>
 								<label value="HOTEL: " zclass="lbl_llenar_datos"/>
-								<textbox zclass="txt_llenar_datos" placeholder="NOMBRE HOTEL" width="250px" visible="true"/>
+								<textbox zclass="txt_llenar_datos" value="@bind(vmHotel.oHotel.cHotel)" placeholder="NOMBRE HOTEL" width="250px" visible="true"/>
 							</div>
 							<div zclass="div_contiene_banderas">
 								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
@@ -34,11 +34,11 @@
 							<div>
 								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
 								<textbox zclass="txt_llenar_datos" id="txtSpainDesc" multiline="true" height="150px"
-									placeholder="ESPAÑOL" width="250px" visible="true"/>
+									value="@bind(vmHotel.oHotel.cDescripcionIdioma1)" placeholder="ESPAÑOL" width="250px" visible="true"/>
 								<textbox zclass="txt_llenar_datos" id="txtInglesDesc" multiline="true" height="150px"
-									placeholder="INGLES" width="250px" visible="false"/>
+									value="@bind(vmHotel.oHotel.cDescripcionIdioma2)" placeholder="INGLES" width="250px" visible="false"/>
 								<textbox zclass="txt_llenar_datos" id="txtPortuDesc" multiline="true" height="150px"
-									placeholder="PORTUGUES" width="250px" visible="false"/>
+									value="@bind(vmHotel.oHotel.cDescripcionIdioma3)" placeholder="PORTUGUES" width="250px" visible="false"/>
 							</div>
 						</div>
 					</div>
@@ -48,14 +48,14 @@
 							<label value="ELEGIR LA CATEGORIA DEL HOTEL:" zclass="lbl_llenar_datos"/>
 							<separator bar="true" zclass="lbl_llenar_datos"/>
 							<div>
-								<radiogroup sclass="style_restricciones">
-									<radio label="ECONOMICO" value=""/>
-									<radio label="TURISTICO" value="numerica"/>
-									<radio label="TURISTICO SUPERIOR" value="sub_servicios"/>
-									<radio label="PRIMERA" value="sub_servicios"/>
-									<radio label="PRIMERA SUPERIOR" value="sub_servicios"/>
-									<radio label="LUJO" value="sub_servicios"/>
-									<radio label="LUJO SUPERIOR" value="sub_servicios"/>
+								<radiogroup sclass="style_restricciones" onCheck="@command('selectCategoria',categoria=self.selectedItem.value)">
+									<radio label="ECONOMICO" value="economico"/>
+									<radio label="TURISTICO" value="turistico"/>
+									<radio label="TURISTICO SUPERIOR" value="turistico_superior"/>
+									<radio label="PRIMERA" value="primera"/>
+									<radio label="PRIMERA SUPERIOR" value="primera_superior"/>
+									<radio label="LUJO" value="lujo"/>
+									<radio label="LUJO SUPERIOR" value="lujo_superior"/>
 								</radiogroup>
 							</div>
 						</div>
@@ -64,25 +64,142 @@
 					<div zclass="div_content_datos">
 						<div>
 							<label value="URL : " zclass="lbl_llenar_datos"/>
-							<textbox width="200px" zclass="txt_llenar_datos" placeholder="LINK"/>
+							<textbox width="200px" value="@bind(vmHotel.oHotel.cUrl)" zclass="txt_llenar_datos" placeholder="LINK"/>
 						</div>
 						<div>
 							<label value="COSTO SIMPLE($): " zclass="lbl_llenar_datos"/>
-							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+							<decimalbox width="80px" value="@bind(vmHotel.oHotel.nPrecioSimple)" format="#######.##" placeholder="PRECIO" zclass="txt_llenar_datos"/>
 						</div>
 						<div>
 							<label value="COSTO DOBLE($): " zclass="lbl_llenar_datos"/>
-							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+							<decimalbox width="80px" value="@bind(vmHotel.oHotel.nPrecioDoble)" format="#######.##" placeholder="PRECIO" zclass="txt_llenar_datos"/>
 						</div>
 						<div>
 							<label value="COSTO TRIPLE($): " zclass="lbl_llenar_datos"/>
-							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+							<decimalbox width="80px" value="@bind(vmHotel.oHotel.nPrecioTriple)" format="#######.##" placeholder="PRECIO" zclass="txt_llenar_datos"/>
 						</div>
-						<button label="Guardar" zclass="btn_guardar">
-						</button>
+						<button label="Guardar" onClick="@command('InsertarHotel',componente=self)" zclass="btn_guardar"/>
 					</div>
 				</div>
 			</div>
 		</div>
+		<space></space>
+		<listbox sclass="listados" model="@bind(vmHotel.listaHoteles) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+				   		<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion" width="50px">
+								<label value="@bind(each.nHotelCod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_servicio" width="97%">
+					    		<div width="60%">
+					    			<div sclass="estilo_start_descripcion">
+					    				<label width="100%" height="30px" sclass="estilo_nombre_servicio"
+					    					value="@bind(each.cHotel) @save(each.cHotel,before='actualizarHotel')" />
+					    				<div sclass="descripcion_costado">
+					    				<image src="img/eticket.png"></image>
+					    				<space></space>
+					    				<label multiline="true"
+					    					width="100%" height="auto"
+					    					value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarHotel')" sclass="estilo_desborde_descripcion"/>
+					    				</div>
+					    			</div>
+					    			<div>
+					    				<label value="$500 /noche" sclass="estilo_costo"></label>
+					    				<label value="$500 /noche" sclass="estilo_costo"></label>
+					    				<label value="$500 /noche" sclass="estilo_costo"></label>
+					    			</div>
+					    			<div>
+					    				<label value="Economico" if="@bind(each.categoriaHotelCod==1)" sclass="estilo_costo"/>
+					    			</div>
+					    			<div
+					    				zclass="div_operacion_etiqueta">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',hotel=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activar"
+					    					zclass="btn_actualizar">
+					    				</button>
+					    			</div>
+					    		</div>
+					    		<space></space>
+					    		<div sclass="estilo_contenedor_costo" width="20%">
+					    			<label value="$500 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		</div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion" width="50px">
+								<label value="@bind(each.nHotelCod)"/>
+							</div>
+				    		<div zclass="div_content_img_lista">
+				    			<div height="150px"
+				    				zclass="div_img">
+				    				<image width="100%" height="100%"
+				    					src="img/loading_7.gif" />
+				    			</div>
+				    			<button label="Subir Imagen"
+				    				zclass="estilo_subir_imagen" width="100%"/>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_datos_lista">
+				    			<div sclass="estilo_editar_respons">
+				    				<div
+				    					sclass="div_contiene_banderas">
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag-of-Spain.png"
+				    						onClick="@command('cambioIdiomas',idioma='Espanol',servicio=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/en.png"
+				    						onClick="@command('cambioIdiomas',idioma='Ingles',servicio=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag_of_Brazil.png"
+				    						onClick="@command('cambioIdiomas',idioma='Portugues',servicio=each)">
+				    					</image>
+				    				</div>
+				    				<separator spacing="2px"></separator>
+				    				<div
+				    					visible="@bind(each.visibleEspanol)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%"
+				    							sclass="horizontal_label_texbox">
+				    							<label value="Servicio:"
+				    								sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cHotel) @save(each.cHotel,before='actualizarHotel')" />
+				    						</div>
+				    						<separator spacing="2px"></separator>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_servicio">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarHotel')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    			</div>
+				    		</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
 	</div>
 </zk>
