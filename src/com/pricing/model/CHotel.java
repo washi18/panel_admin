@@ -15,6 +15,7 @@ public class CHotel
 	private Number nPrecioDoble;// decimal(10,2),			--precio del hotel con habitacion doble
 	private Number nPrecioTriple;// decimal(10,2),			--precio del hotel con habitacion triple
 	private boolean bEstado;// boolean,				--estado del hotel (si trabaja o no con nuestros paquetes)
+	private boolean editable;
 	//================================
 	public int getnHotelCod() {
 		return nHotelCod;
@@ -94,6 +95,12 @@ public class CHotel
 	public void setbEstado(boolean bEstado) {
 		this.bEstado = bEstado;
 	}
+	public boolean isEditable() {
+		return editable;
+	}
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
 	//======================================
 	public CHotel() {
 		// TODO Auto-generated constructor stub
@@ -127,6 +134,7 @@ public class CHotel
 		this.nPrecioDoble = nPrecioDoble;
 		this.nPrecioTriple = nPrecioTriple;
 		this.bEstado = bEstado;
+		this.editable=false;
 	}
 	
 }

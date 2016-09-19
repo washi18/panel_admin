@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pricing.model.CHotel;
+import com.pricing.model.CServicio;
 
 public class CHotelDAO extends CConexion
 {
@@ -51,6 +52,10 @@ public class CHotelDAO extends CConexion
 				(Number)row.get("npreciodoble"),(Number)row.get("npreciotriple"),
 				(boolean)row.get("bestado")); 
 	}
+	public List recuperarHotelesBD()
+	{
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarTodosHoteles");
+	}
 	public void asignarListaHoteles(List lista)
 	{
 		listaHoteles=new ArrayList<CHotel>();
@@ -70,8 +75,17 @@ public class CHotelDAO extends CConexion
 	{
 		Object[] values={hotel.getcHotel(),hotel.getcDescripcionIdioma1(),hotel.getcDescripcionIdioma2(),
 				hotel.getcDescripcionIdioma3(),hotel.getcDescripcionIdioma4(),hotel.getcDescripcionIdioma5(),
-				hotel.getcUrl(),hotel.getnPrecioSimple(),hotel.getnPrecioDoble(),hotel.getnPrecioTriple()};
-		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_InsertarHotel", values);
+				hotel.getcUrl(),hotel.getCategoriaHotelCod(),hotel.getnPrecioSimple().doubleValue(),hotel.getnPrecioDoble().doubleValue(),
+				hotel.getnPrecioTriple().doubleValue()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarHotel", values);
+	}
+	public List modificarHotel(CHotel hotel)
+	{
+		Object[] values={hotel.getcHotel(),hotel.getcDescripcionIdioma1(),hotel.getcDescripcionIdioma2(),
+				hotel.getcDescripcionIdioma3(),hotel.getcDescripcionIdioma4(),hotel.getcDescripcionIdioma5(),
+				hotel.getcUrl(),hotel.getCategoriaHotelCod(),hotel.getnPrecioSimple().doubleValue(),hotel.getnPrecioDoble().doubleValue(),
+				hotel.getnPrecioTriple().doubleValue()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarHotel", values);
 	}
 	public boolean isOperationCorrect(List lista)
 	{
