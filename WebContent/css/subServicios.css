@@ -58,6 +58,30 @@
 
 .div_contenedor_datos_subServicio{
 	display: flex;
+	width: 97%;
+}
+
+.div_content_img_listSub{
+	width: 20% !important;
+	padding: 1px;
+}
+	
+.div_content_info_listSub{
+	width: 60% !important;
+}
+
+.estilo_desborde_url{
+	font-style: italic; 
+	font-weight: bold;	
+}
+
+.estilo_costo_horizontal {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
 }
 @MEDIA (max-width:700px) {
 	.div_contenedor_nuevo_subServicio{
@@ -91,6 +115,25 @@
 	}
 	.div_content_img_listSub{
 		width: 40% !important;
-		padding: 1%;
+		padding: 0px !important;
+	}
+	
+	.div_content_info_listSub{
+		width: 60% !important;
+	}
+	
+	.div_contenedor_datos_subServicio{
+		width: 100% !important;
+	}
+	
+	.estilo_nombre_subServicio {
+		font-size: 13px;
+	}
+	
+	.estilo_desborde_url{
+		float: left;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
 	}
 }

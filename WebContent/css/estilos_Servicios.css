@@ -92,6 +92,14 @@
 	.div_content_actualizar {
 		width: 100% !important;
 	}
+	
+	.div_contenedor_datos_servicio{
+		width: 100%;
+	}
+	
+	.div_content_info_listServicio {
+		width: 60%;
+	}
 }
 .style_restricciones.z-radiogroup{
 	background: rgba(0,0,0,0.2);
@@ -144,6 +152,7 @@
 
 .div_contenedor_datos_servicio{
 	display: flex;
+	width: 97%;
 }
 
 
@@ -175,3 +184,12 @@
 	flex-direction: column;
 	width: 15%;
 }
+
+.div_content_info_listServicio {
+	width: 60%;
+}
+
+.div_content_img_list{
+		width: 20%;
+		padding: 1%;
+	}
