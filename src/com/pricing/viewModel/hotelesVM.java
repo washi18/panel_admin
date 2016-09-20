@@ -1,5 +1,7 @@
 package com.pricing.viewModel;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 import org.zkoss.bind.BindUtils;
@@ -17,6 +19,10 @@ import com.pricing.model.CServicio;
 
 public class hotelesVM 
 {
+	//====================
+	private DecimalFormat df;
+	private DecimalFormatSymbols simbolos;
+	//====================
 	/**=============**/
 	/**==ATRIBUTOS==**/
 	/**=============**/
@@ -61,6 +67,11 @@ public class hotelesVM
 	@Init
 	public void inicializarVM()
 	{
+		/*******************************/
+		simbolos= new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator('.');
+		df=new DecimalFormat("########0.00",simbolos);
+		/*******************************/
 		oHotel=new CHotel();
 		oHotelUpdate=new CHotel();
 		hotelDao=new CHotelDAO();
@@ -167,29 +178,83 @@ public class hotelesVM
 		
 	}
 	@Command
-	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("servicio")CServicio servicio)
+	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("hotel")CHotel hotel)
 	{
 		if(idIdioma.equals("Espanol"))
 		{
-				servicio.setVisibleEspanol(true);
-				servicio.setVisibleIngles(false);
-				servicio.setVisiblePortugues(false);
+				hotel.setVisibleEspanol(true);
+				hotel.setVisibleIngles(false);
+				hotel.setVisiblePortugues(false);
 		}
 		else if(idIdioma.equals("Ingles"))
 		{
-				servicio.setVisibleEspanol(false);
-				servicio.setVisibleIngles(true);
-				servicio.setVisiblePortugues(false);
+				hotel.setVisibleEspanol(false);
+				hotel.setVisibleIngles(true);
+				hotel.setVisiblePortugues(false);
 		}
 		else if(idIdioma.equals("Portugues"))
 		{
-				servicio.setVisibleEspanol(false);
-				servicio.setVisibleIngles(false);
-				servicio.setVisiblePortugues(true);
+				hotel.setVisibleEspanol(false);
+				hotel.setVisibleIngles(false);
+				hotel.setVisiblePortugues(true);
 		}
-		BindUtils.postNotifyChange(null, null, servicio, "visibleEspanol");
-		BindUtils.postNotifyChange(null, null, servicio, "visibleIngles");
-		BindUtils.postNotifyChange(null, null, servicio, "visiblePortugues");
+		BindUtils.postNotifyChange(null, null, hotel, "visibleEspanol");
+		BindUtils.postNotifyChange(null, null, hotel, "visibleIngles");
+		BindUtils.postNotifyChange(null, null, hotel, "visiblePortugues");
+	}
+	@Command
+	public void cambiarCategoriaHotel(@BindingParam("categoria")String categoria,@BindingParam("hotel")CHotel oHotel)
+	{
+		if(categoria.equals("economico"))
+			oHotel.setCategoriaHotelCod(1);
+		else if(categoria.equals("turistico"))
+			oHotel.setCategoriaHotelCod(2);
+		else if(categoria.equals("turistico_superior"))
+			oHotel.setCategoriaHotelCod(3);
+		else if(categoria.equals("primera"))
+			oHotel.setCategoriaHotelCod(4);
+		else if(categoria.equals("primera_superior"))
+			oHotel.setCategoriaHotelCod(5);
+		else if(categoria.equals("lujo"))
+			oHotel.setCategoriaHotelCod(6);
+		else if(categoria.equals("lujo_superior"))
+			oHotel.setCategoriaHotelCod(7);
+	}
+	@Command
+	@NotifyChange({"oHotel"})
+	public void changePrecios_nuevo(@BindingParam("precio")String precio,@BindingParam("hab")String hab,@BindingParam("componente")Component componente)
+	{
+		if(!isNumberDouble(precio))
+		{
+			if(hab.equals("simple"))
+				oHotel.setnPrecioSimple_text(df.format(0));
+			if(hab.equals("doble"))
+				oHotel.setnPrecioDoble_text(df.format(0));
+			if(hab.equals("triple"))
+				oHotel.setnPrecioTriple_text(df.format(0));
+			Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start", 2700);
+		}
+		else
+		{
+			if(hab.equals("simple"))
+				oHotel.setnPrecioSimple(Double.parseDouble(df.format(Double.parseDouble(precio))));
+			if(hab.equals("doble"))
+				oHotel.setnPrecioDoble(Double.parseDouble(df.format(Double.parseDouble(precio))));
+			if(hab.equals("triple"))
+				oHotel.setnPrecioTriple(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}
+	}
+	public boolean isNumberDouble(String cad)
+	{
+		try
+		 {
+		   Double.parseDouble(cad);
+		   return true;
+		 }
+		 catch(NumberFormatException nfe)
+		 {
+		   return false;
+		 }
 	}
 	public void refrescaFilaTemplate(CHotel h)
 	{

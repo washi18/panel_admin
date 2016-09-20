@@ -16,6 +16,13 @@ public class CHotel
 	private Number nPrecioTriple;// decimal(10,2),			--precio del hotel con habitacion triple
 	private boolean bEstado;// boolean,				--estado del hotel (si trabaja o no con nuestros paquetes)
 	private boolean editable;
+	private String categoria;
+	private boolean visibleEspanol;
+	private boolean visibleIngles;
+	private boolean visiblePortugues;
+	private String nPrecioSimple_text;
+	private String nPrecioDoble_text;
+	private String nPrecioTriple_text;
 	//================================
 	public int getnHotelCod() {
 		return nHotelCod;
@@ -101,6 +108,48 @@ public class CHotel
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
+	public String getCategoria() {
+		return categoria;
+	}
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+	public boolean isVisibleEspanol() {
+		return visibleEspanol;
+	}
+	public void setVisibleEspanol(boolean visibleEspanol) {
+		this.visibleEspanol = visibleEspanol;
+	}
+	public boolean isVisibleIngles() {
+		return visibleIngles;
+	}
+	public void setVisibleIngles(boolean visibleIngles) {
+		this.visibleIngles = visibleIngles;
+	}
+	public boolean isVisiblePortugues() {
+		return visiblePortugues;
+	}
+	public void setVisiblePortugues(boolean visiblePortugues) {
+		this.visiblePortugues = visiblePortugues;
+	}
+	public String getnPrecioSimple_text() {
+		return nPrecioSimple_text;
+	}
+	public void setnPrecioSimple_text(String nPrecioSimple_text) {
+		this.nPrecioSimple_text = nPrecioSimple_text;
+	}
+	public String getnPrecioDoble_text() {
+		return nPrecioDoble_text;
+	}
+	public void setnPrecioDoble_text(String nPrecioDoble_text) {
+		this.nPrecioDoble_text = nPrecioDoble_text;
+	}
+	public String getnPrecioTriple_text() {
+		return nPrecioTriple_text;
+	}
+	public void setnPrecioTriple_text(String nPrecioTriple_text) {
+		this.nPrecioTriple_text = nPrecioTriple_text;
+	}
 	//======================================
 	public CHotel() {
 		// TODO Auto-generated constructor stub
@@ -115,6 +164,9 @@ public class CHotel
 		this.nPrecioSimple =0;
 		this.nPrecioDoble =0;
 		this.nPrecioTriple =0;
+		this.nPrecioSimple_text="0.00";
+		this.nPrecioDoble_text="0.00";
+		this.nPrecioTriple_text="0.00";
 	}
 	public CHotel(int nHotelCod, String cHotel, String cDescripcionIdioma1,
 			String cDescripcionIdioma2, String cDescripcionIdioma3,
@@ -135,6 +187,24 @@ public class CHotel
 		this.nPrecioTriple = nPrecioTriple;
 		this.bEstado = bEstado;
 		this.editable=false;
+		this.categoria=obtenerNombreCategoria(categoriaHotelCod);
+		this.visibleEspanol=true;
+		this.visibleIngles=false;
+		this.visiblePortugues=false;
 	}
-	
+	public String obtenerNombreCategoria(int codCat)
+	{
+		String cat="";
+		switch(codCat)
+		{
+			case 1:cat="ECONOMICO";break;
+			case 2:cat="TURISTICO";break;
+			case 3:cat="TURISTICO SUPERIOR";break;
+			case 4:cat="PRIMERA";break;
+			case 5:cat="PRIMERA SUPERIOR";break;
+			case 6:cat="LUJO";break;
+			case 7:cat="LUJO SUPERIOR";break;
+		}
+		return cat;
+	}
 }

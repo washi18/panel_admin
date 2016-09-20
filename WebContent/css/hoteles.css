@@ -1,0 +1,44 @@
+.div_contenedor_nuevo_hoteles{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+.estilo_contenedor_costo_hotel{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+	-moz-flex-direction:column;
+	-ms-flex-direction:column;
+	-o-flex-direction:column;
+	padding: 10px 0 0 20px;
+	box-sizing:border-box;
+	border-left: 1px solid black;
+	margin-left: 5px;
+}
+.lbl_nombres_precios_hotel{
+	color: #053351;
+	font-weight: bold;
+	font-size: 15px;
+}
+.lbl_nombre_categorias{
+	color: #EEB10C;
+	font-weight: bold;
+	font-size: 15px;
+}
+.estilos_costos_normal{
+	font-style: italic; 
+	font-weight: bold; 
+	font-size: 16px;
+}
+.estilo_nombre_hotel{
+	color: #069;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
