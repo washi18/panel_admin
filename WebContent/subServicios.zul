@@ -88,18 +88,17 @@
 				<listitem>
 					<listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion" width="3%">
+				    		<div zclass="div_numeracion">
 								<label value="@bind(each.nSubServicioCod)"/>
 							</div>
-							<div zclass="div_contenedor_datos_subServicio" width="97%">
-					    		<div zclass="div_content_img_listSub" width="20%">
-					    			<div height="150px" zclass="div_img_list">
-					    				<image width="100%" height="100%"
-					    					src="@bind(each.cUrlImg)" />
+							<div zclass="div_contenedor_datos_subServicio">
+					    		<div zclass="div_content_img_listSub">
+					    			<div height="150px" width="100%" zclass="div_img_list">
+					    				<image width="100%" height="100%" src="@bind(each.cUrlImg)"/>
 					    			</div>
 					    		</div>
 					    		<space></space>
-					    		<div width="60%">
+					    		<div zclass="div_content_info_listSub">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="30px" sclass="estilo_nombre_subServicio"
 					    					value="@bind(each.cSubServicioIndioma1) @save(each.cSubServicioIndioma1,before='actualizarSubServicio')" />
@@ -115,7 +114,7 @@
 					    				<label value="@bind(each.nServicioCod)" style="font-size: 14px; font-weight: bold;"></label>
 					    			</div>
 					    			<div>
-					    			    <label value="@bind(each.cLink)" style="font-style: italic; font-weight: bold;"></label>
+					    			    <label value="@bind(each.cLink)" zclass="estilo_desborde_url"></label>
 					    			</div>
 					    			<div>
 					    				<label value="@bind(each.nPrecioServicio)" sclass="estilo_costo"></label>
@@ -131,8 +130,7 @@
 					    				</button>
 					    			</div>
 					    		</div>
-					    		<space></space>
-					    		<div sclass="estilo_contenedor_costo" width="20%">
+					    		<div sclass="estilo_contenedor_costo">
 					    			<label value="@bind(each.nPrecioServicio)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		</div>
 					    	</div>
@@ -144,7 +142,7 @@
 				<listitem>
 					<listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion" width="50px">
+				    		<div zclass="div_numeracion" width="3%">
 								<label value="@bind(each.nSubServicioCod)"/>
 							</div>
 				    		<div zclass="div_content_img_listaSub">
@@ -296,19 +294,19 @@
 				    			<div>
 				    				<label
 				    					value="URL:" zclass="lbl_llenar_datos" />
-				    				<textbox value="@bind(each.cLink)" zclass="txt_llenar_datos" ></textbox>
+				    				<textbox value="@bind(each.cLink)" zclass="txt_llenar_datos" width="100%"></textbox>
 				    				<separator bar="true"
 				    					zclass="lbl_llenar_datos" />
 				    				<div>
 				    					<label value="A que servicio pertenecera?" zclass="lbl_llenar_datos"></label>
-				    					<combobox value="@bind(each.nServicioCod)" placeholder="SERVICIO">
+				    					<combobox value="@bind(each.nServicioCod)" placeholder="SERVICIO" width="100%">
 				    					   <comboitem label="@bind(each.nServicioCod)"></comboitem>
 				    					</combobox>
 				    				</div>
 				    			</div>
-				    			<div>
+				    			<div sclass="estilo_costo_horizontal">
 				    				<label value="COSTO ($):" zclass="lbl_llenar_datos" />
-				    				<decimalbox width="80px" value="@bind(each.nPrecioServicio)" zclass="txt_llenar_datos" />
+				    				<decimalbox value="@bind(each.nPrecioServicio)" zclass="txt_llenar_datos"  width="50%"/>
 				    			</div>
 				    		</div>
 				    		<div sclass="div_content_actualizarSub">

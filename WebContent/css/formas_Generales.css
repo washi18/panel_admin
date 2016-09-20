@@ -262,6 +262,7 @@
    flex-direction: column;
    justify-content: center;
    align-items: center;
+   width: 20%;
 }
 
 .estilo_costo {
@@ -305,11 +306,11 @@
     }
     
     .estilo_contenedor_costo{
-    	display: none;
+    	display: none !important;
     }
 	
 	.div_img_list{
-		height: 100% !important;
+		height: 110px !important;
 		width: 100% !important;
 	}
 	
@@ -319,12 +320,20 @@
 		font-weight:bold;
 		color: black;
 	}
+	
+	.div_img, .div_img_list{
+		padding: 2px !important;
+	}
 }
 /**DIV IMAGEN**/
 .div_img, .div_img_list{
 	background: white;
+	background-size: cover;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
 	margin: 0 0 10px 0;
-	padding: 10px;
+	padding: 3px;
 	box-sizing:border-box;
 }
 /**BOTON SUBIR IMAGEN**/
@@ -473,6 +482,13 @@
 	.btn_actualizar{
 		width: 100%;
 	}
+	
+	.estilo_desborde_descripcion {
+		float: left;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+	}
 }
 /*==ESTILOS DEL LISTADO DE LA BASE DE DATOS==*/
 .listados.z-listbox{
@@ -494,13 +510,22 @@
 	.div_list_cell{
 		flex-direction:column;
 	}
+	.div_numeracion {
+		width: 14% !important;
+	}
+	.estilo_desborde_descripcion {
+		float: left;
+    	overflow: hidden;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+	}
 }
 .div_numeracion{
 	background: #053351;
 	color: white;
 	font-size: 18px;
 	font-weight: bold;
-	width: 40px;
+	width: 3%;
 	height: 26px;
 	padding: 2px;
 	position: relative;
@@ -528,11 +553,4 @@
 	top:26px;
 	left:0;
 	position: absolute;
-}
-
-.estilo_desborde_descripcion {
-		float: left;
-    	overflow: hidden;
-    	text-overflow: ellipsis;
-    	white-space: nowrap;
 }

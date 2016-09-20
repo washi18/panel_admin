@@ -87,17 +87,17 @@
 				<listitem>
 				   		<listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion" width="3%">
+				    		<div zclass="div_numeracion">
 								<label value="@bind(each.nServicioCod)"/>
 							</div>
-							<div zclass="div_contenedor_datos_servicio" width="97%">
-					    		<div zclass="div_content_img_list" width="20%">
+							<div zclass="div_contenedor_datos_servicio">
+					    		<div zclass="div_content_img_list">
 					    			<div height="150px" zclass="div_img_list">
 					    				<image width="100%" height="100%" src="@bind(each.cUrlImg)"/>
 					    			</div>
 					    		</div>
 					    		<space></space>
-					    		<div width="60%">
+					    		<div zclass="div_content_info_listServicio">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="30px" sclass="estilo_nombre_servicio"
 					    					value="@bind(each.cServicioIndioma1) @save(each.cServicioIndioma1,before='actualizarServicio')" />
@@ -127,7 +127,7 @@
 					    			</div>
 					    		</div>
 					    		<space></space>
-					    		<div sclass="estilo_contenedor_costo" width="20%">
+					    		<div sclass="estilo_contenedor_costo">
 					    			<label value="@bind(each.nPrecioServicio)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		</div>
 					    	</div>
@@ -139,7 +139,7 @@
 				<listitem>
 				    <listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion" width="50px">
+				    		<div zclass="div_numeracion">
 								<label value="@bind(each.nServicioCod)"/>
 							</div>
 				    		<div zclass="div_content_img_lista">
@@ -176,7 +176,7 @@
 				    						<div width="100%"
 				    							sclass="horizontal_label_texbox">
 				    							<label value="Servicio:"
-				    								sclass="estilo_nombre_servicio">
+				    								sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
 				    								value="@bind(each.cServicioIndioma1) @save(each.cServicioIndioma1,before='actualizarServicio')" />
@@ -184,7 +184,7 @@
 				    						<separator spacing="2px"></separator>
 				    						<div width="100%" sclass="horizontal_label_texbox">
 				    							<label
-				    								value="Descripcion:" sclass="estilo_nombre_servicio">
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox
 				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
@@ -197,14 +197,14 @@
 				    					<div width="100%"
 				    						sclass="centrado_datos" height="100%">
 				    						<div width="100%" sclass="horizontal_label_texbox">
-				    							<label value="Servicio:" sclass="estilo_nombre_servicio">
+				    							<label value="Servicio:" sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox width="100%" sclass="txt_llenar_datos" height="30px"
 				    								value="@bind(each.cServicioIndioma2) @save(each.cServicioIndioma2,before='actualizarServicio')" />
 				    						</div>
 				    						<div width="100%" sclass="horizontal_label_texbox">
 				    							<label
-				    								value="Descripcion:" sclass="estilo_nombre_servicio">
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox
 				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
@@ -216,14 +216,14 @@
 				    					visible="@bind(each.visiblePortugues)">
 				    					<div width="100%" sclass="centrado_datos" height="100%">
 				    						<div width="100%" sclass="horizontal_label_texbox">
-				    							<label value="Servicio:" sclass="estilo_nombre_servicio">
+				    							<label value="Servicio:" sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
 				    								value="@bind(each.cServicioIndioma3) @save(each.cServicioIndioma3,before='actualizarServicio')" />
 				    						</div>
 				    						<div width="100%" sclass="horizontal_label_texbox">
 				    							<label
-				    								value="Descripcion:" sclass="estilo_nombre_servicio">
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox
 				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
@@ -297,7 +297,7 @@
 				    			<div>
 				    				<label value="COSTO ($): "
 				    					zclass="lbl_llenar_datos" />
-				    				<textbox width="80px"
+				    				<decimalbox width="80px"
 				    					value="@bind(each.nPrecioServicio)" zclass="txt_llenar_datos" />
 				    			</div>
 				    		</div>

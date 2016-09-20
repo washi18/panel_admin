@@ -60,7 +60,7 @@
 			</div>
 		</div>
 		<space></space>
-		<listbox sclass="listados" model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" height="500px" mold="paging" autopaging="true">
+		<listbox sclass="listados" model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
 			<listhead>
 				<listheader/>
 			</listhead>
@@ -68,18 +68,11 @@
 				<listitem>
 					<listcell>
 					   <div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion" width="50px">
+				    		<div zclass="div_numeracion">
 								<label value="@bind(each.cPaqueteCod)"/>
 							</div>
 							<div zclass="div_contenedor_datos_paquete" width="97%">
-					    		<div zclass="div_content_img_list" width="20%">
-					    			<div height="150px" zclass="div_img_list">
-					    				<image width="100%" height="100%"
-					    					src="img/loading_7.gif" />
-					    			</div>
-					    		</div>
-					    		<space></space>
-					    		<div width="55%">
+							      <div sclass="div_contenedor_info_paquete">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="30px" sclass="estilo_nombre_paquete"
 					    					value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')" />
@@ -92,7 +85,7 @@
 					    				</div>
 					    			</div>
 					    			<div>
-					    				<label value="Disponibilidad" style="font-style: italic; font-weight: bold;"></label>
+					    				<label value="@bind(each.cDisponibilidad)" style="font-style: italic; font-weight: bold;"></label>
 					    			</div>
 					    			<div>
 					    				<label value="$500 /noche" sclass="estilo_costo"></label>
@@ -110,18 +103,17 @@
 					    				</button>
 					    			</div>
 					    		</div>
-					    		<space></space>
-					    		<div sclass="estilo_contenedor_costo" width="25%">
+					    		<div sclass="estilo_contenedor_costo">
 					    		  <div sclass="horizontal_icons_personas">
 					    			<span zclass="icon-man"></span>
-					    			<label value="$500 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			<label value="@bind(each.nPrecioUno)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		  </div>
 					    		  <div sclass="horizontal_icons_personas">
 					    		    <div>
 						    			<span zclass="icon-man"></span>
 						    			<span zclass="icon-man"></span>
 					    			</div>
-					    			<label value="$400 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			<label value="@bind(each.nPrecioDos)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		  </div>
 					    		  <div sclass="horizontal_icons_personas">
 					    		    <div>
@@ -129,16 +121,16 @@
 						    			<span zclass="icon-man"></span>
 						    			<span zclass="icon-man"></span>
 					    		    </div>	
-					    			<label value="$300 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			<label value="@bind(each.nPrecioTres)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		  </div>
 					    		  <div sclass="horizontal_icons_personas">
 					    		   <div >
-						    		    <span zclass="icon-man" style="background:red;"></span>
+						    		    <span zclass="icon-man"></span>
 						    		    <span zclass="icon-man"></span>
 						    		    <span zclass="icon-man"></span>
 						    		    <span zclass="icon-man"></span>
 					    		    </div>
-					    			<label value="$200 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			<label value="@bind(each.nPrecioCuatro)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		   </div>
 					    		   <div sclass="horizontal_icons_personas">
 					    		    <div>
@@ -148,11 +140,11 @@
 						    		    <span zclass="icon-man"></span>
 						    		    <span zclass="icon-man"></span>
 					    		    </div>
-					    			<label value="$100 /noche" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			<label value="@bind(each.nPrecioCinco)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		   </div>
 					    		</div>
+					    	   </div>
 					    	</div>
-				    	</div>
 					</listcell>
 				</listitem>
 			</template>
@@ -160,18 +152,9 @@
 				<listitem>
 				    <listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion" width="50px">
+				    		<div zclass="div_numeracion">
 								<label value="@bind(each.cPaqueteCod)"/>
 							</div>
-				    		<div zclass="div_content_img_lista">
-				    			<div height="150px"
-				    				zclass="div_img">
-				    				<image width="100%" height="100%"
-				    					src="img/loading_7.gif" />
-				    			</div>
-				    			<button label="Subir Imagen"
-				    				zclass="estilo_subir_imagen" width="100%"/>
-				    		</div>
 				    		<space></space>
 				    		<div zclass="div_content_datos_listaPaq">
 				    			<div sclass="estilo_editar_respons">
@@ -198,19 +181,10 @@
 				    						<div width="100%"
 				    							sclass="horizontal_label_texbox">
 				    							<label value="Servicio:"
-				    								sclass="estilo_nombre_servicio">
+				    								sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
 				    								value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')" />
-				    						</div>
-				    						<separator spacing="2px"></separator>
-				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
-				    							<label
-				    								value="Descripcion:" sclass="estilo_nombre_paquete">
-				    							</label>
-				    							<textbox
-				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
-				    								value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarPaquete')" />
 				    						</div>
 				    					</div>
 				    				</div>
@@ -219,18 +193,10 @@
 				    					<div width="100%"
 				    						sclass="centrado_datos" height="100%">
 				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
-				    							<label value="Servicio:" sclass="estilo_nombre_paquete">
+				    							<label value="Servicio:" sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox width="100%" sclass="txt_llenar_datos" height="30px"
 				    								value="@bind(each.cTituloIdioma2) @save(each.cTituloIdioma2,before='actualizarPaquete')" />
-				    						</div>
-				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
-				    							<label
-				    								value="Descripcion:" sclass="estilo_nombre_paquete">
-				    							</label>
-				    							<textbox
-				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
-				    								value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarPaquete')" />
 				    						</div>
 				    					</div>
 				    				</div>
@@ -238,18 +204,10 @@
 				    					visible="@bind(each.visiblePortugues)">
 				    					<div width="100%" sclass="centrado_datos" height="100%">
 				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
-				    							<label value="Servicio:" sclass="estilo_nombre_paquete">
+				    							<label value="Servicio:" sclass="lbl_llenar_datos">
 				    							</label>
 				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
 				    								value="@bind(each.cTituloIdioma3) @save(each.cTituloIdioma3,before='actualizarPaquete')" />
-				    						</div>
-				    						<div width="100%" sclass="horizontal_label_texbox_paquete">
-				    							<label
-				    								value="Descripcion:" sclass="estilo_nombre_paquete">
-				    							</label>
-				    							<textbox
-				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
-				    								value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarPaquete')" />
 				    						</div>
 				    					</div>
 				    				</div>
@@ -264,14 +222,6 @@
 				    						<textbox hflex="1"
 				    							width="100%" height="30px" sclass="txt_llenar_datos"
 				    							value="@bind(each.cTituloIdioma4) @save(each.cTituloIdioma4,before='actualizarPaquete')" />
-				    						<div width="100%">
-				    							<label
-				    								value="Descripcion:">
-				    							</label>
-				    						</div>
-				    						<textbox multiline="true" sclass="txt_llenar_datos"
-				    							width="100%" hflex="1" height="100px"
-				    							value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarPaquete')" />
 				    					</div>
 				    				</div>
 				    				<div visible="false">
@@ -285,67 +235,57 @@
 				    						<textbox hflex="1"
 				    							width="100%" height="30px" sclass="txt_llenar_datos"
 				    							value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')" />
-				    						<div width="100%">
-				    							<label
-				    								value="Descripcion:">
-				    							</label>
-				    						</div>
-				    						<textbox multiline="true"
-				    							width="100%" hflex="1" height="100px" sclass="txt_llenar_datos"
-				    							value="@bind(each.cDescripcionIdioma5) @save(each.cDescripcionIdioma5,before='actualizarPaquete')" />
 				    					</div>
+				    				</div>
+				    				<div sclass="estilo_div_disponibilidad">
+				    				    <label value="Disponibilidad:" sclass="lbl_llenar_datos"></label>
+					    				<checkbox label="@bind(each.cDisponibilidad)" width="160px"></checkbox>
+				    				</div>
+				    				<div>
+					    				<label
+					    					value="Nº Noches:" zclass="lbl_llenar_datos" />
+					    				<textbox placeholder="Ingrese nro Noches" value="@bind(each.nNoches)" sclass="txt_llenar_datos"></textbox>
+				    			    </div>
+				    			    <div>
+					    				<label
+					    					value="Nº Dias:" zclass="lbl_llenar_datos" />
+					    				<textbox placeholder="Ingrese nro Dias" value="@bind(each.nDias)" sclass="txt_llenar_datos"></textbox>
 				    				</div>
 				    			</div>
 				    		</div>
 				    		<space></space>
 				    		<div zclass="div_content_datosAdicionales_paq">
-				    			<div>
-				    			    <div>
-					    				<label
-					    					value="Nº Noches:" zclass="lbl_llenar_datos" />
-					    				<textbox placeholder="Ingrese nro Noches" sclass="txt_llenar_datos"></textbox>
-				    			    </div>
-				    			    <div>
-					    				<label
-					    					value="Nº Dias:" zclass="lbl_llenar_datos" />
-					    				<textbox placeholder="Ingrese nro Dias" sclass="txt_llenar_datos"></textbox>
-				    				</div>
-				    				<separator bar="true"
-				    					zclass="lbl_llenar_datos" />
 				    				<div>
 				    				  <div>
-				    					<label value="Costo($):" zclass="lbl_llenar_datos"/>
+				    				  	<label value="COSTOS ($):" sclass="lbl_llenar_datos"></label>
+				    				  </div>
+				    				  <separator bar="true"></separator>
+				    				  <div>
+				    					<label value="Costo" zclass="lbl_llenar_datos"/>
 				    					<image src="img/uno.png"></image>
-				    					<textbox placeholder="Ingrese costo 1" sclass="txt_llenar_datos"></textbox>
+				    					<textbox placeholder="Ingrese costo 1"  value="@bind(each.nPrecioUno)" sclass="txt_llenar_datos"></textbox>
 				    				  </div>
 				    				  <div>
-				    					<label value="Costo($):" zclass="lbl_llenar_datos" />
+				    					<label value="Costo" zclass="lbl_llenar_datos" />
 				    					<image src="img/dos.png"></image>
-				    					<textbox placeholder="Ingrese costo 2" sclass="txt_llenar_datos"></textbox>
+				    					<textbox placeholder="Ingrese costo 2" value="@bind(each.nPrecioDos)" sclass="txt_llenar_datos"></textbox>
 				    				  </div>
 				    				  <div>
-				    					<label value="Costo($):" zclass="lbl_llenar_datos" />
+				    					<label value="Costo" zclass="lbl_llenar_datos" />
 				    					<image src="img/tres.png"></image>
-				    					<textbox placeholder="Ingrese costo 3" sclass="txt_llenar_datos"></textbox>
+				    					<textbox placeholder="Ingrese costo 3" value="@bind(each.nPrecioTres)" sclass="txt_llenar_datos"></textbox>
 				    				  </div>
 				    				  <div>
-				    					<label value="Costo($):" zclass="lbl_llenar_datos" />
+				    					<label value="Costo" zclass="lbl_llenar_datos" />
 				    					<image src="img/cuatro.png"></image>
-				    					<textbox placeholder="Ingrese costo 4" sclass="txt_llenar_datos"></textbox>
+				    					<textbox placeholder="Ingrese costo 4" value="@bind(each.nPrecioCuatro)" sclass="txt_llenar_datos"></textbox>
 				    				  </div>
 				    				  <div>
-				    					<label value="Costo($):" zclass="lbl_llenar_datos" />
+				    					<label value="Costo" zclass="lbl_llenar_datos" />
 				    					<image src="img/cinco.png"></image>
-				    					<textbox placeholder="Ingrese costo 5" sclass="txt_llenar_datos"></textbox>
+				    					<textbox placeholder="Ingrese costo 5" value="@bind(each.nPrecioCinco)" sclass="txt_llenar_datos"></textbox>
 				    				  </div>
 				    				</div>
-				    			</div>
-				    			<div>
-				    				<label value="Disponibilidad: "
-				    					zclass="lbl_llenar_datos" />
-				    				<textbox width="80px"
-				    					placeholder="Disponibilidad" zclass="txt_llenar_datos" />
-				    			</div>
 				    		</div>
 				    		<div sclass="div_content_actualizar">
 				    			<button label="Actualizar"

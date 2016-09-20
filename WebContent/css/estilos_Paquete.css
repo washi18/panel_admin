@@ -21,13 +21,14 @@
 }	
 .div_contenedor_datos_paquete{
 	display: flex;
+	width: 97%;
 }
 
 .div_content_datos_listaPaq{
 	background: rgba(0,0,0,0.1);
 	border-radius:5px;
 	padding: 10px;
-	width: 35%;
+	width: 50%;
 }
 
 .horizontal_label_texbox_paquete {
@@ -42,7 +43,7 @@
 	background: rgba(0,0,0,0.1);
 	border-radius:5px;
 	padding: 10px;
-	width: 30%;
+	width: 35%;
 }
 
 .horizontal_icons_personas {
@@ -51,6 +52,76 @@
 	display: -moz-flex;
 	display: -ms-flex;
 	display: -o-flex;
+}
+
+.estilo_div_disponibilidad {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+}
+
+.div_contenedor_info_paquete {
+	width: 80%;
+}
+
+.z-checkbox{
+	background: rgba(0,0,0,0.2);
+	padding: 8px;
+	border-radius:5px;
+	display:flex;
+	flex-direction:column;
+}
+.z-checkbox input[type="checkbox"]{
+	display: none;
+}
+.z-checkbox label{
+/* 	color: #053351; */
+/* 	margin-left: 7px; */
+	display: inline-block;
+    cursor: pointer;
+    color: #053351;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    font-weight:bold;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.z-checkbox label:hover{
+	background: rgba(0, 0, 0, 0.2);
+}
+.z-checkbox label:before{
+	  content:'';
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      position: absolute;
+      left: 15px;
+      border-radius: 50%;
+      background: none;
+      border: 3px solid #053351;
+}
+.z-checkbox input[type="checkbox"]:checked + label:before {
+      display: none; 
+}
+.z-checkbox input[type="checkbox"]:checked + label{
+	  padding: 5px 15px;
+      background: #053351;
+      border-radius: 2px;
+      color: #fff;
+}
+
+.div_content_actualizar {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 15%;
 }
 @MEDIA (max-width:700px) {
 	.div_contenedor_nuevo_paquete{
@@ -63,6 +134,7 @@
 	}
 	
 	.estilo_nombre_paquete {
+		width: 100% !important;
 		font-size: 13px;
 	}
 	
@@ -75,6 +147,18 @@
 		flex-direction: column;
 	}
 	.div_content_datosAdicionales_paq {
+		width: 100% !important;	
+	}
+	
+	.div_contenedor_info_paquete {
 		width: 100% !important;
+	}
+	
+	.div_contenedor_datos_paquete{
+		width: 100%;
+	}
+	
+	.div_content_actualizar {
+		width: 100%;
 	}
 }

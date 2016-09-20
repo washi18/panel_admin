@@ -82,13 +82,6 @@ public class subServicioVM
 	public void actualizarSubServicio(@BindingParam("subServicio")CSubServicio subServicio)
 	{	
 //		System.out.println("--> "+servicio);
-		System.out.println("-->"+subServicio.getnSubServicioCod());
-	    System.out.println("-->"+subServicio.getnServicioCod());
-	    System.out.println("-->"+subServicio.getcSubServicioIndioma1());
-	    System.out.println("-->"+subServicio.getcDescripcionIdioma1());
-	    System.out.println("-->"+subServicio.getcLink());
-	    System.out.println("-->"+subServicio.getcUrlImg());
-	    System.out.println("-->"+subServicio.getnPrecioServicio());
 		subServicio.setEditable(false);
 		refrescaFilaTemplate(subServicio);
 		/**Actualizar datos de la etiqueta en la BD**/
