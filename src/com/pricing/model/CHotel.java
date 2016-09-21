@@ -1,7 +1,14 @@
 package com.pricing.model;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 public class CHotel 
 {
+	//====================
+		private DecimalFormat df;
+		private DecimalFormatSymbols simbolos;
+	//====================
 	private int nHotelCod;// int,					--codigo del hotel
 	private String cHotel;// varchar(200),				--nombre del hotel
 	private String cDescripcionIdioma1;// text,			--descripcion del hotel en el idioma 1
@@ -23,6 +30,18 @@ public class CHotel
 	private String nPrecioSimple_text;
 	private String nPrecioDoble_text;
 	private String nPrecioTriple_text;
+	private boolean select_eco;
+	private boolean select_tur;
+	private boolean select_turSup;
+	private boolean select_pri;
+	private boolean select_priSup;
+	private boolean select_lujo;
+	private boolean select_lujoSup;
+	private String color_btn_activo;
+	private String color_btn_desactivo;
+	public String COLOR_ACTIVO="background:#3BA420;";
+	public String COLOR_DESACTIVO="background:#DA0613;";
+	public String COLOR_TRANSPARENT="background:transparent;";
 	//================================
 	public int getnHotelCod() {
 		return nHotelCod;
@@ -150,6 +169,60 @@ public class CHotel
 	public void setnPrecioTriple_text(String nPrecioTriple_text) {
 		this.nPrecioTriple_text = nPrecioTriple_text;
 	}
+	public boolean isSelect_eco() {
+		return select_eco;
+	}
+	public void setSelect_eco(boolean select_eco) {
+		this.select_eco = select_eco;
+	}
+	public boolean isSelect_tur() {
+		return select_tur;
+	}
+	public void setSelect_tur(boolean select_tur) {
+		this.select_tur = select_tur;
+	}
+	public boolean isSelect_turSup() {
+		return select_turSup;
+	}
+	public void setSelect_turSup(boolean select_turSup) {
+		this.select_turSup = select_turSup;
+	}
+	public boolean isSelect_pri() {
+		return select_pri;
+	}
+	public void setSelect_pri(boolean select_pri) {
+		this.select_pri = select_pri;
+	}
+	public boolean isSelect_priSup() {
+		return select_priSup;
+	}
+	public void setSelect_priSup(boolean select_priSup) {
+		this.select_priSup = select_priSup;
+	}
+	public boolean isSelect_lujo() {
+		return select_lujo;
+	}
+	public void setSelect_lujo(boolean select_lujo) {
+		this.select_lujo = select_lujo;
+	}
+	public boolean isSelect_lujoSup() {
+		return select_lujoSup;
+	}
+	public void setSelect_lujoSup(boolean select_lujoSup) {
+		this.select_lujoSup = select_lujoSup;
+	}
+	public String getColor_btn_activo() {
+		return color_btn_activo;
+	}
+	public void setColor_btn_activo(String color_btn_activo) {
+		this.color_btn_activo = color_btn_activo;
+	}
+	public String getColor_btn_desactivo() {
+		return color_btn_desactivo;
+	}
+	public void setColor_btn_desactivo(String color_btn_desactivo) {
+		this.color_btn_desactivo = color_btn_desactivo;
+	}
 	//======================================
 	public CHotel() {
 		// TODO Auto-generated constructor stub
@@ -173,6 +246,12 @@ public class CHotel
 			String cDescripcionIdioma4, String cDescripcionIdioma5,
 			String cUrl, int categoriaHotelCod, Number nPrecioSimple,
 			Number nPrecioDoble, Number nPrecioTriple, boolean bEstado) {
+		
+		/*******************************/
+		simbolos= new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator('.');
+		df=new DecimalFormat("########0.00",simbolos);
+		/*******************************/
 		this.nHotelCod = nHotelCod;
 		this.cHotel = cHotel;
 		this.cDescripcionIdioma1 = cDescripcionIdioma1;
@@ -191,6 +270,41 @@ public class CHotel
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
+		this.nPrecioSimple_text=df.format(nPrecioSimple.doubleValue());
+		this.nPrecioDoble_text=df.format(nPrecioDoble.doubleValue());
+		this.nPrecioTriple_text=df.format(nPrecioTriple.doubleValue());
+		/*******Activar la categoria seleccionada*********/
+		darColor_estado_hotel();
+		activarCategoria();
+	}
+	public void darColor_estado_hotel()
+	{
+		if(bEstado)
+		{
+			color_btn_activo=COLOR_ACTIVO;
+			color_btn_desactivo=COLOR_TRANSPARENT;
+		}
+		else{
+			color_btn_activo=COLOR_TRANSPARENT;
+			color_btn_desactivo=COLOR_DESACTIVO;
+		}
+	}
+	public void activarCategoria()
+	{	select_eco=select_tur=select_turSup=select_pri=select_priSup=select_lujo=select_lujoSup=false;
+		if(categoriaHotelCod==1)
+			select_eco=true;
+		else if(categoriaHotelCod==2)
+			select_tur=true;
+		else if(categoriaHotelCod==3)
+			select_turSup=true;
+		else if(categoriaHotelCod==4)
+			select_pri=true;
+		else if(categoriaHotelCod==5)
+			select_priSup=true;
+		else if(categoriaHotelCod==6)
+			select_lujo=true;
+		else if(categoriaHotelCod==7)
+			select_lujoSup=true;
 	}
 	public String obtenerNombreCategoria(int codCat)
 	{

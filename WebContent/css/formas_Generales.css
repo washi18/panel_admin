@@ -467,8 +467,28 @@
 	font-weight: bold;
 }
 .btn_actualizar{
-	background:#3BA420; 
-	border-color:#3BA420;
+	background:#DA5D06; 
+	border-color:#DA5D06;
+	border-radius: 5px;
+	width: 100px;
+	height: 50px;
+	border: none;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+}
+.btn_activo{
+	background:#3BA420;
+	border-radius: 5px;
+	width: 100px;
+	height: 50px;
+	border: none;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+}
+.btn_desactivo{
+	background:#DA0613;
 	border-radius: 5px;
 	width: 100px;
 	height: 50px;
@@ -479,10 +499,10 @@
 }
 @media (max-width:400px){
 	.btn_editar,
+	.btn_activo,
 	.btn_actualizar{
 		width: 100%;
 	}
-	
 	.estilo_desborde_descripcion {
 		float: left;
     	overflow: hidden;

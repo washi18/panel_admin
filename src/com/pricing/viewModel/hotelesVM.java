@@ -27,7 +27,7 @@ public class hotelesVM
 	/**==ATRIBUTOS==**/
 	/**=============**/
 	private CHotel oHotel;
-	private CHotel oHotelUpdate;
+	private CHotel oHotelUpdate;//Funciona como variable auxiliar
 	private ArrayList<CHotel> listaHoteles;
 	private CHotelDAO hotelDao;
 	/**=====================**/
@@ -139,13 +139,24 @@ public class hotelesVM
 			Clients.showNotification("El Nuevo Hotel no fue insertado", Clients.NOTIFICATION_TYPE_INFO, componente,"before_start",2700);
 	}
 	@Command
-	public void actualizarHotel(@BindingParam("hotel")CHotel hotel)
+	public void actualizarHotel(@BindingParam("hotel")CHotel hotel,@BindingParam("componente")Component comp)
 	{	
-		System.out.println("--> "+hotel);
+		if(!validoActualizacion(hotel,comp))
+			return;
 		hotel.setEditable(false);
 		refrescaFilaTemplate(hotel);
 		/**Actualizar datos de la etiqueta en la BD**/
 		boolean b=hotelDao.isOperationCorrect(hotelDao.modificarHotel(hotel));
+	}
+	public boolean validoActualizacion(CHotel hotel,Component comp)
+	{
+		boolean valido=true;
+		if(hotel.getcHotel().equals(""))
+		{
+			valido=false;
+			Clients.showNotification("El hotel debe tener siempre un nombre",Clients.NOTIFICATION_TYPE_ERROR,comp,"before_start",2700);
+		}
+		return valido;
 	}
 	/**
 	 * Funcion que permite Editar un hotel para actualizarlo
@@ -168,14 +179,18 @@ public class hotelesVM
 		refrescaFilaTemplate(h);
    }
 	@Command
-	 public void Activar(@BindingParam("hotel") CHotel h ) 
+	 public void Activar_Desactivar(@BindingParam("hotel")CHotel h,@BindingParam("texto")String texto)
 	{
-		
-	}
-	@Command
-	 public void Desactivar(@BindingParam("hotel") CHotel h ) 
-	{
-		
+		if(texto.equals("activar"))
+		{
+			h.setColor_btn_activo(h.COLOR_ACTIVO);
+			h.setColor_btn_desactivo(h.COLOR_TRANSPARENT);
+		}else{
+			h.setColor_btn_activo(h.COLOR_TRANSPARENT);
+			h.setColor_btn_desactivo(h.COLOR_DESACTIVO);
+		}
+		BindUtils.postNotifyChange(null, null, h,"color_btn_activo");
+		BindUtils.postNotifyChange(null, null, h,"color_btn_desactivo");
 	}
 	@Command
 	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("hotel")CHotel hotel)
@@ -243,6 +258,32 @@ public class hotelesVM
 			if(hab.equals("triple"))
 				oHotel.setnPrecioTriple(Double.parseDouble(df.format(Double.parseDouble(precio))));
 		}
+	}
+	@Command
+	public void changePrecios_update(@BindingParam("precio")String precio,@BindingParam("hab")String hab,@BindingParam("componente")Component comp,@BindingParam("hotel")CHotel hotel)
+	{
+		if(!isNumberDouble(precio))
+		{
+			if(hab.equals("simple"))
+				hotel.setnPrecioSimple_text(df.format(hotel.getnPrecioSimple().doubleValue()));
+			if(hab.equals("doble"))
+				hotel.setnPrecioDoble_text(df.format(hotel.getnPrecioDoble().doubleValue()));
+			if(hab.equals("triple"))
+				hotel.setnPrecioTriple_text(df.format(hotel.getnPrecioTriple().doubleValue()));
+			Clients.showNotification("Para que se efectue el cambio debe digitar valores numericos",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+		}
+		else
+		{
+			if(hab.equals("simple"))
+				hotel.setnPrecioSimple(Double.parseDouble(df.format(Double.parseDouble(precio))));
+			if(hab.equals("doble"))
+				hotel.setnPrecioDoble(Double.parseDouble(df.format(Double.parseDouble(precio))));
+			if(hab.equals("triple"))
+				hotel.setnPrecioTriple(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}
+		BindUtils.postNotifyChange(null, null, hotel, "nPrecioSimple_text");
+		BindUtils.postNotifyChange(null, null, hotel, "nPrecioDoble_text");
+		BindUtils.postNotifyChange(null, null, hotel, "nPrecioTriple_text");
 	}
 	public boolean isNumberDouble(String cad)
 	{
