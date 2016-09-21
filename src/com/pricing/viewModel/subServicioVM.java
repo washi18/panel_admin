@@ -1,5 +1,7 @@
 package com.pricing.viewModel;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 import org.zkoss.bind.BindUtils;
@@ -7,8 +9,11 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.util.Clients;
 
 import com.pricing.dao.CServicioDAO;
+import com.pricing.model.CHotel;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
 
@@ -17,18 +22,47 @@ public class subServicioVM
 	/**
 	 * ATRIBUTOS
 	 */
-	private CSubServicio oSubServicio;
+	private CSubServicio oSubServicioNew;
+	private CSubServicio oSubServicioUpdate;
+	private ArrayList<CServicio> listaServiciosNew;
 	private CServicioDAO servicioDao;
 	private ArrayList<CSubServicio> listaSubServicios;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
 	private boolean visibleEditarRespons=false;
+	private DecimalFormat df;
+	private DecimalFormatSymbols simbolos;
+	private String NombreServicio;
 	/**
 	 * GETTER AND SETTER
 	 */
 	
 	public CServicioDAO getServicioDao() {
 		return servicioDao;
+	}
+	public String getNombreServicio() {
+		return NombreServicio;
+	}
+	public void setNombreServicio(String nombreServicio) {
+		NombreServicio = nombreServicio;
+	}
+	public ArrayList<CServicio> getListaServiciosNew() {
+		return listaServiciosNew;
+	}
+	public void setListaServiciosNew(ArrayList<CServicio> listaServiciosNew) {
+		this.listaServiciosNew = listaServiciosNew;
+	}
+	public CSubServicio getoSubServicioNew() {
+		return oSubServicioNew;
+	}
+	public void setoSubServicioNew(CSubServicio oSubServicioNew) {
+		this.oSubServicioNew = oSubServicioNew;
+	}
+	public CSubServicio getoSubServicioUpdate() {
+		return oSubServicioUpdate;
+	}
+	public void setoSubServicioUpdate(CSubServicio oSubServicioUpdate) {
+		this.oSubServicioUpdate = oSubServicioUpdate;
 	}
 	public boolean isVisibleEditarRespons() {
 		return visibleEditarRespons;
@@ -51,12 +85,6 @@ public class subServicioVM
 	public void setServicioDao(CServicioDAO servicioDao) {
 		this.servicioDao = servicioDao;
 	}
-	public CSubServicio getoSubServicio() {
-		return oSubServicio;
-	}
-	public void setoSubServicio(CSubServicio oSubServicio) {
-		this.oSubServicio = oSubServicio;
-	}
 	public ArrayList<CSubServicio> getListaSubServicios() {
 		return listaSubServicios;
 	}
@@ -70,14 +98,62 @@ public class subServicioVM
 	public void initVM()
 	{
 		/**Inicializando los objetos**/
-		oSubServicio=new CSubServicio();
+		simbolos= new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator('.');
+		df=new DecimalFormat("########0.00",simbolos);
+		oSubServicioNew=new CSubServicio();
+		listaServiciosNew=new ArrayList<CServicio>();
 		servicioDao=new CServicioDAO();
 		listaSubServicios=new ArrayList<CSubServicio>();
 		/**Obtencion de las etiquetas de la base de datos**/
 		servicioDao.asignarListaSubServicios(servicioDao.recuperarSubServiciosBD());
+		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosconSubServiciosBD());
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 		setListaSubServicios(servicioDao.getListaSubServicios());
+		setListaServiciosNew(servicioDao.getListaServicios());
 	}
+	
+	@Command
+	@NotifyChange({"oSubServicioNew"})
+	public void InsertarSubServicio(@BindingParam("componente")Component componente)
+	{
+		/**Empezamos realizando las validaciones respectivas**/
+		if(oSubServicioNew.getcSubServicioIndioma1().equals("") ||  oSubServicioNew.getcSubServicioIndioma2().equals("") || oSubServicioNew.getcSubServicioIndioma3().equals(""))//Nombre del subServicio
+		{
+			Clients.showNotification("Es necesario poner el nombre del sub servicio en todos los idiomas", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			return;
+		}else if(oSubServicioNew.getcDescripcionIdioma1().equals("") ||  oSubServicioNew.getcDescripcionIdioma2().equals("") || oSubServicioNew.getcDescripcionIdioma3().equals(""))
+		{
+			Clients.showNotification("Es necesario poner la descripcion del sub servicio en todos los idiomas", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			return;
+		}else if(oSubServicioNew.getnServicioCod()==0)
+		{
+			Clients.showNotification("Debe seleccionar un servicio al cual pertenecera", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			return;
+		}else if(oSubServicioNew.getcLink().equals(""))
+		{
+			Clients.showNotification("Es necesario poner la direccion URL del sub servicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			return;
+		}else if(oSubServicioNew.getcUrlImg().equals(""))
+		{
+			Clients.showNotification("Es necesario insertar una imagen del sub servicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			return;
+		}else if(oSubServicioNew.getnPrecioServicio().doubleValue()==0.00 || oSubServicioNew.getnPrecioServicio().doubleValue()<0.00)
+		{
+			Clients.showNotification("El precio de un sub servicio no puede ser $ 0.00, mucho menos un valor negativo", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			return;
+		}
+		/**Una vez validado los datos necesarios se procede a insertar el nuevo sub Servicio**/
+		boolean correcto=servicioDao.isOperationCorrect(servicioDao.insertarSubServicio(oSubServicioNew));
+		if(correcto)
+		{ 
+			oSubServicioNew=new CSubServicio();
+			Clients.showNotification("El Nuevo Sub Servicio fue insertado correctamente", Clients.NOTIFICATION_TYPE_INFO, componente,"before_start",2700);
+		}
+		else
+			Clients.showNotification("El Nuevo Sub Servicio fue insertado", Clients.NOTIFICATION_TYPE_INFO, componente,"before_start",2700);
+	}
+	
 	@Command
 	public void actualizarSubServicio(@BindingParam("subServicio")CSubServicio subServicio)
 	{	
@@ -93,9 +169,9 @@ public class subServicioVM
 	 public void Editar(@BindingParam("subServicio") CSubServicio s ) 
 	{
 		visibleEditarRespons=true;
-		oSubServicio.setEditable(false);
-		refrescaFilaTemplate(oSubServicio);
-		oSubServicio=s;
+		oSubServicioNew.setEditable(false);
+		refrescaFilaTemplate(oSubServicioNew);
+		oSubServicioNew=s;
 		//le damos estado editable
 		s.setEditable(!s.isEditable());	
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
@@ -136,6 +212,39 @@ public class subServicioVM
 		BindUtils.postNotifyChange(null, null, servicio, "visibleEspanol");
 		BindUtils.postNotifyChange(null, null, servicio, "visibleIngles");
 		BindUtils.postNotifyChange(null, null, servicio, "visiblePortugues");
+	}
+	
+	@Command
+	@NotifyChange({"oSubServicioNew"})
+	public void changePrecios_nuevo(@BindingParam("precio")String precio,@BindingParam("componente")Component componente)
+	{
+		if(!isNumberDouble(precio))
+		{
+			oSubServicioNew.setnPrecioServicio_text(df.format(0.00));
+			Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start", 2700);
+		}
+		else
+		{
+				oSubServicioNew.setnPrecioServicio(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}
+	}
+	public boolean isNumberDouble(String cad)
+	{
+		try
+		 {
+		   Double.parseDouble(cad);
+		   return true;
+		 }
+		 catch(NumberFormatException nfe)
+		 {
+		   return false;
+		 }
+	}
+	
+	@Command
+	@NotifyChange("oSubServicioNew")
+	public void  asignacion_servicio(@BindingParam("servicio")int codServicio){
+		oSubServicioNew.setnServicioCod(codServicio);
 	}
 	public void refrescaFilaTemplate(CSubServicio s)
 	{
