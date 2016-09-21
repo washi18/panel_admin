@@ -16,16 +16,17 @@
 				<space></space>
 				<div>
 					<label value="SERVICIO: " zclass="lbl_llenar_datos"/>
-					<combobox value="@bind(self.selectedItem.label)" sclass="cbox_llenar_datos">
-						<comboitem label="hola"/>
-						<comboitem label="hola2"/>
+					<combobox model="@bind(vmServicio.listaServiciosNew)" onSelect="@command('asignacion_servicio',servicio=self.selectedItem.value)" sclass="cbox_llenar_datos" autodrop="true">
+						<template name="model">
+							<comboitem label="@bind(each.cServicioIndioma1)" value="@bind(each.nServicioCod)"/>
+						</template>
 					</combobox>
 				</div>
 				<space></space>
 				<div zclass="div_contenedor_nuevo_subServicio">
 					<div zclass="div_content_img">
 						<div height="150px" width="200px" zclass="div_img">
-							<image width="100%" height="100%" src="img/loading_7.gif"/>
+							<image width="100%" height="100%" src="@save(vmServicio.oSubServicioNew.cUrlImg)"/>
 						</div>
 						<button label="Subir Imagen" zclass="estilo_subir_imagen"/>
 					</div>
@@ -48,18 +49,18 @@
 							</div>
 							<div>
 								<label value="SUB SERVICIO: " zclass="lbl_llenar_datos"/>
-								<textbox zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true"/>
-								<textbox zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false"/>
-								<textbox zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false"/>
+								<textbox zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true" value="@save(vmServicio.oSubServicioNew.cSubServicioIndioma1)"/>
+								<textbox zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false" value="@save(vmServicio.oSubServicioNew.cSubServicioIndioma2)"/>
+								<textbox zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false" value="@save(vmServicio.oSubServicioNew.cSubServicioIndioma3)"/>
 							</div>
 							<div>
 								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
 								<textbox zclass="txt_llenar_datos" id="txtSpainDesc" multiline="true" height="150px"
-									placeholder="ESPAÑOL" width="250px" visible="true"/>
+									placeholder="ESPAÑOL" width="250px" visible="true" value="@save(vmServicio.oSubServicioNew.cDescripcionIdioma1)"/>
 								<textbox zclass="txt_llenar_datos" id="txtInglesDesc" multiline="true" height="150px"
-									placeholder="INGLES" width="250px" visible="false"/>
+									placeholder="INGLES" width="250px" visible="false" value="@save(vmServicio.oSubServicioNew.cDescripcionIdioma2)"/>
 								<textbox zclass="txt_llenar_datos" id="txtPortuDesc" multiline="true" height="150px"
-									placeholder="PORTUGUES" width="250px" visible="false"/>
+									placeholder="PORTUGUES" width="250px" visible="false" value="@save(vmServicio.oSubServicioNew.cDescripcionIdioma3)"/>
 							</div>
 						</div>
 					</div>
@@ -71,7 +72,7 @@
 						</div>
 						<div>
 							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
-							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+							<textbox width="80px" zclass="txt_llenar_datos" value="@bind(vmServicio.oSubServicioNew.nPrecioServicio_text)" onChange="@command('changePrecios_nuevo',precio=self.value,componente=self)"/>
 							<space></space>
 						</div>
 						<button label="Guardar" zclass="btn_guardar"/>

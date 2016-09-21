@@ -17,6 +17,7 @@ public class CSubServicio
 	private String cUrlImg;// varchar(200),
 	private String cLink;// text,
 	private Number nPrecioServicio;// decimal(10,2),
+	private String nPrecioServicio_text;
 	private boolean bEstado;// boolean,
 	private String tituloSubServicio;
 	private String cDescripcion;
@@ -158,11 +159,33 @@ public class CSubServicio
 	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
+	
+	public String getnPrecioServicio_text() {
+		return nPrecioServicio_text;
+	}
+	public void setnPrecioServicio_text(String nPrecioServicio_text) {
+		this.nPrecioServicio_text = nPrecioServicio_text;
+	}
 	//============================
 	public CSubServicio() {
 		// TODO Auto-generated constructor stub
 		cDescripcion="";
 		tituloSubServicio="";
+		this.cSubServicioIndioma1="";
+		this.cSubServicioIndioma2="";
+		this.cSubServicioIndioma3="";
+		this.cSubServicioIndioma4="";
+		this.cSubServicioIndioma5="";
+		this.cDescripcionIdioma1 ="";
+		this.cDescripcionIdioma2 ="";
+		this.cDescripcionIdioma3 ="";
+		this.cDescripcionIdioma4 ="";
+		this.cDescripcionIdioma5 ="";
+		this.cLink="";
+		this.cUrlImg="";
+		this.nPrecioServicio=0;
+		this.nServicioCod=0;
+		this.nPrecioServicio_text="0.00";
 	}
 	public CSubServicio(int nSubServicioCod, int nServicioCod,
 			String cSubServicioIndioma1, String cSubServicioIndioma2,

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pricing.model.CEtiqueta;
+import com.pricing.model.CHotel;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
 
@@ -48,6 +49,11 @@ public class CServicioDAO extends CConexion
 	{
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarServicios");
 	}
+	
+	public List recuperarServiciosconSubServiciosBD ()
+	{
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarServiciosconSubServicios");
+	}
 	public void asignarListaServicios(List lista)
 	{
 		listaServicios=new ArrayList<CServicio>();
@@ -86,6 +92,17 @@ public class CServicioDAO extends CConexion
 					(boolean)row.get("bestado")));
 		}
 	}
+	
+	public List insertarSubServicio(CSubServicio subServicio)
+	{
+		Object[] values={subServicio.getcSubServicioIndioma1(),subServicio.getcSubServicioIndioma2(),subServicio.getcSubServicioIndioma3(),
+				subServicio.getcSubServicioIndioma4(),subServicio.getcSubServicioIndioma5(),
+				subServicio.getcDescripcionIdioma1(),subServicio.getcDescripcionIdioma2(),subServicio.getcDescripcionIdioma3(),
+				subServicio.getcDescripcionIdioma4(),subServicio.getcDescripcionIdioma5(),
+				subServicio.getcLink(),subServicio.getcUrlImg(),subServicio.getnServicioCod(),subServicio.getnPrecioServicio().doubleValue()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarSubServicio", values);
+	}
+	
 	public List modificarServicio(CServicio servicio)
 	{
 		Object[] values={servicio.getnServicioCod(),servicio.getcServicioIndioma1(),
