@@ -1,16 +1,24 @@
 package com.pricing.viewModel;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.WrongValueException;
+import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Div;
 
 import com.pricing.dao.CDestinoHotelDAO;
 import com.pricing.dao.CHotelDAO;
@@ -23,6 +31,8 @@ public class hotelesVM
 	private DecimalFormat df;
 	private DecimalFormatSymbols simbolos;
 	//====================
+	@Wire
+	Div div_llenar_hoteles;
 	/**=============**/
 	/**==ATRIBUTOS==**/
 	/**=============**/
@@ -106,6 +116,7 @@ public class hotelesVM
 	@NotifyChange({"oHotel"})
 	public void InsertarHotel(@BindingParam("componente")Component componente)
 	{
+		oHotel.setcHotel(oHotel.getcHotel().toUpperCase());
 		/**Empezamos realizando las validaciones respectivas**/
 		if(oHotel.getcHotel().equals(""))//Nombre del Hotel
 		{
@@ -133,6 +144,11 @@ public class hotelesVM
 		if(correcto)
 		{ 
 			oHotel=new CHotel();
+			/*para recuperar inmediatamente el dato insertado*/
+			hotelDao.asignarListaHoteles(hotelDao.recuperarHotelesBD());
+			setListaHoteles(hotelDao.getListaHoteles());
+			BindUtils.postNotifyChange(null, null, null,"listaHoteles");
+			/*************************************************/
 			Clients.showNotification("El Nuevo Hotel fue insertado correctamente", Clients.NOTIFICATION_TYPE_INFO, componente,"before_start",2700);
 		}
 		else
@@ -141,20 +157,28 @@ public class hotelesVM
 	@Command
 	public void actualizarHotel(@BindingParam("hotel")CHotel hotel,@BindingParam("componente")Component comp)
 	{	
-		if(!validoActualizacion(hotel,comp))
+		if(!validoPoderActualizar(hotel,comp))
 			return;
 		hotel.setEditable(false);
 		refrescaFilaTemplate(hotel);
 		/**Actualizar datos de la etiqueta en la BD**/
-		boolean b=hotelDao.isOperationCorrect(hotelDao.modificarHotel(hotel));
+		boolean correcto=hotelDao.isOperationCorrect(hotelDao.modificarHotel(hotel));
+		if(correcto)
+			Clients.showNotification("El Hotel se actualizo correctamente", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
+		else
+			Clients.showNotification("El Hotel no se pudo actualizar", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
 	}
-	public boolean validoActualizacion(CHotel hotel,Component comp)
+	public boolean validoPoderActualizar(CHotel hotel,Component comp)
 	{
 		boolean valido=true;
 		if(hotel.getcHotel().equals(""))
 		{
 			valido=false;
 			Clients.showNotification("El hotel debe tener siempre un nombre",Clients.NOTIFICATION_TYPE_ERROR,comp,"before_start",2700);
+		}
+		else
+		{
+			hotel.setcHotel(hotel.getcHotel().toUpperCase());
 		}
 		return valido;
 	}
@@ -167,6 +191,8 @@ public class hotelesVM
 	@Command
 	public void Editar(@BindingParam("hotel") CHotel h ) 
 	{
+		div_llenar_hoteles.setVisible(false);
+		afterCompose(div_llenar_hoteles);
 		//oHotelUpdate viene a ser una variable auxiliar
 		//que almacena el hotel previo editado y actualizado
 		//para luego almacenar el hotel seleccionado para editar
@@ -185,9 +211,11 @@ public class hotelesVM
 		{
 			h.setColor_btn_activo(h.COLOR_ACTIVO);
 			h.setColor_btn_desactivo(h.COLOR_TRANSPARENT);
+			h.setbEstado(true);
 		}else{
 			h.setColor_btn_activo(h.COLOR_TRANSPARENT);
 			h.setColor_btn_desactivo(h.COLOR_DESACTIVO);
+			h.setbEstado(false);
 		}
 		BindUtils.postNotifyChange(null, null, h,"color_btn_activo");
 		BindUtils.postNotifyChange(null, null, h,"color_btn_desactivo");
@@ -300,5 +328,10 @@ public class hotelesVM
 	public void refrescaFilaTemplate(CHotel h)
 	{
 		BindUtils.postNotifyChange(null, null, h, "editable");
+	}
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view)
+	{
+		Selectors.wireComponents(view, this, false);
 	}
 }

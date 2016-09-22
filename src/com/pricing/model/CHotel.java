@@ -42,6 +42,8 @@ public class CHotel
 	public String COLOR_ACTIVO="background:#3BA420;";
 	public String COLOR_DESACTIVO="background:#DA0613;";
 	public String COLOR_TRANSPARENT="background:transparent;";
+	private boolean estado_activo;
+	private boolean estado_desactivo;
 	//================================
 	public int getnHotelCod() {
 		return nHotelCod;
@@ -223,6 +225,18 @@ public class CHotel
 	public void setColor_btn_desactivo(String color_btn_desactivo) {
 		this.color_btn_desactivo = color_btn_desactivo;
 	}
+	public boolean isEstado_activo() {
+		return estado_activo;
+	}
+	public void setEstado_activo(boolean estado_activo) {
+		this.estado_activo = estado_activo;
+	}
+	public boolean isEstado_desactivo() {
+		return estado_desactivo;
+	}
+	public void setEstado_desactivo(boolean estado_desactivo) {
+		this.estado_desactivo = estado_desactivo;
+	}
 	//======================================
 	public CHotel() {
 		// TODO Auto-generated constructor stub
@@ -265,6 +279,7 @@ public class CHotel
 		this.nPrecioDoble = nPrecioDoble;
 		this.nPrecioTriple = nPrecioTriple;
 		this.bEstado = bEstado;
+		//==Datos no obtenidos directamente de la base de datos==
 		this.editable=false;
 		this.categoria=obtenerNombreCategoria(categoriaHotelCod);
 		this.visibleEspanol=true;
@@ -273,6 +288,8 @@ public class CHotel
 		this.nPrecioSimple_text=df.format(nPrecioSimple.doubleValue());
 		this.nPrecioDoble_text=df.format(nPrecioDoble.doubleValue());
 		this.nPrecioTriple_text=df.format(nPrecioTriple.doubleValue());
+		this.estado_activo=bEstado;
+		this.estado_desactivo=!bEstado;
 		/*******Activar la categoria seleccionada*********/
 		darColor_estado_hotel();
 		activarCategoria();

@@ -1,9 +1,15 @@
 package com.pricing.model;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 public class CServicio 
 {
+	//====================
+			private DecimalFormat df;
+			private DecimalFormatSymbols simbolos;
+	//====================
 	private int nServicioCod;// int,
 	private String cServicioIndioma1;// varchar(200),                   --nombre del servicio en el idioma 1
 	private String cServicioIndioma2;// varchar(200),                   --nombre del servicio en el idioma 2
@@ -35,6 +41,11 @@ public class CServicio
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
 	private boolean editable;
+	private String nPrecioServicio_text;
+	private boolean disabledConSubServicio;
+	public String COLOR_DISABLED="background:gray;";
+	public String COLOR_NO_DISABLED="background:white;";
+	private String color_disabled;
 	//=============================
 	public int getnServicioCod() {
 		return nServicioCod;
@@ -222,11 +233,46 @@ public class CServicio
 	public void setVisiblePortugues(boolean visiblePortugues) {
 		this.visiblePortugues = visiblePortugues;
 	}
+	public String getnPrecioServicio_text() {
+		return nPrecioServicio_text;
+	}
+	public void setnPrecioServicio_text(String nPrecioServicio_text) {
+		this.nPrecioServicio_text = nPrecioServicio_text;
+	}
+	public boolean isDisabledConSubServicio() {
+		return disabledConSubServicio;
+	}
+	public void setDisabledConSubServicio(boolean disabledConSubServicio) {
+		this.disabledConSubServicio = disabledConSubServicio;
+	}
+	public String getColor_disabled() {
+		return color_disabled;
+	}
+	public void setColor_disabled(String color_disabled) {
+		this.color_disabled = color_disabled;
+	}
 	//========================================
 	public CServicio() {
 		// TODO Auto-generated constructor stub
 		this.listaOpcionServicios=new ArrayList<String[]>();
 		Servicio="";
+		this.cServicioIndioma1 ="";
+		this.cServicioIndioma2 ="";
+		this.cServicioIndioma3 ="";
+		this.cServicioIndioma4 ="";
+		this.cServicioIndioma5 = "";
+		this.cDescripcionIdioma1 ="";
+		this.cDescripcionIdioma2 = "";
+		this.cDescripcionIdioma3 = "";
+		this.cDescripcionIdioma4 = "";
+		this.cDescripcionIdioma5 = "";
+		this.cUrlImg ="";
+		this.nPrecioServicio =0;
+		this.bEstado =true;
+		//==========================
+		this.nPrecioServicio_text="0.00";
+		this.cIncremento=1;
+		this.color_disabled=COLOR_NO_DISABLED;
 	}
 	public CServicio(int nServicioCod, String cServicioIndioma1,
 			String cServicioIndioma2, String cServicioIndioma3,
@@ -236,6 +282,11 @@ public class CServicio
 			String cDescripcionIdioma5, int cRestriccionYesNo,
 			int cRestriccionNum, int cIncremento, String cUrlImg,
 			Number nPrecioServicio, boolean bEstado) {
+		/*******************************/
+		simbolos= new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator('.');
+		df=new DecimalFormat("########0.00",simbolos);
+		/*******************************/
 		this.nServicioCod = nServicioCod;
 		this.cServicioIndioma1 = cServicioIndioma1;
 		this.cServicioIndioma2 = cServicioIndioma2;
@@ -260,11 +311,13 @@ public class CServicio
 		this.selectOpcion="";
 		this.opcionValue="0";
 		this.cantidadServicio=0;
-		this.precioTotalServicio="0.00";
+		this.precioTotalServicio=df.format(0);
 		this.link="";
 		this.editable=false;
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
+		this.disabledConSubServicio=false;
+		this.nPrecioServicio_text=df.format(nPrecioServicio.doubleValue());
 	}
 }

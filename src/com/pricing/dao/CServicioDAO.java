@@ -92,7 +92,18 @@ public class CServicioDAO extends CConexion
 					(boolean)row.get("bestado")));
 		}
 	}
-	
+	public List insertarServicio(CServicio servicio)
+	{
+		Object[] values={servicio.getcServicioIndioma1(),servicio.getcServicioIndioma2(),
+				servicio.getcServicioIndioma3(),servicio.getcServicioIndioma4(),
+				servicio.getcServicioIndioma5(),servicio.getcDescripcionIdioma1(),
+				servicio.getcDescripcionIdioma2(),servicio.getcDescripcionIdioma3(),
+				servicio.getcDescripcionIdioma4(),servicio.getcDescripcionIdioma5(),
+				servicio.getcRestriccionYesNo(),servicio.getcRestriccionNum(),
+				servicio.getcIncremento(),servicio.getcUrlImg(),servicio.getnPrecioServicio(),
+				servicio.isbEstado()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarServicio", values);
+	}
 	public List insertarSubServicio(CSubServicio subServicio)
 	{
 		Object[] values={subServicio.getcSubServicioIndioma1(),subServicio.getcSubServicioIndioma2(),subServicio.getcSubServicioIndioma3(),

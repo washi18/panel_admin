@@ -40,18 +40,24 @@
 							</div>
 							<div>
 								<label value="SERVICIO: " zclass="lbl_llenar_datos"/>
-								<textbox zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true"/>
-								<textbox zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false"/>
-								<textbox zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false"/>
 							</div>
 							<div>
 								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
-								<textbox zclass="txt_llenar_datos" id="txtSpainDesc" multiline="true" height="150px"
-									placeholder="ESPAÑOL" width="250px" visible="true"/>
-								<textbox zclass="txt_llenar_datos" id="txtInglesDesc" multiline="true" height="150px"
-									placeholder="INGLES" width="250px" visible="false"/>
-								<textbox zclass="txt_llenar_datos" id="txtPortuDesc" multiline="true" height="150px"
-									placeholder="PORTUGUES" width="250px" visible="false"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cDescripcionIdioma1)" zclass="txt_llenar_datos" id="txtSpainDesc" multiline="true" height="150px"
+									placeholder="ESPAÑOL" width="250px" visible="true"
+									style="@bind(vmServicio.oServicioNuevo.color_disabled)"
+									disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cDescripcionIdioma2)" zclass="txt_llenar_datos" id="txtInglesDesc" multiline="true" height="150px"
+									placeholder="INGLES" width="250px" visible="false"
+									style="@bind(vmServicio.oServicioNuevo.color_disabled)"
+									disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cDescripcionIdioma3)" zclass="txt_llenar_datos" id="txtPortuDesc" multiline="true" height="150px"
+									placeholder="PORTUGUES" width="250px" visible="false"
+									style="@bind(vmServicio.oServicioNuevo.color_disabled)"
+									disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)"/>
 							</div>
 						</div>
 					</div>
@@ -61,7 +67,7 @@
 							<label value="ELEGIR UNA RESTRICCION:" zclass="lbl_llenar_datos"/>
 							<separator bar="true" zclass="lbl_llenar_datos"/>
 							<div>
-								<radiogroup sclass="style_restricciones">
+								<radiogroup sclass="style_restricciones" onCheck="@command('selectRestricciones',restriccion=self.selectedItem.value)">
 									<radio label="SI/NO" value="si_no"/>
 									<radio label="Numerica" value="numerica"/>
 									<radio label="Sub Servicios" value="sub_servicios"/>
@@ -70,9 +76,12 @@
 						</div>
 						<div>
 							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
-							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
+							<textbox value="@bind(vmServicio.oServicioNuevo.nPrecioServicio_text)" disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)" 
+									width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+									style="@bind(vmServicio.oServicioNuevo.color_disabled)"
+									onChange="@command('changePrecios_nuevo',precio=self.value,componente=self)"/>
 						</div>
-						<button label="Guardar" zclass="btn_guardar">
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('insertarServicio',componente=self)">
 						</button>
 					</div>
 				</div>
@@ -121,14 +130,13 @@
 					    					onClick="@command('Editar',servicio=each)"
 					    					zclass="btn_editar" />
 					    				<separator spacing="2px"></separator>
-					    				<button label="Activar"
-					    					zclass="btn_actualizar">
-					    				</button>
+					    				<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)"/>
+					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
 					    			</div>
 					    		</div>
 					    		<space></space>
 					    		<div sclass="estilo_contenedor_costo">
-					    			<label value="@bind(each.nPrecioServicio)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			<label value="@bind(each.nPrecioServicio_text)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		</div>
 					    	</div>
 				    	</div>
@@ -147,7 +155,7 @@
 				    				zclass="div_img">
 				    				<image width="100%" height="100%" src="@bind(each.cUrlImg)" />
 				    			</div>
-				    			<button label="Subir Imagen"
+				    			<button label="Cambiar Imagen"
 				    				zclass="estilo_subir_imagen" width="100%"/>
 				    		</div>
 				    		<space></space>

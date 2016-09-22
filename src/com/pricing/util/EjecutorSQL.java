@@ -86,6 +86,10 @@ public class EjecutorSQL {
 					    	ps.setDouble(i+1,(double) val[i]);
 					    	System.out.println("double : "+ (double) val[i]);
 					    }
+					    else if (val[i].getClass().equals(Boolean.class)) {
+					    	ps.setBoolean(i+1,(boolean) val[i]);
+					    	System.out.println("boolean : "+ (boolean) val[i]);
+					    }
 					    else
 					    {
 					    	java.sql.Date fecha=  new java.sql.Date(((Date)val[i]).getTime());
