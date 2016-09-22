@@ -11,46 +11,31 @@ import java.io.OutputStream;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Executions;
 
-public class Util {
+public class ScannUtil {
 	
 	public static final String separator = System.getProperty("file.separator");//Get de system separator
 	
 	public static boolean uploadFile(Media media) {
 		System.out.println("aqui estoy="+separator);
-		System.out.println("Esta es la ruta=>"+getPath());
+		System.out.println("Esta es la ruta=>"+getPathImagensSubServicio());
 		//return saveFile(media, "E:/SoftwareDevelopment/workspace/GPS/WebContent/image/unidades/");
-		return saveFile(media,getPath());
-	}
-	public static boolean uploadFileAux(Media media)
-	{
-		return saveFile(media,getPathAuxDisp());
-	}
-	//Gets the path of the current web application
-	public static String getPath(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"Disponibilidad"+separator;
+		return saveFile(media,getPathImagensSubServicio());
 	}
 	
-	public static String getPathImagenesSubServicio(){
+	//Gets the path of the current web application
+	public static String getPath(){
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"DocumentosScanneados"+separator;
+	}
+	
+	public static String getPathImagensSubServicios(){
 		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"servicios"+separator;
 	}
-	//Obtiene la ruta de las imagenes
-	public static String getPathIMG()
-	{
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator;
-	}
-	//Obtiene la ruta del archivo de la carpeta auxiliar
-	public static String getPathAuxDisp()
-	{
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"auxDisp"+separator;
-	}
-	//Obtiene la ruta de la carpeta donde estan los pdfs de reserva
-	public static String getPathReservas()
-	{
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"Reservas"+separator;
-	}
+	
+	public static String getPathImagensSubServicio(){
+		return "D:\\ProyectosGitHub\\";
+	}	
 	//save file
-	public static boolean saveFile(Media media, String path)
-	{
+	public static boolean saveFile(Media media, String path){
 		boolean uploaded = false;
 		BufferedInputStream in = null;
 		BufferedOutputStream out = null;
@@ -70,7 +55,7 @@ public class Util {
 				ch = in.read(buffer);
 			}
 			uploaded = true;
-			if(uploaded)System.out.println("Se llego a cargar el PDF");
+			if(uploaded)System.out.println("Se llego a cargar la imagen scanneada");
 		}catch (IOException ie) {
 			throw new RuntimeException(ie);
 		} catch (Exception e) {
@@ -88,4 +73,5 @@ public class Util {
 		return uploaded;
 	}
 }
+
 
