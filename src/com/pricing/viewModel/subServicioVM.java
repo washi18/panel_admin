@@ -1,5 +1,6 @@
 package com.pricing.viewModel;
 
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -10,12 +11,17 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Fileupload;
+import org.zkoss.zul.Messagebox;
 
 import com.pricing.dao.CServicioDAO;
 import com.pricing.model.CHotel;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
+import com.pricing.util.ScannUtil;
 
 public class subServicioVM 
 {
@@ -117,6 +123,10 @@ public class subServicioVM
 	@NotifyChange({"oSubServicioNew"})
 	public void InsertarSubServicio(@BindingParam("componente")Component componente)
 	{
+		oSubServicioNew.setcSubServicioIndioma4("cuatro");
+		oSubServicioNew.setcSubServicioIndioma5("cinco");
+		oSubServicioNew.setcDescripcionIdioma4("d4");
+		oSubServicioNew.setcDescripcionIdioma5("d5");
 		/**Empezamos realizando las validaciones respectivas**/
 		if(oSubServicioNew.getcSubServicioIndioma1().equals("") ||  oSubServicioNew.getcSubServicioIndioma2().equals("") || oSubServicioNew.getcSubServicioIndioma3().equals(""))//Nombre del subServicio
 		{
@@ -245,6 +255,41 @@ public class subServicioVM
 	@NotifyChange("oSubServicioNew")
 	public void  asignacion_servicio(@BindingParam("servicio")int codServicio){
 		oSubServicioNew.setnServicioCod(codServicio);
+	}
+	
+	@Command
+	@NotifyChange("oSubServicioNew")
+	public void uploadImagen() {
+			 Fileupload.get(new EventListener<UploadEvent>(){
+					public void onEvent(UploadEvent event) {
+						org.zkoss.util.media.Media media = event.getMedia();
+						if (media instanceof org.zkoss.image.Image) {
+							org.zkoss.image.Image img = (org.zkoss.image.Image) media;
+							//Con este metodo(uploadFile) de clase guardo la imagen en la ruta del servidor
+				            boolean b=ScannUtil.uploadFile(img);
+				            //================================
+				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
+				            String urlImagen=ScannUtil.getPathImagensSubServicio()+img.getName();
+				            File imgGuardado=new File(urlImagen);
+				            if(imgGuardado.exists())
+				            {	System.out.println("El archivo existe");
+				            	if(imgGuardado.delete())System.out.println("Se elimino el archivo existente");
+				            }
+				            asignarUrlImagenSubServicio(urlImagen);
+				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,null,"top_center",3000);
+						} else {
+							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
+								}
+					}
+			     });
+	}
+	public void asignarUrlImagenSubServicio(String url)
+	{
+		System.out.println("==>:::"+url);
+		oSubServicioNew.setcUrlImg(url);
+		//pasajero.setcUrlMostrarDocumento("/DocumentosScanneados/"+url);
+		BindUtils.postNotifyChange(null, null, oSubServicioNew,"cUrlImg");
+		//BindUtils.postNotifyChange(null, null, pasajero,"cUrlMostrarDocumento");
 	}
 	public void refrescaFilaTemplate(CSubServicio s)
 	{

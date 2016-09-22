@@ -106,11 +106,11 @@ public class CServicioDAO extends CConexion
 	}
 	public List insertarSubServicio(CSubServicio subServicio)
 	{
-		Object[] values={subServicio.getcSubServicioIndioma1(),subServicio.getcSubServicioIndioma2(),subServicio.getcSubServicioIndioma3(),
+		Object[] values={subServicio.getnServicioCod(),subServicio.getcSubServicioIndioma1(),subServicio.getcSubServicioIndioma2(),subServicio.getcSubServicioIndioma3(),
 				subServicio.getcSubServicioIndioma4(),subServicio.getcSubServicioIndioma5(),
 				subServicio.getcDescripcionIdioma1(),subServicio.getcDescripcionIdioma2(),subServicio.getcDescripcionIdioma3(),
 				subServicio.getcDescripcionIdioma4(),subServicio.getcDescripcionIdioma5(),
-				subServicio.getcLink(),subServicio.getcUrlImg(),subServicio.getnServicioCod(),subServicio.getnPrecioServicio().doubleValue()};
+				subServicio.getcUrlImg(),subServicio.getcLink(),subServicio.getnPrecioServicio().doubleValue()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarSubServicio", values);
 	}
 	

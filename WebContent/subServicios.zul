@@ -26,9 +26,9 @@
 				<div zclass="div_contenedor_nuevo_subServicio">
 					<div zclass="div_content_img">
 						<div height="150px" width="200px" zclass="div_img">
-							<image width="100%" height="100%" src="@save(vmServicio.oSubServicioNew.cUrlImg)"/>
+							<image width="100%" height="100%" src="@bind(vmServicio.oSubServicioNew.cUrlImg)"/>
 						</div>
-						<button label="Subir Imagen" zclass="estilo_subir_imagen"/>
+						<button label="Subir Imagen" zclass="estilo_subir_imagen" onClick="@command('uploadImagen')"/>
 					</div>
 					<space></space>
 					<div zclass="div_content_datos">
@@ -68,14 +68,14 @@
 					<div zclass="div_content_datos">
 						<div>
 							<label value="URL : " zclass="lbl_llenar_datos"/>
-							<textbox width="200px" zclass="txt_llenar_datos" placeholder="LINK"/>
+							<textbox width="200px" zclass="txt_llenar_datos" placeholder="LINK" value="@bind(vmServicio.oSubServicioNew.cLink)"/>
 						</div>
 						<div>
 							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
 							<textbox width="80px" zclass="txt_llenar_datos" value="@bind(vmServicio.oSubServicioNew.nPrecioServicio_text)" onChange="@command('changePrecios_nuevo',precio=self.value,componente=self)"/>
 							<space></space>
 						</div>
-						<button label="Guardar" zclass="btn_guardar"/>
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('InsertarSubServicio',componente=self)"/>
 					</div>
 				</div>
 			</div>
