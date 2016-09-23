@@ -33,6 +33,7 @@ public class subServicioVM
 	private ArrayList<CServicio> listaServiciosNew;
 	private CServicioDAO servicioDao;
 	private ArrayList<CSubServicio> listaSubServicios;
+	private ArrayList<CSubServicio> listaSubServiciosconServiciosNombre;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
 	private boolean visibleEditarRespons=false;
@@ -97,6 +98,14 @@ public class subServicioVM
 	public void setListaSubServicios(ArrayList<CSubServicio> listaSubServicios) {
 		this.listaSubServicios = listaSubServicios;
 	}
+	
+	public ArrayList<CSubServicio> getListaSubServiciosconServiciosNombre() {
+		return listaSubServiciosconServiciosNombre;
+	}
+	public void setListaSubServiciosconServiciosNombre(
+			ArrayList<CSubServicio> listaSubServiciosconServiciosNombre) {
+		this.listaSubServiciosconServiciosNombre = listaSubServiciosconServiciosNombre;
+	}
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
 	 */
@@ -108,15 +117,19 @@ public class subServicioVM
 		simbolos.setDecimalSeparator('.');
 		df=new DecimalFormat("########0.00",simbolos);
 		oSubServicioNew=new CSubServicio();
-		listaServiciosNew=new ArrayList<CServicio>();
+		oSubServicioUpdate=new CSubServicio();
 		servicioDao=new CServicioDAO();
+		listaServiciosNew=new ArrayList<CServicio>();
+		listaSubServiciosconServiciosNombre=new ArrayList<CSubServicio>();
 		listaSubServicios=new ArrayList<CSubServicio>();
 		/**Obtencion de las etiquetas de la base de datos**/
 		servicioDao.asignarListaSubServicios(servicioDao.recuperarSubServiciosBD());
 		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosconSubServiciosBD());
+		servicioDao.asignarListaSubServiciosconNombre(servicioDao.recuperarSubServiciosconServiciosNombreBD());
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 		setListaSubServicios(servicioDao.getListaSubServicios());
 		setListaServiciosNew(servicioDao.getListaServicios());
+		setListaSubServiciosconServiciosNombre(servicioDao.getListaSubServiciosconServiciosNombre());
 	}
 	
 	@Command
@@ -167,6 +180,7 @@ public class subServicioVM
 	@Command
 	public void actualizarSubServicio(@BindingParam("subServicio")CSubServicio subServicio)
 	{	
+		
 //		System.out.println("--> "+servicio);
 		subServicio.setEditable(false);
 		refrescaFilaTemplate(subServicio);
@@ -175,13 +189,13 @@ public class subServicioVM
 //		initVM();
 	}
 	@Command
-	@NotifyChange("visibleEditarRespons")
+	@NotifyChange("oSubServicioUpdate")
 	 public void Editar(@BindingParam("subServicio") CSubServicio s ) 
-	{
-		visibleEditarRespons=true;
-		oSubServicioNew.setEditable(false);
-		refrescaFilaTemplate(oSubServicioNew);
-		oSubServicioNew=s;
+	{	
+		s.setEditable(false);
+		oSubServicioUpdate.setEditable(false);
+		refrescaFilaTemplate(oSubServicioUpdate);
+		oSubServicioUpdate=s;
 		//le damos estado editable
 		s.setEditable(!s.isEditable());	
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
@@ -269,13 +283,13 @@ public class subServicioVM
 				            boolean b=ScannUtil.uploadFile(img);
 				            //================================
 				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
-				            String urlImagen=ScannUtil.getPathImagensSubServicio()+img.getName();
+				            /*String urlImagen=ScannUtil.getPathImagensSubServicio()+img.getName();
 				            File imgGuardado=new File(urlImagen);
 				            if(imgGuardado.exists())
 				            {	System.out.println("El archivo existe");
 				            	if(imgGuardado.delete())System.out.println("Se elimino el archivo existente");
-				            }
-				            asignarUrlImagenSubServicio(urlImagen);
+				            }*/
+				            asignarUrlImagenSubServicio(img.getName());
 				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,null,"top_center",3000);
 						} else {
 							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
@@ -286,7 +300,7 @@ public class subServicioVM
 	public void asignarUrlImagenSubServicio(String url)
 	{
 		System.out.println("==>:::"+url);
-		oSubServicioNew.setcUrlImg(url);
+		oSubServicioNew.setcUrlImg("/img/servicios/"+url);
 		//pasajero.setcUrlMostrarDocumento("/DocumentosScanneados/"+url);
 		BindUtils.postNotifyChange(null, null, oSubServicioNew,"cUrlImg");
 		//BindUtils.postNotifyChange(null, null, pasajero,"cUrlMostrarDocumento");

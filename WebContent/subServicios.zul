@@ -26,7 +26,7 @@
 				<div zclass="div_contenedor_nuevo_subServicio">
 					<div zclass="div_content_img">
 						<div height="150px" width="200px" zclass="div_img">
-							<image width="100%" height="100%" src="@bind(vmServicio.oSubServicioNew.cUrlImg)"/>
+							<image width="100%" height="100%" src="@load(vmServicio.oSubServicioNew.cUrlImg)"/>
 						</div>
 						<button label="Subir Imagen" zclass="estilo_subir_imagen" onClick="@command('uploadImagen')"/>
 					</div>
@@ -81,7 +81,7 @@
 			</div>
 		</div>
 		<space></space>
-		<listbox sclass="listados" model="@bind(vmServicio.listaSubServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="auto" mold="paging" autopaging="true">
+		<listbox sclass="listados" model="@bind(vmServicio.listaSubServiciosconServiciosNombre) @template((each.editable)? 'modeleditable':'noeditable')" height="auto" mold="paging" autopaging="true">
 			<listhead>
 				<listheader/>
 			</listhead>
@@ -112,7 +112,7 @@
 					    				</div>
 					    			</div>
 					    			<div>
-					    				<label value="@bind(each.nServicioCod)" style="font-size: 14px; font-weight: bold;"></label>
+					    				<label value="@bind(each.cNombreServicio)" style="font-size: 14px; font-weight: bold;"></label>
 					    			</div>
 					    			<div>
 					    			    <label value="@bind(each.cLink)" zclass="estilo_desborde_url"></label>
@@ -132,7 +132,10 @@
 					    			</div>
 					    		</div>
 					    		<div sclass="estilo_contenedor_costo">
-					    			<label value="@bind(each.nPrecioServicio)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		    <div>
+					    				<label value="$" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    				<label value="@bind(each.nPrecioServicio)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			</div>
 					    		</div>
 					    	</div>
 				    	</div>
@@ -152,17 +155,6 @@
 				    				<image id="pics" width="100%" height="100%" src="@bind(each.cUrlImg)" />
 				    			</div>
 				    			<button label="Subir Imagen" zclass="estilo_subir_imagen" width="100%" upload="true,maxsize=500">
-				    			  <attribute name="onUpload"><![CDATA[
-						            org.zkoss.util.media.Media media = event.getMedia();
-						            if (media instanceof org.zkoss.image.Image) {
-						                org.zkoss.zul.Image image = new org.zkoss.zul.Image();
-						                image.setContent(media);
-						                image.setParent(pics);
-						            } else {
-						                Messagebox.show("Not an image: "+media, "Error", Messagebox.OK, Messagebox.ERROR);
-						                break;
-						            }
-						           ]]></attribute>
 				    			</button>
 				    		</div>
 				    		<space></space>
@@ -190,7 +182,7 @@
 				    						sclass="centrado_datos" height="100%">
 				    						<div width="100%"
 				    							sclass="horizontal_label_texbox_subServicio">
-				    							<label value="Servicio:"
+				    							<label value="SubServicio:"
 				    								sclass="estilo_nombre_subServicio">
 				    							</label>
 				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
@@ -212,7 +204,7 @@
 				    					<div width="100%"
 				    						sclass="centrado_datos" height="100%">
 				    						<div width="100%" sclass="horizontal_label_texbox_subServicio">
-				    							<label value="Servicio:" sclass="estilo_nombre_subServicio">
+				    							<label value="SubServicio:" sclass="estilo_nombre_subServicio">
 				    							</label>
 				    							<textbox width="100%" sclass="txt_llenar_datos" height="30px"
 				    								value="@bind(each.cSubServicioIndioma2) @save(each.cSubServicioIndioma2,before='actualizarSubServicio')" />
@@ -231,7 +223,7 @@
 				    					visible="@bind(each.visiblePortugues)">
 				    					<div width="100%" sclass="centrado_datos" height="100%">
 				    						<div width="100%" sclass="horizontal_label_texbox_subServicio">
-				    							<label value="Servicio:" sclass="estilo_nombre_subServicio">
+				    							<label value="SubServicio:" sclass="estilo_nombre_subServicio">
 				    							</label>
 				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
 				    								value="@bind(each.cSubServicioIndioma3) @save(each.cSubServicioIndioma3,before='actualizarSubServicio')" />
@@ -300,9 +292,7 @@
 				    					zclass="lbl_llenar_datos" />
 				    				<div>
 				    					<label value="A que servicio pertenecera?" zclass="lbl_llenar_datos"></label>
-				    					<combobox value="@bind(each.nServicioCod)" placeholder="SERVICIO" width="100%">
-				    					   <comboitem label="@bind(each.nServicioCod)"></comboitem>
-				    					</combobox>
+				    					<label value="@bind(each.cNombreServicio)"></label>
 				    				</div>
 				    			</div>
 				    			<div sclass="estilo_costo_horizontal">

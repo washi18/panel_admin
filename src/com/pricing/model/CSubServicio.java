@@ -25,6 +25,7 @@ public class CSubServicio
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
 	private boolean editable;
+	private String cNombreServicio;
 	//============================
 	
 	public int getnSubServicioCod() {
@@ -166,6 +167,13 @@ public class CSubServicio
 	public void setnPrecioServicio_text(String nPrecioServicio_text) {
 		this.nPrecioServicio_text = nPrecioServicio_text;
 	}
+	
+	public String getcNombreServicio() {
+		return cNombreServicio;
+	}
+	public void setcNombreServicio(String cNombreServicio) {
+		this.cNombreServicio = cNombreServicio;
+	}
 	//============================
 	public CSubServicio() {
 		// TODO Auto-generated constructor stub
@@ -211,10 +219,38 @@ public class CSubServicio
 		this.cLink = cLink;
 		this.nPrecioServicio = nPrecioServicio;
 		this.bEstado = bEstado;
+	}
+	
+	public CSubServicio(int nSubServicioCod,int nServicioCod,
+			String cSubServicioIndioma1, String cSubServicioIndioma2,
+			String cSubServicioIndioma3, String cSubServicioIndioma4,
+			String cSubServicioIndioma5, String cDescripcionIdioma1,
+			String cDescripcionIdioma2, String cDescripcionIdioma3,
+			String cDescripcionIdioma4, String cDescripcionIdioma5,
+			String cUrlImg, String cLink, Number nPrecioServicio,
+			boolean bEstado,String cNombreServicio) {
+		this.nSubServicioCod = nSubServicioCod;
+		this.nServicioCod = nServicioCod;
+		this.cSubServicioIndioma1 = cSubServicioIndioma1;
+		this.cSubServicioIndioma2 = cSubServicioIndioma2;
+		this.cSubServicioIndioma3 = cSubServicioIndioma3;
+		this.cSubServicioIndioma4 = cSubServicioIndioma4;
+		this.cSubServicioIndioma5 = cSubServicioIndioma5;
+		this.cDescripcionIdioma1 = cDescripcionIdioma1;
+		this.cDescripcionIdioma2 = cDescripcionIdioma2;
+		this.cDescripcionIdioma3 = cDescripcionIdioma3;
+		this.cDescripcionIdioma4 = cDescripcionIdioma4;
+		this.cDescripcionIdioma5 = cDescripcionIdioma5;
+		this.cUrlImg = cUrlImg;
+		this.cLink = cLink;
+		this.nPrecioServicio = nPrecioServicio;
+		this.bEstado = bEstado;
+		this.cNombreServicio=cNombreServicio;
 		this.editable=false;
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
+		
 	}
 	
 }
