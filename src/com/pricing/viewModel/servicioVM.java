@@ -10,14 +10,19 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Listbox;
+import org.zkoss.zul.Messagebox;
 
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.dao.CServicioDAO;
 import com.pricing.model.CEtiqueta;
 import com.pricing.model.CServicio;
+import com.pricing.util.ScannUtil;
 
 public class servicioVM {
 	//====================
@@ -75,13 +80,17 @@ public class servicioVM {
 		servicioDao=new CServicioDAO();
 		listaServicios=new ArrayList<CServicio>();
 		/**Obtencion de las etiquetas de la base de datos**/
-		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosBD());
+		servicioDao.asignarListaServicios(servicioDao.recuperarTodosServiciosBD());
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 		setListaServicios(servicioDao.getListaServicios());
 	}
 	@Command
+	@NotifyChange({"oServicioNuevo"})
 	public void insertarServicio(@BindingParam("componente")Component comp)
 	{
+		oServicioNuevo.setcServicioIndioma1(oServicioNuevo.getcServicioIndioma1().toUpperCase());
+		oServicioNuevo.setcServicioIndioma2(oServicioNuevo.getcServicioIndioma2().toUpperCase());
+		oServicioNuevo.setcServicioIndioma3(oServicioNuevo.getcServicioIndioma3().toUpperCase());
 		if(!validoParaInsertar(comp))
 			return;
 		boolean correcto=servicioDao.isOperationCorrect(servicioDao.insertarServicio(oServicioNuevo));
@@ -96,18 +105,37 @@ public class servicioVM {
 	public boolean validoParaInsertar(Component comp)
 	{
 		boolean valido=true;
-		if(oServicioNuevo.getcServicioIndioma1().equals("")||
-				oServicioNuevo.getcServicioIndioma2().equals("")||
-				oServicioNuevo.getcServicioIndioma3().equals(""))
+		if(!oServicioNuevo.isEscogioRestriccion())//no escogio ninguna restriccion
 		{
+			valido=false;
+			Clients.showNotification("Debe de escoger alguna restriccion",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+		}else if(oServicioNuevo.getcServicioIndioma1().equals("")||
+				oServicioNuevo.getcServicioIndioma2().equals("")||
+				oServicioNuevo.getcServicioIndioma3().equals("")){
 			valido=false;
 			Clients.showNotification("Debe de existir un nombre de servicio en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
-		}else if(oServicioNuevo.getcDescripcionIdioma1().equals("")||
-				oServicioNuevo.getcDescripcionIdioma2().equals("")||
-				oServicioNuevo.getcDescripcionIdioma3().equals(""))
+		}else if(oServicioNuevo.getcRestriccionNum()==1 || oServicioNuevo.getcRestriccionYesNo()==1)
 		{
-			valido=false;
-			Clients.showNotification("Debe de existir la descripcion del servicio en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+			if(oServicioNuevo.getcUrlImg().equals(""))
+			{
+				valido=false;
+				Clients.showNotification("El Servicio debe tener una imagen",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+			}else if(oServicioNuevo.getcDescripcionIdioma1().equals("")||
+					oServicioNuevo.getcDescripcionIdioma2().equals("")||
+					oServicioNuevo.getcDescripcionIdioma3().equals(""))
+			{
+				valido=false;
+				Clients.showNotification("Debe de existir la descripcion del servicio en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+			}else if(oServicioNuevo.getcDescripcionIdioma1().equals("Tiene Sub Servicios")||
+					oServicioNuevo.getcDescripcionIdioma2().equals("Tiene Sub Servicios")||
+					oServicioNuevo.getcDescripcionIdioma3().equals("Tiene Sub Servicios")){
+				valido=false;
+				Clients.showNotification("La descripcion debe tener un contenido acorde al servicio ofrecido en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+			}else if(oServicioNuevo.getnPrecioServicio().doubleValue()==0)
+			{
+				valido=false;
+				Clients.showNotification("El precio del servicio no puede ser $ 0.00",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+			}
 		}
 		return valido;
 	}
@@ -149,6 +177,7 @@ public class servicioVM {
 	@NotifyChange({"oServicioNuevo"})
 	public void selectRestricciones(@BindingParam("restriccion")String rest)
 	{
+		oServicioNuevo.setEscogioRestriccion(true);
 		if(rest.equals("sub_servicios"))
 		{
 			oServicioNuevo.setbEstado(false);
@@ -161,6 +190,8 @@ public class servicioVM {
 			oServicioNuevo.setcDescripcionIdioma3("Tiene Sub Servicios");
 			oServicioNuevo.setDisabledConSubServicio(true);
 			oServicioNuevo.setColor_disabled(oServicioNuevo.COLOR_DISABLED);
+			oServicioNuevo.setcUrlImg("");
+			BindUtils.postNotifyChange(null, null, oServicioNuevo,"cUrlImg");
 		}else if(rest.equals("si_no")){
 			oServicioNuevo.setbEstado(true);
 			oServicioNuevo.setcRestriccionNum(0);
@@ -225,6 +256,32 @@ public class servicioVM {
 		 {
 		   return false;
 		 }
+	}
+	@Command
+	public void uploadImagen(@BindingParam("componente")final Component comp) {
+			 Fileupload.get(new EventListener<UploadEvent>(){
+					public void onEvent(UploadEvent event) {
+						org.zkoss.util.media.Media media = event.getMedia();
+						if (media instanceof org.zkoss.image.Image) {
+							org.zkoss.image.Image img = (org.zkoss.image.Image) media;
+							//Con este metodo(uploadFile) de clase guardo la imagen en la ruta del servidor
+				            boolean b=ScannUtil.uploadFile(img);
+				            //================================
+				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
+				            String urlImagen=ScannUtil.getPathImagensSubServicios()+img.getName();
+				            asignarUrlImagenServicio(img.getName());
+				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
+						} else {
+							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
+								}
+					}
+			     });
+	}
+	public void asignarUrlImagenServicio(String url)
+	{
+		System.out.println("==>:::"+url);
+		oServicioNuevo.setcUrlImg("/img/servicios/"+url);
+		BindUtils.postNotifyChange(null, null, oServicioNuevo,"cUrlImg");
 	}
 	public void refrescaFilaTemplate(CServicio s)
 	{

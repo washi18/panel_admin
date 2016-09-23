@@ -26,9 +26,9 @@
 				<div zclass="div_contenedor_nuevo_subServicio">
 					<div zclass="div_content_img">
 						<div height="150px" width="200px" zclass="div_img">
-							<image width="100%" height="100%" src="@bind(vmServicio.oSubServicioNew.cUrlImg)"/>
+							<image width="100%" height="100%" src="@load(vmServicio.oSubServicioNew.cUrlImg)"/>
 						</div>
-						<button label="Subir Imagen" zclass="estilo_subir_imagen" onClick="@command('uploadImagen')"/>
+						<button label="Subir Imagen" zclass="estilo_subir_imagen" onClick="@command('uploadImagen',componente=self)"/>
 					</div>
 					<space></space>
 					<div zclass="div_content_datos">

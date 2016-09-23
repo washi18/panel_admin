@@ -6,15 +6,21 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
 import org.zkoss.bind.BindUtils;
+import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
+import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Fileupload;
+import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
 
 import com.pricing.dao.CServicioDAO;
@@ -258,8 +264,7 @@ public class subServicioVM
 	}
 	
 	@Command
-	@NotifyChange("oSubServicioNew")
-	public void uploadImagen() {
+	public void uploadImagen(@BindingParam("componente")final Component comp) {
 			 Fileupload.get(new EventListener<UploadEvent>(){
 					public void onEvent(UploadEvent event) {
 						org.zkoss.util.media.Media media = event.getMedia();
@@ -269,14 +274,9 @@ public class subServicioVM
 				            boolean b=ScannUtil.uploadFile(img);
 				            //================================
 				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
-				            String urlImagen=ScannUtil.getPathImagensSubServicio()+img.getName();
-				            File imgGuardado=new File(urlImagen);
-				            if(imgGuardado.exists())
-				            {	System.out.println("El archivo existe");
-				            	if(imgGuardado.delete())System.out.println("Se elimino el archivo existente");
-				            }
-				            asignarUrlImagenSubServicio(urlImagen);
-				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,null,"top_center",3000);
+				            String urlImagen=ScannUtil.getPathImagensSubServicios()+img.getName();
+				            asignarUrlImagenSubServicio(img.getName());
+				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
 						} else {
 							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
 								}
@@ -286,13 +286,16 @@ public class subServicioVM
 	public void asignarUrlImagenSubServicio(String url)
 	{
 		System.out.println("==>:::"+url);
-		oSubServicioNew.setcUrlImg(url);
-		//pasajero.setcUrlMostrarDocumento("/DocumentosScanneados/"+url);
+		oSubServicioNew.setcUrlImg("/img/servicios/"+url);
 		BindUtils.postNotifyChange(null, null, oSubServicioNew,"cUrlImg");
-		//BindUtils.postNotifyChange(null, null, pasajero,"cUrlMostrarDocumento");
 	}
 	public void refrescaFilaTemplate(CSubServicio s)
 	{
 		BindUtils.postNotifyChange(null, null, s, "editable");
+	}
+	@AfterCompose
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view)
+	{
+		Selectors.wireComponents(view, this, false);
 	}
 }

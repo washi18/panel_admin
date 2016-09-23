@@ -17,9 +17,9 @@ public class ScannUtil {
 	
 	public static boolean uploadFile(Media media) {
 		System.out.println("aqui estoy="+separator);
-		System.out.println("Esta es la ruta=>"+getPathImagensSubServicio());
+		System.out.println("Esta es la ruta=>"+getPathImagensSubServicios());
 		//return saveFile(media, "E:/SoftwareDevelopment/workspace/GPS/WebContent/image/unidades/");
-		return saveFile(media,getPathImagensSubServicio());
+		return saveFile(media,getPathImagensSubServicios());
 	}
 	
 	//Gets the path of the current web application
@@ -29,10 +29,6 @@ public class ScannUtil {
 	
 	public static String getPathImagensSubServicios(){
 		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"servicios"+separator;
-	}
-	
-	public static String getPathImagensSubServicio(){
-		return "D:\\ProyectosGitHub\\";
 	}	
 	//save file
 	public static boolean saveFile(Media media, String path){

@@ -17,9 +17,10 @@
 				<div zclass="div_contenedor_nuevo_servicio">
 					<div zclass="div_content_img">
 						<div height="150px" width="200px" zclass="div_img">
-							<image width="100%" height="100%" src="img/loading_7.gif"/>
+							<image width="100%" height="100%" src="@load(vmServicio.oServicioNuevo.cUrlImg)"/>
 						</div>
-						<button label="Subir Imagen" zclass="estilo_subir_imagen"/>
+						<button label="Subir Imagen" disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)" 
+								zclass="estilo_subir_imagen" onClick="@command('uploadImagen',componente=self)"/>
 					</div>
 					<space></space>
 					<div zclass="div_content_datos">
@@ -40,9 +41,9 @@
 							</div>
 							<div>
 								<label value="SERVICIO: " zclass="lbl_llenar_datos"/>
-								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true"/>
-								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false"/>
-								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false" style="text-transform: uppercase;"/>
 							</div>
 							<div>
 								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
@@ -119,7 +120,7 @@
 					    				</div>
 					    			</div>
 					    			<div>
-					    				<label value="Restriccion YES/NO" style="font-style: italic; font-weight: bold;"></label>
+					    				<label value="@bind(each.nameRestriccion)" style="font-style: italic; font-weight: bold;"></label>
 					    			</div>
 					    			<div>
 					    				<label value="@bind(each.nPrecioServicio)" sclass="estilo_costo"></label>

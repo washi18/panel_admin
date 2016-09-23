@@ -46,6 +46,8 @@ public class CServicio
 	public String COLOR_DISABLED="background:gray;";
 	public String COLOR_NO_DISABLED="background:white;";
 	private String color_disabled;
+	private boolean escogioRestriccion;
+	private String nameRestriccion;
 	//=============================
 	public int getnServicioCod() {
 		return nServicioCod;
@@ -251,6 +253,18 @@ public class CServicio
 	public void setColor_disabled(String color_disabled) {
 		this.color_disabled = color_disabled;
 	}
+	public boolean isEscogioRestriccion() {
+		return escogioRestriccion;
+	}
+	public void setEscogioRestriccion(boolean escogioRestriccion) {
+		this.escogioRestriccion = escogioRestriccion;
+	}
+	public String getNameRestriccion() {
+		return nameRestriccion;
+	}
+	public void setNameRestriccion(String nameRestriccion) {
+		this.nameRestriccion = nameRestriccion;
+	}
 	//========================================
 	public CServicio() {
 		// TODO Auto-generated constructor stub
@@ -273,6 +287,7 @@ public class CServicio
 		this.nPrecioServicio_text="0.00";
 		this.cIncremento=1;
 		this.color_disabled=COLOR_NO_DISABLED;
+		this.escogioRestriccion=false;
 	}
 	public CServicio(int nServicioCod, String cServicioIndioma1,
 			String cServicioIndioma2, String cServicioIndioma3,
@@ -300,6 +315,7 @@ public class CServicio
 		this.cDescripcionIdioma5 = cDescripcionIdioma5;
 		this.cRestriccionYesNo = cRestriccionYesNo;
 		this.cRestriccionNum = cRestriccionNum;
+		this.nameRestriccion=asignarNombreRestriccion(cRestriccionYesNo,cRestriccionNum);
 		this.cIncremento = cIncremento;
 		this.cUrlImg = cUrlImg;
 		this.nPrecioServicio = nPrecioServicio;
@@ -319,5 +335,20 @@ public class CServicio
 		this.visiblePortugues=false;
 		this.disabledConSubServicio=false;
 		this.nPrecioServicio_text=df.format(nPrecioServicio.doubleValue());
+	}
+	public String asignarNombreRestriccion(int cRestriccionYesNo,int cRestriccionNum)
+	{
+		String rest="";
+		if(cRestriccionYesNo==1 && cRestriccionNum==0)
+		{
+			rest="RESTRICCION YES/NO";
+		}else if(cRestriccionNum>0 && cRestriccionYesNo==0)
+		{
+			rest="RESTRICCION NUMERICA";
+		}else if(cRestriccionYesNo==0 && cRestriccionNum==0)
+		{
+			rest="SUB SERVICIO";
+		}
+		return rest;
 	}
 }

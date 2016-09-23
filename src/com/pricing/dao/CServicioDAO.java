@@ -49,7 +49,10 @@ public class CServicioDAO extends CConexion
 	{
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarServicios");
 	}
-	
+	public List recuperarTodosServiciosBD()
+	{
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarTodosServicios");
+	}
 	public List recuperarServiciosconSubServiciosBD ()
 	{
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarServiciosconSubServicios");
@@ -100,7 +103,7 @@ public class CServicioDAO extends CConexion
 				servicio.getcDescripcionIdioma2(),servicio.getcDescripcionIdioma3(),
 				servicio.getcDescripcionIdioma4(),servicio.getcDescripcionIdioma5(),
 				servicio.getcRestriccionYesNo(),servicio.getcRestriccionNum(),
-				servicio.getcIncremento(),servicio.getcUrlImg(),servicio.getnPrecioServicio(),
+				servicio.getcIncremento(),servicio.getcUrlImg(),servicio.getnPrecioServicio().doubleValue(),
 				servicio.isbEstado()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarServicio", values);
 	}
