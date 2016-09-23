@@ -14,6 +14,7 @@ public class CServicioDAO extends CConexion
 	private CServicio oServicio;
 	private ArrayList<CServicio> listaServicios;
 	private ArrayList<CSubServicio> listaSubServicios;
+	private ArrayList<CSubServicio> listaSubServiciosconServiciosNombre;
 	//===================================
 	public CServicio getoServicio() {
 		return oServicio;
@@ -32,6 +33,14 @@ public class CServicioDAO extends CConexion
 	}
 	public void setListaSubServicios(ArrayList<CSubServicio> listaSubServicios) {
 		this.listaSubServicios = listaSubServicios;
+	}
+	
+	public ArrayList<CSubServicio> getListaSubServiciosconServiciosNombre() {
+		return listaSubServiciosconServiciosNombre;
+	}
+	public void setListaSubServiciosconServiciosNombre(
+			ArrayList<CSubServicio> listaSubServiciosconServiciosNombre) {
+		this.listaSubServiciosconServiciosNombre = listaSubServiciosconServiciosNombre;
 	}
 	//===================================
 	public CServicioDAO() {
@@ -56,6 +65,11 @@ public class CServicioDAO extends CConexion
 	public List recuperarServiciosconSubServiciosBD ()
 	{
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarServiciosconSubServicios");
+	}
+	
+	public List recuperarSubServiciosconServiciosNombreBD()
+	{
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarSubServiciosconServiciosNombre");
 	}
 	public void asignarListaServicios(List lista)
 	{
@@ -93,6 +107,24 @@ public class CServicioDAO extends CConexion
 					(String)row.get("cdescripcionidioma5"),(String)row.get("curlimg"),
 					(String)row.get("clink"),(Number)row.get("nprecioservicio"),
 					(boolean)row.get("bestado")));
+		}
+	}
+	
+	public void asignarListaSubServiciosconNombre(List lista)
+	{
+		listaSubServiciosconServiciosNombre=new ArrayList<CSubServicio>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaSubServiciosconServiciosNombre.add(new CSubServicio((int)row.get("nsubserviciocod"),
+					(int)row.get("nserviciocod"),(String)row.get("csubservicioindioma1"),
+					(String)row.get("csubservicioindioma2"),(String)row.get("csubservicioindioma3"),
+					(String)row.get("csubservicioindioma4"), (String)row.get("csubservicioindioma5"),
+					(String)row.get("cdescripcionidioma1"), (String)row.get("cdescripcionidioma2"),
+					(String)row.get("cdescripcionidioma3"),(String)row.get("cdescripcionidioma4"),
+					(String)row.get("cdescripcionidioma5"),(String)row.get("curlimg"),
+					(String)row.get("clink"),(Number)row.get("nprecioservicio"),
+					(boolean)row.get("bestado"),(String)row.get("nservicionombre")));
 		}
 	}
 	public List insertarServicio(CServicio servicio)

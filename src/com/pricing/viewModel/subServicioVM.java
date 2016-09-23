@@ -39,6 +39,7 @@ public class subServicioVM
 	private ArrayList<CServicio> listaServiciosNew;
 	private CServicioDAO servicioDao;
 	private ArrayList<CSubServicio> listaSubServicios;
+	private ArrayList<CSubServicio> listaSubServiciosconServiciosNombre;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
 	private boolean visibleEditarRespons=false;
@@ -103,6 +104,14 @@ public class subServicioVM
 	public void setListaSubServicios(ArrayList<CSubServicio> listaSubServicios) {
 		this.listaSubServicios = listaSubServicios;
 	}
+	
+	public ArrayList<CSubServicio> getListaSubServiciosconServiciosNombre() {
+		return listaSubServiciosconServiciosNombre;
+	}
+	public void setListaSubServiciosconServiciosNombre(
+			ArrayList<CSubServicio> listaSubServiciosconServiciosNombre) {
+		this.listaSubServiciosconServiciosNombre = listaSubServiciosconServiciosNombre;
+	}
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
 	 */
@@ -114,15 +123,19 @@ public class subServicioVM
 		simbolos.setDecimalSeparator('.');
 		df=new DecimalFormat("########0.00",simbolos);
 		oSubServicioNew=new CSubServicio();
-		listaServiciosNew=new ArrayList<CServicio>();
+		oSubServicioUpdate=new CSubServicio();
 		servicioDao=new CServicioDAO();
+		listaServiciosNew=new ArrayList<CServicio>();
+		listaSubServiciosconServiciosNombre=new ArrayList<CSubServicio>();
 		listaSubServicios=new ArrayList<CSubServicio>();
 		/**Obtencion de las etiquetas de la base de datos**/
 		servicioDao.asignarListaSubServicios(servicioDao.recuperarSubServiciosBD());
 		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosconSubServiciosBD());
+		servicioDao.asignarListaSubServiciosconNombre(servicioDao.recuperarSubServiciosconServiciosNombreBD());
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 		setListaSubServicios(servicioDao.getListaSubServicios());
 		setListaServiciosNew(servicioDao.getListaServicios());
+		setListaSubServiciosconServiciosNombre(servicioDao.getListaSubServiciosconServiciosNombre());
 	}
 	
 	@Command
@@ -173,6 +186,7 @@ public class subServicioVM
 	@Command
 	public void actualizarSubServicio(@BindingParam("subServicio")CSubServicio subServicio)
 	{	
+		
 //		System.out.println("--> "+servicio);
 		subServicio.setEditable(false);
 		refrescaFilaTemplate(subServicio);
@@ -181,13 +195,13 @@ public class subServicioVM
 //		initVM();
 	}
 	@Command
-	@NotifyChange("visibleEditarRespons")
+	@NotifyChange("oSubServicioUpdate")
 	 public void Editar(@BindingParam("subServicio") CSubServicio s ) 
-	{
-		visibleEditarRespons=true;
-		oSubServicioNew.setEditable(false);
-		refrescaFilaTemplate(oSubServicioNew);
-		oSubServicioNew=s;
+	{	
+		s.setEditable(false);
+		oSubServicioUpdate.setEditable(false);
+		refrescaFilaTemplate(oSubServicioUpdate);
+		oSubServicioUpdate=s;
 		//le damos estado editable
 		s.setEditable(!s.isEditable());	
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
@@ -277,6 +291,7 @@ public class subServicioVM
 				            String urlImagen=ScannUtil.getPathImagensSubServicios()+img.getName();
 				            asignarUrlImagenSubServicio(img.getName());
 				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
+
 						} else {
 							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
 								}
