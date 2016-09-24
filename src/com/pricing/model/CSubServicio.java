@@ -1,7 +1,14 @@
 package com.pricing.model;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 public class CSubServicio 
 {
+	//====================
+	private DecimalFormat df;
+	private DecimalFormatSymbols simbolos;
+	//====================
 	private int nSubServicioCod;// int,
 	private int nServicioCod;// int,
 	private String cSubServicioIndioma1;// varchar(200),                   --nombre del servicio en el idioma 1
@@ -26,10 +33,59 @@ public class CSubServicio
 	private boolean visiblePortugues;
 	private boolean editable;
 	private String cNombreServicio;
+	private String color_btn_activo;
+	private String color_btn_desactivo;
+	public String COLOR_ACTIVO="background:#3BA420;";
+	public String COLOR_DESACTIVO="background:#DA0613;";
+	public String COLOR_TRANSPARENT="background:transparent;";
+	private boolean estado_activo;
+	private boolean estado_desactivo;
 	//============================
 	
 	public int getnSubServicioCod() {
 		return nSubServicioCod;
+	}
+	public String getColor_btn_activo() {
+		return color_btn_activo;
+	}
+	public void setColor_btn_activo(String color_btn_activo) {
+		this.color_btn_activo = color_btn_activo;
+	}
+	public String getColor_btn_desactivo() {
+		return color_btn_desactivo;
+	}
+	public void setColor_btn_desactivo(String color_btn_desactivo) {
+		this.color_btn_desactivo = color_btn_desactivo;
+	}
+	public String getCOLOR_ACTIVO() {
+		return COLOR_ACTIVO;
+	}
+	public void setCOLOR_ACTIVO(String cOLOR_ACTIVO) {
+		COLOR_ACTIVO = cOLOR_ACTIVO;
+	}
+	public String getCOLOR_DESACTIVO() {
+		return COLOR_DESACTIVO;
+	}
+	public void setCOLOR_DESACTIVO(String cOLOR_DESACTIVO) {
+		COLOR_DESACTIVO = cOLOR_DESACTIVO;
+	}
+	public String getCOLOR_TRANSPARENT() {
+		return COLOR_TRANSPARENT;
+	}
+	public void setCOLOR_TRANSPARENT(String cOLOR_TRANSPARENT) {
+		COLOR_TRANSPARENT = cOLOR_TRANSPARENT;
+	}
+	public boolean isEstado_activo() {
+		return estado_activo;
+	}
+	public void setEstado_activo(boolean estado_activo) {
+		this.estado_activo = estado_activo;
+	}
+	public boolean isEstado_desactivo() {
+		return estado_desactivo;
+	}
+	public void setEstado_desactivo(boolean estado_desactivo) {
+		this.estado_desactivo = estado_desactivo;
 	}
 	public boolean isVisibleEspanol() {
 		return visibleEspanol;
@@ -229,6 +285,11 @@ public class CSubServicio
 			String cDescripcionIdioma4, String cDescripcionIdioma5,
 			String cUrlImg, String cLink, Number nPrecioServicio,
 			boolean bEstado,String cNombreServicio) {
+		/*====================*/
+		simbolos= new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator('.');
+		df=new DecimalFormat("########0.00",simbolos);
+		/*====================*/
 		this.nSubServicioCod = nSubServicioCod;
 		this.nServicioCod = nServicioCod;
 		this.cSubServicioIndioma1 = cSubServicioIndioma1;
@@ -246,11 +307,28 @@ public class CSubServicio
 		this.nPrecioServicio = nPrecioServicio;
 		this.bEstado = bEstado;
 		this.cNombreServicio=cNombreServicio;
+		this.estado_activo=bEstado;
+		this.estado_desactivo=!bEstado;
 		this.editable=false;
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
+		this.nPrecioServicio_text=df.format(nPrecioServicio.doubleValue());
+		darColor_estado_SubServicio();
 		
+	}
+	
+	public void darColor_estado_SubServicio()
+	{
+		if(bEstado)
+		{
+			color_btn_activo=COLOR_ACTIVO;
+			color_btn_desactivo=COLOR_TRANSPARENT;
+		}
+		else{
+			color_btn_activo=COLOR_TRANSPARENT;
+			color_btn_desactivo=COLOR_DESACTIVO;
+		}
 	}
 	
 }

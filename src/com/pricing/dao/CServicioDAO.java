@@ -170,7 +170,7 @@ public class CServicioDAO extends CConexion
 				subServicio.getcDescripcionIdioma1(),subServicio.getcDescripcionIdioma2(),
 				subServicio.getcDescripcionIdioma3(),subServicio.getcDescripcionIdioma4(),
 				subServicio.getcDescripcionIdioma5(),subServicio.getcUrlImg(),subServicio.getcLink(),
-				subServicio.getnPrecioServicio().doubleValue()};
+				subServicio.getnPrecioServicio().doubleValue(),subServicio.isbEstado()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarSubServicio", values);
 	}
 	public boolean isOperationCorrect(List lista)
