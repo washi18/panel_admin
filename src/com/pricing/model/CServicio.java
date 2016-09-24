@@ -48,6 +48,9 @@ public class CServicio
 	private String color_disabled;
 	private boolean escogioRestriccion;
 	private String nameRestriccion;
+	private boolean selectResNumeric;
+	private boolean selectResYesNo;
+	private boolean selectResSubServ;
 	//=============================
 	public int getnServicioCod() {
 		return nServicioCod;
@@ -265,6 +268,24 @@ public class CServicio
 	public void setNameRestriccion(String nameRestriccion) {
 		this.nameRestriccion = nameRestriccion;
 	}
+	public boolean isSelectResNumeric() {
+		return selectResNumeric;
+	}
+	public void setSelectResNumeric(boolean selectResNumeric) {
+		this.selectResNumeric = selectResNumeric;
+	}
+	public boolean isSelectResYesNo() {
+		return selectResYesNo;
+	}
+	public void setSelectResYesNo(boolean selectResYesNo) {
+		this.selectResYesNo = selectResYesNo;
+	}
+	public boolean isSelectResSubServ() {
+		return selectResSubServ;
+	}
+	public void setSelectResSubServ(boolean selectResSubServ) {
+		this.selectResSubServ = selectResSubServ;
+	}
 	//========================================
 	public CServicio() {
 		// TODO Auto-generated constructor stub
@@ -285,9 +306,12 @@ public class CServicio
 		this.bEstado =true;
 		//==========================
 		this.nPrecioServicio_text="0.00";
-		this.cIncremento=1;
 		this.color_disabled=COLOR_NO_DISABLED;
+		this.disabledConSubServicio=false;
 		this.escogioRestriccion=false;
+		this.selectResNumeric=false;
+		this.selectResYesNo=false;
+		this.selectResSubServ=false;
 	}
 	public CServicio(int nServicioCod, String cServicioIndioma1,
 			String cServicioIndioma2, String cServicioIndioma3,
@@ -335,6 +359,8 @@ public class CServicio
 		this.visiblePortugues=false;
 		this.disabledConSubServicio=false;
 		this.nPrecioServicio_text=df.format(nPrecioServicio.doubleValue());
+		/******************/
+		activarRestriccion();
 	}
 	public String asignarNombreRestriccion(int cRestriccionYesNo,int cRestriccionNum)
 	{
@@ -344,11 +370,29 @@ public class CServicio
 			rest="RESTRICCION YES/NO";
 		}else if(cRestriccionNum>0 && cRestriccionYesNo==0)
 		{
-			rest="RESTRICCION NUMERICA";
+			rest="RESTRICCION NUMERICA: "+cRestriccionNum+" POR PASAJERO";
 		}else if(cRestriccionYesNo==0 && cRestriccionNum==0)
 		{
 			rest="SUB SERVICIO";
 		}
 		return rest;
+	}
+	public void activarRestriccion()
+	{	selectResNumeric=selectResYesNo=selectResSubServ=disabledConSubServicio=false;
+		if(cRestriccionNum>0 && cRestriccionYesNo==0)
+		{
+			selectResNumeric=true;
+			disabledConSubServicio=false;
+		}
+		else if(cRestriccionNum==0 && cRestriccionYesNo==1)
+		{
+			selectResYesNo=true;
+			disabledConSubServicio=false;
+		}
+		else if(cRestriccionNum==0 && cRestriccionYesNo==0)
+		{
+			selectResSubServ=true;
+			disabledConSubServicio=true;
+		}
 	}
 }

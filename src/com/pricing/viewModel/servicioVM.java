@@ -85,7 +85,7 @@ public class servicioVM {
 		setListaServicios(servicioDao.getListaServicios());
 	}
 	@Command
-	@NotifyChange({"oServicioNuevo"})
+	@NotifyChange({"oServicioNuevo","listaServicios"})
 	public void insertarServicio(@BindingParam("componente")Component comp)
 	{
 		oServicioNuevo.setcServicioIndioma1(oServicioNuevo.getcServicioIndioma1().toUpperCase());
@@ -97,6 +97,12 @@ public class servicioVM {
 		if(correcto)
 		{
 			oServicioNuevo=new CServicio();
+			/*=Bindeamos la lista de servicios para ver el servicio insertado=*/
+			/**Obtencion de las etiquetas de la base de datos**/
+			servicioDao.asignarListaServicios(servicioDao.recuperarTodosServiciosBD());
+			/**Asignacion de las etiquetas a la listaEtiquetas**/
+			setListaServicios(servicioDao.getListaServicios());
+			/*================================================================*/
 			Clients.showNotification("El servicio se inserto correctamente",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
 		}else{
 			Clients.showNotification("El servicio no se inserto",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
@@ -114,27 +120,38 @@ public class servicioVM {
 				oServicioNuevo.getcServicioIndioma3().equals("")){
 			valido=false;
 			Clients.showNotification("Debe de existir un nombre de servicio en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
-		}else if(oServicioNuevo.getcRestriccionNum()==1 || oServicioNuevo.getcRestriccionYesNo()==1)
+		}else if(oServicioNuevo.isSelectResNumeric() || oServicioNuevo.getcRestriccionYesNo()==1)
 		{
-			if(oServicioNuevo.getcUrlImg().equals(""))
+			if(oServicioNuevo.isSelectResNumeric())
 			{
-				valido=false;
-				Clients.showNotification("El Servicio debe tener una imagen",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
-			}else if(oServicioNuevo.getcDescripcionIdioma1().equals("")||
-					oServicioNuevo.getcDescripcionIdioma2().equals("")||
-					oServicioNuevo.getcDescripcionIdioma3().equals(""))
+				if(oServicioNuevo.getcRestriccionNum()==0)
+				{
+					valido=false;
+					Clients.showNotification("Es necesario que ingrese las unidades/pasajero del servicio",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+				}
+			}
+			if(valido)
 			{
-				valido=false;
-				Clients.showNotification("Debe de existir la descripcion del servicio en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
-			}else if(oServicioNuevo.getcDescripcionIdioma1().equals("Tiene Sub Servicios")||
-					oServicioNuevo.getcDescripcionIdioma2().equals("Tiene Sub Servicios")||
-					oServicioNuevo.getcDescripcionIdioma3().equals("Tiene Sub Servicios")){
-				valido=false;
-				Clients.showNotification("La descripcion debe tener un contenido acorde al servicio ofrecido en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
-			}else if(oServicioNuevo.getnPrecioServicio().doubleValue()==0)
-			{
-				valido=false;
-				Clients.showNotification("El precio del servicio no puede ser $ 0.00",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+				if(oServicioNuevo.getcUrlImg().equals(""))
+				{
+					valido=false;
+					Clients.showNotification("El Servicio debe tener una imagen",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+				}else if(oServicioNuevo.getcDescripcionIdioma1().equals("")||
+						oServicioNuevo.getcDescripcionIdioma2().equals("")||
+						oServicioNuevo.getcDescripcionIdioma3().equals(""))
+				{
+					valido=false;
+					Clients.showNotification("Debe de existir la descripcion del servicio en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+				}else if(oServicioNuevo.getcDescripcionIdioma1().equals("Tiene Sub Servicios")||
+						oServicioNuevo.getcDescripcionIdioma2().equals("Tiene Sub Servicios")||
+						oServicioNuevo.getcDescripcionIdioma3().equals("Tiene Sub Servicios")){
+					valido=false;
+					Clients.showNotification("La descripcion debe tener un contenido acorde al servicio ofrecido en todos los idiomas",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+				}else if(oServicioNuevo.getnPrecioServicio().doubleValue()==0)
+				{
+					valido=false;
+					Clients.showNotification("El precio del servicio no puede ser $ 0.00",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+				}
 			}
 		}
 		return valido;
@@ -181,7 +198,9 @@ public class servicioVM {
 		if(rest.equals("sub_servicios"))
 		{
 			oServicioNuevo.setbEstado(false);
+			oServicioNuevo.setSelectResNumeric(false);
 			oServicioNuevo.setcRestriccionNum(0);
+			oServicioNuevo.setcIncremento(0);
 			oServicioNuevo.setcRestriccionYesNo(0);
 			oServicioNuevo.setnPrecioServicio(0);
 			oServicioNuevo.setnPrecioServicio_text(df.format(0));
@@ -194,17 +213,25 @@ public class servicioVM {
 			BindUtils.postNotifyChange(null, null, oServicioNuevo,"cUrlImg");
 		}else if(rest.equals("si_no")){
 			oServicioNuevo.setbEstado(true);
+			oServicioNuevo.setSelectResNumeric(false);
 			oServicioNuevo.setcRestriccionNum(0);
 			oServicioNuevo.setcRestriccionYesNo(1);
+			oServicioNuevo.setcIncremento(0);
 			oServicioNuevo.setDisabledConSubServicio(false);
 			oServicioNuevo.setColor_disabled(oServicioNuevo.COLOR_NO_DISABLED);
 		}else if(rest.equals("numerica")){
 			oServicioNuevo.setbEstado(true);
-			oServicioNuevo.setcRestriccionNum(1);
+			oServicioNuevo.setSelectResNumeric(true);
 			oServicioNuevo.setcRestriccionYesNo(0);
+			oServicioNuevo.setcIncremento(1);
 			oServicioNuevo.setDisabledConSubServicio(false);
 			oServicioNuevo.setColor_disabled(oServicioNuevo.COLOR_NO_DISABLED);
 		}
+	}
+	@Command
+	public void restNum_numUnidadesServ_pasajero(@BindingParam("uni_pax")int uni_pax)
+	{
+		oServicioNuevo.setcRestriccionNum(uni_pax);
 	}
 	@Command
 	@NotifyChange({"oServicioNuevo"})
@@ -218,6 +245,19 @@ public class servicioVM {
 		else
 		{
 			oServicioNuevo.setnPrecioServicio(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}
+	}
+	@Command
+	public void changePrecios_update(@BindingParam("precio")String precio,@BindingParam("componente")Component comp,@BindingParam("servicio")CServicio servicio)
+	{
+		if(!isNumberDouble(precio))
+		{
+			servicio.setnPrecioServicio_text(df.format(servicio.getnPrecioServicio().doubleValue()));
+			Clients.showNotification("Ingrese valores numericos para poder modificar el precio",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+		}
+		else
+		{
+			servicio.setnPrecioServicio(Double.parseDouble(df.format(Double.parseDouble(precio))));
 		}
 	}
 	@Command
@@ -244,6 +284,51 @@ public class servicioVM {
 		BindUtils.postNotifyChange(null, null, servicio, "visibleEspanol");
 		BindUtils.postNotifyChange(null, null, servicio, "visibleIngles");
 		BindUtils.postNotifyChange(null, null, servicio, "visiblePortugues");
+	}
+	@Command
+	public void cambiarRestriccion(@BindingParam("restriccion")String rest,@BindingParam("servicio")CServicio servicio)
+	{
+		oServicioNuevo.setEscogioRestriccion(true);
+		if(rest.equals("sub_servicios"))
+		{
+			servicio.setbEstado(false);
+			servicio.setSelectResNumeric(false);
+			servicio.setcRestriccionNum(0);
+			servicio.setcIncremento(0);
+			servicio.setcRestriccionYesNo(0);
+			servicio.setnPrecioServicio(0);
+			servicio.setnPrecioServicio_text(df.format(0));
+			servicio.setcDescripcionIdioma1("Tiene Sub Servicios");
+			servicio.setcDescripcionIdioma2("Tiene Sub Servicios");
+			servicio.setcDescripcionIdioma3("Tiene Sub Servicios");
+			servicio.setDisabledConSubServicio(true);
+			servicio.setColor_disabled(oServicioNuevo.COLOR_DISABLED);
+			servicio.setcUrlImg("");
+			BindUtils.postNotifyChange(null, null, oServicioNuevo,"cUrlImg");
+		}else if(rest.equals("si_no")){
+			servicio.setbEstado(true);
+			servicio.setSelectResNumeric(false);
+			servicio.setcRestriccionNum(0);
+			servicio.setcRestriccionYesNo(1);
+			servicio.setcIncremento(0);
+			servicio.setDisabledConSubServicio(false);
+			servicio.setColor_disabled(oServicioNuevo.COLOR_NO_DISABLED);
+		}else if(rest.equals("numerica")){
+			servicio.setbEstado(true);
+			servicio.setSelectResNumeric(true);
+			servicio.setcRestriccionYesNo(0);
+			servicio.setcIncremento(1);
+			servicio.setDisabledConSubServicio(false);
+			servicio.setColor_disabled(oServicioNuevo.COLOR_NO_DISABLED);
+		}
+		BindUtils.postNotifyChange(null, null, servicio, "cDescripcionIdioma1");
+		BindUtils.postNotifyChange(null, null, servicio, "cDescripcionIdioma2");
+		BindUtils.postNotifyChange(null, null, servicio, "cDescripcionIdioma3");
+		BindUtils.postNotifyChange(null, null, servicio, "bEstado");
+		BindUtils.postNotifyChange(null, null, servicio, "selectResNumeric");
+		BindUtils.postNotifyChange(null, null, servicio, "cRestriccionNum");
+		BindUtils.postNotifyChange(null, null, servicio, "disabledConSubServicio");
+		BindUtils.postNotifyChange(null, null, servicio, "color_disabled");
 	}
 	public boolean isNumberDouble(String cad)
 	{
@@ -282,6 +367,32 @@ public class servicioVM {
 		System.out.println("==>:::"+url);
 		oServicioNuevo.setcUrlImg("/img/servicios/"+url);
 		BindUtils.postNotifyChange(null, null, oServicioNuevo,"cUrlImg");
+	}
+	@Command
+	public void changeImagen(@BindingParam("componente")final Component comp,@BindingParam("servicio")final CServicio serv) {
+			 Fileupload.get(new EventListener<UploadEvent>(){
+					public void onEvent(UploadEvent event) {
+						org.zkoss.util.media.Media media = event.getMedia();
+						if (media instanceof org.zkoss.image.Image) {
+							org.zkoss.image.Image img = (org.zkoss.image.Image) media;
+							//Con este metodo(uploadFile) de clase guardo la imagen en la ruta del servidor
+				            boolean b=ScannUtil.uploadFile(img);
+				            //================================
+				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
+				            String urlImagen=ScannUtil.getPathImagensSubServicios()+img.getName();
+				            asignarUrlImagenUpdateServicio(img.getName(),serv);
+				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
+						} else {
+							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
+								}
+					}
+			     });
+	}
+	public void asignarUrlImagenUpdateServicio(String url,CServicio servicio)
+	{
+		System.out.println("==>:::"+url);
+		servicio.setcUrlImg("/img/servicios/"+url);
+		BindUtils.postNotifyChange(null, null, servicio,"cUrlImg");
 	}
 	public void refrescaFilaTemplate(CServicio s)
 	{

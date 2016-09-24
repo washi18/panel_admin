@@ -193,3 +193,7 @@
 		width: 20%;
 		padding: 1%;
 	}
+.lbl_rest_num{
+	color: red;
+	font-weight: bold;
+}

@@ -69,9 +69,13 @@
 							<separator bar="true" zclass="lbl_llenar_datos"/>
 							<div>
 								<radiogroup sclass="style_restricciones" onCheck="@command('selectRestricciones',restriccion=self.selectedItem.value)">
-									<radio label="SI/NO" value="si_no"/>
-									<radio label="Numerica" value="numerica"/>
-									<radio label="Sub Servicios" value="sub_servicios"/>
+									<radio label="SI/NO" value="si_no" checked="@bind(vmServicio.oServicioNuevo.selectResYesNo)"/>
+									<radio id="rad_numeric" label="Numerica" value="numerica" checked="@bind(vmServicio.oServicioNuevo.selectResNumeric)"/>
+									<div visible="@bind(vmServicio.oServicioNuevo.selectResNumeric)" width="220px">
+										<label value="Cuantas unidades/pasajero ofrecerá como máximo por este servicio?" zclass="lbl_rest_num"/>
+										<intbox value="@bind(vmServicio.oServicioNuevo.cRestriccionNum)" zclass="txt_llenar_datos" width="80px"/>
+									</div>
+									<radio label="Sub Servicios" value="sub_servicios" checked="@bind(vmServicio.oServicioNuevo.selectResSubServ)"/>
 								</radiogroup>
 							</div>
 						</div>
@@ -156,7 +160,8 @@
 				    				zclass="div_img">
 				    				<image width="100%" height="100%" src="@bind(each.cUrlImg)" />
 				    			</div>
-				    			<button label="Cambiar Imagen"
+				    			<button label="Cambiar Imagen" disabled="@bind(each.disabledConSubServicio)"
+				    				onClick="@command('changeImagen',componente=self,servicio=each)"
 				    				zclass="estilo_subir_imagen" width="100%"/>
 				    		</div>
 				    		<space></space>
@@ -195,7 +200,8 @@
 				    							<label
 				    								value="Descripcion:" sclass="lbl_llenar_datos">
 				    							</label>
-				    							<textbox
+				    							<textbox disabled="@bind(each.disabledConSubServicio)"
+				    								style="@bind(each.color_disabled)"
 				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
 				    								value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarServicio')" />
 				    						</div>
@@ -215,7 +221,8 @@
 				    							<label
 				    								value="Descripcion:" sclass="lbl_llenar_datos">
 				    							</label>
-				    							<textbox
+				    							<textbox disabled="@bind(each.disabledConSubServicio)"
+				    								style="@bind(each.color_disabled)"
 				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
 				    								value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarServicio')" />
 				    						</div>
@@ -234,7 +241,8 @@
 				    							<label
 				    								value="Descripcion:" sclass="lbl_llenar_datos">
 				    							</label>
-				    							<textbox
+				    							<textbox disabled="@bind(each.disabledConSubServicio)"
+				    									style="@bind(each.color_disabled)"
 				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
 				    								value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarServicio')" />
 				    						</div>
@@ -288,26 +296,27 @@
 				    		<div zclass="div_content_restricciones">
 				    			<div>
 				    				<label
-				    					value="ELEGIR UNA RESTRICCION:" zclass="lbl_llenar_datos" />
-				    				<separator bar="true"
-				    					zclass="lbl_llenar_datos" />
+				    					value="CAMBIAR RESTRICCION:" zclass="lbl_llenar_datos" />
+				    				<separator bar="true" zclass="lbl_llenar_datos" />
 				    				<div>
-				    					<radiogroup
-				    						sclass="style_restricciones">
-				    						<radio label="SI/NO"
-				    							value="si_no" />
-				    						<radio label="Numerica"
-				    							value="numerica" />
-				    						<radio label="Sub Servicios"
-				    							value="sub_servicios" />
+				    					<radiogroup sclass="style_restricciones" onCheck="@command('cambiarRestriccion',restriccion=self.selectedItem.value,servicio=each)">
+				    						<radio label="SI/NO" value="si_no" checked="@bind(each.selectResYesNo)"/>
+				    						<radio label="Numerica" value="numerica" checked="@bind(each.selectResNumeric)"/>
+				    						<div visible="@bind(each.selectResNumeric)" width="220px">
+												<label value="Cuantas unidades/pasajero ofrecerá como máximo por este servicio?" zclass="lbl_rest_num"/>
+												<intbox value="@bind(each.cRestriccionNum)" zclass="txt_llenar_datos" width="80px"/>
+											</div>
+				    						<radio label="Sub Servicios" value="sub_servicios" checked="@bind(each.selectResSubServ)"/>
 				    					</radiogroup>
 				    				</div>
 				    			</div>
 				    			<div>
-				    				<label value="COSTO ($): "
-				    					zclass="lbl_llenar_datos" />
-				    				<decimalbox width="80px"
-				    					value="@bind(each.nPrecioServicio)" zclass="txt_llenar_datos" />
+				    				<label value="COSTO ($): " zclass="lbl_llenar_datos" />
+				    				<textbox width="80px" value="@bind(each.nPrecioServicio_text)" 
+				    						disabled="@bind(each.disabledConSubServicio)"
+				    						style="@bind(each.color_disabled)"
+				    						onChange="@command('changePrecios_update',precio=self.value,componente=self,servicio=each)"
+				    						zclass="txt_llenar_datos" />
 				    			</div>
 				    		</div>
 				    		<div sclass="div_content_actualizar">
