@@ -19,6 +19,7 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
@@ -46,10 +47,11 @@ public class subServicioVM
 	private DecimalFormat df;
 	private DecimalFormatSymbols simbolos;
 	private String NombreServicio;
+	@Wire
+	Div div_llenar_subservicios;
 	/**
 	 * GETTER AND SETTER
 	 */
-	
 	public CServicioDAO getServicioDao() {
 		return servicioDao;
 	}
@@ -198,6 +200,8 @@ public class subServicioVM
 	@NotifyChange("oSubServicioUpdate")
 	 public void Editar(@BindingParam("subServicio") CSubServicio s ) 
 	{	
+		div_llenar_subservicios.setVisible(false);
+		afterCompose(div_llenar_subservicios);
 		s.setEditable(false);
 		oSubServicioUpdate.setEditable(false);
 		refrescaFilaTemplate(oSubServicioUpdate);
@@ -207,6 +211,25 @@ public class subServicioVM
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
 		refrescaFilaTemplate(s);
    }
+	
+	@Command
+	 public void Activar_Desactivar(@BindingParam("subServicio")CSubServicio s,@BindingParam("texto")String texto)
+	{
+		if(texto.equals("activar"))
+		{
+			s.setColor_btn_activo(s.COLOR_ACTIVO);
+			s.setColor_btn_desactivo(s.COLOR_TRANSPARENT);
+			s.setbEstado(true);
+		}else{
+			s.setColor_btn_activo(s.COLOR_TRANSPARENT);
+			s.setColor_btn_desactivo(s.COLOR_DESACTIVO);
+			s.setbEstado(false);
+		}
+		BindUtils.postNotifyChange(null, null, s,"color_btn_activo");
+		BindUtils.postNotifyChange(null, null, s,"color_btn_desactivo");
+		BindUtils.postNotifyChange(null, null, s,"bEstado");
+	}
+	
 	@Command
 	 public void Activar(@BindingParam("servicio") CServicio s ) 
 	{
@@ -256,6 +279,22 @@ public class subServicioVM
 		else
 		{
 				oSubServicioNew.setnPrecioServicio(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}
+	}
+	
+	
+	@Command
+	@NotifyChange({"oSubServicioUpdate"})
+	public void changePrecios_actualizar(@BindingParam("precio")String precio,@BindingParam("componente")Component componente)
+	{
+		if(!isNumberDouble(precio))
+		{
+			oSubServicioUpdate.setnPrecioServicio_text(df.format(oSubServicioUpdate.getnPrecioServicio().doubleValue()));
+			Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start", 2700);
+		}
+		else
+		{
+				oSubServicioUpdate.setnPrecioServicio(Double.parseDouble(df.format(Double.parseDouble(precio))));
 		}
 	}
 	public boolean isNumberDouble(String cad)

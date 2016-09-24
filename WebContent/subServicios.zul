@@ -102,13 +102,13 @@
 					    		<div zclass="div_content_info_listSub">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="30px" sclass="estilo_nombre_subServicio"
-					    					value="@bind(each.cSubServicioIndioma1) @save(each.cSubServicioIndioma1,before='actualizarSubServicio')" />
+					    					value="@bind(each.cSubServicioIndioma1)" />
 					    				<div sclass="descripcion_costado">
 					    				<image src="img/eticket.png"></image>
 					    				<space></space>
 					    				<label multiline="true"
 					    					width="100%" height="auto"
-					    					value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarSubServicio')" sclass="estilo_desborde_descripcion"/>
+					    					value="@bind(each.cDescripcionIdioma1)" sclass="estilo_desborde_descripcion"/>
 					    				</div>
 					    			</div>
 					    			<div>
@@ -126,9 +126,8 @@
 					    					onClick="@command('Editar',subServicio=each)"
 					    					zclass="btn_editar" />
 					    				<separator spacing="2px"></separator>
-					    				<button label="Activar"
-					    					zclass="btn_actualizar">
-					    				</button>
+					    				<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)" />
+					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)" />
 					    			</div>
 					    		</div>
 					    		<div sclass="estilo_contenedor_costo">
@@ -291,14 +290,24 @@
 				    				<separator bar="true"
 				    					zclass="lbl_llenar_datos" />
 				    				<div>
-				    					<label value="A que servicio pertenecera?" zclass="lbl_llenar_datos"></label>
-				    					<label value="@bind(each.cNombreServicio)"></label>
+				    					<label value="Servicio al que pertenece:" zclass="lbl_llenar_datos"></label>
+				    					<textbox value="@bind(each.cNombreServicio)" readonly="true" width="100%" zclass="txt_llenar_datos" style="background: #E8EAEB;"></textbox>
 				    				</div>
 				    			</div>
 				    			<div sclass="estilo_costo_horizontal">
 				    				<label value="COSTO ($):" zclass="lbl_llenar_datos" />
-				    				<decimalbox value="@bind(each.nPrecioServicio)" zclass="txt_llenar_datos"  width="50%"/>
+				    				<textbox width="80px" zclass="txt_llenar_datos" value="@bind(each.nPrecioServicio_text)" onChange="@command('changePrecios_actualizar',precio=self.value,componente=self)"/>
 				    			</div>
+				    			<separator bar="true" zclass="lbl_llenar_datos"/>
+				    			<div>
+									<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+									<div>
+										<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar',subServicio=each,texto=self.selectedItem.value)">
+											<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
+											<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+										</radiogroup>
+									</div>
+								</div>
 				    		</div>
 				    		<div sclass="div_content_actualizarSub">
 				    			<button label="Actualizar"
