@@ -115,7 +115,7 @@
 					    				<label value="@bind(each.cNombreServicio)" style="font-size: 14px; font-weight: bold;"></label>
 					    			</div>
 					    			<div>
-					    			    <label value="@bind(each.cLink)" zclass="estilo_desborde_url"></label>
+					    				<a label="@bind(each.cLink)" href="@bind(each.cLink)" target="_blank" zclass="estilo_desborde_url"/>
 					    			</div>
 					    			<div>
 					    				<label value="@bind(each.nPrecioServicio)" sclass="estilo_costo"></label>
@@ -153,8 +153,7 @@
 				    				zclass="div_img">
 				    				<image id="pics" width="100%" height="100%" src="@bind(each.cUrlImg)" />
 				    			</div>
-				    			<button label="Subir Imagen" zclass="estilo_subir_imagen" width="100%" upload="true,maxsize=500">
-				    			</button>
+				    			<button label="Cambiar Imagen" zclass="estilo_subir_imagen" width="100%" onClick="@command('cambiarImagen',subServicio=each,componente=self)"/>
 				    		</div>
 				    		<space></space>
 				    		<div zclass="div_content_datos_listaSub">

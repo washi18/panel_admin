@@ -159,14 +159,14 @@ public class hotelesVM
 	{	
 		if(!validoPoderActualizar(hotel,comp))
 			return;
-		hotel.setEditable(false);
-		refrescaFilaTemplate(hotel);
 		/**Actualizar datos de la etiqueta en la BD**/
 		boolean correcto=hotelDao.isOperationCorrect(hotelDao.modificarHotel(hotel));
 		if(correcto)
 			Clients.showNotification("El Hotel se actualizo correctamente", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
 		else
 			Clients.showNotification("El Hotel no se pudo actualizar", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
+		hotel.setEditable(false);
+		refrescaFilaTemplate(hotel);
 	}
 	public boolean validoPoderActualizar(CHotel hotel,Component comp)
 	{

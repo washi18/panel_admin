@@ -51,6 +51,13 @@ public class CServicio
 	private boolean selectResNumeric;
 	private boolean selectResYesNo;
 	private boolean selectResSubServ;
+	private String color_btn_activo;
+	private String color_btn_desactivo;
+	public String COLOR_ACTIVO="background:#3BA420;";
+	public String COLOR_DESACTIVO="background:#DA0613;";
+	public String COLOR_TRANSPARENT="background:transparent;";
+	private boolean estado_activo;
+	private boolean estado_desactivo;
 	//=============================
 	public int getnServicioCod() {
 		return nServicioCod;
@@ -286,6 +293,30 @@ public class CServicio
 	public void setSelectResSubServ(boolean selectResSubServ) {
 		this.selectResSubServ = selectResSubServ;
 	}
+	public String getColor_btn_activo() {
+		return color_btn_activo;
+	}
+	public void setColor_btn_activo(String color_btn_activo) {
+		this.color_btn_activo = color_btn_activo;
+	}
+	public String getColor_btn_desactivo() {
+		return color_btn_desactivo;
+	}
+	public void setColor_btn_desactivo(String color_btn_desactivo) {
+		this.color_btn_desactivo = color_btn_desactivo;
+	}
+	public boolean isEstado_activo() {
+		return estado_activo;
+	}
+	public void setEstado_activo(boolean estado_activo) {
+		this.estado_activo = estado_activo;
+	}
+	public boolean isEstado_desactivo() {
+		return estado_desactivo;
+	}
+	public void setEstado_desactivo(boolean estado_desactivo) {
+		this.estado_desactivo = estado_desactivo;
+	}
 	//========================================
 	public CServicio() {
 		// TODO Auto-generated constructor stub
@@ -359,7 +390,10 @@ public class CServicio
 		this.visiblePortugues=false;
 		this.disabledConSubServicio=false;
 		this.nPrecioServicio_text=df.format(nPrecioServicio.doubleValue());
+		this.estado_activo=bEstado;
+		this.estado_desactivo=!bEstado;
 		/******************/
+		darColor_estado_servicio();
 		activarRestriccion();
 	}
 	public String asignarNombreRestriccion(int cRestriccionYesNo,int cRestriccionNum)
@@ -376,6 +410,18 @@ public class CServicio
 			rest="SUB SERVICIO";
 		}
 		return rest;
+	}
+	public void darColor_estado_servicio()
+	{
+		if(bEstado)
+		{
+			color_btn_activo=COLOR_ACTIVO;
+			color_btn_desactivo=COLOR_TRANSPARENT;
+		}
+		else{
+			color_btn_activo=COLOR_TRANSPARENT;
+			color_btn_desactivo=COLOR_DESACTIVO;
+		}
 	}
 	public void activarRestriccion()
 	{	selectResNumeric=selectResYesNo=selectResSubServ=disabledConSubServicio=false;

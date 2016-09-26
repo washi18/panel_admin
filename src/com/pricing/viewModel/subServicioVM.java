@@ -131,7 +131,7 @@ public class subServicioVM
 		listaSubServiciosconServiciosNombre=new ArrayList<CSubServicio>();
 		listaSubServicios=new ArrayList<CSubServicio>();
 		/**Obtencion de las etiquetas de la base de datos**/
-		servicioDao.asignarListaSubServicios(servicioDao.recuperarSubServiciosBD());
+		servicioDao.asignarListaSubServicios(servicioDao.recuperarTodosSubServiciosBD());
 		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosconSubServiciosBD());
 		servicioDao.asignarListaSubServiciosconNombre(servicioDao.recuperarSubServiciosconServiciosNombreBD());
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
@@ -141,60 +141,88 @@ public class subServicioVM
 	}
 	
 	@Command
-	@NotifyChange({"oSubServicioNew"})
+	@NotifyChange({"oSubServicioNew","listaSubServicios"})
 	public void InsertarSubServicio(@BindingParam("componente")Component componente)
 	{
-		oSubServicioNew.setcSubServicioIndioma4("cuatro");
-		oSubServicioNew.setcSubServicioIndioma5("cinco");
-		oSubServicioNew.setcDescripcionIdioma4("d4");
-		oSubServicioNew.setcDescripcionIdioma5("d5");
-		/**Empezamos realizando las validaciones respectivas**/
-		if(oSubServicioNew.getcSubServicioIndioma1().equals("") ||  oSubServicioNew.getcSubServicioIndioma2().equals("") || oSubServicioNew.getcSubServicioIndioma3().equals(""))//Nombre del subServicio
-		{
-			Clients.showNotification("Es necesario poner el nombre del sub servicio en todos los idiomas", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+		if(!validoParaInsertar(componente))
 			return;
-		}else if(oSubServicioNew.getcDescripcionIdioma1().equals("") ||  oSubServicioNew.getcDescripcionIdioma2().equals("") || oSubServicioNew.getcDescripcionIdioma3().equals(""))
-		{
-			Clients.showNotification("Es necesario poner la descripcion del sub servicio en todos los idiomas", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}else if(oSubServicioNew.getnServicioCod()==0)
-		{
-			Clients.showNotification("Debe seleccionar un servicio al cual pertenecera", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}else if(oSubServicioNew.getcLink().equals(""))
-		{
-			Clients.showNotification("Es necesario poner la direccion URL del sub servicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}else if(oSubServicioNew.getcUrlImg().equals(""))
-		{
-			Clients.showNotification("Es necesario insertar una imagen del sub servicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}else if(oSubServicioNew.getnPrecioServicio().doubleValue()==0.00 || oSubServicioNew.getnPrecioServicio().doubleValue()<0.00)
-		{
-			Clients.showNotification("El precio de un sub servicio no puede ser $ 0.00, mucho menos un valor negativo", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}
 		/**Una vez validado los datos necesarios se procede a insertar el nuevo sub Servicio**/
 		boolean correcto=servicioDao.isOperationCorrect(servicioDao.insertarSubServicio(oSubServicioNew));
 		if(correcto)
 		{ 
 			oSubServicioNew=new CSubServicio();
+			servicioDao.asignarListaSubServicios(servicioDao.recuperarTodosSubServiciosBD());
+			setListaSubServicios(servicioDao.getListaSubServicios());
 			Clients.showNotification("El Nuevo Sub Servicio fue insertado correctamente", Clients.NOTIFICATION_TYPE_INFO, componente,"before_start",2700);
 		}
 		else
 			Clients.showNotification("El Nuevo Sub Servicio fue insertado", Clients.NOTIFICATION_TYPE_INFO, componente,"before_start",2700);
 	}
-	
+	public boolean validoParaInsertar(Component componente)
+	{
+		boolean valido=true;
+		/**Empezamos realizando las validaciones respectivas**/
+		if(oSubServicioNew.getnServicioCod()==0)
+		{
+			Clients.showNotification("Es necesario escoger el servicio al que pertenecerá el subservicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(oSubServicioNew.getcSubServicioIndioma1().equals("") ||  oSubServicioNew.getcSubServicioIndioma2().equals("") || oSubServicioNew.getcSubServicioIndioma3().equals(""))//Nombre del subServicio
+		{
+			Clients.showNotification("Es necesario poner el nombre del sub servicio en todos los idiomas", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(oSubServicioNew.getcDescripcionIdioma1().equals("") ||  oSubServicioNew.getcDescripcionIdioma2().equals("") || oSubServicioNew.getcDescripcionIdioma3().equals(""))
+		{
+			Clients.showNotification("Es necesario poner la descripcion del sub servicio en todos los idiomas", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(oSubServicioNew.getnServicioCod()==0)
+		{
+			Clients.showNotification("Debe seleccionar un servicio al cual pertenecera", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(oSubServicioNew.getcUrlImg().equals(""))
+		{
+			Clients.showNotification("Es necesario insertar una imagen del sub servicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(oSubServicioNew.getnPrecioServicio().doubleValue()==0)//los precios tbn puenden ser negativos ya que pueden ser un descuento
+		{
+			Clients.showNotification("El precio de un sub servicio no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}
+		return valido;
+	}
 	@Command
-	public void actualizarSubServicio(@BindingParam("subServicio")CSubServicio subServicio)
-	{	
-		
-//		System.out.println("--> "+servicio);
+	public void actualizarSubServicio(@BindingParam("subServicio")CSubServicio subServicio,@BindingParam("componente")Component comp)
+	{	if(!validoParaActualizar(subServicio,comp))
+			return;
 		subServicio.setEditable(false);
 		refrescaFilaTemplate(subServicio);
 		/**Actualizar datos de la etiqueta en la BD**/
 		boolean b=servicioDao.isOperationCorrect(servicioDao.modificarSubServicio(subServicio));
-//		initVM();
+	}
+	public boolean validoParaActualizar(CSubServicio subServicio,Component componente)
+	{
+		boolean valido=true;
+		if(subServicio.getcSubServicioIndioma1().equals("") ||  subServicio.getcSubServicioIndioma2().equals("") || subServicio.getcSubServicioIndioma3().equals(""))//Nombre del subServicio
+		{
+			Clients.showNotification("Es necesario poner el nombre del sub servicio en todos los idiomas", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(subServicio.getcDescripcionIdioma1().equals("") ||  subServicio.getcDescripcionIdioma2().equals("") || subServicio.getcDescripcionIdioma3().equals(""))
+		{
+			Clients.showNotification("Es necesario poner la descripcion del sub servicio en todos los idiomas", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(subServicio.getnServicioCod()==0)
+		{
+			Clients.showNotification("Debe seleccionar un servicio al cual pertenecera", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(subServicio.getcUrlImg().equals(""))
+		{
+			Clients.showNotification("Es necesario insertar una imagen del sub servicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}else if(subServicio.getnPrecioServicio().doubleValue()==0)//los precios tbn puenden ser negativos ya que pueden ser un descuento
+		{
+			Clients.showNotification("El precio de un sub servicio no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}
+		return valido;
 	}
 	@Command
 	@NotifyChange("oSubServicioUpdate")
@@ -211,7 +239,6 @@ public class subServicioVM
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
 		refrescaFilaTemplate(s);
    }
-	
 	@Command
 	 public void Activar_Desactivar(@BindingParam("subServicio")CSubServicio s,@BindingParam("texto")String texto)
 	{
@@ -229,18 +256,6 @@ public class subServicioVM
 		BindUtils.postNotifyChange(null, null, s,"color_btn_desactivo");
 		BindUtils.postNotifyChange(null, null, s,"bEstado");
 	}
-	
-	@Command
-	 public void Activar(@BindingParam("servicio") CServicio s ) 
-	{
-		
-	}
-	@Command
-	 public void Desactivar(@BindingParam("servicio") CServicio s ) 
-	{
-		
-	}
-	
 	@Command
 	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("subServicio")CSubServicio servicio)
 	{
@@ -342,6 +357,33 @@ public class subServicioVM
 		System.out.println("==>:::"+url);
 		oSubServicioNew.setcUrlImg("/img/servicios/"+url);
 		BindUtils.postNotifyChange(null, null, oSubServicioNew,"cUrlImg");
+	}
+	@Command
+	public void cambiarImagen(@BindingParam("subServicio")final CSubServicio subServ,@BindingParam("componente")final Component comp) {
+			 Fileupload.get(new EventListener<UploadEvent>(){
+					public void onEvent(UploadEvent event) {
+						org.zkoss.util.media.Media media = event.getMedia();
+						if (media instanceof org.zkoss.image.Image) {
+							org.zkoss.image.Image img = (org.zkoss.image.Image) media;
+							//Con este metodo(uploadFile) de clase guardo la imagen en la ruta del servidor
+				            boolean b=ScannUtil.uploadFile(img);
+				            //================================
+				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
+				            String urlImagen=ScannUtil.getPathImagensSubServicios()+img.getName();
+				            asignarUrlImagenSubServicio_update(img.getName(),subServ);
+				            Clients.showNotification(img.getName()+" Se cambio",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
+
+						} else {
+							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
+								}
+					}
+			     });
+	}
+	public void asignarUrlImagenSubServicio_update(String url,CSubServicio subServ)
+	{
+		System.out.println("==>:::"+url);
+		subServ.setcUrlImg("/img/servicios/"+url);
+		BindUtils.postNotifyChange(null, null, subServ,"cUrlImg");
 	}
 	public void refrescaFilaTemplate(CSubServicio s)
 	{
