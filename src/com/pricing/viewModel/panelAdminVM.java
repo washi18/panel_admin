@@ -40,6 +40,7 @@ public class panelAdminVM
 	private boolean visibleImpuestos;
 	private boolean visibleDisponibilidad;
 	private boolean visibleHoteles;
+	private boolean visibleDestinos;
 	
 	//===============VARIABLES SUBITEMS================
 	private boolean openItemConfig;
@@ -60,6 +61,7 @@ public class panelAdminVM
 	private boolean seleccionSubServicios=false;
 	private boolean seleccionImpuestos=false;
 	private boolean seleccionHoteles;
+	private boolean seleccionDestinos;
 	
 	//=================GET Y SET SELECCION TABS=======
 	public boolean isVisibleConfiguracion() {
@@ -231,21 +233,33 @@ public class panelAdminVM
 	public void setVisibleImpuestos(boolean visibleImpuestos) {
 		this.visibleImpuestos = visibleImpuestos;
 	}
-
+	
+	public boolean isVisibleDestinos() {
+		return visibleDestinos;
+	}
+	public void setVisibleDestinos(boolean visibleDestinos) {
+		this.visibleDestinos = visibleDestinos;
+	}
+	public boolean isSeleccionDestinos() {
+		return seleccionDestinos;
+	}
+	public void setSeleccionDestinos(boolean seleccionDestinos) {
+		this.seleccionDestinos = seleccionDestinos;
+	}
 	@Init
 	public void Inicializar() {
 		seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-		seleccionHoteles=false;
+		seleccionHoteles=seleccionDestinos=false;
 		visibleDisponibilidad=visibleEtiqueta = visiblePaquetes = visibleServicios = visibleSubServicios = visibleImpuestos =false;
 		visibleHoteles=false;
-		visibleConfiguracion=false;
+		visibleConfiguracion=visibleDestinos=false;
 	}
 
 	//================CAMBIO DE VISIBILIDAD========
 	@Command
-	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes", "visibleServicios", "visibleSubServicios", "visibleImpuestos", "visibleMenu", "visibleDisponibilidad",
+	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes","visibleDestinos","visibleServicios", "visibleSubServicios", "visibleImpuestos", "visibleMenu", "visibleDisponibilidad",
 		"seleccionDisponibilidad","seleccionEtiquetas", "seleccionPaquetes", "seleccionServicios", "seleccionSubServicios", "seleccionImpuestos",
-		"visibleConfiguracion","visibleHoteles","seleccionHoteles"})
+		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
 		visibleConfiguracion=true;	
 		if (cambios.equals("itemDisponibilidad")) {
@@ -291,6 +305,15 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				seleccionHoteles=true;
 				seleccionImpuestos=false;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
+			}
+			else if (cambios.equals("itemDestinos")) {
+				visibleDestinos=true;
+				visibleHoteles=visibleImpuestos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
+				visibleSubServicios=false;
+				seleccionDestinos=true;
+				seleccionHoteles=seleccionImpuestos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
 			

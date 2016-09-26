@@ -5,6 +5,7 @@ public class CDestinoHotel
 	private String destinoHotelCod;// varchar(10),                             --codigo de la relacion entre el hotel y destino (TDestinoHotel)
 	private int nDestinoCod;// int,                                 --codigo del destino alque pertenecen los hoteles
 	private int nHotelCod;// int,
+	private boolean editable;
 	//========================
 	public String getDestinoHotelCod() {
 		return destinoHotelCod;
@@ -24,6 +25,13 @@ public class CDestinoHotel
 	public void setnHotelCod(int nHotelCod) {
 		this.nHotelCod = nHotelCod;
 	}
+	
+	public boolean isEditable() {
+		return editable;
+	}
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
 	//========================
 	public CDestinoHotel() {
 		// TODO Auto-generated constructor stub
@@ -32,6 +40,7 @@ public class CDestinoHotel
 		this.destinoHotelCod = destinoHotelCod;
 		this.nDestinoCod = nDestinoCod;
 		this.nHotelCod = nHotelCod;
+		this.editable=false;
 	}
 	
 }

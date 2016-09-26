@@ -1,0 +1,91 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_Generales.css"/>
+	<style src="css/estilos_Destinos.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmDestino') @init('com.pricing.viewModel.DestinosVM')">
+		 <div zclass="div_contenedor_nuevo" width="100%">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_subservicios.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="180px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO SUB SERVICIO"/>
+				</div>
+			</div>
+			<div id="div_llenar_subservicios" visible="false">
+				<space></space>
+				<div zclass="div_contenedor_nuevo_subServicio" width="100%">
+					<div zclass="div_content_datos" width="20%">
+						<div>
+							<label value="DESTINO: " zclass="lbl_llenar_datos"/>
+							<textbox zclass="txt_llenar_datos" id="txtSpainName"  width="100%" placeholder="ESPAÑOL" visible="true" onChange="@command('asignar_destino',destino=self.value)"/>
+						</div>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos_destinos" width="80%">
+						<div width="47%">
+							<listbox  id="listaTodoHoteles" width="100%" multiple="true" model="@bind(vmDestino.listaHoteles)" height="auto" mold="paging" autopaging="true" pageSize="10" pagingPosition="bottom">
+								<listhead>
+									<listheader label="Hoteles" width="80px">
+									</listheader>
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell>
+										   <div>
+										    	<label value="@bind(each.cHotel)"></label>
+										   </div>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+						<space></space>
+						<div width="3%">
+							<vbox spacing="10px">
+								<image style="cursor:pointer"
+									id="chooseAllBtn" src="img/rightrightarrow_g.png" />
+								<image style="cursor:pointer" id="chooseBtn"
+									src="img/rightarrow_g.png" />
+								<image style="cursor:pointer" id="removeBtn"
+									src="img/leftarrow_g.png" />
+								<image style="cursor:pointer"
+									id="removeAllBtn" src="img/leftleftarrow_g.png" />
+							</vbox>
+						</div>
+						<space></space>
+						<div width="47%">
+							<listbox id="listaHotelesSeleccionadas" width="100%"
+								multiple="true" rows="8">
+								<listhead>
+									<listheader label="Hoteles Seleccionadas"
+										width="80px">
+									</listheader>
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell
+											label="Nombres" />
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+						<space></space>
+						<div width="3%">
+							<vbox spacing="10px">
+								<image style="cursor:pointer" id="topBtn"
+									src="img/upuparrow_g.png" />
+								<image style="cursor:pointer" id="upBtn"
+									src="img/uparrow_g.png" />
+								<image style="cursor:pointer" id="downBtn"
+									src="img/downarrow_g.png" />
+								<image style="cursor:pointer" id="bottomBtn"
+									src="img/downdownarrow_g.png" />
+							</vbox>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

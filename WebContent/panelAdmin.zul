@@ -91,6 +91,12 @@
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemDestinos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-office estilos-iconos"/>
+											<label value="Destinos" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
 										<div id="itemVisa" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-package estilos-iconos"/>
 											<label value="Codigos de Visa" sclass="lbls_mantenimientos"/>
@@ -196,6 +202,7 @@
 									<tab id="tabSubServicio" label="Sub Servicios" iconSclass="icon-tree estilos-iconos" visible="@bind(vmAdmin.visibleSubServicios)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
 									<tab id="tabImpuesto" label="Impuestos" iconSclass="icon-coin-dollar estilos-iconos" visible="@bind(vmAdmin.visibleImpuestos)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
 									<tab id="tabHotel" label="Hoteles" iconSclass="icon-office estilos-iconos" visible="@bind(vmAdmin.visibleHoteles)" selected="@bind(vmAdmin.seleccionHoteles)"></tab>
+									<tab id="tabDestino" label="Destinos" iconSclass="icon-office estilos-iconos" visible="@bind(vmAdmin.visibleDestinos)" selected="@bind(vmAdmin.seleccionDestinos)"></tab>
 								</tabs>
 								<tabpanels>
 									<tabpanel>
@@ -218,6 +225,9 @@
 									</tabpanel>
 									<tabpanel>
 										<include src="hoteles.zul"/>
+									</tabpanel>
+									<tabpanel>
+										<include src="destinos.zul"/>
 									</tabpanel>
 								</tabpanels>
 							</tabbox>
@@ -230,6 +240,7 @@
 									<tab label="Sub Servicios" selected="@bind(vmAdmin.seleccionSubServicios)"/>
 									<tab label="Impuestos" selected="@bind(vmAdmin.seleccionImpuestos)"/>
 									<tab label="Hoteles" selected="@bind(vmAdmin.seleccionHoteles)"/>
+									<tab label="Destinos" selected="@bind(vmAdmin.seleccionDestinos)"/>
 								</tabs>
 								<tabpanels>
 									<tabpanel>
@@ -252,6 +263,9 @@
 									</tabpanel>
 									<tabpanel>
 										<include src="hoteles.zul"/>
+									</tabpanel>
+									<tabpanel>
+										<include src="destinos.zul"/>
 									</tabpanel>
 								</tabpanels>
 							</tabbox>
