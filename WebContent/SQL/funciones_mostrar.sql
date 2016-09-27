@@ -203,3 +203,12 @@ $$
 	order by ndestinocod;
 $$
   LANGUAGE sql;
+ /*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_MostrarTodasReservas
++++++++++++++++++++++++++++++++++++++++++++++++++*/ 
+create or replace function Pricing_sp_MostrarTodasReservas()
+returns setof treserva as
+$$
+	select * from treserva;
+$$
+LANGUAGE SQL;

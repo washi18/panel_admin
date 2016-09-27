@@ -166,9 +166,21 @@
 								</div>
 								<div id="d_reporte" visible="false">
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemCategorias" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-profile estilos-iconos"/>
 											<label value="Categorias" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemReporteReservas" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Reporte de reservas" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemReportePagos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Reporte de pagos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 								</div>
@@ -203,6 +215,7 @@
 									<tab id="tabImpuesto" label="Impuestos" iconSclass="icon-coin-dollar estilos-iconos" visible="@bind(vmAdmin.visibleImpuestos)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
 									<tab id="tabHotel" label="Hoteles" iconSclass="icon-office estilos-iconos" visible="@bind(vmAdmin.visibleHoteles)" selected="@bind(vmAdmin.seleccionHoteles)"></tab>
 									<tab id="tabDestino" label="Destinos" iconSclass="icon-airplane estilos-iconos" visible="@bind(vmAdmin.visibleDestinos)" selected="@bind(vmAdmin.seleccionDestinos)"></tab>
+									<tab id="tabReserva" label="Destinos" iconSclass="icon-airplane estilos-iconos" visible="@bind(vmAdmin.visibleReportReservas)" selected="@bind(vmAdmin.seleccionReportReservas)"></tab>
 								</tabs>
 								<tabpanels>
 									<tabpanel>
@@ -228,6 +241,9 @@
 									</tabpanel>
 									<tabpanel>
 										<include src="destinos.zul"/>
+									</tabpanel>
+									<tabpanel>
+										<include src="reporte_reservas.zul"/>
 									</tabpanel>
 								</tabpanels>
 							</tabbox>
@@ -241,6 +257,7 @@
 									<tab label="Impuestos" selected="@bind(vmAdmin.seleccionImpuestos)"/>
 									<tab label="Hoteles" selected="@bind(vmAdmin.seleccionHoteles)"/>
 									<tab label="Destinos" selected="@bind(vmAdmin.seleccionDestinos)"/>
+									<tab label="Reservas" selected="@bind(vmAdmin.seleccionReportReservas)"/>
 								</tabs>
 								<tabpanels>
 									<tabpanel>
@@ -266,6 +283,9 @@
 									</tabpanel>
 									<tabpanel>
 										<include src="destinos.zul"/>
+									</tabpanel>
+									<tabpanel>
+										<include src="reporte_reservas.zul"/>
 									</tabpanel>
 								</tabpanels>
 							</tabbox>

@@ -41,6 +41,8 @@ public class panelAdminVM
 	private boolean visibleDisponibilidad;
 	private boolean visibleHoteles;
 	private boolean visibleDestinos;
+	private boolean visibleReportReservas;
+	private boolean visibleReportPagos;
 	
 	//===============VARIABLES SUBITEMS================
 	private boolean openItemConfig;
@@ -62,6 +64,8 @@ public class panelAdminVM
 	private boolean seleccionImpuestos=false;
 	private boolean seleccionHoteles;
 	private boolean seleccionDestinos;
+	private boolean seleccionReportReservas;
+	private boolean seleccionReportPagos;
 	
 	//=================GET Y SET SELECCION TABS=======
 	public boolean isVisibleConfiguracion() {
@@ -246,20 +250,46 @@ public class panelAdminVM
 	public void setSeleccionDestinos(boolean seleccionDestinos) {
 		this.seleccionDestinos = seleccionDestinos;
 	}
+	
+	public boolean isVisibleReportReservas() {
+		return visibleReportReservas;
+	}
+	public void setVisibleReportReservas(boolean visibleReportReservas) {
+		this.visibleReportReservas = visibleReportReservas;
+	}
+	public boolean isVisibleReportPagos() {
+		return visibleReportPagos;
+	}
+	public void setVisibleReportPagos(boolean visibleReportPagos) {
+		this.visibleReportPagos = visibleReportPagos;
+	}
+	public boolean isSeleccionReportReservas() {
+		return seleccionReportReservas;
+	}
+	public void setSeleccionReportReservas(boolean seleccionReportReservas) {
+		this.seleccionReportReservas = seleccionReportReservas;
+	}
+	public boolean isSeleccionReportPagos() {
+		return seleccionReportPagos;
+	}
+	public void setSeleccionReportPagos(boolean seleccionReportPagos) {
+		this.seleccionReportPagos = seleccionReportPagos;
+	}
 	@Init
 	public void Inicializar() {
 		seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 		seleccionHoteles=seleccionDestinos=false;
 		visibleDisponibilidad=visibleEtiqueta = visiblePaquetes = visibleServicios = visibleSubServicios = visibleImpuestos =false;
 		visibleHoteles=false;
-		visibleConfiguracion=visibleDestinos=false;
+		visibleConfiguracion=visibleDestinos=visibleReportReservas=visibleReportPagos=false;
 	}
 
 	//================CAMBIO DE VISIBILIDAD========
 	@Command
-	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes","visibleDestinos","visibleServicios", "visibleSubServicios", "visibleImpuestos", "visibleMenu", "visibleDisponibilidad",
+	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes","visibleDestinos","visibleServicios", "visibleSubServicios",
+		"visibleImpuestos", "visibleMenu", "visibleDisponibilidad","visibleReportReservas","visibleReportPagos",
 		"seleccionDisponibilidad","seleccionEtiquetas", "seleccionPaquetes", "seleccionServicios", "seleccionSubServicios", "seleccionImpuestos",
-		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos"})
+		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos","seleccionReportReservas","seleccionReportPagos"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
 		visibleConfiguracion=true;	
 		if (cambios.equals("itemDisponibilidad")) {
@@ -306,14 +336,29 @@ public class panelAdminVM
 				seleccionHoteles=true;
 				seleccionImpuestos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			}
-			else if (cambios.equals("itemDestinos")) {
+			}else if (cambios.equals("itemDestinos")) {
 				visibleDestinos=true;
 				visibleHoteles=visibleImpuestos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
 				visibleSubServicios=false;
 				seleccionDestinos=true;
 				seleccionHoteles=seleccionImpuestos=false;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
+			}else if (cambios.equals("itemReporteReservas")) {
+				visibleReportReservas=true;
+				visibleHoteles=visibleImpuestos=visibleDestinos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;
+				seleccionReportReservas=true;
+				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
+			}
+			else if (cambios.equals("itemRepotePagos")) {
+				visibleReportPagos=true;
+				visibleHoteles=visibleImpuestos=visibleDestinos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
+				visibleSubServicios=false;
+				seleccionReportPagos=true;
+				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
 			

@@ -1,14 +1,17 @@
 package com.pricing.dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import com.pricing.model.CReserva;
+import com.pricing.model.CServicio;
 
 public class CReservaDAO extends CConexion 
 {
 	private CReserva oReserva;
+	private ArrayList<CReserva> listaReservas;
 	//=======================
 
 	public CReserva getoReserva() {
@@ -29,6 +32,15 @@ public class CReservaDAO extends CConexion
 		super();
 		this.oReserva=reserva;
 	}
+	
+	public ArrayList<CReserva> getListaReservas() {
+		return listaReservas;
+	}
+
+	public void setListaReservas(ArrayList<CReserva> listaReservas) {
+		this.listaReservas = listaReservas;
+	}
+
 	//====OTROS METODOS====
 	public List registrarReserva(CReserva reserva)
 	{
@@ -43,6 +55,26 @@ public class CReservaDAO extends CConexion
 		Map row=(Map)lista.get(0);
 		String[] r={row.get("resultado").toString(),row.get("creservacod").toString()};
 		return r;
+	}
+	
+	public List recuperarTodasReservasBD()
+	{
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarTodasReservas");
+	}
+	
+	public void asignarListaReservas(List lista)
+	{
+		listaReservas=new ArrayList<CReserva>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaReservas.add(new CReserva((String)row.get("creservacod"),(Date)row.get("dfechainicio"),
+					(Date)row.get("dfechafin"), (Date)row.get("dfecha"),
+					(String)row.get("ccontacto"), (String)row.get("cemail"),
+					(String)row.get("ctelefono"), (Number)row.get("npreciopaquetepersona"),
+					(int)row.get("nnropersonas"),(String)row.get("cinformacionadicional"),
+					(String)row.get("cestado")));
+		}
 	}
 	public List modificarEstadoDePago(String codReserva,String estado)
 	{

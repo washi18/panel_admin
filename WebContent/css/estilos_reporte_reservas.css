@@ -1,0 +1,97 @@
+.estilo_div_disponibilidad {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+}
+
+.estado_pagos.z-radiogroup{
+	background: rgba(0,0,0,0.2);
+	padding: 8px;
+	border-radius:5px;
+	display:flex;
+}
+.estado_pagos.z-radiogroup .z-radio input[type="radio"]{
+	display: none;
+}
+.estado_pagos.z-radiogroup .z-radio label{
+/* 	color: #053351; */
+/* 	margin-left: 7px; */
+	display: inline-block;
+    cursor: pointer;
+    color: #053351;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    font-weight:bold;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.estado_pagos.z-radiogroup .z-radio label:hover{
+	background: rgba(0, 0, 0, 0.2);
+}
+.estado_pagos.z-radiogroup .z-radio label:before{
+	  content:'';
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      position: absolute;
+      left: 15px;
+      border-radius: 50%;
+      background: none;
+      border: 3px solid #053351;
+}
+.estado_pagos.z-radiogroup input[type="radio"]:checked + label:before {
+      display: none; 
+}
+.estado_pagos.z-radiogroup input[type="radio"]:checked + label{
+	  padding: 5px 15px;
+      background: #053351;
+      border-radius: 2px;
+      color: #fff;
+}
+
+.div_opciones_busqueda{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content: center !important;
+	padding: 4px;
+	background: lightgray;
+}
+
+.estilo_contenedor_estadoPago{
+   display: flex;
+   display: -webkit-flex;
+   display: -moz-flex;
+   display: -ms-flex;
+   display: -o-flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   width: 30%;
+   border-left:1px solid black; 
+}
+
+
+@media only screen and (max-width: 416px)
+{
+.estilo_contenedor_costo{
+    	display: none !important;
+    }
+}
+.intervalo_fechas{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content: center;
+}
+
