@@ -22,6 +22,7 @@ public class CHotel
 	private Number nPrecioDoble;// decimal(10,2),			--precio del hotel con habitacion doble
 	private Number nPrecioTriple;// decimal(10,2),			--precio del hotel con habitacion triple
 	private boolean bEstado;// boolean,				--estado del hotel (si trabaja o no con nuestros paquetes)
+	private int codDestino;
 	private boolean editable;
 	private String categoria;
 	private boolean visibleEspanol;
@@ -237,6 +238,12 @@ public class CHotel
 	public void setEstado_desactivo(boolean estado_desactivo) {
 		this.estado_desactivo = estado_desactivo;
 	}
+	public int getCodDestino() {
+		return codDestino;
+	}
+	public void setCodDestino(int codDestino) {
+		this.codDestino = codDestino;
+	}
 	//======================================
 	public CHotel() {
 		// TODO Auto-generated constructor stub
@@ -254,6 +261,7 @@ public class CHotel
 		this.nPrecioSimple_text="0.00";
 		this.nPrecioDoble_text="0.00";
 		this.nPrecioTriple_text="0.00";
+		this.codDestino=0;
 	}
 	public CHotel(int nHotelCod, String cHotel, String cDescripcionIdioma1,
 			String cDescripcionIdioma2, String cDescripcionIdioma3,

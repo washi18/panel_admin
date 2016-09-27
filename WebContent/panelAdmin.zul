@@ -92,7 +92,7 @@
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
 										<div id="itemDestinos" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-office estilos-iconos"/>
+											<span sclass="icon-airplane estilos-iconos"/>
 											<label value="Destinos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
@@ -202,7 +202,7 @@
 									<tab id="tabSubServicio" label="Sub Servicios" iconSclass="icon-tree estilos-iconos" visible="@bind(vmAdmin.visibleSubServicios)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
 									<tab id="tabImpuesto" label="Impuestos" iconSclass="icon-coin-dollar estilos-iconos" visible="@bind(vmAdmin.visibleImpuestos)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
 									<tab id="tabHotel" label="Hoteles" iconSclass="icon-office estilos-iconos" visible="@bind(vmAdmin.visibleHoteles)" selected="@bind(vmAdmin.seleccionHoteles)"></tab>
-									<tab id="tabDestino" label="Destinos" iconSclass="icon-office estilos-iconos" visible="@bind(vmAdmin.visibleDestinos)" selected="@bind(vmAdmin.seleccionDestinos)"></tab>
+									<tab id="tabDestino" label="Destinos" iconSclass="icon-airplane estilos-iconos" visible="@bind(vmAdmin.visibleDestinos)" selected="@bind(vmAdmin.seleccionDestinos)"></tab>
 								</tabs>
 								<tabpanels>
 									<tabpanel>

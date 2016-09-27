@@ -76,7 +76,7 @@ public class CHotelDAO extends CConexion
 		Object[] values={hotel.getcHotel(),hotel.getcDescripcionIdioma1(),hotel.getcDescripcionIdioma2(),
 				hotel.getcDescripcionIdioma3(),hotel.getcDescripcionIdioma4(),hotel.getcDescripcionIdioma5(),
 				hotel.getcUrl(),hotel.getCategoriaHotelCod(),hotel.getnPrecioSimple().doubleValue(),hotel.getnPrecioDoble().doubleValue(),
-				hotel.getnPrecioTriple().doubleValue()};
+				hotel.getnPrecioTriple().doubleValue(),hotel.getCodDestino()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarHotel", values);
 	}
 	public List modificarHotel(CHotel hotel)

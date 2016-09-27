@@ -39,6 +39,10 @@ public class CDestinoDAO extends CConexion
 	{
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarDestinos");
 	}
+	public List recuperarListaTodosDestinosBD()
+	{
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarTodosDestinos");
+	}
 	public void asignarListaDestinos(List lista)
 	{
 		listaDestinos=new ArrayList<CDestino>();
@@ -48,6 +52,23 @@ public class CDestinoDAO extends CConexion
 			listaDestinos.add(new CDestino((int)row.get("ndestinocod"),
 					(String)row.get("cdestino"),(boolean)row.get("bestado")));
 		}
+	}
+	public List insertarDestino(CDestino destino)
+	{
+		Object[] values={destino.getcDestino()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarDestino", values);
+	}
+	public List modificarDestino(CDestino destino)
+	{
+		Object[] values={destino.getnDestinoCod(),destino.getcDestino(),destino.isbEstado()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarDestino", values);
+	}
+	public boolean isOperationCorrect(List lista)
+	{
+		Map row=(Map)lista.get(0);
+		boolean correcto=row.get("resultado").toString().equals("correcto");
+		if(correcto)return true;
+		else return false;
 	}
 	//Antes de registrar hay que generar el codigo del destino
 	public List generarCodDestino()

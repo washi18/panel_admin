@@ -5,87 +5,93 @@
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmDestino') @init('com.pricing.viewModel.DestinosVM')">
 		 <div zclass="div_contenedor_nuevo" width="100%">
-			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_subservicios.setVisible(true)">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_destino.setVisible(true)">
 				<div zclass="div_btn_nuevo" width="180px">
 					<span sclass="icon-plus"/>
 					<space></space>
-					<label value="NUEVO SUB SERVICIO"/>
+					<label value="NUEVO DESTINO"/>
 				</div>
 			</div>
-			<div id="div_llenar_subservicios" visible="false">
+			<div id="div_llenar_destino" visible="false">
 				<space></space>
 				<div zclass="div_contenedor_nuevo_subServicio" width="100%">
 					<div zclass="div_content_datos" width="20%">
 						<div>
 							<label value="DESTINO: " zclass="lbl_llenar_datos"/>
-							<textbox zclass="txt_llenar_datos" id="txtSpainName"  width="100%" placeholder="ESPAÑOL" visible="true" onChange="@command('asignar_destino',destino=self.value)"/>
+							<textbox value="@bind(vmDestino.oDestinoNuevo.cDestino)" zclass="txt_llenar_datos"
+									placeholder="NOMBRE DESTINO" style="text-transform: uppercase;"/>
 						</div>
-					</div>
-					<space></space>
-					<div zclass="div_content_datos_destinos" width="80%">
-						<div width="47%">
-							<listbox  id="listaTodoHoteles" width="100%" multiple="true" model="@bind(vmDestino.listaHoteles)" height="auto" mold="paging" autopaging="true" pageSize="10" pagingPosition="bottom">
-								<listhead>
-									<listheader label="Hoteles" width="80px">
-									</listheader>
-								</listhead>
-								<template name="model">
-									<listitem>
-										<listcell>
-										   <div>
-										    	<label value="@bind(each.cHotel)"></label>
-										   </div>
-										</listcell>
-									</listitem>
-								</template>
-							</listbox>
-						</div>
-						<space></space>
-						<div width="3%">
-							<vbox spacing="10px">
-								<image style="cursor:pointer"
-									id="chooseAllBtn" src="img/rightrightarrow_g.png" />
-								<image style="cursor:pointer" id="chooseBtn"
-									src="img/rightarrow_g.png" />
-								<image style="cursor:pointer" id="removeBtn"
-									src="img/leftarrow_g.png" />
-								<image style="cursor:pointer"
-									id="removeAllBtn" src="img/leftleftarrow_g.png" />
-							</vbox>
-						</div>
-						<space></space>
-						<div width="47%">
-							<listbox id="listaHotelesSeleccionadas" width="100%"
-								multiple="true" rows="8">
-								<listhead>
-									<listheader label="Hoteles Seleccionadas"
-										width="80px">
-									</listheader>
-								</listhead>
-								<template name="model">
-									<listitem>
-										<listcell
-											label="Nombres" />
-									</listitem>
-								</template>
-							</listbox>
-						</div>
-						<space></space>
-						<div width="3%">
-							<vbox spacing="10px">
-								<image style="cursor:pointer" id="topBtn"
-									src="img/upuparrow_g.png" />
-								<image style="cursor:pointer" id="upBtn"
-									src="img/uparrow_g.png" />
-								<image style="cursor:pointer" id="downBtn"
-									src="img/downarrow_g.png" />
-								<image style="cursor:pointer" id="bottomBtn"
-									src="img/downdownarrow_g.png" />
-							</vbox>
-						</div>
+						<button label="Guardar" zclass="btn_guardar" 
+								onClick="@command('insertarDestino',componente=self)"/>
 					</div>
 				</div>
 			</div>
 		</div>
+		<space></space>
+		<listbox sclass="listados" model="@load(vmDestino.listaDestinos) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+				   	<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nDestinoCod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_servicio">
+					    		<space></space>
+					    		<div zclass="div_content_info_listServicio">
+					    			<div>
+										<label value="@load(each.cDestino)" zclass="lbl_llenar_datos"/>
+									</div>
+					    			<div
+					    				zclass="div_operacion_etiqueta">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',destino=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)"/>
+					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
+					    			</div>
+					    		</div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nDestinoCod)"/>
+							</div>
+				    		<div>
+				    			<div>
+				    				<label value="DESTINO:" zclass="lbl_llenar_datos"/>
+				    				<div>
+				    					<textbox value="@load(each.cDestino)" zclass="txt_llenar_datos" style="text-transform: uppercase;"/>
+				    				</div>
+				    			</div>
+								<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+								<separator bar="true" zclass="lbl_llenar_datos"/>
+								<div>
+									<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_destino',destino=each,texto=self.selectedItem.value)">
+										<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
+										<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+									</radiogroup>
+								</div>
+							</div>
+				    		<div sclass="div_content_actualizar">
+				    			<button label="Actualizar"
+				    				onClick="@command('actualizarDestino',destino=each,componente=self)"
+				    				zclass="btn_actualizar"/>
+				    		</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
 	</div>
 </zk>

@@ -155,16 +155,29 @@ create or replace function Pricing_sp_RegistrarHotel
   categoria int,
   precioSimple decimal(10,2),
   precioDoble decimal(10,2),
-  precioTriple decimal(10,2)
+  precioTriple decimal(10,2),
+  codDestino int
 )
 returns table(resultado varchar(20),mensaje varchar(200),codHotel int)as
 $$
+declare
+	codDestinoHotel varchar(10);
 begin
-	codHotel=(select max( nhotelcod ) from thotel)+1;
+	codHotel=(select max( nhotelcod ) from thotel);
+	if(codHotel is null)then
+		codHotel=1;
+	else
+		codHotel=codHotel+1;
+	end if;
 	insert into THotel (nhotelcod,chotel,cdescripcionidioma1,cdescripcionidioma2,cdescripcionidioma3,
 			cdescripcionidioma4,cdescripcionidioma5,curl,categoriahotelcod,npreciosimple,npreciodoble,
 			npreciotriple,bestado)
 			values(codHotel,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,true);
+	
+	codDestinoHotel=select concat('DH-',right(concat('000',count(dh.destinohotelcod)+1),3)) from tdestinohotel dh where left(dh.destinohotelcod,3)='DH-';
+	
+	insert into TDestinoHotel values(codDestinoHotel,$12,codHotel);
+	update TDestino set bestado=true where ndestinocod=$12;
 	resultado='correcto';
 	mensaje='Datos Registrados Correctamente';
 	return Query select resultado,mensaje,codHotel;
@@ -232,6 +245,27 @@ begin
         resultado='correcto';
         mensaje='Datos Registrados Correctamente';
         return Query select resultado,mensaje,codServicio;
+end
+$$
+language plpgsql;
+--**Registrar Destino**--
+create or replace function Pricing_sp_RegistrarDestino
+(
+	nameDestino varchar(100)
+)
+returns table(resultado varchar(20),mensaje varchar(200),codDestino int)as
+$$
+begin
+	codDestino=(select max( ndestinocod ) from tdestino);
+	if(codDestino is null)then
+		codDestino=1;
+	else
+		codDestino=codDestino+1;
+	end if;
+        insert into tdestino values(codDestino,$1,false);
+        resultado='correcto';
+        mensaje='Datos Registrados Correctamente';
+        return Query select resultado,mensaje,codDestino;
 end
 $$
 language plpgsql;

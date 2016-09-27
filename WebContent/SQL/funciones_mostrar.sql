@@ -170,3 +170,36 @@ $$
 	select * from timpuesto;
 $$ 
 LANGUAGE SQL;
+/*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_MostrarDestino
+Utilizado en	:Pagina Web PGT
+Usuario		:PGT
+Fecha Creacion	:6/07/2016
+Ejecucion	:SELECT * FROM Pricing_sp_MostrarEtiquetas()
+Eliminacion	:DROP FUNCTION Pricing_sp_MostrarEtiquetas()
+Comentario	:Retorna todas las etiquetas del Pricing
+Modificacion	:
++++++++++++++++++++++++++++++++++++++++++++++++++*/
+CREATE OR REPLACE FUNCTION pricing_sp_mostrardestinos()
+  RETURNS SETOF tdestino AS
+$$
+	select * from tdestino where bestado=true;
+$$
+  LANGUAGE sql;
+  /*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_MostrarTodosDestino
+Utilizado en	:Pagina Web PGT
+Usuario		:PGT
+Fecha Creacion	:6/07/2016
+Ejecucion	:SELECT * FROM Pricing_sp_MostrarEtiquetas()
+Eliminacion	:DROP FUNCTION Pricing_sp_MostrarEtiquetas()
+Comentario	:Retorna todas las etiquetas del Pricing
+Modificacion	:
++++++++++++++++++++++++++++++++++++++++++++++++++*/
+CREATE OR REPLACE FUNCTION pricing_sp_mostrarTodosdestinos()
+  RETURNS SETOF tdestino AS
+$$
+	select * from tdestino
+	order by ndestinocod;
+$$
+  LANGUAGE sql;

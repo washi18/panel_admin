@@ -17,6 +17,14 @@
 					<div zclass="div_content_datos">
 						<div>
 							<div>
+								<label value="DESTINO: " zclass="lbl_llenar_datos"/>
+								<combobox model="@load(vmHotel.listaDestinos)" onSelect="@command('selectDestino',codDestino=self.selectedItem.value)" sclass="cbox_llenar_datos">
+									<template name="model">
+										<comboitem label="@load(each.cDestino)" value="@load(each.nDestinoCod)"/>
+									</template>
+								</combobox>
+							</div>
+							<div>
 								<label value="HOTEL: " zclass="lbl_llenar_datos"/>
 								<textbox value="@bind(vmHotel.oHotel.cHotel)" placeholder="NOMBRE HOTEL" width="250px" visible="true" zclass="txt_llenar_datos" style="text-transform: uppercase;"/>
 							</div>

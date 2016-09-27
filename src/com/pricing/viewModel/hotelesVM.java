@@ -20,8 +20,11 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Div;
 
+import com.pricing.dao.CDestinoDAO;
 import com.pricing.dao.CDestinoHotelDAO;
 import com.pricing.dao.CHotelDAO;
+import com.pricing.model.CDestino;
+import com.pricing.model.CDestinoHotel;
 import com.pricing.model.CHotel;
 import com.pricing.model.CServicio;
 
@@ -40,6 +43,10 @@ public class hotelesVM
 	private CHotel oHotelUpdate;//Funciona como variable auxiliar
 	private ArrayList<CHotel> listaHoteles;
 	private CHotelDAO hotelDao;
+	private CDestinoDAO destinoDao;
+	private ArrayList<CDestino> listaDestinos;
+	private CDestinoHotelDAO destinoHotelDao;
+	private int codDestino;
 	/**=====================**/
 	/**==GETTER AND SETTER==**/
 	/**=====================**/
@@ -67,6 +74,12 @@ public class hotelesVM
 	public void setoHotelUpdate(CHotel oHotelUpdate) {
 		this.oHotelUpdate = oHotelUpdate;
 	}
+	public ArrayList<CDestino> getListaDestinos() {
+		return listaDestinos;
+	}
+	public void setListaDestinos(ArrayList<CDestino> listaDestinos) {
+		this.listaDestinos = listaDestinos;
+	}
 	/**===========**/
 	/**==METODOS==**/
 	/**===========**/
@@ -85,9 +98,16 @@ public class hotelesVM
 		oHotel=new CHotel();
 		oHotelUpdate=new CHotel();
 		hotelDao=new CHotelDAO();
+		destinoDao=new CDestinoDAO();
+		destinoHotelDao=new CDestinoHotelDAO();
+		listaDestinos=new ArrayList<CDestino>();
 		listaHoteles=new ArrayList<CHotel>();
+		/*Asignacion de hoteles*/
 		hotelDao.asignarListaHoteles(hotelDao.recuperarHotelesBD());
 		setListaHoteles(hotelDao.getListaHoteles());
+		/*Asignacion de destinos*/
+		destinoDao.asignarListaDestinos(destinoDao.recuperarListaTodosDestinosBD());
+		setListaDestinos(destinoDao.getListaDestinos());
 	}
 	/**
 	 * Funcion que permite asignar la categoria
@@ -113,46 +133,66 @@ public class hotelesVM
 			oHotel.setCategoriaHotelCod(7);
 	}
 	@Command
-	@NotifyChange({"oHotel"})
+	public void selectDestino(@BindingParam("codDestino")String codDestino)
+	{
+		oHotel.setCodDestino(Integer.parseInt(codDestino));
+	}
+	@Command
+	@NotifyChange({"oHotel","listaHoteles"})
 	public void InsertarHotel(@BindingParam("componente")Component componente)
 	{
-		oHotel.setcHotel(oHotel.getcHotel().toUpperCase());
-		/**Empezamos realizando las validaciones respectivas**/
-		if(oHotel.getcHotel().equals(""))//Nombre del Hotel
-		{
-			Clients.showNotification("El nuevo hotel no tiene nombre", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+		if(!validoParaInsertar(componente))
 			return;
-		}else if(oHotel.getCategoriaHotelCod()==0)
-		{
-			Clients.showNotification("Debe seleccionar una categoria para el hotel", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}else if(oHotel.getnPrecioSimple().doubleValue()==0)
-		{
-			Clients.showNotification("El precio de una habitacion simple no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}else if(oHotel.getnPrecioDoble().doubleValue()==0)
-		{
-			Clients.showNotification("El precio de una habitacion doble no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}else if(oHotel.getnPrecioTriple().doubleValue()==0)
-		{
-			Clients.showNotification("El precio de una habitacion Triple no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
-			return;
-		}
 		/**Una vez validado los datos necesarios se procede a insertar el nuevo Hotel**/
 		boolean correcto=hotelDao.isOperationCorrect(hotelDao.insertarHotel(oHotel));
 		if(correcto)
 		{ 
 			oHotel=new CHotel();
 			/*para recuperar inmediatamente el dato insertado*/
+			listaHoteles.clear();
 			hotelDao.asignarListaHoteles(hotelDao.recuperarHotelesBD());
 			setListaHoteles(hotelDao.getListaHoteles());
-			BindUtils.postNotifyChange(null, null, null,"listaHoteles");
 			/*************************************************/
 			Clients.showNotification("El Nuevo Hotel fue insertado correctamente", Clients.NOTIFICATION_TYPE_INFO, componente,"before_start",2700);
 		}
 		else
 			Clients.showNotification("El Nuevo Hotel no fue insertado", Clients.NOTIFICATION_TYPE_INFO, componente,"before_start",2700);
+	}
+	public boolean validoParaInsertar(Component componente)
+	{
+		oHotel.setcHotel(oHotel.getcHotel().toUpperCase());
+		boolean valido=true;
+		/**Empezamos realizando las validaciones respectivas**/
+		if(oHotel.getCodDestino()==0)
+		{
+			Clients.showNotification("Se tiene que elegir un destino para el hotel", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			valido=false;
+		}
+		if(valido)
+		{
+			if(oHotel.getcHotel().equals(""))//Nombre del Hotel
+			{
+				Clients.showNotification("El nuevo hotel no tiene nombre", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+				valido=false;
+			}else if(oHotel.getCategoriaHotelCod()==0)
+			{
+				Clients.showNotification("Debe seleccionar una categoria para el hotel", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+				valido=false;
+			}else if(oHotel.getnPrecioSimple().doubleValue()==0)
+			{
+				Clients.showNotification("El precio de una habitacion simple no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+				valido=false;
+			}else if(oHotel.getnPrecioDoble().doubleValue()==0)
+			{
+				Clients.showNotification("El precio de una habitacion doble no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+				valido=false;
+			}else if(oHotel.getnPrecioTriple().doubleValue()==0)
+			{
+				Clients.showNotification("El precio de una habitacion Triple no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+				valido=false;
+			}
+		}
+		return valido;
 	}
 	@Command
 	public void actualizarHotel(@BindingParam("hotel")CHotel hotel,@BindingParam("componente")Component comp)
