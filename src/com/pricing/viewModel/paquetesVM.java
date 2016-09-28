@@ -1,6 +1,7 @@
 package com.pricing.viewModel;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
@@ -8,8 +9,11 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 
+import com.pricing.dao.CDestinoDAO;
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.dao.CPaqueteDAO;
+import com.pricing.dao.CServicioDAO;
+import com.pricing.model.CDestino;
 import com.pricing.model.CEtiqueta;
 import com.pricing.model.CPaquete;
 import com.pricing.model.CServicio;
@@ -24,6 +28,10 @@ public class paquetesVM
 	private ArrayList<CPaquete> listaPaquetes;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
+	private CDestinoDAO destinoDao;
+	private CServicioDAO servicioDao;
+	private ArrayList<CDestino> listaDestinos;
+	private ArrayList<CServicio> listaServicios;
 	/**
 	 * GETTER AND SETTER
 	 */
@@ -61,6 +69,37 @@ public class paquetesVM
 	public void setVisibleDescripcion(boolean visibleDescripcion) {
 		this.visibleDescripcion = visibleDescripcion;
 	}
+	public ArrayList<CDestino> getListaDestinos() {
+		return listaDestinos;
+	}
+
+	public void setListaDestinos(ArrayList<CDestino> listaDestinos) {
+		this.listaDestinos = listaDestinos;
+	}
+
+	public ArrayList<CServicio> getListaServicios() {
+		return listaServicios;
+	}
+
+	public void setListaServicios(ArrayList<CServicio> listaServicios) {
+		this.listaServicios = listaServicios;
+	}
+	public CDestinoDAO getDestinoDao() {
+		return destinoDao;
+	}
+
+	public void setDestinoDao(CDestinoDAO destinoDao) {
+		this.destinoDao = destinoDao;
+	}
+
+	public CServicioDAO getServicioDao() {
+		return servicioDao;
+	}
+
+	public void setServicioDao(CServicioDAO servicioDao) {
+		this.servicioDao = servicioDao;
+	}
+
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
 	 */
@@ -69,12 +108,21 @@ public class paquetesVM
 	{
 		/**Inicializando los objetos**/
 		oPaquete=new CPaquete();
+		servicioDao=new CServicioDAO();
+		destinoDao=new CDestinoDAO();
 		paqueteDao=new CPaqueteDAO();
 		listaPaquetes=new ArrayList<CPaquete>();
-		/**Obtencion de las etiquetas de la base de datos**/
+		listaDestinos=new ArrayList<CDestino>();
+		listaServicios=new ArrayList<CServicio>();
+		/**Obtencion de los paquetes existente desde la base de datos**/
 		paqueteDao.asignarListaPaquetes(paqueteDao.recuperarPaquetesBD());
-		/**Asignacion de las etiquetas a la listaEtiquetas**/
 		setListaPaquetes(paqueteDao.getListaPaquetes());
+		/**Obtencion de los servcios desde la base de datos**/
+		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosBD());
+		setListaServicios(servicioDao.getListaServicios());
+		/**Obtencion de los destinos desde la base de datos**/
+		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
+		setListaDestinos(destinoDao.getListaDestinos());
 	}
 	@Command
 	public void actualizarPaquete(@BindingParam("paquete")CPaquete paquete)
@@ -107,6 +155,22 @@ public class paquetesVM
 	 public void Desactivar(@BindingParam("servicio") CServicio s ) 
 	{
 		
+	}
+	@Command
+	public void selectDestinos(@BindingParam("destino")CDestino destino)
+	{
+		if(destino.isSeleccionado())
+			destino.setSeleccionado(false);
+		else
+			destino.setSeleccionado(true);
+	}
+	@Command
+	public void selectServicios(@BindingParam("servicio")CServicio servicio)
+	{
+		if(servicio.isSeleccionado())
+			servicio.setSeleccionado(false);
+		else
+			servicio.setSeleccionado(true);
 	}
 	@Command
 	@NotifyChange({ "visibleGeneral", "visibleDescripcion" })

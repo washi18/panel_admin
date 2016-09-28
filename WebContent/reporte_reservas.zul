@@ -5,10 +5,10 @@
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmReserva') @init('com.pricing.viewModel.ReservasVM')">
 		<div sclass="div_opciones_busqueda" width="100%">
-			<div style="intervalo_fechas" width="35%">
+			<div width="35%">
 				<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
 				<space></space>
-				<datebox id="db0" cols="12" format="short" onCreate="self.value =new Date()" />
+				<datebox />
 				<space></space>
 				<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
 				<space></space>
