@@ -202,20 +202,20 @@
 						<menu label="Mensajes"></menu>
 					</menubar>
 			    </div>
-				<div  width="100%" height="auto">
+				<div  width="100%" height="auto" sclass="estilo_tabbox">
 					<div sclass="contenedor_botones" width="100%">
 						<div  width="100%" height="auto">
 							<div sclass="estilo_tabbox visible_peque" width="100%">
 								<div>
-									<button id="tabDisponibilidad" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabEtiqueta" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabPaquete" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabServicio" label="Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabSubServicio" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabDisponibilidad" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleDisponibilidad)"></button>
+									<button id="tabEtiqueta" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleEtiqueta)"></button>
+									<button id="tabPaquete" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visiblePaquetes)"></button>
+									<button id="tabServicio" label="Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleServicios)"></button>
+									<button id="tabSubServicio" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleSubServicios)"></button>
 									<button id="tabImpuesto" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="tabHotel" label="Hoteles" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="tabDestino" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabReserva" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabReporteReserva" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">

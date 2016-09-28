@@ -432,13 +432,37 @@
 }
 .estilo_tabbox {
 	box-sizing: border-box;
-	padding-left: 1%;
-}
-.estilo_tabbox.z-tabbox{
+	padding-left: 0.5%;
+	padding-right: 0.5%;
+	padding-top: 1.5%;
 	background: white;
 /* 	display:none; */
 	border-radius:10px 0 0 0;
 }
+
+.estilo_tabbox .z-button{
+	border: none;
+	height: 50px;
+	font-size: 15px;
+	font-weight:bold;
+	background: none;
+	text-shadow: none !important;
+}
+
+.estilo_tabbox .z-button:HOVER{
+	background: #2f2f2f;
+	border-radius: 15px;
+	color: white !important;
+	transition: 0.3s all ease;
+}
+
+.estilo_tabbox .z-button:FOCUS{
+	border: none !important;
+	background: #2f2f2f;
+	border-radius: 15px;
+	color: white !important;
+}
+
 .estilo_tabbox .z-tabs{
 	padding: 10px 0 0 0;
 }

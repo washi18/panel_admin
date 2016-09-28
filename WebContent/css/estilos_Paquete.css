@@ -162,3 +162,56 @@
 		width: 100%;
 	}
 }
+.estilos_name_destinos_servicios{
+	color: #2f2f2f;
+	font-size: 13px;
+	font-weight: bold;
+}
+.div_contiene_title{
+	width: 100%;
+	height: 50px;
+	border-radius:5px;
+	background: #053351;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;  
+}
+.title_contiene_paquete{
+	color: white;
+	font-size: 18;
+	font-weight: bold;
+}
+.div_list_content_destino_servicio{
+	margin-left: 5px;
+}
+/*****/
+.dest_serv_list.z-listbox{
+	border: 1px solid #2f2f2f;
+}
+.dest_serv_list .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-listitem-checkable{
+	border-radius:0;
+	border: 1px solid #1A5276;
+}
+.dest_serv_list .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-listitem-checkable .z-listitem-icon{
+	color:#1A5276;
+}
+.dest_serv_list .z-listbox-body table tbody .z-listitem.z-listitem-selected,
+.dest_serv_list .z-listbox-body table tbody .z-listitem.z-listitem-selected .z-listcell{
+	background: rgba(5, 51, 81,0.3);
+}
+.dest_serv_list .z-listbox-body table tbody .z-listitem,
+.dest_serv_list .z-listbox-body table tbody .z-listitem .z-listcell{
+	background: white;
+}

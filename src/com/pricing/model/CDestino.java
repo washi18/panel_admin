@@ -13,6 +13,7 @@ public class CDestino
 	public String COLOR_TRANSPARENT="background:transparent;";
 	private boolean estado_activo;
 	private boolean estado_desactivo;
+	private boolean seleccionado;
 	//======================
 	public int getnDestinoCod() {
 		return nDestinoCod;
@@ -62,6 +63,12 @@ public class CDestino
 	public void setEstado_desactivo(boolean estado_desactivo) {
 		this.estado_desactivo = estado_desactivo;
 	}
+	public boolean isSeleccionado() {
+		return seleccionado;
+	}
+	public void setSeleccionado(boolean seleccionado) {
+		this.seleccionado = seleccionado;
+	}
 	//============================
 	public CDestino() {
 		// TODO Auto-generated constructor stub
@@ -75,6 +82,7 @@ public class CDestino
 		this.editable=false;
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
+		this.seleccionado=false;
 		/**********/
 		darColor_estado();
 	}

@@ -292,59 +292,59 @@ public class panelAdminVM
 		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos","seleccionReportReservas","seleccionReportPagos"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
 		visibleConfiguracion=true;	
-		if (cambios.equals("itemDisponibilidad") || cambios.equals("btnDisponibilidad") ) {
+		if (cambios.equals("itemDisponibilidad") || cambios.equals("btnDisponibilidad") || cambios.equals("tabDisponibilidad") ) {
 				visibleDisponibilidad=true;
-				visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;
-				visibleSubServicios=visibleImpuestos=false;
+				visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=visibleReportReservas=visibleHoteles=false;
+				visibleSubServicios=visibleImpuestos=visibleDestinos=false;
 				seleccionDisponibilidad=true;
 				seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			} else if (cambios.equals("itemEtiqueta") || cambios.equals("btnEtiquetas") ) {
+			} else if (cambios.equals("itemEtiqueta") || cambios.equals("btnEtiquetas") || cambios.equals("tabEtiqueta") ) {
 				visibleEtiqueta = true;
-				visibleDisponibilidad=visiblePaquetes=visibleServicios=visibleSubServicios=false;
-				visibleImpuestos=false;
+				visibleDisponibilidad=visiblePaquetes=visibleServicios=visibleSubServicios=visibleReportReservas=visibleHoteles=false;
+				visibleImpuestos=visibleDestinos=false;
 				seleccionEtiquetas=true;
 				seleccionDisponibilidad=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			} else if (cambios.equals("itemPaquete") || cambios.equals("btnPaquetes")) {
+			} else if (cambios.equals("itemPaquete") || cambios.equals("btnPaquetes") || cambios.equals("tabPaquete")) {
 				visiblePaquetes=true;
-				visibleDisponibilidad=visibleEtiqueta=visibleServicios=false;
-				visibleSubServicios=visibleImpuestos=false;
+				visibleDisponibilidad=visibleEtiqueta=visibleServicios=visibleReportReservas=visibleHoteles=false;
+				visibleSubServicios=visibleImpuestos=visibleDestinos=false;
 				seleccionPaquetes=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionServicios=seleccionSubServicios=false;
-			} else if (cambios.equals("itemServicio") || cambios.equals("btnServicios")) {
+			} else if (cambios.equals("itemServicio") || cambios.equals("btnServicios") || cambios.equals("tabServicio")) {
 				visibleServicios=true;
-				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=false;
-				visibleSubServicios=visibleImpuestos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleReportReservas=visibleHoteles=false;
+				visibleSubServicios=visibleImpuestos=visibleDestinos=false;
 				seleccionServicios=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionSubServicios=false;
-			} else if (cambios.equals("itemSubServicio") || cambios.equals("btnSubServicios")) {
+			} else if (cambios.equals("itemSubServicio") || cambios.equals("btnSubServicios") || cambios.equals("tabSubServicio")) {
 				visibleSubServicios =true;
-				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
-				visibleImpuestos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleHoteles=false;
+				visibleImpuestos=visibleDestinos=false;
 				seleccionSubServicios=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=false;
-			} else if (cambios.equals("itemImpuesto") || cambios.equals("btnImpuestos")) {
+			} else if (cambios.equals("itemImpuesto") || cambios.equals("btnImpuestos") || cambios.equals("tabImpuesto")) {
 				visibleImpuestos=true;
-				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
-				visibleSubServicios=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleHoteles=false;
+				visibleSubServicios=visibleDestinos=false;
 				seleccionImpuestos=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			}else if (cambios.equals("itemHoteles") || cambios.equals("btnHoteles")) {
+			}else if (cambios.equals("itemHoteles") || cambios.equals("btnHoteles") || cambios.equals("tabHotel")) {
 				visibleHoteles=true;
 				visibleImpuestos=false;
-				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
-				visibleSubServicios=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
+				visibleSubServicios=visibleDestinos=false;
 				seleccionHoteles=true;
 				seleccionImpuestos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			}else if (cambios.equals("itemDestinos") || cambios.equals("btnDestinos")) {
+			}else if (cambios.equals("itemDestinos") || cambios.equals("btnDestinos") || cambios.equals("tabDestino")) {
 				visibleDestinos=true;
 				visibleHoteles=visibleImpuestos=false;
-				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
 				visibleSubServicios=false;
 				seleccionDestinos=true;
 				seleccionHoteles=seleccionImpuestos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			}else if (cambios.equals("itemReporteReservas") || cambios.equals("btnReporteReservas")) {
+			}else if (cambios.equals("itemReporteReservas") || cambios.equals("btnReporteReservas") || cambios.equals("tabReporteReserva")) {
 				visibleReportReservas=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;

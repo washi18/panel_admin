@@ -212,3 +212,16 @@ $$
 	select * from treserva;
 $$
 LANGUAGE SQL;
+ /*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_BuscarReservas
++++++++++++++++++++++++++++++++++++++++++++++++++*/ 
+CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
+fechaInicio Date,
+fechaFin Date,
+estadoPago varchar(20)
+)
+  RETURNS SETOF treserva AS
+$$
+	select * from treserva where dfechainicio=$1 and dfechafin=$2 and cestado=$3;
+$$
+  LANGUAGE sql;

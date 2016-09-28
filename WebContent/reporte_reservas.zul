@@ -8,21 +8,22 @@
 			<div sclass="intervalo_fechas" width="35%" align="center">
 				<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
 				<space></space>
-				<datebox id="db0" cols="12" format="short" onCreate="self.value =new Date()" />
+				<datebox id="db0" format="yyyy-MM-dd" onCreate="self.value =new Date()" value="@bind(vmReserva.fechaInicio)"/>
 				<space></space>
 				<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
 				<space></space>
-				<datebox id="db1" cols="12" format="short" onCreate="self.value =new Date()" />
+				<datebox id="db1" format="yyyy-MM-dd" onCreate="self.value =new Date()" value="@bind(vmReserva.fechaFin)"/>
 			</div>
 			<div sclass="estilo_div_disponibilidad" width="57%">
 				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
-					<radio label="Pagos pendientes" value="Pagos_pendientes" width="33%"/>
-					<radio label="Pagos Parciales" value="Pagos_parciales" width="33%"/>
-					<radio label="Pagos totales" value="Pagos_totales" width="33%"/>
+					<radio label="Pagos pendientes" value="PagosPendientes" checked="@bind(vmReserva.estadoPagoPendiente)" width="33%"/>
+					<radio label="Pagos Parciales" value="PagosParciales" checked="@bind(vmReserva.estadoPagoParcial)" width="33%"/>
+					<radio label="Pagos totales" value="PagosTotales" checked="@bind(vmReserva.estadoPagoTotal)" width="33%"/>
+					<radio value=""></radio>
 				</radiogroup>
 			</div>
 			<space></space>
-			<button label="Buscar" zclass="btn_editar" width="8%"></button>	
+			<button label="Buscar" zclass="btn_editar" width="8%" onClick="@command('Buscar_Reservas')"></button>	
 		</div>
 		<listbox sclass="listados" model="@bind(vmReserva.listaReservas)" height="auto" mold="paging" autopaging="true" pageSize="10">
 			<listhead>
@@ -87,7 +88,5 @@
 				</listitem>
 			</template>
 		</listbox>
-	</div>
-	<div>
 	</div>
 </zk>

@@ -36,9 +36,7 @@
 								<textbox zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false"/>
 							</div>
 						</div>
-					</div>
-					<space></space>
-					<div zclass="div_content_datos">
+						<separator bar="true"/>
 						<div>
 							<label value="NRO DIAS: " zclass="lbl_llenar_datos"/>
 							<textbox width="80px" placeholder="DIAS" zclass="txt_llenar_datos"/>
@@ -55,6 +53,49 @@
 							<space></space>
 						</div>
 						<button label="Guardar" zclass="btn_guardar"/>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div zclass="div_contiene_title">
+							<label value="DESTINOS" zclass="title_contiene_paquete"/>
+						</div>
+						<separator bar="true"/>
+						<listbox model="@load(vmPaquete.listaDestinos)" sclass="dest_serv_list" multiple="true" checkmark="true">
+							<custom-attributes org.zkoss.zul.listbox.groupSelect="true" />
+							<listhead>
+								<listheader/>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell onClick="@command('selectDestinos',destino=each)">
+										<div zclass="div_list_content_destino_servicio">
+											<label value="@load(each.cDestino)" zclass="estilos_name_destinos_servicios"/>
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div zclass="div_contiene_title">
+							<label value="SERVICIOS" zclass="title_contiene_paquete"/>
+						</div>
+						<separator bar="true"/>
+						<listbox model="@load(vmPaquete.listaServicios)" sclass="dest_serv_list" multiple="true" checkmark="true">
+							<listhead>
+								<listheader/>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell onClick="@command('selectServicios',servicio=each)">
+										<div zclass="div_list_content_destino_servicio">
+											<label value="@load(each.cServicioIndioma1)" zclass="estilos_name_destinos_servicios"/>
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
 					</div>
 				</div>
 			</div>
