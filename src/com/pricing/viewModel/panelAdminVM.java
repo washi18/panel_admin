@@ -292,43 +292,43 @@ public class panelAdminVM
 		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos","seleccionReportReservas","seleccionReportPagos"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
 		visibleConfiguracion=true;	
-		if (cambios.equals("itemDisponibilidad")) {
+		if (cambios.equals("itemDisponibilidad") || cambios.equals("btnDisponibilidad") ) {
 				visibleDisponibilidad=true;
 				visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;
 				visibleSubServicios=visibleImpuestos=false;
 				seleccionDisponibilidad=true;
 				seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			} else if (cambios.equals("itemEtiqueta")) {
+			} else if (cambios.equals("itemEtiqueta") || cambios.equals("btnEtiquetas") ) {
 				visibleEtiqueta = true;
 				visibleDisponibilidad=visiblePaquetes=visibleServicios=visibleSubServicios=false;
 				visibleImpuestos=false;
 				seleccionEtiquetas=true;
 				seleccionDisponibilidad=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			} else if (cambios.equals("itemPaquete")) {
+			} else if (cambios.equals("itemPaquete") || cambios.equals("btnPaquetes")) {
 				visiblePaquetes=true;
 				visibleDisponibilidad=visibleEtiqueta=visibleServicios=false;
 				visibleSubServicios=visibleImpuestos=false;
 				seleccionPaquetes=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionServicios=seleccionSubServicios=false;
-			} else if (cambios.equals("itemServicio")) {
+			} else if (cambios.equals("itemServicio") || cambios.equals("btnServicios")) {
 				visibleServicios=true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=false;
 				visibleSubServicios=visibleImpuestos=false;
 				seleccionServicios=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionSubServicios=false;
-			} else if (cambios.equals("itemSubServicio")) {
+			} else if (cambios.equals("itemSubServicio") || cambios.equals("btnSubServicios")) {
 				visibleSubServicios =true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
 				visibleImpuestos=false;
 				seleccionSubServicios=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=false;
-			} else if (cambios.equals("itemImpuesto")) {
+			} else if (cambios.equals("itemImpuesto") || cambios.equals("btnImpuestos")) {
 				visibleImpuestos=true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
 				visibleSubServicios=false;
 				seleccionImpuestos=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			}else if (cambios.equals("itemHoteles")) {
+			}else if (cambios.equals("itemHoteles") || cambios.equals("btnHoteles")) {
 				visibleHoteles=true;
 				visibleImpuestos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
@@ -336,7 +336,7 @@ public class panelAdminVM
 				seleccionHoteles=true;
 				seleccionImpuestos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			}else if (cambios.equals("itemDestinos")) {
+			}else if (cambios.equals("itemDestinos") || cambios.equals("btnDestinos")) {
 				visibleDestinos=true;
 				visibleHoteles=visibleImpuestos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
@@ -344,7 +344,7 @@ public class panelAdminVM
 				seleccionDestinos=true;
 				seleccionHoteles=seleccionImpuestos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
-			}else if (cambios.equals("itemReporteReservas")) {
+			}else if (cambios.equals("itemReporteReservas") || cambios.equals("btnReporteReservas")) {
 				visibleReportReservas=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;

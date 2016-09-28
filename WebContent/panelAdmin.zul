@@ -7,7 +7,7 @@
 	<style src="css/Estilos_Panel_Admi.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
-		 zclass="contenedor_admin" onClientInfo="@command('muestra',width=event.desktopWidth)">
+		 zclass="contenedor_admin">
 		<div sclass="contendor_cabezera" width="100%" height="90px">
 			<label value="Admin" sclass="logoAdmi"></label>
 			<div sclass="contenedor_desplegable">
@@ -205,90 +205,90 @@
 				<div  width="100%" height="auto">
 					<div sclass="contenedor_botones" width="100%">
 						<div  width="100%" height="auto">
-							<tabbox sclass="estilo_tabbox visible_peque" width="100%">
-								<tabs>
-									<tab id="tabDisponibilidad" label="Actualizar Disponibilidad" iconSclass="icon-accessibility estilos-iconos" visible="@bind(vmAdmin.visibleDisponibilidad)" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
-									<tab id="tabEtiqueta" label="Etiquetas" iconSclass="icon-bookmark estilos-iconos" visible="@bind(vmAdmin.visibleEtiqueta)" selected="@bind(vmAdmin.seleccionEtiquetas)"></tab>
-									<tab id="tabPaquete" label="Paquetes" iconSclass="icon-package estilos-iconos" visible="@bind(vmAdmin.visiblePaquetes)" selected="@bind(vmAdmin.seleccionPaquetes)"></tab>
-									<tab id="tabServicio" label="Servicios" iconSclass="icon-cogs estilos-iconos" visible="@bind(vmAdmin.visibleServicios)" selected="@bind(vmAdmin.seleccionServicios)"></tab>
-									<tab id="tabSubServicio" label="Sub Servicios" iconSclass="icon-tree estilos-iconos" visible="@bind(vmAdmin.visibleSubServicios)" selected="@bind(vmAdmin.seleccionSubServicios)"></tab>
-									<tab id="tabImpuesto" label="Impuestos" iconSclass="icon-coin-dollar estilos-iconos" visible="@bind(vmAdmin.visibleImpuestos)" selected="@bind(vmAdmin.seleccionImpuestos)"></tab>
-									<tab id="tabHotel" label="Hoteles" iconSclass="icon-office estilos-iconos" visible="@bind(vmAdmin.visibleHoteles)" selected="@bind(vmAdmin.seleccionHoteles)"></tab>
-									<tab id="tabDestino" label="Destinos" iconSclass="icon-airplane estilos-iconos" visible="@bind(vmAdmin.visibleDestinos)" selected="@bind(vmAdmin.seleccionDestinos)"></tab>
-									<tab id="tabReserva" label="Destinos" iconSclass="icon-airplane estilos-iconos" visible="@bind(vmAdmin.visibleReportReservas)" selected="@bind(vmAdmin.seleccionReportReservas)"></tab>
-								</tabs>
-								<tabpanels>
-									<tabpanel>
+							<div sclass="estilo_tabbox visible_peque" width="100%">
+								<div>
+									<button id="tabDisponibilidad" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabEtiqueta" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabPaquete" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabServicio" label="Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabSubServicio" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabImpuesto" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabHotel" label="Hoteles" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabDestino" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabReserva" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+								</div>
+								<div>
+									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
 										<include src="UpdateDispo.zul"/>	
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleEtiqueta)" >
 										<include src="etiquetas.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visiblePaquetes)">
 									   <include src="paquetes.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleServicios)">
 									  <include src="servicios.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleSubServicios)">
 										<include src="subServicios.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleImpuestos)">
 										<include src="impuestos.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleHoteles)">
 										<include src="hoteles.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleDestinos)">
 										<include src="destinos.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleReportReservas)">
 										<include src="reporte_reservas.zul"/>
-									</tabpanel>
-								</tabpanels>
-							</tabbox>
-							<tabbox sclass="estilo_tabbox visible_grande" width="100%" visible="@bind(vmAdmin.visibleConfiguracion)">
-								<tabs>
-									<tab label="Actualizar Disponibilidad" selected="@bind(vmAdmin.seleccionDisponibilidad)"/>
-									<tab label="Etiquetas" selected="@bind(vmAdmin.seleccionEtiquetas)"/>
-									<tab label="Paquetes" selected="@bind(vmAdmin.seleccionPaquetes)"/>
-									<tab label="Servicios" selected="@bind(vmAdmin.seleccionServicios)"/>
-									<tab label="Sub Servicios" selected="@bind(vmAdmin.seleccionSubServicios)"/>
-									<tab label="Impuestos" selected="@bind(vmAdmin.seleccionImpuestos)"/>
-									<tab label="Hoteles" selected="@bind(vmAdmin.seleccionHoteles)"/>
-									<tab label="Destinos" selected="@bind(vmAdmin.seleccionDestinos)"/>
-									<tab label="Reservas" selected="@bind(vmAdmin.seleccionReportReservas)"/>
-								</tabs>
-								<tabpanels>
-									<tabpanel>
+									</div>
+								</div>
+							</div>
+							<div sclass="estilo_tabbox visible_grande"  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
+								<div>
+									<button id="btnDisponibilidad" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnEtiquetas" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnPaquetes" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnServicios" label="Servicios"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnSubServicios" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnImpuestos" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnHoteles" label="Hoteles"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnDestinos" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnReporteReservas" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+								</div>
+								<div>
+									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
 										<include src="UpdateDispo.zul"/>	
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleEtiqueta)">
 										<include src="etiquetas.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visiblePaquetes)">
 									   <include src="paquetes.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleServicios)">
 									  <include src="servicios.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleSubServicios)">
 										<include src="subServicios.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleImpuestos)">
 										<include src="impuestos.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleHoteles)">
 										<include src="hoteles.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleDestinos)">
 										<include src="destinos.zul"/>
-									</tabpanel>
-									<tabpanel>
+									</div>
+									<div visible="@bind(vmAdmin.visibleReportReservas)">
 										<include src="reporte_reservas.zul"/>
-									</tabpanel>
-								</tabpanels>
-							</tabbox>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
