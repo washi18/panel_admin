@@ -8,18 +8,17 @@
 			<div sclass="intervalo_fechas" width="35%" align="center">
 				<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
 				<space></space>
-				<datebox id="db0" format="yyyy-MM-dd" onCreate="self.value =new Date()" value="@bind(vmReserva.fechaInicio)"/>
+				<datebox id="db_desde" value="@bind(vmReserva.fechaStart)" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
 				<space></space>
 				<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
 				<space></space>
-				<datebox id="db1" format="yyyy-MM-dd" onCreate="self.value =new Date()" value="@bind(vmReserva.fechaFin)"/>
+				<datebox id="db_hasta" value="@bind(vmReserva.fechaEnd)" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
 			</div>
 			<div sclass="estilo_div_disponibilidad" width="57%">
 				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
 					<radio label="Pagos pendientes" value="PagosPendientes" checked="@bind(vmReserva.estadoPagoPendiente)" width="33%"/>
 					<radio label="Pagos Parciales" value="PagosParciales" checked="@bind(vmReserva.estadoPagoParcial)" width="33%"/>
 					<radio label="Pagos totales" value="PagosTotales" checked="@bind(vmReserva.estadoPagoTotal)" width="33%"/>
-					<radio value=""></radio>
 				</radiogroup>
 			</div>
 			<space></space>

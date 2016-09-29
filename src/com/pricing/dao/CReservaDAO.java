@@ -57,10 +57,10 @@ public class CReservaDAO extends CConexion
 		return r;
 	}
 	
-	public List recuperarTodasReservasBD( Date FechaInicio,Date FechaFin,String EstadoPago)
+	public List buscarReservasEntreFechasBD( String FechaInicio,String FechaFin,String EstadoPago)
 	{
 		Object[] values={FechaInicio,FechaFin,EstadoPago};
-		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_Pricing_sp_BuscarReservas",values);
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarReservas",values);
 	}
 	
 	public void asignarListaReservas(List lista)
