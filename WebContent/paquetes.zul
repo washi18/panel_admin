@@ -52,6 +52,23 @@
 							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
 							<space></space>
 						</div>
+						<div>
+							<radiogroup sclass="style_restricciones" onCheck="@command('')">
+									<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" onCheck="div_manejo_propio.setVisible(false)"/>
+									<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" onCheck="div_manejo_propio.setVisible(true)"/>
+									<div id="div_manejo_propio" visible="false">
+										<radiogroup sclass="style_restricciones">
+											<radio label="CON CAMINO INCA" onCheck="div_dia_caminoinca.setVisible(true)"/>
+											<div id="div_dia_caminoinca" visible="false">
+												<label value="En que dia del tour se va a realizar el camino inca?"/>
+												<intbox sclass="txt_llenar_datos"/>
+											</div>
+											<radio label="SIN CAMINO INCA" onCheck="div_dia_caminoinca.setVisible(false)"/>
+										</radiogroup>
+									</div>
+									<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" onCheck="div_manejo_propio.setVisible(false)"/>
+								</radiogroup>
+						</div>
 						<button label="Guardar" zclass="btn_guardar"/>
 					</div>
 					<space></space>
