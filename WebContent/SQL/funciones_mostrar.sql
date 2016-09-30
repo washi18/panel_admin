@@ -225,3 +225,16 @@ $$
 	select * from treserva where dfechainicio=$1 and dfechafin=$2 and cestado=$3;
 $$
   LANGUAGE sql;
+/*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_BsucarReservasEntreFechasBD
++++++++++++++++++++++++++++++++++++++++++++++++++*/ 
+CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
+fechaInicio varchar(12),
+fechaFin varchar(12),
+estadoPago varchar(20)
+)
+  RETURNS SETOF treserva AS
+$$
+	select * from treserva where (dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and cestado=$3;
+$$
+  LANGUAGE sql;
