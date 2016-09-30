@@ -238,3 +238,24 @@ $$
 	select * from treserva where (dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and cestado=$3;
 $$
   LANGUAGE sql;
+  
+ CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
+fechaInicio varchar(12),
+fechaFin varchar(12),
+estadoPago varchar(20)
+)
+RETURNS table (CodReserva varchar(12),inicio Date,fin Date,fecha timestamp,contacto varchar(12),
+email varchar(100),telefono varchar(50),npersonas int,preciopersona numeric,nombrePaquete varchar(200),
+categoria varchar(200),dias int,noches int) AS
+$$
+	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
+		p.ctituloidioma1,c.ccategoriaidioma1,p.ndias,p.nnoches
+			from treserva as r, treservapaquetecategoriahotel as rp,tpaquetecategoriahotel as pc,tpaquete as p,tcategoriahotel as c 
+			where r.creservacod=rp.creservacod and rp.codpaquetecategoriah=pc.codpaquetecategoriah and pc.cpaquetecod=p.cpaquetecod 
+			and pc.categoriahotelcod=c.categoriahotelcod
+			and (dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and cestado=$3
+			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
+				p.ctituloidioma1,c.ccategoriaidioma1,p.ndias,p.nnoches
+			order by r.creservacod;
+$$
+  LANGUAGE sql;

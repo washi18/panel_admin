@@ -8,11 +8,11 @@
 			<div sclass="intervalo_fechas" width="35%" align="center">
 				<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
 				<space></space>
-				<datebox id="db_desde" value="@bind(vmReserva.fechaStart)" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
+				<datebox id="db_desde" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
 				<space></space>
 				<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
 				<space></space>
-				<datebox id="db_hasta" value="@bind(vmReserva.fechaEnd)" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
+				<datebox id="db_hasta" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
 			</div>
 			<div sclass="estilo_div_disponibilidad" width="57%">
 				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
@@ -22,7 +22,7 @@
 				</radiogroup>
 			</div>
 			<space></space>
-			<button label="Buscar" zclass="btn_editar" width="8%" onClick="@command('Buscar_Reservas')"></button>	
+			<button label="Buscar" zclass="btn_editar" width="8%" onClick="@command('Buscar_Reservas',componente=self)"></button>	
 		</div>
 		<listbox sclass="listados" model="@bind(vmReserva.listaReservas)" height="auto" mold="paging" autopaging="true" pageSize="10">
 			<listhead>
