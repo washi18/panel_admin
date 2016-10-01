@@ -229,33 +229,33 @@ $$
 Nombre		:Pricing_sp_BsucarReservasEntreFechasBD
 +++++++++++++++++++++++++++++++++++++++++++++++++*/ 
 CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
-fechaInicio varchar(12),
-fechaFin varchar(12),
-estadoPago varchar(20)
-)
-  RETURNS SETOF treserva AS
-$$
-	select * from treserva where (dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and cestado=$3;
-$$
-  LANGUAGE sql;
-  
- CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
-fechaInicio varchar(12),
-fechaFin varchar(12),
-estadoPago varchar(20)
+	fechaInicio varchar(12),
+	fechaFin varchar(12),
+	estadoPago varchar(20)
 )
 RETURNS table (CodReserva varchar(12),inicio Date,fin Date,fecha timestamp,contacto varchar(12),
-email varchar(100),telefono varchar(50),npersonas int,preciopersona numeric,nombrePaquete varchar(200),
-categoria varchar(200),dias int,noches int) AS
+email varchar(100),telefono varchar(50),nropersonas int,preciopersona numeric,nombrePaquete varchar(200),
+categoria varchar(200),destinos varchar(100),hoteles varchar(200),servicios varchar(200),dias int,noches int,estado varchar(20)) AS
 $$
 	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-		p.ctituloidioma1,c.ccategoriaidioma1,p.ndias,p.nnoches
-			from treserva as r, treservapaquetecategoriahotel as rp,tpaquetecategoriahotel as pc,tpaquete as p,tcategoriahotel as c 
-			where r.creservacod=rp.creservacod and rp.codpaquetecategoriah=pc.codpaquetecategoriah and pc.cpaquetecod=p.cpaquetecod 
-			and pc.categoriahotelcod=c.categoriahotelcod
-			and (dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and cestado=$3
+		p.ctituloidioma1,c.ccategoriaidioma1,d.cdestino,h.chotel,s.cservicioindioma1,p.ndias,p.nnoches,r.cestado
+			from treserva as r 
+			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
+			left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
+			left join treservapaquetecategoriahotel as pch on(r.creservacod=pch.creservacod)
+			left join tpaquetecategoriahotel as pc on (pch.codpaquetecategoriah=pc.codpaquetecategoriah)
+			left join tpaquetedestino as pd on(ps.cpaquetecod=pd.cpaquetecod)
+			left join tdestinohotel as dh on(pd.ndestinocod=dh.ndestinocod)
+			left join tcategoriahotel as c on(pc.categoriahotelcod=c.categoriahotelcod)
+			left join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
+			left join tservicio as s on(ps.nserviciocod=s.nserviciocod)
+			left join tdestino as d on(dh.ndestinocod=d.ndestinocod)
+			left join thotel as h on(dh.nhotelcod=h.nhotelcod)
+			where (dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and cestado=$3
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-				p.ctituloidioma1,c.ccategoriaidioma1,p.ndias,p.nnoches
+				p.ctituloidioma1,c.ccategoriaidioma1,d.cdestino,h.chotel,s.cservicioindioma1,p.ndias,p.nnoches,cestado
 			order by r.creservacod;
 $$
   LANGUAGE sql;
+
+select creservacod  from treserva where (dfecha between '2016-07-14' and '2016-08-14') and cestado='PENDIENTE DE PAGO';
