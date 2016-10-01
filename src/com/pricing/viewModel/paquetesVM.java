@@ -28,6 +28,7 @@ public class paquetesVM
 	private ArrayList<CPaquete> listaPaquetes;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
+	private CDestino oDestino;
 	private CDestinoDAO destinoDao;
 	private CServicioDAO servicioDao;
 	private ArrayList<CDestino> listaDestinos;
@@ -100,6 +101,14 @@ public class paquetesVM
 		this.servicioDao = servicioDao;
 	}
 
+	public CDestino getoDestino() {
+		return oDestino;
+	}
+
+	public void setoDestino(CDestino oDestino) {
+		this.oDestino = oDestino;
+	}
+
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
 	 */
@@ -107,6 +116,7 @@ public class paquetesVM
 	public void initVM()
 	{
 		/**Inicializando los objetos**/
+		oDestino=new CDestino();
 		oPaquete=new CPaquete();
 		servicioDao=new CServicioDAO();
 		destinoDao=new CDestinoDAO();
@@ -157,12 +167,17 @@ public class paquetesVM
 		
 	}
 	@Command
+	@NotifyChange({"oDestino"})
 	public void selectDestinos(@BindingParam("destino")CDestino destino)
 	{
 		if(destino.isSeleccionado())
 			destino.setSeleccionado(false);
 		else
+		{
 			destino.setSeleccionado(true);
+			oDestino=destino;
+		}
+		BindUtils.postNotifyChange(null, null, destino, "seleccionado");
 	}
 	@Command
 	public void selectServicios(@BindingParam("servicio")CServicio servicio)

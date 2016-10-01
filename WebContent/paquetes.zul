@@ -37,15 +37,16 @@
 							</div>
 						</div>
 						<separator bar="true"/>
-						<div>
-							<label value="NRO DIAS: " zclass="lbl_llenar_datos"/>
-							<textbox width="80px" placeholder="DIAS" zclass="txt_llenar_datos"/>
-							<space></space>
-						</div>
-						<div>
-							<label value="NRO NOCHES: " zclass="lbl_llenar_datos"/>
-							<textbox width="80px" placeholder="NOCHES" zclass="txt_llenar_datos"/>
-							<space></space>
+						<div visible="@bind(vmPaquete.oDestino.seleccionado)">
+							<div>
+								<label value="CUANTAS NOCHES ESTARÁ EN " zclass="lbl_llenar_datos"/>
+								<label value="@bind(vmPaquete.oDestino.cDestino) " zclass="lbl_llenar_datos"/>
+								<space></space>
+							</div>
+							<div>
+								<intbox value="@bind(vmPaquete.oDestino.nNoches)" width="80px" placeholder="NOCHES" zclass="txt_llenar_datos"/>
+								<space></space>
+							</div>
 						</div>
 						<div>
 							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>

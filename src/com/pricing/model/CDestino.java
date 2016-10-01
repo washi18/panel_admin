@@ -5,6 +5,7 @@ public class CDestino
 	private int nDestinoCod; //int,				--codigo del destino
 	private String cDestino;// varchar(100),				--descripcion del destino
 	private boolean bEstado;// boolean,
+	private int nNoches;
 	private boolean editable;
 	private String color_btn_activo;
 	private String color_btn_desactivo;
@@ -69,11 +70,19 @@ public class CDestino
 	public void setSeleccionado(boolean seleccionado) {
 		this.seleccionado = seleccionado;
 	}
+	public int getnNoches() {
+		return nNoches;
+	}
+	public void setnNoches(int nNoches) {
+		this.nNoches = nNoches;
+	}
 	//============================
 	public CDestino() {
 		// TODO Auto-generated constructor stub
 		cDestino="";
 		bEstado=false;
+		seleccionado=false;
+		nNoches=0;
 	}
 	public CDestino(int nDestinoCod, String cDestino, boolean bEstado) {
 		this.nDestinoCod = nDestinoCod;
@@ -82,6 +91,7 @@ public class CDestino
 		this.editable=false;
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
+		this.nNoches=0;
 		this.seleccionado=false;
 		/**********/
 		darColor_estado();
