@@ -439,30 +439,47 @@
 /* 	display:none; */
 	border-radius:10px 0 0 0;
 }
-
-.estilo_tabbox .z-button{
+.btn_opciones_config{
 	border: none;
 	height: 50px;
-	font-size: 15px;
 	font-weight:bold;
 	background: none;
 	text-shadow: none !important;
-}
-
-.estilo_tabbox .z-button:HOVER{
-	background: #2f2f2f;
-	border-radius: 15px;
-	color: white !important;
 	transition: 0.3s all ease;
+ 	padding: 10px 35px;
+ 	overflow:hidden;
+ 	position: relative;
+	 font-size: 14px;
+	 border-radius: 5px;
+	 box-sizing: border-box;
+	 transition: all 500ms ease;
 }
-
-.estilo_tabbox .z-button:FOCUS{
-	border: none !important;
+.btn_opciones_config:HOVER:before{
+	left: 7px;
+}
+.btn_opciones_config:focus:before{
+	left: 7px;
+}
+.btn_opciones_config:HOVER{
 	background: #2f2f2f;
-	border-radius: 15px;
+	border-radius: 5px;
 	color: white !important;
 }
 
+.btn_opciones_config:FOCUS{
+	background: #2f2f2f;
+	border-radius: 5px;
+	color: white !important;
+}
+.btn_opciones_config:before {
+ font-family: FontAwesome;
+ content:"\f07a";
+ position: absolute;
+ top: 11px;
+ left: -30px;
+ transition: all 200ms ease;
+ font-size: 18px;
+}
 .estilo_tabbox .z-tabs{
 	padding: 10px 0 0 0;
 }

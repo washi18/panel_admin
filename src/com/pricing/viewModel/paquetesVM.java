@@ -28,6 +28,8 @@ public class paquetesVM
 	private ArrayList<CPaquete> listaPaquetes;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
+	private boolean select_manejo;
+	private CDestino oDestino;
 	private CDestinoDAO destinoDao;
 	private CServicioDAO servicioDao;
 	private ArrayList<CDestino> listaDestinos;
@@ -100,13 +102,31 @@ public class paquetesVM
 		this.servicioDao = servicioDao;
 	}
 
+	public CDestino getoDestino() {
+		return oDestino;
+	}
+
+	public void setoDestino(CDestino oDestino) {
+		this.oDestino = oDestino;
+	}
+
+	public boolean isSelect_manejo() {
+		return select_manejo;
+	}
+
+	public void setSelect_manejo(boolean select_manejo) {
+		this.select_manejo = select_manejo;
+	}
+
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
 	 */
 	@Init
 	public void initVM()
 	{
+		select_manejo=false;
 		/**Inicializando los objetos**/
+		oDestino=new CDestino();
 		oPaquete=new CPaquete();
 		servicioDao=new CServicioDAO();
 		destinoDao=new CDestinoDAO();
@@ -157,12 +177,25 @@ public class paquetesVM
 		
 	}
 	@Command
+	@NotifyChange({"oDestino"})
 	public void selectDestinos(@BindingParam("destino")CDestino destino)
 	{
 		if(destino.isSeleccionado())
 			destino.setSeleccionado(false);
 		else
+		{
 			destino.setSeleccionado(true);
+			oDestino=destino;
+		}
+		BindUtils.postNotifyChange(null, null, destino, "seleccionado");
+	}
+	@Command
+	@NotifyChange("oPaquete")
+	public void determinarNroNochesDestino()
+	{
+		oPaquete.setnNoches(oPaquete.getnNoches()+oDestino.getnNoches());
+		oPaquete.setnDias(oPaquete.getnNoches()+1);
+		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
 	public void selectServicios(@BindingParam("servicio")CServicio servicio)
@@ -183,7 +216,63 @@ public class paquetesVM
 			visibleDescripcion = true;
 		}
 	}
-	
+	@Command
+	@NotifyChange({"select_manejo","oPaquete"})
+	public void select_manejo_paquete(@BindingParam("opcion")String opcion)
+	{
+		select_manejo=true;
+		if(opcion.equals("CAMINO_INKA"))
+		{
+			oPaquete.setManejo_camino_inca(true);
+			oPaquete.setManejo_propio(false);
+			oPaquete.setManejo_normal(false);
+		}
+		else if(opcion.equals("MANEJO_PROPIO"))
+		{
+			oPaquete.setManejo_camino_inca(false);
+			oPaquete.setManejo_propio(true);
+			oPaquete.setManejo_normal(false);
+		}
+		else if(opcion.equals("MANEJO_NORMAL"))
+		{
+			oPaquete.setManejo_camino_inca(false);
+			oPaquete.setManejo_propio(false);
+			oPaquete.setManejo_normal(true);
+		}
+		inicializarOpcionesPaquete();
+	}
+	public void inicializarOpcionesPaquete()
+	{
+		if(oPaquete.isManejo_camino_inca())
+		{
+			oPaquete.setnDias(4);
+			oPaquete.setnNoches(3);
+			oPaquete.setTitulo("CAMINO INKA CLASICO 4 DIAS Y 3 NOCHES");
+		}else if(oPaquete.isManejo_propio())
+		{
+			oPaquete.setnNoches(0);
+			oPaquete.setnDias(0);
+			for(CDestino destino:listaDestinos)
+			{
+				if(destino.isSeleccionado())
+					if(destino.getnNoches()!=0)
+						oPaquete.setnNoches(oPaquete.getnNoches()+destino.getnNoches());
+			}
+			if(oPaquete.getnNoches()!=0)
+				oPaquete.setnDias(oPaquete.getnNoches()+1);
+			oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+		}else if(oPaquete.isManejo_normal())
+		{
+			
+		}
+	}
+	@Command
+	@NotifyChange({"oPaquete"})
+	public void asignarNamePaquete()
+	{
+		oPaquete.setcTituloIdioma1(oPaquete.getcTituloIdioma1().toUpperCase());
+		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+	}
 	@Command
 	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("paquete")CPaquete paquete)
 	{
