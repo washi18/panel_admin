@@ -13,11 +13,43 @@
 					<label value="NUEVO PAQUETE"/>
 				</div>
 			</div>
-			<div id="div_llenar_paquetes" visible="false">
-				<space></space>
-				<div zclass="div_contenedor_nuevo_paquete">
-					<div zclass="div_content_datos">
-						<div>
+			<div >
+				<separator spacing="5px"/>
+				<div id="div_llenar_paquetes" visible="false">
+					<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete',opcion=self.selectedItem.value)">
+						<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" 
+							   onCheck="div_manejo_propio.setVisible(false);
+							   div_lbl_solo_camino_inca.setVisible(true);
+							   div_select_destinos.setVisible(false);
+							   div_name_paquete_flag.setVisible(false);
+							   div_lbl_name_paquete_completo.setVisible(false)"/>
+						<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" 
+							   onCheck="div_manejo_propio.setVisible(true);
+							   div_lbl_solo_camino_inca.setVisible(false);
+							   div_select_destinos.setVisible(true);
+							   div_name_paquete_flag.setVisible(true);
+							   div_lbl_name_paquete_completo.setVisible(true)"/>
+						<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" 
+							   onCheck="div_manejo_propio.setVisible(false);
+							   div_lbl_solo_camino_inca.setVisible(false);
+							   div_select_destinos.setVisible(true);
+							   div_name_paquete_flag.setVisible(true);
+							   div_lbl_name_paquete_completo.setVisible(true)"/>
+					</radiogroup>
+				</div>
+				<separator spacing="5px"/>
+				<div id="div_lbl_name_paquete_completo" visible="false">
+					<label value="NOMBRE PAQUETE:" zclass="lbl_subtitle_nombre_paquete"/>
+					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete"/>
+				</div>
+				<div id="div_lbl_solo_camino_inca" visible="false">
+					<label value="NOMBRE PAQUETE:" zclass="lbl_subtitle_nombre_paquete"/>
+					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete"/>
+				</div>
+				<separator spacing="5px"/>
+				<div zclass="div_contenedor_nuevo_paquete" visible="@bind(vmPaquete.select_manejo)">
+					<div zclass="div_content_datos_paquete">
+						<div id="div_name_paquete_flag" visible="false">
 							<div zclass="div_contiene_banderas">
 								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
 										onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
@@ -31,20 +63,34 @@
 							</div>
 							<div>
 								<label value="PAQUETE: " zclass="lbl_llenar_datos"/>
-								<textbox zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true"/>
-								<textbox zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false"/>
-								<textbox zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="100%" visible="true"
+										 onChange="@command('asignarNamePaquete')" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="100%" visible="false" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="100%" visible="false" style="text-transform: uppercase;"/>
 							</div>
+						</div>
+						<div id="div_manejo_propio" visible="false">
+							<separator bar="true"/>
+							<radiogroup sclass="style_restricciones">
+								<radio label="CON CAMINO INCA" onCheck="div_dia_caminoinca.setVisible(true)"/>
+								<div id="div_dia_caminoinca" visible="false" zclass="div_nro_dia_camino_inca">
+									<label value="En que dia del tour se va a realizar el camino inca?" zclass="lbl_dia_tur_camino_inca"/>
+									<intbox width="50px" sclass="txt_llenar_datos"/>
+								</div>
+								<radio label="SIN CAMINO INCA" onCheck="div_dia_caminoinca.setVisible(false)"/>
+							</radiogroup>
 						</div>
 						<separator bar="true"/>
 						<div visible="@bind(vmPaquete.oDestino.seleccionado)">
 							<div>
-								<label value="CUANTAS NOCHES ESTARÁ EN " zclass="lbl_llenar_datos"/>
+								<label value="CUANTAS NOCHES ESTARÁ HOSPEADADO EN " zclass="lbl_llenar_datos"/>
 								<label value="@bind(vmPaquete.oDestino.cDestino) " zclass="lbl_llenar_datos"/>
+								<label value="?" zclass="lbl_llenar_datos"/>
 								<space></space>
 							</div>
 							<div>
-								<intbox value="@bind(vmPaquete.oDestino.nNoches)" width="80px" placeholder="NOCHES" zclass="txt_llenar_datos"/>
+								<intbox value="@bind(vmPaquete.oDestino.nNoches)" width="80px" placeholder="NOCHES" 
+										zclass="txt_llenar_datos" onChange="@command('determinarNroNochesDestino')"/>
 								<space></space>
 							</div>
 						</div>
@@ -53,27 +99,10 @@
 							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
 							<space></space>
 						</div>
-						<div>
-							<radiogroup sclass="style_restricciones" onCheck="@command('')">
-									<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" onCheck="div_manejo_propio.setVisible(false)"/>
-									<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" onCheck="div_manejo_propio.setVisible(true)"/>
-									<div id="div_manejo_propio" visible="false">
-										<radiogroup sclass="style_restricciones">
-											<radio label="CON CAMINO INCA" onCheck="div_dia_caminoinca.setVisible(true)"/>
-											<div id="div_dia_caminoinca" visible="false">
-												<label value="En que dia del tour se va a realizar el camino inca?"/>
-												<intbox sclass="txt_llenar_datos"/>
-											</div>
-											<radio label="SIN CAMINO INCA" onCheck="div_dia_caminoinca.setVisible(false)"/>
-										</radiogroup>
-									</div>
-									<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" onCheck="div_manejo_propio.setVisible(false)"/>
-								</radiogroup>
-						</div>
 						<button label="Guardar" zclass="btn_guardar"/>
 					</div>
 					<space></space>
-					<div zclass="div_content_datos">
+					<div id="div_select_destinos" zclass="div_content_datos_paquete" visible="false">
 						<div zclass="div_contiene_title">
 							<label value="DESTINOS" zclass="title_contiene_paquete"/>
 						</div>
@@ -95,7 +124,7 @@
 						</listbox>
 					</div>
 					<space></space>
-					<div zclass="div_content_datos">
+					<div zclass="div_content_datos_paquete">
 						<div zclass="div_contiene_title">
 							<label value="SERVICIOS" zclass="title_contiene_paquete"/>
 						</div>

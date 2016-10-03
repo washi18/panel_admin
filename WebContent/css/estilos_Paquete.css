@@ -5,7 +5,18 @@
 	display: -ms-flex;
 	display: -o-flex;
 }
-
+/****/
+.div_content_datos_paquete{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 33.33%;
+}
+@media (max-width:768px){
+	.div_content_datos_paquete{
+		width: 100%;
+	}
+}
 .estilo_nombre_paquete {
 	color: #069;
 	font-size: 16px;
@@ -123,7 +134,7 @@
 	flex-direction: column;
 	width: 15%;
 }
-@MEDIA (max-width:700px) {
+@MEDIA (max-width:768px) {
 	.div_contenedor_nuevo_paquete{
 		flex-direction:column;
 	}
@@ -214,4 +225,88 @@
 .dest_serv_list .z-listbox-body table tbody .z-listitem,
 .dest_serv_list .z-listbox-body table tbody .z-listitem .z-listcell{
 	background: white;
+}
+/*******/
+.style_restricciones_paquete.z-radiogroup{
+	background: rgba(0,0,0,0.2);
+	padding: 8px;
+	border-radius:5px;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+}
+@media (max-width:600px){
+	.style_restricciones_paquete.z-radiogroup{
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+}
+.style_restricciones_paquete.z-radiogroup .z-radio input[type="radio"]{
+	display: none;
+}
+.style_restricciones_paquete.z-radiogroup .z-radio label{
+/* 	color: #053351; */
+/* 	margin-left: 7px; */
+	display: inline-block;
+    cursor: pointer;
+    color: #053351;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    font-weight:bold;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.style_restricciones_paquete.z-radiogroup .z-radio label:hover{
+	background: rgba(0, 0, 0, 0.2);
+}
+.style_restricciones_paquete.z-radiogroup .z-radio label:before{
+	  content:'';
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      position: absolute;
+      left: 15px;
+      border-radius: 50%;
+      background: none;
+      border: 3px solid #053351;
+}
+.style_restricciones_paquete.z-radiogroup input[type="radio"]:checked + label:before {
+      display: none; 
+}
+.style_restricciones_paquete.z-radiogroup input[type="radio"]:checked + label{
+	  padding: 5px 15px;
+      background: #053351;
+      border-radius: 2px;
+      color: #fff;
+}
+/*****/
+.lbl_dia_tur_camino_inca{
+	color:#8810E1;
+	font-weight: bold; 
+}
+.div_nro_dia_camino_inca{
+	background: rgba(0,0,0,0.1);
+	border: 1px solid rgba(0,0,0,0.2);
+	padding: 5px;
+	box-sizing:border-box;
+	border-radius:5px;
+}
+/***/
+.lbl_subtitle_nombre_paquete{
+	color: black;
+	font-size: 16px;
+	font-weight: bold;
+}
+.lbl_nombre_paquete{
+	color: #E11910;
+	font-size: 16px;
+	font-weight: bold;
 }
