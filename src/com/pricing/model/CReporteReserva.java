@@ -14,7 +14,7 @@ public class CReporteReserva {
 	private String Email;
 	private String telefono;
 	private int nroPersonas;
-	private double precioPersona;
+	private Number precioPersona;
 	private String estado;
 	private String nombrePaquete;
 	private String categoria;
@@ -128,23 +128,23 @@ public class CReporteReserva {
 		this.subServicios = subServicios;
 	}
 	
-	public double getPrecioPersona() {
+	public Number getPrecioPersona() {
 		return precioPersona;
 	}
-	public void setPrecioPersona(double precioPersona) {
+	public void setPrecioPersona(Number precioPersona) {
 		this.precioPersona = precioPersona;
 	}
 	//=============metodos constructores===============
-	public CReporteReserva(String codReserva, Date fechaInicio, Date fechaFin,
+	public CReporteReserva(String codReserva, Date inicio, Date fin,
 			Timestamp fecha, String nombreContacto, String email,
-			String telefono, int nroPersonas,double precioPersona, String estado,
+			String telefono, int nroPersonas,Number precioPersona,
 			String nombrePaquete, String categoria, String destinos,
-			String hoteles, int nroDias, int nroNoches, String servicios,
-			String subServicios) {
+			String hoteles, String servicios,
+			String subServicios,int nroDias, int nroNoches,String estado) {
 		super();
 		CodReserva = codReserva;
-		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
+		this.fechaInicio = inicio;
+		this.fechaFin = fin;
 		this.fecha = fecha;
 		NombreContacto = nombreContacto;
 		Email = email;

@@ -1,6 +1,8 @@
 package com.pricing.dao;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,14 +22,19 @@ public class CReporteReservaDAO extends CConexion{
 		this.listaReporteReservas = listaReporteReservas;
 	}
 	//===================contructores====================
+	public CReporteReservaDAO() {
+		super();
+		this.listaReporteReservas = new ArrayList<CReporteReserva>();
+	}
 	public CReporteReservaDAO(ArrayList<CReporteReserva> listaReporteReservas) {
 		super();
 		this.listaReporteReservas = listaReporteReservas;
 	}
 	//=====================otros metodos=========================
-	public List recuperarReporteReservasBD()
+	public List recuperarReporteReservasBD(String FechaIni,String FechaFin,String EstadoPago)
 	{
-		return getEjecutorSQL().ejecutarProcedimiento("");
+		String[] values={FechaIni,FechaFin,EstadoPago};
+		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarreservas",values);
 	}
 	
 	public void asignarListaReporteReservas(List lista)
@@ -35,6 +42,15 @@ public class CReporteReservaDAO extends CConexion{
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
+			listaReporteReservas.add(new CReporteReserva((String)row.get("CodReserva"),(Date)row.get("inicio"), 
+					(Date)row.get("fin"),(Timestamp)row.get("fecha"),
+					(String)row.get("contacto"),(String)row.get("email"),
+					(String)row.get("telefono"),(int)row.get("nropersonas"),
+					(Number)row.get("preciopersona"),(String) row.get("nombrePaquete"),
+					(String)row.get("categoria"),(String)row.get("destinos"),
+					(String)row.get("hoteles"),(String)row.get("servicios"),(String)row.get("subservicios"),
+					(int)row.get("dias"),(int)row.get("noches"),
+					(String)row.get("estado")));
 		}
 	}
 }
