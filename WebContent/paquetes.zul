@@ -71,19 +71,53 @@
 						</div>
 						<div id="div_manejo_propio" visible="false">
 							<separator bar="true"/>
-							<radiogroup sclass="style_restricciones">
-								<radio label="CON CAMINO INCA" onCheck="div_dia_caminoinca.setVisible(true)"/>
+							<radiogroup sclass="style_restricciones" onCheck="@command('manejo_propio_CaminoInka',opcion=self.selectedItem.value)">
+								<radio label="CON CAMINO INCA" value="con_camino_inka" onCheck="div_dia_caminoinca.setVisible(true)"/>
 								<div id="div_dia_caminoinca" visible="false" zclass="div_nro_dia_camino_inca">
 									<label value="En que dia del tour se va a realizar el camino inca?" zclass="lbl_dia_tur_camino_inca"/>
-									<intbox width="50px" sclass="txt_llenar_datos"/>
+									<intbox value="@bind(vmPaquete.oPaquete.nDiaCaminoInka)" width="50px" sclass="txt_llenar_datos"/>
 								</div>
-								<radio label="SIN CAMINO INCA" onCheck="div_dia_caminoinca.setVisible(false)"/>
+								<radio label="SIN CAMINO INCA" value="sin_camino_inka" onCheck="div_dia_caminoinca.setVisible(false)"/>
 							</radiogroup>
 						</div>
 						<separator bar="true"/>
+						<div>
+							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmPaquete.oPaquete.nPrecio_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+									 onChange="@command('changePrecios_nuevo',precio=self.value,componente=self)"/>
+							<space></space>
+						</div>
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('insertarPaquete',componente=self)"/>
+					</div>
+					<space></space>
+					<div id="div_select_destinos" zclass="div_content_datos_paquete" visible="false">
+						<div zclass="div_contiene_title">
+							<label value="DESTINOS" zclass="title_contiene_paquete"/>
+						</div>
+						<separator bar="true"/>
+						<listbox model="@load(vmPaquete.listaDestinos)" sclass="dest_serv_list">
+							<custom-attributes org.zkoss.zul.listbox.groupSelect="true" />
+							<listhead>
+								<listheader/>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell onClick="@command('selectDestinos',destino=each)">
+										<div zclass="div_list_content_destino_servicio">
+											<checkbox label="@load(each.cDestino)" sclass="select_dest_serv"/>
+<!-- 											<div> -->
+<!-- 												<label value="N° Noches: " zclass="lbl_nro_noches_Destino"/> -->
+<!-- 												<label value="@load(each.nNoches)" zclass="lbl_nro_noches_Destino"/> -->
+<!-- 											</div> -->
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
 						<div visible="@bind(vmPaquete.oDestino.seleccionado)">
+							<separator bar="true"/>
 							<div>
-								<label value="CUANTAS NOCHES ESTARÁ HOSPEADADO EN " zclass="lbl_llenar_datos"/>
+								<label value="CUANTAS NOCHES ESTARÁ HOSPEDADO EN " zclass="lbl_llenar_datos"/>
 								<label value="@bind(vmPaquete.oDestino.cDestino) " zclass="lbl_llenar_datos"/>
 								<label value="?" zclass="lbl_llenar_datos"/>
 								<space></space>
@@ -94,34 +128,6 @@
 								<space></space>
 							</div>
 						</div>
-						<div>
-							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
-							<textbox width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"/>
-							<space></space>
-						</div>
-						<button label="Guardar" zclass="btn_guardar"/>
-					</div>
-					<space></space>
-					<div id="div_select_destinos" zclass="div_content_datos_paquete" visible="false">
-						<div zclass="div_contiene_title">
-							<label value="DESTINOS" zclass="title_contiene_paquete"/>
-						</div>
-						<separator bar="true"/>
-						<listbox model="@load(vmPaquete.listaDestinos)" sclass="dest_serv_list" multiple="true" checkmark="true">
-							<custom-attributes org.zkoss.zul.listbox.groupSelect="true" />
-							<listhead>
-								<listheader/>
-							</listhead>
-							<template name="model">
-								<listitem>
-									<listcell onClick="@command('selectDestinos',destino=each)">
-										<div zclass="div_list_content_destino_servicio">
-											<label value="@load(each.cDestino)" zclass="estilos_name_destinos_servicios"/>
-										</div>
-									</listcell>
-								</listitem>
-							</template>
-						</listbox>
 					</div>
 					<space></space>
 					<div zclass="div_content_datos_paquete">

@@ -5,5 +5,5 @@ ALTER TABLE tpaquete alter COLUMN nDiaCaminoInka drop DEFAULT
 
 SELECT  * from tdestinohotel  
 
-ALTER TABLE tdestinohotel ADD COLUMN nNoches int DEFAULT 1
-ALTER TABLE tdestinohotel alter COLUMN nNoches drop DEFAULT
+ALTER TABLE tpaquetedestino ADD COLUMN nNoches int DEFAULT 1
+ALTER TABLE tpaquetedestino alter COLUMN nNoches drop DEFAULT

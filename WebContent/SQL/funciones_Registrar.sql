@@ -1,5 +1,5 @@
-﻿  /*+++++++++++++++++++++++++++++++++++++++++++++++++
-Nombre		:Pricing_sp_GuardarNuevoPaquete
+/*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_RegistrarPaquete
 Utilizado en	:Aplicacion Web FootPathPeru
 Usuario		:
 Fecha Creacion	:07/14/2016
@@ -9,14 +9,135 @@ Comentario	:Registrar una reserva
 Modificacion	:
 +++++++++++++++++++++++++++++++++++++++++++++++++*/
 CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaquete
-()
+(
+	tituloPaqueteIdioma_1 varchar(200),
+	tituloPaqueteIdioma_2 varchar(200),
+	tituloPaqueteIdioma_3 varchar(200),
+	tituloPaqueteIdioma_4 varchar(200),
+	tituloPaqueteIdioma_5 varchar(200),
+	nroDias int,
+	nroNoches int,
+	precio_1 decimal(10,2),
+	precio_2 decimal(10,2),
+	precio_3 decimal(10,2),
+	precio_4 decimal(10,2),
+	precio_5 decimal(10,2),
+	manejo varchar(100),
+	dia_caminoInka int
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		codPaquete varchar(10)) as
 $$
 begin
-	
+	codPaquete=(select concat('P-',right(concat('00',count(p.cpaquetecod)+1),2)) from tpaquete p where left(p.cpaquetecod,2)='P-');
+	insert into tpaquete values(codPaquete,$1,$2,$3,$4,$5,'','','','','',
+								$6,$7,$8,$9,$10,$11,$12,$13,true,'',$14);
+	resultado='correcto';
+	mensaje='Datos Registrados Correctamente';
+	return Query select resultado,mensaje,codPaquete;
 end
 $$
 language plpgsql;
-
+/*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_RegistrarPaqueteServicio
+Utilizado en	:Aplicacion Web FootPathPeru
+Usuario		:
+Fecha Creacion	:07/14/2016
+Ejecucion	:SELECT * FROM AG_sp_RegistrarReserva('','20150410','20150430','43027528','luis@gmail.com','984289670',3,'informacion')
+Eliminacion	:DROP FUNCTION AG_sp_RegistrarReserva(varchar(10),date,date,varchar(12),varchar(100),varchar(50),int,varchar(300))
+Comentario	:Registrar una reserva
+Modificacion	:
++++++++++++++++++++++++++++++++++++++++++++++++++*/
+CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaqueteServicio
+(
+	codPaquete varchar(10),
+	codServicio int
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		codPaqueteServicio varchar(10)) as
+$$
+begin
+	codPaqueteServicio=(select concat('PS-',right(concat('000',count(p.codpaqueteservicio)+1),3)) from tpaqueteservicio p where left(p.codpaqueteservicio,3)='PS-');
+	insert into tpaqueteservicio values(codPaqueteServicio,$1,$2);
+	resultado='correcto';
+	mensaje='Datos Registrados Correctamente';
+	return Query select resultado,mensaje,codPaqueteServicio;
+end
+$$
+language plpgsql;
+/*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_RegistrarPaqueteDestino
+Utilizado en	:Aplicacion Web FootPathPeru
+Usuario		:
+Fecha Creacion	:07/14/2016
+Ejecucion	:SELECT * FROM AG_sp_RegistrarReserva('','20150410','20150430','43027528','luis@gmail.com','984289670',3,'informacion')
+Eliminacion	:DROP FUNCTION AG_sp_RegistrarReserva(varchar(10),date,date,varchar(12),varchar(100),varchar(50),int,varchar(300))
+Comentario	:Registrar una reserva
+Modificacion	:
++++++++++++++++++++++++++++++++++++++++++++++++++*/
+CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaqueteDestino
+(
+	codPaquete varchar(10),
+	codDestino int,
+	noches int
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		codPaqueteDest int) as
+$$
+begin
+	codPaqueteDest=(select max( codpaquetedestino ) from tpaquetedestino);
+	if(codPaqueteDest is null)then
+		codPaqueteDest=1;
+	else
+		codPaqueteDest=codPaqueteDest+1;
+	end if;
+	insert into tpaquetedestino values(codPaqueteDest,$1,$2,$3);
+	resultado='correcto';
+	mensaje='Datos Registrados Correctamente';
+	return Query select resultado,mensaje,codPaqueteDest;
+end
+$$
+language plpgsql;
+/*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_RegistrarPaqueteCatHotel
+Utilizado en	:Aplicacion Web FootPathPeru
+Usuario		:
+Fecha Creacion	:07/14/2016
+Ejecucion	:SELECT * FROM AG_sp_RegistrarReserva('','20150410','20150430','43027528','luis@gmail.com','984289670',3,'informacion')
+Eliminacion	:DROP FUNCTION AG_sp_RegistrarReserva(varchar(10),date,date,varchar(12),varchar(100),varchar(50),int,varchar(300))
+Comentario	:Registrar una reserva
+Modificacion	:
++++++++++++++++++++++++++++++++++++++++++++++++++*/
+CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaqueteCatHotel
+(
+	codPaquete varchar(10)
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		paqueteCod varchar(10)) as
+$$
+declare
+	cont int;
+	codPaqueteCH varchar(10);
+begin
+	cont=1;
+	LOOP
+	    IF cont > 7 THEN
+	        EXIT;  -- exit loop
+	    END IF;
+	    codPaqueteCH=(select concat('PCH-',right(concat('0000',count(p.codpaquetecategoriah)+1),4)) from tpaquetecategoriahotel p where left(p.codpaquetecategoriah,4)='PCH-');
+	    insert into tpaquetecategoriahotel values(codPaqueteCH,$1,cont);
+	    cont=cont+1;
+	END LOOP;
+	resultado='correcto';
+	mensaje='Datos Registrados Correctamente';
+	return Query select resultado,mensaje,paqueteCod;
+end
+$$
+language plpgsql;
 /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_RegistrarReserva
 Utilizado en	:Aplicacion Web FootPathPeru

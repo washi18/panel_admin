@@ -1,5 +1,7 @@
 package com.pricing.viewModel;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -8,6 +10,8 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.util.Clients;
 
 import com.pricing.dao.CDestinoDAO;
 import com.pricing.dao.CEtiquetaDAO;
@@ -20,6 +24,10 @@ import com.pricing.model.CServicio;
 
 public class paquetesVM 
 {
+	//====================
+		private DecimalFormat df;
+		private DecimalFormatSymbols simbolos;
+	//====================
 	/**
 	 * ATRIBUTOS
 	 */
@@ -124,6 +132,11 @@ public class paquetesVM
 	@Init
 	public void initVM()
 	{
+		/*******************************/
+		simbolos= new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator('.');
+		df=new DecimalFormat("########0.00",simbolos);
+		/*******************************/
 		select_manejo=false;
 		/**Inicializando los objetos**/
 		oDestino=new CDestino();
@@ -143,6 +156,187 @@ public class paquetesVM
 		/**Obtencion de los destinos desde la base de datos**/
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
 		setListaDestinos(destinoDao.getListaDestinos());
+	}
+	@Command
+	@NotifyChange({"oDestino","oPaquete","listaDestinos",
+			"listaPaquetes","listaServicios"})
+	public void insertarPaquete(@BindingParam("componente")Component comp)
+	{
+		if(!validoParaInsertar(comp))
+			return;
+		oPaquete.setnPrecioDos(oPaquete.getnPrecioUno());
+		oPaquete.setnPrecioTres(oPaquete.getnPrecioUno());
+		oPaquete.setnPrecioCuatro(oPaquete.getnPrecioUno());
+		oPaquete.setnPrecioCinco(oPaquete.getnPrecioUno());
+		if(oPaquete.isManejo_camino_inca())
+		{
+			oPaquete.setcTituloIdioma1(oPaquete.getTitulo());
+			oPaquete.setcTituloIdioma2(oPaquete.getTitulo());
+			oPaquete.setcTituloIdioma3(oPaquete.getTitulo());
+			oPaquete.setcTituloIdioma4(oPaquete.getTitulo());
+			oPaquete.setcTituloIdioma5(oPaquete.getTitulo());
+			oPaquete.setcDisponibilidad("CAMINO_INKA");
+			oPaquete.setnDiaCaminoInka(0);
+			/**Se procede a insertar el paquete**/
+			String codPaquete=paqueteDao.recuperarCodigoPaquete(paqueteDao.insertarPaquete(oPaquete));
+			for(CServicio servicio:listaServicios)
+			{
+				if(servicio.isSeleccionado())
+				{
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(codPaquete, servicio.getnServicioCod()));
+				}
+			}
+		}else if(oPaquete.isManejo_propio())
+		{
+			oPaquete.setcTituloIdioma1(oPaquete.getTitulo());
+			oPaquete.setcTituloIdioma4("");
+			oPaquete.setcTituloIdioma5("");
+			oPaquete.setcDisponibilidad("MANEJO_PROPIO");
+			/**Se procede a insertar el paquete**/
+			String codPaquete=paqueteDao.recuperarCodigoPaquete(paqueteDao.insertarPaquete(oPaquete));
+			for(CDestino destino:listaDestinos)
+			{
+				if(destino.isSeleccionado())
+				{
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteDestino(codPaquete, destino.getnDestinoCod(),destino.getnNoches()));
+				}
+			}
+			for(CServicio servicio:listaServicios)
+			{
+				if(servicio.isSeleccionado())
+				{
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(codPaquete, servicio.getnServicioCod()));
+				}
+			}
+			boolean r=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteCatHotel(codPaquete));
+		}else if(oPaquete.isManejo_normal())
+		{
+			oPaquete.setcTituloIdioma1(oPaquete.getTitulo());
+			oPaquete.setcTituloIdioma4("");
+			oPaquete.setcTituloIdioma5("");
+			oPaquete.setcDisponibilidad("MANEJO_NORMAL");
+			oPaquete.setnDiaCaminoInka(0);
+			/**Se procede a insertar el paquete**/
+			String codPaquete=paqueteDao.recuperarCodigoPaquete(paqueteDao.insertarPaquete(oPaquete));
+			for(CDestino destino:listaDestinos)
+			{
+				if(destino.isSeleccionado())
+				{
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteDestino(codPaquete, destino.getnDestinoCod(),destino.getnNoches()));
+				}
+			}
+			for(CServicio servicio:listaServicios)
+			{
+				if(servicio.isSeleccionado())
+				{
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(codPaquete, servicio.getnServicioCod()));
+				}
+			}
+			boolean r=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteCatHotel(codPaquete));
+		}
+		Clients.showNotification("El paquete se inserto correctamente", Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
+		/**Inicializando los objetos**/
+		oDestino=new CDestino();
+		oPaquete=new CPaquete();
+		/**Obtencion de los paquetes existente desde la base de datos**/
+		paqueteDao.asignarListaPaquetes(paqueteDao.recuperarPaquetesBD());
+		setListaPaquetes(paqueteDao.getListaPaquetes());
+		/**Obtencion de los servcios desde la base de datos**/
+		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosBD());
+		setListaServicios(servicioDao.getListaServicios());
+		/**Obtencion de los destinos desde la base de datos**/
+		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
+		setListaDestinos(destinoDao.getListaDestinos());
+	}
+	public boolean validoParaInsertar(Component comp)
+	{
+		boolean valido=true;
+		if(oPaquete.isManejo_camino_inca())
+		{
+			if(oPaquete.getnPrecioUno().doubleValue()==0)
+			{
+				valido=false;
+				Clients.showNotification("El precio del paquete no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+			}else
+			{
+				boolean flag=false;
+				for(CServicio servicio:listaServicios)
+				{
+					if(servicio.isSeleccionado())
+					{
+						flag=true;
+						break;
+					}
+				}
+				if(!flag)
+				{
+					valido=false;
+					Clients.showNotification("Debe de escoger por lo menos un servicio", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+				}
+			}
+		}else
+		{
+			if(oPaquete.getcTituloIdioma1().equals("") ||
+					oPaquete.getcTituloIdioma2().equals("")||
+					oPaquete.getcTituloIdioma3().equals(""))
+			{
+				valido=false;
+				Clients.showNotification("El nuevo paquete debe tener un nombre en todos los idomas", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+			}else if(oPaquete.getnPrecioUno().doubleValue()==0)
+			{
+				valido=false;
+				Clients.showNotification("El paquete debe tener un precio significativo, no $ 0.00.", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+			}else if(oPaquete.getnNoches()==0){
+				valido=false;
+				Clients.showNotification("El paquete debe tener un numero de dias y noches", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+			}else
+			{
+				boolean flag=false;
+				for(CServicio servicio:listaServicios)
+				{
+					if(servicio.isSeleccionado())
+					{
+						flag=true;
+						break;
+					}
+				}
+				if(!flag)
+				{
+					valido=false;
+					Clients.showNotification("Debe de escoger por lo menos un servicio", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+				}
+				if(valido)
+				{
+					flag=false;
+					for(CDestino destino:listaDestinos)
+					{
+						if(destino.isSeleccionado())
+						{
+							flag=true;
+							break;
+						}
+					}
+					if(!flag)
+					{
+						valido=false;
+						Clients.showNotification("Debe de escoger por lo menos un destino", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+					}
+				}
+			}
+			if(valido)
+			{
+				if(oPaquete.isManejo_propio())
+				{
+					if(oPaquete.isManejo_propio_ConCaminoInka())
+						if(oPaquete.getnDiaCaminoInka()==0)
+						{
+							valido=false;
+							Clients.showNotification("Tiene que especificar en que dia del tour se va a realizar el camino inka", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+						}
+				}
+			}
+		}
+		return valido;
 	}
 	@Command
 	public void actualizarPaquete(@BindingParam("paquete")CPaquete paquete)
@@ -177,11 +371,71 @@ public class paquetesVM
 		
 	}
 	@Command
-	@NotifyChange({"oDestino"})
+	@NotifyChange({"oPaquete"})
+	public void manejo_propio_CaminoInka(@BindingParam("opcion")String opcion)
+	{
+		if(opcion.equals("con_camino_inka"))
+			oPaquete.setManejo_propio_ConCaminoInka(true);
+		else
+		{
+			oPaquete.setnDiaCaminoInka(0);
+			oPaquete.setManejo_propio_ConCaminoInka(false);
+		}
+	}
+	@Command
+	@NotifyChange({"oPaquete"})
+	public void changePrecios_nuevo(@BindingParam("precio")String precio,@BindingParam("componente")Component comp)
+	{
+		if(!isNumberDouble(precio))
+		{
+			oPaquete.setnPrecio_text(df.format(0));
+			Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+		}
+		else
+		{
+			oPaquete.setnPrecioUno(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}
+	}
+	@Command
+	public void changePrecios_update(@BindingParam("precio")String precio,@BindingParam("componente")Component comp,@BindingParam("servicio")CServicio servicio)
+	{
+		if(!isNumberDouble(precio))
+		{
+			servicio.setnPrecioServicio_text(df.format(servicio.getnPrecioServicio().doubleValue()));
+			Clients.showNotification("Ingrese valores numericos para poder modificar el precio",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+		}
+		else
+		{
+			servicio.setnPrecioServicio(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}
+	}
+	public boolean isNumberDouble(String cad)
+	{
+		try
+		 {
+		   Double.parseDouble(cad);
+		   return true;
+		 }
+		 catch(NumberFormatException nfe)
+		 {
+		   return false;
+		 }
+	}
+	@Command
+	@NotifyChange({"oDestino","oPaquete"})
 	public void selectDestinos(@BindingParam("destino")CDestino destino)
 	{
 		if(destino.isSeleccionado())
+		{
 			destino.setSeleccionado(false);
+			oPaquete.setnNoches(oPaquete.getnNoches()-destino.getnNoches());
+			if(oPaquete.getnNoches()!=0)
+				oPaquete.setnDias(oPaquete.getnNoches()+1);
+			else
+				oPaquete.setnDias(0);
+			oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+			destino.setnNoches(0);
+		}
 		else
 		{
 			destino.setSeleccionado(true);

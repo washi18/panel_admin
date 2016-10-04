@@ -79,6 +79,38 @@ public class CPaqueteDAO extends CConexion
 					(boolean)row.get("bestado")));
 		}
 	}
+	public List insertarPaquete(CPaquete paquete)
+	{
+		Object[] values={paquete.getcTituloIdioma1(),paquete.getcTituloIdioma2(),
+				paquete.getcTituloIdioma3(),paquete.getcTituloIdioma4(),
+				paquete.getcTituloIdioma5(),paquete.getnDias(),paquete.getnNoches(),
+				paquete.getnPrecioUno().doubleValue(),paquete.getnPrecioDos().doubleValue(),
+				paquete.getnPrecioTres().doubleValue(),paquete.getnPrecioCuatro().doubleValue(),
+				paquete.getnPrecioCinco().doubleValue(),paquete.getcDisponibilidad(),
+				paquete.getnDiaCaminoInka()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaquete", values);
+	}
+	public List insertarPaqueteServicio(String codPaquete,int codServicio)
+	{
+		Object[] values={codPaquete,codServicio};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaqueteServicio", values);
+	}
+	public List insertarPaqueteDestino(String codPaquete,int codDestino,int noches)
+	{
+		Object[] values={codPaquete,codDestino,noches};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaqueteDestino", values);
+	}
+	public List insertarPaqueteCatHotel(String codPaquete)
+	{
+		Object[] values={codPaquete};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaqueteCatHotel", values);
+	}
+	public String recuperarCodigoPaquete(List lista)
+	{
+		Map row=(Map)lista.get(0);
+		String cod=row.get("codpaquete").toString();
+		return cod;
+	}
 	public List modificarPaquete(CPaquete paquete)
 	{
 		Object[] values={paquete.getcPaqueteCod(),paquete.getcTituloIdioma1(),

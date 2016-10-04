@@ -77,56 +77,6 @@
 .div_contenedor_info_paquete {
 	width: 80%;
 }
-
-.z-checkbox{
-	background: rgba(0,0,0,0.2);
-	padding: 8px;
-	border-radius:5px;
-	display:flex;
-	flex-direction:column;
-}
-.z-checkbox input[type="checkbox"]{
-	display: none;
-}
-.z-checkbox label{
-/* 	color: #053351; */
-/* 	margin-left: 7px; */
-	display: inline-block;
-    cursor: pointer;
-    color: #053351;
-    position: relative;
-    padding: 5px 15px 5px 51px;
-    font-size: 1em;
-    font-weight:bold;
-    border-radius: 5px;
-    -webkit-transition: all 0.3s ease;
-    -o-transition: all 0.3s ease;
-    transition: all 0.3s ease;
-}
-.z-checkbox label:hover{
-	background: rgba(0, 0, 0, 0.2);
-}
-.z-checkbox label:before{
-	  content:'';
-      display: inline-block;
-      width: 17px;
-      height: 17px;
-      position: absolute;
-      left: 15px;
-      border-radius: 50%;
-      background: none;
-      border: 3px solid #053351;
-}
-.z-checkbox input[type="checkbox"]:checked + label:before {
-      display: none; 
-}
-.z-checkbox input[type="checkbox"]:checked + label{
-	  padding: 5px 15px;
-      background: #053351;
-      border-radius: 2px;
-      color: #fff;
-}
-
 .div_content_actualizar {
 	display: flex;
 	justify-content: center;
@@ -309,4 +259,58 @@
 	color: #E11910;
 	font-size: 16px;
 	font-weight: bold;
+}
+/***/
+.lbl_nro_noches_Destino{
+	color: white;
+	font-size: 1em;
+	font-weight: bold;
+}
+/* *CHECKBOX PARA SELECCIONAR SERVICIOS O DESTINOS* */
+/* .select_dest_serv.z-checkbox{ */
+/* 	width:100%; */
+/* 	background: rgba(0,0,0,0.2); */
+/* 	padding: 8px; */
+/* } */
+.select_dest_serv.z-checkbox input[type="checkbox"]{
+	display: none;
+}
+.select_dest_serv.z-checkbox label{
+/* 	color: #053351; */
+/* 	margin-left: 7px; */
+	display: inline-block;
+    cursor: pointer;
+    color: #053351;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    font-weight:bold;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.select_dest_serv.z-checkbox label{
+	width: 100%;
+}
+.select_dest_serv.z-checkbox label:hover{
+	background: rgba(0, 0, 0, 0.2);
+}
+.select_dest_serv.z-checkbox label:before{
+	  content:'';
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      position: absolute;
+      left: 15px;
+      background: none;
+      border: 2px solid #053351;
+}
+.select_dest_serv.z-checkbox input[type="checkbox"]:checked + label:before {
+      display: none; 
+}
+.select_dest_serv.z-checkbox input[type="checkbox"]:checked + label{
+	  padding: 5px 15px;
+      background: #1487D1;
+      border-radius: 2px;
+      color: #fff;
 }
