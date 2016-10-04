@@ -3,8 +3,8 @@ package com.pricing.model;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class CReporteReserva {
-	//==============atributos============
+public class CReporteReservaMuestra {
+	//===============atributos========
 	private String CodReserva;
 	private Date fechaInicio;
 	private Date fechaFin;
@@ -16,12 +16,12 @@ public class CReporteReserva {
 	private Number precioPersona;
 	private String nombrePaquete;
 	private String categoria;
-	private String destinos;
-	private String hoteles;
-	private String servicios;
-	private String subServicios;
+	private ArrayList<String> destinos;
+	private ArrayList<String> hoteles;
+	private ArrayList<String> servicios;
+	private ArrayList<String> subServicios;
 	private String estado;
-	//=======getter and setter===========
+	//==============getter and setter========
 	public String getCodReserva() {
 		return CodReserva;
 	}
@@ -40,7 +40,6 @@ public class CReporteReserva {
 	public void setFechaFin(Date fechaFin) {
 		this.fechaFin = fechaFin;
 	}
-	
 	public Date getFecha() {
 		return fecha;
 	}
@@ -71,11 +70,11 @@ public class CReporteReserva {
 	public void setNroPersonas(int nroPersonas) {
 		this.nroPersonas = nroPersonas;
 	}
-	public String getEstado() {
-		return estado;
+	public Number getPrecioPersona() {
+		return precioPersona;
 	}
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setPrecioPersona(Number precioPersona) {
+		this.precioPersona = precioPersona;
 	}
 	public String getNombrePaquete() {
 		return nombrePaquete;
@@ -89,70 +88,53 @@ public class CReporteReserva {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-	public String getDestinos() {
+	public ArrayList<String> getDestinos() {
 		return destinos;
 	}
-	public void setDestinos(String destinos) {
+	public void setDestinos(ArrayList<String> destinos) {
 		this.destinos = destinos;
 	}
-	public String getHoteles() {
+	public ArrayList<String> getHoteles() {
 		return hoteles;
 	}
-	public void setHoteles(String hoteles) {
+	public void setHoteles(ArrayList<String> hoteles) {
 		this.hoteles = hoteles;
 	}
-	public String getServicios() {
+	public ArrayList<String> getServicios() {
 		return servicios;
 	}
-	public void setServicios(String servicios) {
+	public void setServicios(ArrayList<String> servicios) {
 		this.servicios = servicios;
 	}
-	public String getSubServicios() {
+	public ArrayList<String> getSubServicios() {
 		return subServicios;
 	}
-	public void setSubServicios(String subServicios) {
+	public void setSubServicios(ArrayList<String> subServicios) {
 		this.subServicios = subServicios;
 	}
-	
-	public Number getPrecioPersona() {
-		return precioPersona;
+	public String getEstado() {
+		return estado;
 	}
-	public void setPrecioPersona(Number precioPersona) {
-		this.precioPersona = precioPersona;
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
-	//=============metodos constructores===============
-	public CReporteReserva()
-	{
-		this.CodReserva = "";
-		this.NombreContacto = "";
-		this.Email = "";
-		this.telefono = "";
-		this.nroPersonas = 0;
-		this.precioPersona=0.0;
-		this.nombrePaquete = "";
-		this.categoria = "";
-		this.destinos = "";
-		this.hoteles = "";
-		this.servicios = "";
-		this.subServicios = "";
-		this.estado = "";
-	}
-	public CReporteReserva(String codReserva, Date fechaInicio, Date fechaFin,
-			Date fecha, String nombreContacto, String Email,
-			String telefono, int nroPersonas,Number precioPersona,
-			String nombrePaquete, String categoria, String destinos,
-			String hoteles, String servicios,
-			String subServicios,String estado) {
+	//==============constructores====
+	public CReporteReservaMuestra(String codReserva, Date fechaInicio,
+			Date fechaFin, Date fecha, String nombreContacto, String email,
+			String telefono, int nroPersonas, Number precioPersona,
+			String nombrePaquete, String categoria, ArrayList<String> destinos,
+			ArrayList<String> hoteles, ArrayList<String> servicios,
+			ArrayList<String> subServicios, String estado) {
 		super();
 		this.CodReserva = codReserva;
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.fecha = fecha;
 		this.NombreContacto = nombreContacto;
-		this.Email = Email;
+		this.Email = email;
 		this.telefono = telefono;
 		this.nroPersonas = nroPersonas;
-		this.precioPersona=precioPersona;
+		this.precioPersona = precioPersona;
 		this.nombrePaquete = nombrePaquete;
 		this.categoria = categoria;
 		this.destinos = destinos;
@@ -160,8 +142,6 @@ public class CReporteReserva {
 		this.servicios = servicios;
 		this.subServicios = subServicios;
 		this.estado = estado;
-		
 	}
-	//=================otros metodos======================
 	
 }

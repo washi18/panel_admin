@@ -1,6 +1,7 @@
 package com.pricing.viewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
@@ -8,15 +9,14 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.Clients;
-
 import com.pricing.dao.CReporteReservaDAO;
-import com.pricing.dao.CReservaDAO;
 import com.pricing.model.CReporteReserva;
-import com.pricing.model.CReserva;
+import com.pricing.model.CReporteReservaMuestra;
 
 public class reporteReservasVM {
 	//======atributos=====
-	private ArrayList<CReporteReserva> listaReporteReservas;
+	private ArrayList<CReporteReserva> listaReporteReserva;
+	private ArrayList<CReporteReservaMuestra> listanuevaReporteReserva;
 	private CReporteReservaDAO reporteReservaDAO;
 	private boolean estadoPagoPendiente;
 	private boolean estadoPagoParcial;
@@ -29,13 +29,16 @@ public class reporteReservasVM {
 	public boolean isEstadoPagoPendiente() {
 		return estadoPagoPendiente;
 	}
-	public ArrayList<CReporteReserva> getListaReporteReservas() {
-		return listaReporteReservas;
+	
+	public ArrayList<CReporteReserva> getListaReporteReserva() {
+		return listaReporteReserva;
 	}
-	public void setListaReporteReservas(
-			ArrayList<CReporteReserva> listaReporteReservas) {
-		this.listaReporteReservas = listaReporteReservas;
+
+	public void setListaReporteReserva(
+			ArrayList<CReporteReserva> listaReporteReserva) {
+		this.listaReporteReserva = listaReporteReserva;
 	}
+
 	public CReporteReservaDAO getReporteReservaDAO() {
 		return reporteReservaDAO;
 	}
@@ -69,6 +72,16 @@ public class reporteReservasVM {
 	public void setFechaFinal(String fechaFinal) {
 		FechaFinal = fechaFinal;
 	}
+
+	public ArrayList<CReporteReservaMuestra> getListanuevaReporteReserva() {
+		return listanuevaReporteReserva;
+	}
+
+	public void setListanuevaReporteReserva(
+			ArrayList<CReporteReservaMuestra> listanuevaReporteReserva) {
+		this.listanuevaReporteReserva = listanuevaReporteReserva;
+	}
+
 	//======metodos=====
 	@Init
 	public void initVM()
@@ -77,7 +90,8 @@ public class reporteReservasVM {
 		estadoPagoPendiente=false;
 		estadoPagoTotal=false;
 		/**Inicializando los objetos**/
-		listaReporteReservas=new ArrayList<CReporteReserva>();
+		listaReporteReserva=new ArrayList<CReporteReserva>();
+		listanuevaReporteReserva=new ArrayList<CReporteReservaMuestra>();
 		reporteReservaDAO=new CReporteReservaDAO();
 		FechaInicio="";
 		FechaFinal="";
@@ -94,14 +108,14 @@ public class reporteReservasVM {
 			FechaFinal=fecha;
 	}
 	@Command
-	@NotifyChange("listaReservas")
+	@NotifyChange({"listaReporteReserva","listanuevaReporteReserva"})
 	public void Buscar_Reservas(@BindingParam("componente")Component componente)
 	{
 		System.out.println("La fecha inicio es: "+FechaInicio);
 		System.out.println("La fecha final es: "+FechaFinal);
-		System.out.println("La fecha inicio es: "+estadoPagoParcial);
-		System.out.println("La fecha final es: "+estadoPagoPendiente);
-		System.out.println("La fecha inicio es: "+estadoPagoTotal);
+		System.out.println("el pago parcial es: "+estadoPagoParcial);
+		System.out.println("el pago pendiente es: "+estadoPagoPendiente);
+		System.out.println("el pago total es: "+estadoPagoTotal);
 		if(FechaInicio.isEmpty() || FechaFinal.isEmpty())
 		{
 			Clients.showNotification("Las fechas DESDE-HASTA son obligatorias ", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
@@ -132,11 +146,61 @@ public class reporteReservasVM {
 				estadoPagoTotal=false;
 				NombrePago="PAGO TOTAL";
 			}
-			listaReporteReservas.clear();
+			listaReporteReserva.clear();
 			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(fecha1,fecha2,NombrePago));
-			setListaReporteReservas(reporteReservaDAO.getListaReporteReservas());
-			FechaInicio="";
-			FechaFinal="";
+			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
+			String codReservaAnterior,destinoAnterior,hotelAnterior,servicioAnterior,subservicioAnterior;
+			codReservaAnterior="";
+			destinoAnterior="";
+			hotelAnterior="";
+			servicioAnterior="";
+			subservicioAnterior="";
+			ArrayList<String> listaDestinos=new ArrayList<String>();
+			ArrayList<String> listaHoteles=new ArrayList<String>();
+			ArrayList<String> listaServicios=new ArrayList<String>();
+			ArrayList<String> listasubServicios=new ArrayList<String>();
+			int factorDecrece=0;
+			for(int i=listaReporteReserva.size();i>0;i=i-factorDecrece)
+			{
+				if(!listaReporteReserva.get(i).getCodReserva().equals(codReservaAnterior))
+				{	
+					codReservaAnterior=listaReporteReserva.get(i).getCodReserva();
+				}
+				while(listaReporteReserva.get(i).getCodReserva().equals(codReservaAnterior))
+				{
+					if(!listaReporteReserva.get(i).getDestinos().equals(destinoAnterior))
+					{
+						destinoAnterior=listaReporteReserva.get(i).getDestinos();
+						listaDestinos.add(listaReporteReserva.get(i).getDestinos());
+					}else
+					{
+						if(!listaReporteReserva.get(i).getHoteles().equals(hotelAnterior))
+						{
+							hotelAnterior=listaReporteReserva.get(i).getHoteles();
+							listaHoteles.add(listaReporteReserva.get(i).getHoteles());
+						}else
+						{
+							if(!listaReporteReserva.get(i).getServicios().equals(servicioAnterior))
+							{
+								servicioAnterior=listaReporteReserva.get(i).getServicios();
+								listaServicios.add(listaReporteReserva.get(i).getServicios());
+							}else
+							{
+								if(!listaReporteReserva.get(i).getSubServicios().equals(subservicioAnterior))
+									subservicioAnterior=listaReporteReserva.get(i).getSubServicios();
+									listasubServicios.add(listaReporteReserva.get(i).getSubServicios());
+							}
+						}
+					}
+					factorDecrece--;
+				}
+				listanuevaReporteReserva.add(new CReporteReservaMuestra(listaReporteReserva.get(i).getCodReserva(),listaReporteReserva.get(i).getFechaInicio(),listaReporteReserva.get(i).getFechaFin(),
+				listaReporteReserva.get(i).getFecha(),listaReporteReserva.get(i).getNombreContacto(),listaReporteReserva.get(i).getEmail(),listaReporteReserva.get(i).getTelefono(),
+				listaReporteReserva.get(i).getNroPersonas(),listaReporteReserva.get(i).getPrecioPersona(),listaReporteReserva.get(i).getNombrePaquete(),listaReporteReserva.get(i).getCategoria(),
+				listaDestinos,listaHoteles,listaServicios,listasubServicios,listaReporteReserva.get(i).getEstado()));
+				FechaInicio="";
+				FechaFinal="";
+			}
 		}else{
 			Clients.showNotification("Eliga un ESTADO DE PAGO", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
 		}

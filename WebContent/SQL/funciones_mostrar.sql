@@ -233,12 +233,12 @@ CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
 	fechaFin varchar(12),
 	estadoPago varchar(20)
 )
-RETURNS table (CodReserva varchar(12),inicio Date,fin Date,fecha timestamp,contacto varchar(12),
-email varchar(100),telefono varchar(50),nropersonas int,preciopersona numeric,nombrePaquete varchar(200),
-categoria varchar(200),destinos varchar(100),hoteles varchar(200),servicios varchar(200),dias int,noches int,estado varchar(20)) AS
+RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,ccontacto varchar(12),
+cemail varchar(100),ctelefono varchar(50),nnropersonas int,npreciopaquetepersona numeric,ctituloidioma1 varchar(200),
+ccategoriaidioma1 varchar(200),cdestino varchar(100),chotel varchar(200),cservicioindioma1 varchar(200),csubservicioindioma1 varchar(200),cestado varchar(20)) AS
 $$
 	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-		p.ctituloidioma1,c.ccategoriaidioma1,d.cdestino,h.chotel,s.cservicioindioma1,p.ndias,p.nnoches,r.cestado
+		p.ctituloidioma1,c.ccategoriaidioma1,d.cdestino,h.chotel,s.cservicioindioma1,ss.csubservicioindioma1,r.cestado
 			from treserva as r 
 			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
 			left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
@@ -249,11 +249,12 @@ $$
 			left join tcategoriahotel as c on(pc.categoriahotelcod=c.categoriahotelcod)
 			left join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
 			left join tservicio as s on(ps.nserviciocod=s.nserviciocod)
+			left join tsubservicio as ss on(ps.nserviciocod=ss.nserviciocod)
 			left join tdestino as d on(dh.ndestinocod=d.ndestinocod)
 			left join thotel as h on(dh.nhotelcod=h.nhotelcod)
-			where (dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and cestado=$3
+			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado=$3
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-				p.ctituloidioma1,c.ccategoriaidioma1,d.cdestino,h.chotel,s.cservicioindioma1,p.ndias,p.nnoches,cestado
+				p.ctituloidioma1,c.ccategoriaidioma1,d.cdestino,h.chotel,s.cservicioindioma1,ss.csubservicioindioma1,r.cestado
 			order by r.creservacod;
 $$
   LANGUAGE sql;

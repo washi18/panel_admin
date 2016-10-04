@@ -1,30 +1,35 @@
 package com.pricing.dao;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-
-import com.pricing.model.CHotel;
 import com.pricing.model.CReporteReserva;
 
 public class CReporteReservaDAO extends CConexion{
 	//====================atributos======================
 	private ArrayList<CReporteReserva> listaReporteReservas;
+	private CReporteReserva reporteReserva;
 
+	
+	//=======================getter and setter==============
 	public ArrayList<CReporteReserva> getListaReporteReservas() {
 		return listaReporteReservas;
 	}
-	//=======================getter and setter==============
 	public void setListaReporteReservas(
 			ArrayList<CReporteReserva> listaReporteReservas) {
 		this.listaReporteReservas = listaReporteReservas;
 	}
+	public CReporteReserva getReporteReserva() {
+		return reporteReserva;
+	}
+	public void setReporteReserva(CReporteReserva reporteReserva) {
+		this.reporteReserva = reporteReserva;
+	}
 	//===================contructores====================
 	public CReporteReservaDAO() {
 		super();
-		this.listaReporteReservas = new ArrayList<CReporteReserva>();
+		this.reporteReserva=new CReporteReserva();
 	}
 	public CReporteReservaDAO(ArrayList<CReporteReserva> listaReporteReservas) {
 		super();
@@ -39,18 +44,18 @@ public class CReporteReservaDAO extends CConexion{
 	
 	public void asignarListaReporteReservas(List lista)
 	{
+		this.listaReporteReservas = new ArrayList<CReporteReserva>();
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
-			listaReporteReservas.add(new CReporteReserva((String)row.get("CodReserva"),(Date)row.get("inicio"), 
-					(Date)row.get("fin"),(Timestamp)row.get("fecha"),
-					(String)row.get("contacto"),(String)row.get("email"),
-					(String)row.get("telefono"),(int)row.get("nropersonas"),
-					(Number)row.get("preciopersona"),(String) row.get("nombrePaquete"),
-					(String)row.get("categoria"),(String)row.get("destinos"),
-					(String)row.get("hoteles"),(String)row.get("servicios"),(String)row.get("subservicios"),
-					(int)row.get("dias"),(int)row.get("noches"),
-					(String)row.get("estado")));
+			listaReporteReservas.add(new CReporteReserva((String)row.get("creservacod"),(Date)row.get("dfechainicio"), 
+					(Date)row.get("dfechafin"),(Date)row.get("dfecha"),
+					(String)row.get("ccontacto"),(String)row.get("cemail"),
+					(String)row.get("ctelefono"),(int)row.get("nnropersonas"),
+					(Number)row.get("npreciopaquetepersona"),(String) row.get("ctituloidioma1"),
+					(String)row.get("ccategoriaidioma1"),(String)row.get("cdestino"),
+					(String)row.get("chotel"),(String)row.get("cservicioindioma1"),(String)row.get("csubservicioindioma1"),
+					(String)row.get("cestado")));
 		}
 	}
 }
