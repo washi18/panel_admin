@@ -263,6 +263,9 @@ public class CHotel
 		this.nPrecioTriple_text="0.00";
 		this.codDestino=0;
 	}
+	public CHotel(String cHotel){
+		this.cHotel=cHotel;
+	}
 	public CHotel(int nHotelCod, String cHotel, String cDescripcionIdioma1,
 			String cDescripcionIdioma2, String cDescripcionIdioma3,
 			String cDescripcionIdioma4, String cDescripcionIdioma5,

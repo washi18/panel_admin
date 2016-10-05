@@ -1,0 +1,18 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmReserva') @init('com.pricing.viewModel.reporteReservasVM')">
+		<listbox model="@bind(vmReserva.listaHoteles)" height="auto">
+			<listhead>
+				<listheader value="aver">aver</listheader>
+			</listhead>
+			<template name="model">
+			<listitem>
+				<listcell value="veamos">
+					<label value="@bind(each.cHotel)"></label>
+				</listcell>
+			</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

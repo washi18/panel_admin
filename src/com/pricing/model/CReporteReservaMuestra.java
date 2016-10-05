@@ -17,7 +17,7 @@ public class CReporteReservaMuestra {
 	private String nombrePaquete;
 	private String categoria;
 	private ArrayList<String> destinos;
-	private ArrayList<String> hoteles;
+	private ArrayList<CHotel> hoteles;
 	private ArrayList<String> servicios;
 	private ArrayList<String> subServicios;
 	private String estado;
@@ -94,10 +94,11 @@ public class CReporteReservaMuestra {
 	public void setDestinos(ArrayList<String> destinos) {
 		this.destinos = destinos;
 	}
-	public ArrayList<String> getHoteles() {
+	
+	public ArrayList<CHotel> getHoteles() {
 		return hoteles;
 	}
-	public void setHoteles(ArrayList<String> hoteles) {
+	public void setHoteles(ArrayList<CHotel> hoteles) {
 		this.hoteles = hoteles;
 	}
 	public ArrayList<String> getServicios() {
@@ -123,7 +124,7 @@ public class CReporteReservaMuestra {
 			Date fechaFin, Date fecha, String nombreContacto, String email,
 			String telefono, int nroPersonas, Number precioPersona,
 			String nombrePaquete, String categoria, ArrayList<String> destinos,
-			ArrayList<String> hoteles, ArrayList<String> servicios,
+			ArrayList<CHotel> hoteles, ArrayList<String> servicios,
 			ArrayList<String> subServicios, String estado) {
 		super();
 		this.CodReserva = codReserva;

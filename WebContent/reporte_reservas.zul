@@ -56,6 +56,8 @@
 					    				<label width="100%" height="auto"
 					    					value="@load(each.email)" sclass="estilo_desborde_descripcion"/>
 					    				</div>
+					    				<label width="100%" height="auto"
+					    					value="@load(each.telefono)" sclass="estilo_desborde_descripcion"/>
 					    			</div>
 					    			<div>
 					    				<label value="@load(each.estado)" sclass="estilo_costo"></label>
@@ -63,7 +65,7 @@
 					    		</div>
 					    		<div width="23%">
 					    			<div>
-					    				<label value="@load(each.telefono)" style="font-size: 14px; font-weight: bold;"></label>
+					    				<label value="@load(each.hoteles)"></label>
 					    			</div>
 					    		</div>
 					    		<div sclass="estilo_contenedor_estadoPago">
