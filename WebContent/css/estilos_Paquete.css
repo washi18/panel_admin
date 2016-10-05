@@ -159,7 +159,12 @@
 }
 /*****/
 .dest_serv_list.z-listbox{
-	border: 1px solid #2f2f2f;
+/* 	border: 1px solid #2f2f2f; */
+}
+.dest_serv_list .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content{
+	border: 0;
+	margin: 0;
+	padding: 0;
 }
 .dest_serv_list .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-listitem-checkable{
 	border-radius:0;
@@ -170,11 +175,14 @@
 }
 .dest_serv_list .z-listbox-body table tbody .z-listitem.z-listitem-selected,
 .dest_serv_list .z-listbox-body table tbody .z-listitem.z-listitem-selected .z-listcell{
-	background: rgba(5, 51, 81,0.3);
+	background: transparent;
+}
+.dest_serv_list .z-listbox-body table tbody .z-listitem:hover .z-listcell{
+	background: transparent;
 }
 .dest_serv_list .z-listbox-body table tbody .z-listitem,
 .dest_serv_list .z-listbox-body table tbody .z-listitem .z-listcell{
-	background: white;
+	background: transparent;
 }
 /*******/
 .style_restricciones_paquete.z-radiogroup{
@@ -238,6 +246,68 @@
       color: #fff;
 }
 /*****/
+.style_restricciones_conCaminoInka.z-radiogroup{
+	background: rgba(0,0,0,0.2);
+	padding: 8px;
+	border-radius:5px;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+}
+@media (max-width:400px){
+	.style_restricciones_conCaminoInka.z-radiogroup{
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+}
+.style_restricciones_conCaminoInka.z-radiogroup .z-radio input[type="radio"]{
+	display: none;
+}
+.style_restricciones_conCaminoInka.z-radiogroup .z-radio label{
+/* 	color: #053351; */
+	margin-left: 2px;
+	display: inline-block;
+    cursor: pointer;
+    color: black;
+    position: relative;
+    padding: 5px 15px 5px 18px;
+    font-size: 12px;
+    font-weight:bold;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.style_restricciones_conCaminoInka.z-radiogroup .z-radio label:hover{
+	background: rgba(0, 0, 0, 0.2);
+}
+.style_restricciones_conCaminoInka.z-radiogroup .z-radio label:before{
+	  content:'';
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      left: 2px;
+      top:8px;
+      border-radius: 50%;
+      background: none;
+      border: 2px solid black;
+}
+.style_restricciones_conCaminoInka.z-radiogroup input[type="radio"]:checked + label:before {
+      display: none; 
+}
+.style_restricciones_conCaminoInka.z-radiogroup input[type="radio"]:checked + label{
+	  padding: 5px 15px;
+      background: #259E8E;
+      border-radius: 2px;
+      color: #fff;
+}
+/******/
 .lbl_dia_tur_camino_inca{
 	color:#8810E1;
 	font-weight: bold; 
@@ -262,16 +332,14 @@
 }
 /***/
 .lbl_nro_noches_Destino{
-	color: white;
+	color: black;
 	font-size: 1em;
 	font-weight: bold;
 }
 /* *CHECKBOX PARA SELECCIONAR SERVICIOS O DESTINOS* */
-/* .select_dest_serv.z-checkbox{ */
-/* 	width:100%; */
-/* 	background: rgba(0,0,0,0.2); */
-/* 	padding: 8px; */
-/* } */
+.select_dest_serv.z-checkbox{
+	width:auto;
+}
 .select_dest_serv.z-checkbox input[type="checkbox"]{
 	display: none;
 }
@@ -294,6 +362,10 @@
 }
 .select_dest_serv.z-checkbox label:hover{
 	background: rgba(0, 0, 0, 0.2);
+/* 	padding: 5px 15px; */
+/*       background: #1487D1; */
+      border-radius: 2px;
+      color: #fff;
 }
 .select_dest_serv.z-checkbox label:before{
 	  content:'';

@@ -372,7 +372,8 @@ language plpgsql;
 --**Registrar Destino**--
 create or replace function Pricing_sp_RegistrarDestino
 (
-	nameDestino varchar(100)
+	nameDestino varchar(100),
+	codPostal int
 )
 returns table(resultado varchar(20),mensaje varchar(200),codDestino int)as
 $$
@@ -383,7 +384,7 @@ begin
 	else
 		codDestino=codDestino+1;
 	end if;
-        insert into tdestino values(codDestino,$1,false);
+        insert into tdestino values(codDestino,$1,false,$2);
         resultado='correcto';
         mensaje='Datos Registrados Correctamente';
         return Query select resultado,mensaje,codDestino;

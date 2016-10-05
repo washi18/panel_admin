@@ -12,6 +12,7 @@ import org.zkoss.zk.ui.util.Clients;
 
 import com.pricing.dao.CDestinoDAO;
 import com.pricing.dao.CDestinoHotelDAO;
+import com.pricing.model.CCodigoPostal;
 import com.pricing.model.CDestino;
 import com.pricing.model.CDestinoHotel;
 import com.pricing.model.CHotel;
@@ -23,6 +24,7 @@ public class DestinosVM {
 	private CDestino oDestinoNuevo;
 	private CDestino oDestinoUpdate;
 	private ArrayList<CDestino> listaDestinos;
+	private ArrayList<CCodigoPostal> listaCodigosPostales;
 	/*=====getter and setter====*/
 	public ArrayList<CDestino> getListaDestinos() {
 		return listaDestinos;
@@ -48,6 +50,13 @@ public class DestinosVM {
 	public void setoDestinoUpdate(CDestino oDestinoUpdate) {
 		this.oDestinoUpdate = oDestinoUpdate;
 	}
+	public ArrayList<CCodigoPostal> getListaCodigosPostales() {
+		return listaCodigosPostales;
+	}
+	public void setListaCodigosPostales(
+			ArrayList<CCodigoPostal> listaCodigosPostales) {
+		this.listaCodigosPostales = listaCodigosPostales;
+	}
 	/*======metodos=====*/
 	@Init
 	public void initVM()
@@ -57,6 +66,18 @@ public class DestinosVM {
 		oDestinoUpdate=new CDestino();
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaTodosDestinosBD());
 		setListaDestinos(destinoDao.getListaDestinos());
+		/**Iniciar codigos postales**/
+		setListaCodigosPostales((new CCodigoPostal()).listaCodigosPostales());
+	}
+	@Command
+	public void selectCodPostal(@BindingParam("codPostal")String cod)
+	{
+		oDestinoNuevo.setnCodPostal(Integer.parseInt(cod));
+	}
+	@Command
+	public void selectCodPostal_update(@BindingParam("codPostal")String cod,@BindingParam("destino")CDestino destino)
+	{
+		destino.setnCodPostal(Integer.parseInt(cod));
 	}
 	@Command
 	@NotifyChange({"listaDestinos"})
@@ -79,7 +100,12 @@ public class DestinosVM {
 	{
 		oDestinoNuevo.setcDestino(oDestinoNuevo.getcDestino().toUpperCase());
 		boolean valido=true;
-		if(oDestinoNuevo.getcDestino().equals(""))
+		if(oDestinoNuevo.getnCodPostal()==0)
+		{
+			valido=false;
+			Clients.showNotification("Seleccionar un departamento para el destino", Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+		}
+		else if(oDestinoNuevo.getcDestino().equals(""))
 		{
 			valido=false;
 			Clients.showNotification("El Destino siempre debe de tener un nombre", Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);

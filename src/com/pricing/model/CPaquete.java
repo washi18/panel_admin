@@ -1,7 +1,14 @@
 package com.pricing.model;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+
 public class CPaquete 
 {
+	//====================
+		private DecimalFormat df;
+		private DecimalFormatSymbols simbolos;
+	//====================
 	private String cPaqueteCod;// varchar(10),			--codigo del paquete
 	private String cTituloIdioma1;// varchar(200),			--titulo del paquete el el idioma 1
 	private String cTituloIdioma2;// varchar(200),			--titulo del paquete el el idioma 2
@@ -23,7 +30,11 @@ public class CPaquete
 	private String cDisponibilidad;// varchar(100),                   --disponibilidad del que se requiere (CAMINO_INKA,MACHUPICCHU,NINGUNO)
 	private boolean bEstado;// boolean,				--estado del paquete
 	private int nDiaCaminoInka;//int,
-	private String nPrecio_text;
+	private String nPrecio1_text;
+	private String nPrecio2_text;
+	private String nPrecio3_text;
+	private String nPrecio4_text;
+	private String nPrecio5_text;
 	private String Titulo;
 	private boolean visibleEspanol;
 	private boolean visibleIngles;
@@ -209,21 +220,50 @@ public class CPaquete
 	public void setnDiaCaminoInka(int nDiaCaminoInka) {
 		this.nDiaCaminoInka = nDiaCaminoInka;
 	}
-	public String getnPrecio_text() {
-		return nPrecio_text;
-	}
-	public void setnPrecio_text(String nPrecio_text) {
-		this.nPrecio_text = nPrecio_text;
-	}
 	public boolean isManejo_propio_ConCaminoInka() {
 		return manejo_propio_ConCaminoInka;
 	}
 	public void setManejo_propio_ConCaminoInka(boolean manejo_propio_ConCaminoInka) {
 		this.manejo_propio_ConCaminoInka = manejo_propio_ConCaminoInka;
 	}
+	public String getnPrecio1_text() {
+		return nPrecio1_text;
+	}
+	public void setnPrecio1_text(String nPrecio1_text) {
+		this.nPrecio1_text = nPrecio1_text;
+	}
+	public String getnPrecio2_text() {
+		return nPrecio2_text;
+	}
+	public void setnPrecio2_text(String nPrecio2_text) {
+		this.nPrecio2_text = nPrecio2_text;
+	}
+	public String getnPrecio3_text() {
+		return nPrecio3_text;
+	}
+	public void setnPrecio3_text(String nPrecio3_text) {
+		this.nPrecio3_text = nPrecio3_text;
+	}
+	public String getnPrecio4_text() {
+		return nPrecio4_text;
+	}
+	public void setnPrecio4_text(String nPrecio4_text) {
+		this.nPrecio4_text = nPrecio4_text;
+	}
+	public String getnPrecio5_text() {
+		return nPrecio5_text;
+	}
+	public void setnPrecio5_text(String nPrecio5_text) {
+		this.nPrecio5_text = nPrecio5_text;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
+		/*******************************/
+		simbolos= new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator('.');
+		df=new DecimalFormat("########0.00",simbolos);
+		/*******************************/
 		Titulo="";
 		manejo_camino_inca=false;
 		manejo_propio=false;
@@ -232,8 +272,16 @@ public class CPaquete
 		cTituloIdioma1="";
 		cTituloIdioma2="";
 		cTituloIdioma3="";
-		nPrecio_text="0.00";
+		nPrecio1_text=df.format(0);
+		nPrecio2_text=df.format(0);
+		nPrecio3_text=df.format(0);
+		nPrecio4_text=df.format(0);
+		nPrecio5_text=df.format(0);
 		nPrecioUno=0;
+		nPrecioDos=0;
+		nPrecioTres=0;
+		nPrecioCuatro=0;
+		nPrecioCinco=0;
 		manejo_propio_ConCaminoInka=false;
 	}
 	public CPaquete(String cPaqueteCod, String cTituloIdioma1,
@@ -245,6 +293,11 @@ public class CPaquete
 			Number nPrecioUno, Number nPrecioDos, Number nPrecioTres,
 			Number nPrecioCuatro, Number nPrecioCinco, String cDisponibilidad,
 			boolean bEstado) {
+		/*******************************/
+		simbolos= new DecimalFormatSymbols();
+		simbolos.setDecimalSeparator('.');
+		df=new DecimalFormat("########0.00",simbolos);
+		/*******************************/
 		this.cPaqueteCod = cPaqueteCod;
 		this.cTituloIdioma1 = cTituloIdioma1;
 		this.cTituloIdioma2 = cTituloIdioma2;

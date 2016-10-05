@@ -253,73 +253,49 @@ public class paquetesVM
 		boolean valido=true;
 		if(oPaquete.isManejo_camino_inca())
 		{
-			if(oPaquete.getnPrecioUno().doubleValue()==0)
+			if(oPaquete.getcTituloIdioma1().equals(""))
 			{
 				valido=false;
-				Clients.showNotification("El precio del paquete no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-			}else
+				Clients.showNotification("El paquete debe de tener un nombre", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+			}else if(oPaquete.getnDias()==0)
 			{
-				boolean flag=false;
-				for(CServicio servicio:listaServicios)
-				{
-					if(servicio.isSeleccionado())
-					{
-						flag=true;
-						break;
-					}
-				}
-				if(!flag)
-				{
-					valido=false;
-					Clients.showNotification("Debe de escoger por lo menos un servicio", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-				}
+				valido=false;
+				Clients.showNotification("El paquete debe de tener un numero de dias", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+			}else if(oPaquete.getnPrecioUno().doubleValue()==0 ||
+					oPaquete.getnPrecioDos().doubleValue()==0 ||
+					oPaquete.getnPrecioTres().doubleValue()==0 ||
+					oPaquete.getnPrecioCuatro().doubleValue()==0 ||
+					oPaquete.getnPrecioCinco().doubleValue()==0)
+			{
+				valido=false;
+				Clients.showNotification("Ningun precio del paquete puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
 			}
 		}else
 		{
-			if(oPaquete.getcTituloIdioma1().equals("") ||
-					oPaquete.getcTituloIdioma2().equals("")||
-					oPaquete.getcTituloIdioma3().equals(""))
+			if(oPaquete.getcTituloIdioma1().equals(""))
 			{
 				valido=false;
-				Clients.showNotification("El nuevo paquete debe tener un nombre en todos los idomas", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-			}else if(oPaquete.getnPrecioUno().doubleValue()==0)
+				Clients.showNotification("El paquete debe de tener un nombre", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+			}else if(oPaquete.getnPrecioUno().doubleValue()==0 ||
+					oPaquete.getnPrecioDos().doubleValue()==0 ||
+					oPaquete.getnPrecioTres().doubleValue()==0 ||
+					oPaquete.getnPrecioCuatro().doubleValue()==0 ||
+					oPaquete.getnPrecioCinco().doubleValue()==0)
 			{
 				valido=false;
-				Clients.showNotification("El paquete debe tener un precio significativo, no $ 0.00.", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+				Clients.showNotification("Ningun precio del paquete puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
 			}else if(oPaquete.getnNoches()==0){
 				valido=false;
 				Clients.showNotification("El paquete debe tener un numero de dias y noches", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
 			}else
 			{
-				boolean flag=false;
-				for(CServicio servicio:listaServicios)
+				for(CDestino destino:listaDestinos)
 				{
-					if(servicio.isSeleccionado())
-					{
-						flag=true;
-						break;
-					}
-				}
-				if(!flag)
-				{
-					valido=false;
-					Clients.showNotification("Debe de escoger por lo menos un servicio", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-				}
-				if(valido)
-				{
-					flag=false;
-					for(CDestino destino:listaDestinos)
-					{
-						if(destino.isSeleccionado())
-						{
-							flag=true;
-							break;
-						}
-					}
-					if(!flag)
+					if(destino.isSeleccionado() && destino.getnNoches()==0)
 					{
 						valido=false;
-						Clients.showNotification("Debe de escoger por lo menos un destino", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+						Clients.showNotification("Debe especificar Cuantas noches se quedara en "+destino.getcDestino(), Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+						break;
 					}
 				}
 			}
@@ -384,16 +360,53 @@ public class paquetesVM
 	}
 	@Command
 	@NotifyChange({"oPaquete"})
-	public void changePrecios_nuevo(@BindingParam("precio")String precio,@BindingParam("componente")Component comp)
+	public void changePrecios_nuevo(@BindingParam("precio")String precio,@BindingParam("descuento")String descuento,@BindingParam("componente")Component comp)
 	{
-		if(!isNumberDouble(precio))
+		if(descuento.equals("precio1"))
 		{
-			oPaquete.setnPrecio_text(df.format(0));
-			Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
-		}
-		else
+			if(!isNumberDouble(precio))
+			{
+				oPaquete.setnPrecio1_text(df.format(0));
+				Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+			}
+			else
+				oPaquete.setnPrecioUno(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}else if(descuento.equals("precio2"))
 		{
-			oPaquete.setnPrecioUno(Double.parseDouble(df.format(Double.parseDouble(precio))));
+			if(!isNumberDouble(precio))
+			{
+				oPaquete.setnPrecio2_text(df.format(0));
+				Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+			}
+			else
+				oPaquete.setnPrecioDos(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}else if(descuento.equals("precio3"))
+		{
+			if(!isNumberDouble(precio))
+			{
+				oPaquete.setnPrecio3_text(df.format(0));
+				Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+			}
+			else
+				oPaquete.setnPrecioTres(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}else if(descuento.equals("precio4"))
+		{
+			if(!isNumberDouble(precio))
+			{
+				oPaquete.setnPrecio4_text(df.format(0));
+				Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+			}
+			else
+				oPaquete.setnPrecioCuatro(Double.parseDouble(df.format(Double.parseDouble(precio))));
+		}else if(descuento.equals("precio5"))
+		{
+			if(!isNumberDouble(precio))
+			{
+				oPaquete.setnPrecio5_text(df.format(0));
+				Clients.showNotification("Debe ser un numero de la forma ####.##",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
+			}
+			else
+				oPaquete.setnPrecioCinco(Double.parseDouble(df.format(Double.parseDouble(precio))));
 		}
 	}
 	@Command
@@ -435,17 +448,19 @@ public class paquetesVM
 				oPaquete.setnDias(0);
 			oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 			destino.setnNoches(0);
+			destino.setPuedeCaminoInka(false);
 		}
 		else
 		{
 			destino.setSeleccionado(true);
-			oDestino=destino;
+			destino.asignaPuedeCaminoInka(destino);
 		}
 		BindUtils.postNotifyChange(null, null, destino, "seleccionado");
+		BindUtils.postNotifyChange(null, null, destino, "puedeCaminoInka");
 	}
 	@Command
 	@NotifyChange("oPaquete")
-	public void determinarNroNochesDestino()
+	public void determinarNroNochesDestino(@BindingParam("destino")CDestino oDestino)
 	{
 		oPaquete.setnNoches(oPaquete.getnNoches()+oDestino.getnNoches());
 		oPaquete.setnDias(oPaquete.getnNoches()+1);
@@ -458,17 +473,6 @@ public class paquetesVM
 			servicio.setSeleccionado(false);
 		else
 			servicio.setSeleccionado(true);
-	}
-	@Command
-	@NotifyChange({ "visibleGeneral", "visibleDescripcion" })
-	public void pasosInsertar(@BindingParam("Opcion") String idOpcion) {
-		if (idOpcion.equals("btnGeneral")) {
-			visibleGeneral = true;
-			visibleDescripcion = false;
-		} else {
-			visibleGeneral = false;
-			visibleDescripcion = true;
-		}
 	}
 	@Command
 	@NotifyChange({"select_manejo","oPaquete"})
@@ -499,9 +503,9 @@ public class paquetesVM
 	{
 		if(oPaquete.isManejo_camino_inca())
 		{
-			oPaquete.setnDias(4);
-			oPaquete.setnNoches(3);
-			oPaquete.setTitulo("CAMINO INKA CLASICO 4 DIAS Y 3 NOCHES");
+			oPaquete.setnDias(0);
+			oPaquete.setnNoches(0);
+			oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 		}else if(oPaquete.isManejo_propio())
 		{
 			oPaquete.setnNoches(0);
@@ -519,6 +523,14 @@ public class paquetesVM
 		{
 			
 		}
+	}
+	@Command
+	@NotifyChange({"oPaquete"})
+	public void diasCaminoInka(@BindingParam("dias")int dias)
+	{
+		oPaquete.setnDias(dias);
+		oPaquete.setnNoches(dias-1);
+		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
 	@NotifyChange({"oPaquete"})
