@@ -19,13 +19,14 @@
 					<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete',opcion=self.selectedItem.value)">
 						<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" 
 							   onCheck="div_lbl_solo_camino_inca.setVisible(true);
-							   div_select_destinos.setVisible(false);"/>
+							   div_select_destinos.setVisible(false);
+							   div_conDestino.setVisible(false)"/>
 						<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" 
 							   onCheck="div_lbl_solo_camino_inca.setVisible(false);
-							   div_select_destinos.setVisible(true);"/>
+							   div_conDestino.setVisible(true)"/>
 						<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" 
 							   onCheck="div_lbl_solo_camino_inca.setVisible(false);
-							   div_select_destinos.setVisible(true);"/>
+							   div_conDestino.setVisible(true)"/>
 					</radiogroup>
 				</div>
 				<div visible="@bind(vmPaquete.select_manejo)">
@@ -61,6 +62,17 @@
 							<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
 							<intbox value="@bind(vmPaquete.oPaquete.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
 									onChange="@command('diasCaminoInka',dias=self.value)"/>
+						</div>
+						<div id="div_conDestino" visible="false">
+							<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDestino',opcion=self.selectedItem.value)">
+								<radio label="CON DESTINO" checked="@bind(vmPaquete.conDestino)" value="con_destino" onCheck="div_select_destinos.setVisible(true);div_select_sindestinos.setVisible(false)"/>
+								<radio label="SIN DESTINO" checked="@bind(vmPaquete.sinDestino)" value="sin_destino" onCheck="div_select_destinos.setVisible(false);div_select_sindestinos.setVisible(true)"/>
+							</radiogroup>
+							<div id="div_select_sindestinos" visible="false">
+								<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
+								<intbox value="@bind(vmPaquete.oPaquete.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
+										onChange="@command('diasSinDestino',dias=self.value)"/>
+							</div>
 						</div>
 						<div>
 							<separator bar="true"/>
@@ -101,40 +113,43 @@
 					</div>
 					<space></space>
 					<div id="div_select_destinos" zclass="div_content_datos_paquete" visible="false">
-						<div zclass="div_contiene_title">
-							<label value="DESTINOS" zclass="title_contiene_paquete"/>
-						</div>
-						<separator bar="true"/>
-						<listbox model="@load(vmPaquete.listaDestinos)" sclass="dest_serv_list">
-							<custom-attributes org.zkoss.zul.listbox.groupSelect="true" />
-							<listhead>
-								<listheader/>
-							</listhead>
-							<template name="model">
-								<listitem>
-									<listcell>
-										<div zclass="div_list_content_destino_servicio" width="100%">
-											<checkbox label="@load(each.cDestino)" width="100%" sclass="select_dest_serv" onClick="@command('selectDestinos',destino=each)"/>
-											<div visible="@bind(each.seleccionado)">
-												<label value="N° NOCHES EN " zclass="lbl_nro_noches_Destino"/>
-												<label value="@bind(each.cDestino) " zclass="lbl_nro_noches_Destino"/>
-												<label value=" :" zclass="lbl_nro_noches_Destino"/>
-												<intbox value="@bind(each.nNoches)" 
-														onChange="@command('determinarNroNochesDestino',destino=each)" 
-														width="30px"/>
-												<div visible="@bind(each.puedeCaminoInka)">
-													<radiogroup sclass="style_restricciones_conCaminoInka" onCheck="@command('manejo_propio_CaminoInka',opcion=self.selectedItem.value)">
-														<radio label="CON CAMINO INCA" value="con_camino_inka"/>
-														<radio label="SIN CAMINO INCA" value="sin_camino_inka"/>
-													</radiogroup>
+							<div zclass="div_contiene_title">
+								<label value="DESTINOS" zclass="title_contiene_paquete"/>
+							</div>
+							<separator bar="true"/>
+							<listbox model="@load(vmPaquete.listaDestinos)" sclass="dest_serv_list">
+								<custom-attributes org.zkoss.zul.listbox.groupSelect="true" />
+								<listhead>
+									<listheader/>
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell>
+											<div zclass="div_list_content_destino_servicio" width="100%">
+												<checkbox label="@load(each.cDestino)" width="100%" sclass="select_dest_serv" onClick="@command('selectDestinos',destino=each)"/>
+												<div visible="@bind(each.seleccionado)">
+													<hbox>
+														<label value="N° Noches: " zclass="lbl_nro_noches_Destino"/>
+													<intbox value="@bind(each.nNoches)" zclass="int_nroNoches_Destino"
+															onChange="@command('determinarNroNochesDestino',destino=each)" 
+															width="30px"/>
+													<space/>
+													<label value="N° Orden Itinerario: " zclass="lbl_nro_noches_Destino"/>
+													<label value="@bind(each.nOrdenItinerario)" zclass="lbl_orden_itinerario"/>
+													</hbox>
+													<div visible="@bind(each.puedeCaminoInka)">
+														<radiogroup sclass="style_restricciones_conCaminoInka" onCheck="@command('manejo_propio_CaminoInka',opcion=self.selectedItem.value,destino=each)">
+															<radio label="CON CAMINO INCA" checked="@bind(each.conCaminoInka)" value="con_camino_inka"/>
+															<radio label="SIN CAMINO INCA" checked="@bind(each.sinCaminoInka)" value="sin_camino_inka"/>
+														</radiogroup>
+													</div>
+													<separator bar="true"/>
 												</div>
-												<separator bar="true"/>
 											</div>
-										</div>
-									</listcell>
-								</listitem>
-							</template>
-						</listbox>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
 					</div>
 					<space></space>
 					<div zclass="div_content_datos_paquete">

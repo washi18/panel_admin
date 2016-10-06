@@ -42,7 +42,7 @@ public class CPaquete
 	private boolean manejo_camino_inca;
 	private boolean manejo_propio;
 	private boolean manejo_normal;
-	private boolean manejo_propio_ConCaminoInka;
+	private boolean manejoPropio_conCaminoInka;
 	private boolean editable;
 	//==========================
 	public String getcPaqueteCod() {
@@ -220,12 +220,6 @@ public class CPaquete
 	public void setnDiaCaminoInka(int nDiaCaminoInka) {
 		this.nDiaCaminoInka = nDiaCaminoInka;
 	}
-	public boolean isManejo_propio_ConCaminoInka() {
-		return manejo_propio_ConCaminoInka;
-	}
-	public void setManejo_propio_ConCaminoInka(boolean manejo_propio_ConCaminoInka) {
-		this.manejo_propio_ConCaminoInka = manejo_propio_ConCaminoInka;
-	}
 	public String getnPrecio1_text() {
 		return nPrecio1_text;
 	}
@@ -256,6 +250,12 @@ public class CPaquete
 	public void setnPrecio5_text(String nPrecio5_text) {
 		this.nPrecio5_text = nPrecio5_text;
 	}
+	public boolean isManejoPropio_conCaminoInka() {
+		return manejoPropio_conCaminoInka;
+	}
+	public void setManejoPropio_conCaminoInka(boolean manejoPropio_conCaminoInka) {
+		this.manejoPropio_conCaminoInka = manejoPropio_conCaminoInka;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -282,7 +282,7 @@ public class CPaquete
 		nPrecioTres=0;
 		nPrecioCuatro=0;
 		nPrecioCinco=0;
-		manejo_propio_ConCaminoInka=false;
+		manejoPropio_conCaminoInka=false;
 	}
 	public CPaquete(String cPaqueteCod, String cTituloIdioma1,
 			String cTituloIdioma2, String cTituloIdioma3,

@@ -10,8 +10,10 @@ public class CDestino
 	private int nCodPostal;//int,
 	private String nameDepartamento;
 	private int nNoches;
+	private int nOrdenItinerario;
 	private boolean editable;
 	private boolean conCaminoInka;
+	private boolean sinCaminoInka;
 	private boolean puedeCaminoInka;
 	private String color_btn_activo;
 	private String color_btn_desactivo;
@@ -106,14 +108,24 @@ public class CDestino
 	public void setPuedeCaminoInka(boolean puedeCaminoInka) {
 		this.puedeCaminoInka = puedeCaminoInka;
 	}
+	public boolean isSinCaminoInka() {
+		return sinCaminoInka;
+	}
+	public void setSinCaminoInka(boolean sinCaminoInka) {
+		this.sinCaminoInka = sinCaminoInka;
+	}
+	public int getnOrdenItinerario() {
+		return nOrdenItinerario;
+	}
+	public void setnOrdenItinerario(int nOrdenItinerario) {
+		this.nOrdenItinerario = nOrdenItinerario;
+	}
 	//============================
-	
 	public CDestino() {
 		// TODO Auto-generated constructor stub
 		cDestino="";
 		bEstado=false;
 		seleccionado=false;
-		nNoches=0;
 		nCodPostal=0;
 	}
 	public CDestino(String cDestino){
@@ -127,10 +139,12 @@ public class CDestino
 		this.editable=false;
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
+		this.nOrdenItinerario=0;
 		this.nNoches=0;
 		this.seleccionado=false;
 		/**********/
 		this.conCaminoInka=false;
+		this.sinCaminoInka=true;
 		this.puedeCaminoInka=false;
 		this.nameDepartamento=obtenerNombreCodPostal(nCodPostal);
 		darColor_estado();
