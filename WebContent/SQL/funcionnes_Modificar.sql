@@ -338,13 +338,14 @@ create or replace function Pricing_sp_ModificarDestino
 (
 	codDestino int,
 	nameDestino varchar(100),
-	estado boolean
+	estado boolean,
+	codPostal int
 )
 returns table(resultado varchar(20),mensaje varchar(200),codDest int)as
 $$
 begin
 	codDest=$1;
-	update TDestino set bestado=$3, cdestino=$2 where ndestinocod=$1;
+	update TDestino set bestado=$3, cdestino=$2, ncodpostal=$4 where ndestinocod=$1;
 	resultado='correcto';
 	mensaje='Datos Actualizados Correctamente';
 	return Query select resultado,mensaje,codDest;

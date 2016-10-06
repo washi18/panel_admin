@@ -1,12 +1,18 @@
 package com.pricing.model;
 
+import java.util.ArrayList;
+
 public class CDestino 
 {
 	private int nDestinoCod; //int,				--codigo del destino
 	private String cDestino;// varchar(100),				--descripcion del destino
 	private boolean bEstado;// boolean,
+	private int nCodPostal;//int,
+	private String nameDepartamento;
 	private int nNoches;
 	private boolean editable;
+	private boolean conCaminoInka;
+	private boolean puedeCaminoInka;
 	private String color_btn_activo;
 	private String color_btn_desactivo;
 	public String COLOR_ACTIVO="background:#3BA420;";
@@ -76,6 +82,30 @@ public class CDestino
 	public void setnNoches(int nNoches) {
 		this.nNoches = nNoches;
 	}
+	public int getnCodPostal() {
+		return nCodPostal;
+	}
+	public void setnCodPostal(int nCodPostal) {
+		this.nCodPostal = nCodPostal;
+	}
+	public String getNameDepartamento() {
+		return nameDepartamento;
+	}
+	public void setNameDepartamento(String nameDepartamento) {
+		this.nameDepartamento = nameDepartamento;
+	}
+	public boolean isConCaminoInka() {
+		return conCaminoInka;
+	}
+	public void setConCaminoInka(boolean conCaminoInka) {
+		this.conCaminoInka = conCaminoInka;
+	}
+	public boolean isPuedeCaminoInka() {
+		return puedeCaminoInka;
+	}
+	public void setPuedeCaminoInka(boolean puedeCaminoInka) {
+		this.puedeCaminoInka = puedeCaminoInka;
+	}
 	//============================
 	
 	public CDestino() {
@@ -84,20 +114,25 @@ public class CDestino
 		bEstado=false;
 		seleccionado=false;
 		nNoches=0;
+		nCodPostal=0;
 	}
 	public CDestino(String cDestino){
 		this.cDestino=cDestino;
 	}
-	public CDestino(int nDestinoCod, String cDestino, boolean bEstado) {
+	public CDestino(int nDestinoCod, String cDestino, boolean bEstado,int nCodPostal) {
 		this.nDestinoCod = nDestinoCod;
 		this.cDestino = cDestino;
 		this.bEstado = bEstado;
+		this.nCodPostal=nCodPostal;
 		this.editable=false;
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
 		this.nNoches=0;
 		this.seleccionado=false;
 		/**********/
+		this.conCaminoInka=false;
+		this.puedeCaminoInka=false;
+		this.nameDepartamento=obtenerNombreCodPostal(nCodPostal);
 		darColor_estado();
 	}
 	public void darColor_estado()
@@ -111,5 +146,25 @@ public class CDestino
 			color_btn_activo=COLOR_TRANSPARENT;
 			color_btn_desactivo=COLOR_DESACTIVO;
 		}
+	}
+	public void asignaPuedeCaminoInka(CDestino destino)
+	{
+		if(destino.getnCodPostal()==84)
+			destino.setPuedeCaminoInka(true);
+	}
+	public String obtenerNombreCodPostal(int nCodPostal)
+	{
+		String name="";
+		ArrayList<CCodigoPostal> lista=new ArrayList<CCodigoPostal>();
+		lista=(new CCodigoPostal()).listaCodigosPostales();
+		for(CCodigoPostal cod:lista)
+		{
+			if(cod.getCodPostal()==nCodPostal)
+			{
+				name=cod.getDepartamento();
+				break;
+			}
+		}
+		return name;
 	}
 }

@@ -50,17 +50,18 @@ public class CDestinoDAO extends CConexion
 		{
 			Map row=(Map)lista.get(i);
 			listaDestinos.add(new CDestino((int)row.get("ndestinocod"),
-					(String)row.get("cdestino"),(boolean)row.get("bestado")));
+					(String)row.get("cdestino"),(boolean)row.get("bestado"),
+					(int)row.get("ncodpostal")));
 		}
 	}
 	public List insertarDestino(CDestino destino)
 	{
-		Object[] values={destino.getcDestino()};
+		Object[] values={destino.getcDestino(),destino.getnCodPostal()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarDestino", values);
 	}
 	public List modificarDestino(CDestino destino)
 	{
-		Object[] values={destino.getnDestinoCod(),destino.getcDestino(),destino.isbEstado()};
+		Object[] values={destino.getnDestinoCod(),destino.getcDestino(),destino.isbEstado(),destino.getnCodPostal()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarDestino", values);
 	}
 	public boolean isOperationCorrect(List lista)

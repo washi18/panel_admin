@@ -15,11 +15,19 @@
 			<div id="div_llenar_destino" visible="false">
 				<space></space>
 				<div zclass="div_contenedor_nuevo_subServicio" width="100%">
-					<div zclass="div_content_datos" width="20%">
+					<div zclass="div_content_datos" width="200px">
+						<div>
+							<label value="DEPARTAMENTO: " zclass="lbl_llenar_datos"/>
+							<combobox model="@load(vmDestino.listaCodigosPostales)" readonly="true" sclass="cbox_llenar_datos" onSelect="@command('selectCodPostal',codPostal=self.selectedItem.value)">
+								<template name="model">
+									<comboitem label="@load(each.departamento)" value="@load(each.codPostal)" droppable="true"/>
+								</template>
+							</combobox>
+						</div>
 						<div>
 							<label value="DESTINO: " zclass="lbl_llenar_datos"/>
 							<textbox value="@bind(vmDestino.oDestinoNuevo.cDestino)" zclass="txt_llenar_datos"
-									placeholder="NOMBRE DESTINO" style="text-transform: uppercase;"/>
+									placeholder="NOMBRE DESTINO" width="100%" style="text-transform: uppercase;"/>
 						</div>
 						<button label="Guardar" zclass="btn_guardar" 
 								onClick="@command('insertarDestino',componente=self)"/>
@@ -45,6 +53,9 @@
 					    			<div>
 										<label value="@load(each.cDestino)" zclass="lbl_llenar_datos"/>
 									</div>
+									<div>
+										<label value="@bind(each.nameDepartamento)" zclass="nombre_depart"/>
+									</div>
 					    			<div
 					    				zclass="div_operacion_etiqueta">
 					    				<button label="Editar"
@@ -68,6 +79,14 @@
 								<label value="@bind(each.nDestinoCod)"/>
 							</div>
 				    		<div>
+				    			<div>
+									<label value="DEPARTAMENTO: " zclass="lbl_llenar_datos"/>
+									<combobox value="@bind(each.nameDepartamento)" readonly="true" model="@load(vmDestino.listaCodigosPostales)" sclass="cbox_llenar_datos" onSelect="@command('selectCodPostal_update',codPostal=self.selectedItem.value,destino=each)">
+										<template name="model">
+											<comboitem label="@load(each.departamento)" value="@load(each.codPostal)" droppable="true"/>
+										</template>
+									</combobox>
+								</div>
 				    			<div>
 				    				<label value="DESTINO:" zclass="lbl_llenar_datos"/>
 				    				<div>
