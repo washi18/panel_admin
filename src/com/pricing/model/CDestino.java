@@ -77,12 +77,16 @@ public class CDestino
 		this.nNoches = nNoches;
 	}
 	//============================
+	
 	public CDestino() {
 		// TODO Auto-generated constructor stub
 		cDestino="";
 		bEstado=false;
 		seleccionado=false;
 		nNoches=0;
+	}
+	public CDestino(String cDestino){
+		this.cDestino=cDestino;
 	}
 	public CDestino(int nDestinoCod, String cDestino, boolean bEstado) {
 		this.nDestinoCod = nDestinoCod;

@@ -251,6 +251,10 @@ public class CSubServicio
 		this.nServicioCod=0;
 		this.nPrecioServicio_text="0.00";
 	}
+	public CSubServicio(String cSubServicioIndioma1)
+	{
+		this.cSubServicioIndioma1=cSubServicioIndioma1;
+	}
 	public CSubServicio(int nSubServicioCod, int nServicioCod,
 			String cSubServicioIndioma1, String cSubServicioIndioma2,
 			String cSubServicioIndioma3, String cSubServicioIndioma4,

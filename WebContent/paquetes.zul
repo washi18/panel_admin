@@ -200,6 +200,7 @@
 					    		<div sclass="estilo_contenedor_costo">
 					    		  <div sclass="horizontal_icons_personas">
 					    			<span zclass="icon-man"></span>
+					    			<label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    			<label value="@bind(each.nPrecioUno)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		  </div>
 					    		  <div sclass="horizontal_icons_personas">
@@ -207,6 +208,7 @@
 						    			<span zclass="icon-man"></span>
 						    			<span zclass="icon-man"></span>
 					    			</div>
+					    			<label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    			<label value="@bind(each.nPrecioDos)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		  </div>
 					    		  <div sclass="horizontal_icons_personas">
@@ -215,6 +217,7 @@
 						    			<span zclass="icon-man"></span>
 						    			<span zclass="icon-man"></span>
 					    		    </div>	
+					    		    <label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    			<label value="@bind(each.nPrecioTres)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		  </div>
 					    		  <div sclass="horizontal_icons_personas">
@@ -224,6 +227,7 @@
 						    		    <span zclass="icon-man"></span>
 						    		    <span zclass="icon-man"></span>
 					    		    </div>
+					    		    <label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    			<label value="@bind(each.nPrecioCuatro)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		   </div>
 					    		   <div sclass="horizontal_icons_personas">
@@ -234,6 +238,7 @@
 						    		    <span zclass="icon-man"></span>
 						    		    <span zclass="icon-man"></span>
 					    		    </div>
+					    		    <label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    			<label value="@bind(each.nPrecioCinco)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		   </div>
 					    		</div>

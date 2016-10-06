@@ -5,16 +5,17 @@
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmReserva') @init('com.pricing.viewModel.reporteReservasVM')">
 		<div sclass="div_opciones_busqueda" width="100%">
-			<div sclass="intervalo_fechas" width="35%" align="center">
-				<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
-				<space></space>
-				<datebox id="db_desde" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
-				<space></space>
-				<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
-				<space></space>
-				<datebox id="db_hasta" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
+			<div sclass="intervalo_fechas">
+				<div width="80%">
+					<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
+					<datebox id="db_desde" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
+				</div>
+				<div width="80%">
+					<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
+					<datebox id="db_hasta" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
+				</div>
 			</div>
-			<div sclass="estilo_div_disponibilidad" width="57%">
+			<div sclass="estilo_div_estado_pagos">
 				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
 					<radio label="Pagos pendientes" value="PagosPendientes" checked="@bind(vmReserva.estadoPagoPendiente)" width="33%"/>
 					<radio label="Pagos Parciales" value="PagosParciales" checked="@bind(vmReserva.estadoPagoParcial)" width="33%"/>
@@ -24,7 +25,7 @@
 			<space></space>
 			<button label="Buscar" zclass="btn_editar" width="8%" onClick="@command('Buscar_Reservas',componente=self)"></button>	
 		</div>
-		<listbox sclass="listados" model="@bind(vmReserva.listanuevaReporteReserva)" height="auto" mold="paging" autopaging="true" pageSize="10" visible="true">
+		<listbox sclass="listados" model="@load(vmReserva.listanuevaReporteReserva)" height="auto" mold="paging" autopaging="true" pageSize="10" visible="true">
 			<listhead>
 				<listheader/>
 			</listhead>
@@ -32,11 +33,11 @@
 				<listitem>
 					<listcell>
 				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion" width="10%">
-								<label value="@load(each.codReserva)"/>
+					    	<div zclass="div_numeracion" width="auto">
+									<label value="@load(each.codReserva)"/>
 							</div>
-							<div zclass="div_contenedor_datos_subServicio" width="90%">
-					    		<div width="23%" >
+							<div zclass="div_contenedor_datos_listRepReserva">
+					    		<div zclass="estilo_fechas">
 					    			<div width="100%" >
 					    				<label width="100%" height="100%" value="@load(each.fechaInicio)"/>
 					    			</div>
@@ -47,8 +48,7 @@
 					    				<label width="100%" height="100%" value="@load(each.fecha)"/>
 					    			</div>
 					    		</div>
-					    		<space></space>
-					    		<div zclass="div_content_info_listSub" width="23%">
+					    		<div zclass="div_content_info_listRepReserva">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="30px" sclass="estilo_nombre_subServicio"
 					    					value="@load(each.nombreContacto)" />
@@ -59,15 +59,30 @@
 					    				<label width="100%" height="auto"
 					    					value="@load(each.telefono)" sclass="estilo_desborde_descripcion"/>
 					    			</div>
-					    			<div>
-					    				<label value="@load(each.estado)" sclass="estilo_costo"></label>
+					    		</div>
+					    		<div sclass="div_paquete">
+					    			<label value="@load(each.nombrePaquete)"></label>
+					    		</div>
+					    		<div sclass="div_destinos">
+					    			<div width="100%" sclass="div_content_destino">
+					    				<listbox style="border: none;" model="@load(each.destinos)"> 
+					    					<listhead>
+					    						<listheader>
+					    						</listheader>
+					    					</listhead>
+					    					<template name="model" var="destino">
+					    					<listitem>
+					    						<listcell>
+					    							<div sclass="div_list_cell" width="100%">
+					    								<label value="@load(destino.cDestino)"></label>
+					    							</div>
+					    						</listcell>
+					    					</listitem>
+					    					</template>
+					    				</listbox>
 					    			</div>
 					    		</div>
-					    		<div width="23%">
-					    			<div>
-					    				<label value="@load(each.hoteles)"></label>
-					    			</div>
-					    		</div>
+					    		<space></space>
 					    		<div sclass="estilo_contenedor_estadoPago">
 					    		    <div>
 					    				<label value="@load(each.estado)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>

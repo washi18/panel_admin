@@ -502,7 +502,7 @@
 	.btn_editar,
 	.btn_activo,
 	.btn_actualizar{
-		width: 100%;
+		width: 100% !important;
 	}
 	.estilo_desborde_descripcion {
 		float: left;

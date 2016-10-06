@@ -67,26 +67,166 @@
 }
 
 .estilo_contenedor_estadoPago{
+   border: 1px solid rgba(0,0,0,0.1);
+   padding: 10px;
+   box-sizing:border-box;
+   box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   background: rgba(0,0,0,0.1);
    display: flex;
    display: -webkit-flex;
    display: -moz-flex;
    display: -ms-flex;
    display: -o-flex;
    flex-direction: column;
-   justify-content: center;
+   justify-content: center !important;
    align-items: center;
-   width: 30%;
+   width: 24%;
    border-left:1px solid black; 
 }
+.div_content_info_listRepReserva{
+	width: 19% ;
+}
 
+.div_contenedor_datos_listRepReserva{
+	display: flex;
+	display: -webkit-flex;
+   	display: -moz-flex;
+   	display: -ms-flex;
+   	display: -o-flex;
+	width: 90%;
+}
 
-@media only screen and (max-width: 416px)
-{
-.estilo_contenedor_costo{
-    	display: none !important;
-    }
+.estilo_fechas {
+	font-weight: bold;
+	font-size: 13px;
+	color: black;
+	width: 19%;
 }
 .intervalo_fechas{
 	vertical-align: middle;
+	display: flex;
+   display: -webkit-flex;
+   display: -moz-flex;
+   display: -ms-flex;
+   display: -o-flex;
+   align-items: center;
+   width: 35%;
 }
+.estilo_div_estado_pagos {
+	width: 57%;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+}
+
+.checkbox_desktop {
+	display: block;
+}
+
+.checkbox_respons {
+	display: none;	
+}
+
+.div_paquete{
+	width:19%;
+}
+
+.div_destinos{
+	width:19%;
+}
+
+.div_content_destino .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content{
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+}
+
+.numeracion-desktop {
+	width: 10%;
+}
+@media only screen and (max-width: 416px)
+{
+	.numeracion-desktop {
+		display: 100px !important;
+	}
+	.intervalo_fechas .z-datebox{
+		width: 60% !important;
+	}
+	.intervalo_fechas .z-datebox .z-datebox-input{
+		width: 100% !important;
+	}
+	.estilo_contenedor_costo{
+    	display: none !important;
+    }
+    .intervalo_fechas{
+	   display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   justify-content: center;
+	   width: 100% !important;
+    }
+    .div_opciones_busqueda{
+       display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   width: 100% !important;
+    }
+    .estilo_div_estado_pagos {
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		align-items: center;
+		flex-direction: column;
+		width: 100% !important;
+	}
+	.checkbox_desktop {
+		display: none !important;
+	}
+
+	.checkbox_respons {
+		display: block !important;	
+	}
+	
+	.div_contenedor_datos_listRepReserva{
+		display: flex;
+		display: -webkit-flex;
+	   	display: -moz-flex;
+	   	display: -ms-flex;
+	   	display: -o-flex;
+	   	flex-direction: column;
+		width: 90% !important;
+	}
+	
+	.estilo_fechas {
+		width: 100% !important;
+	}
+	
+	.div_content_info_listRepReserva{
+		width: 100% !important;
+	}
+	
+	.div_paquete{
+		width: 100% !important;
+	}
+	
+	.div_destinos{
+		width: 100% !important;
+	}
+	.estilo_contenedor_estadoPago{
+		width: 100% !important;
+		
+	}
+}
+
 

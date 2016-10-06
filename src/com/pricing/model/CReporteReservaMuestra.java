@@ -16,10 +16,10 @@ public class CReporteReservaMuestra {
 	private Number precioPersona;
 	private String nombrePaquete;
 	private String categoria;
-	private ArrayList<String> destinos;
+	private ArrayList<CDestino> destinos;
 	private ArrayList<CHotel> hoteles;
-	private ArrayList<String> servicios;
-	private ArrayList<String> subServicios;
+	private ArrayList<CServicio> servicios;
+	private ArrayList<CSubServicio> subServicios;
 	private String estado;
 	//==============getter and setter========
 	public String getCodReserva() {
@@ -88,30 +88,30 @@ public class CReporteReservaMuestra {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-	public ArrayList<String> getDestinos() {
+	
+	public ArrayList<CDestino> getDestinos() {
 		return destinos;
 	}
-	public void setDestinos(ArrayList<String> destinos) {
+	public void setDestinos(ArrayList<CDestino> destinos) {
 		this.destinos = destinos;
 	}
-	
+	public ArrayList<CServicio> getServicios() {
+		return servicios;
+	}
+	public void setServicios(ArrayList<CServicio> servicios) {
+		this.servicios = servicios;
+	}
+	public ArrayList<CSubServicio> getSubServicios() {
+		return subServicios;
+	}
+	public void setSubServicios(ArrayList<CSubServicio> subServicios) {
+		this.subServicios = subServicios;
+	}
 	public ArrayList<CHotel> getHoteles() {
 		return hoteles;
 	}
 	public void setHoteles(ArrayList<CHotel> hoteles) {
 		this.hoteles = hoteles;
-	}
-	public ArrayList<String> getServicios() {
-		return servicios;
-	}
-	public void setServicios(ArrayList<String> servicios) {
-		this.servicios = servicios;
-	}
-	public ArrayList<String> getSubServicios() {
-		return subServicios;
-	}
-	public void setSubServicios(ArrayList<String> subServicios) {
-		this.subServicios = subServicios;
 	}
 	public String getEstado() {
 		return estado;
@@ -120,12 +120,16 @@ public class CReporteReservaMuestra {
 		this.estado = estado;
 	}
 	//==============constructores====
+	public CReporteReservaMuestra()
+	{
+		super();
+	}
 	public CReporteReservaMuestra(String codReserva, Date fechaInicio,
 			Date fechaFin, Date fecha, String nombreContacto, String email,
 			String telefono, int nroPersonas, Number precioPersona,
-			String nombrePaquete, String categoria, ArrayList<String> destinos,
-			ArrayList<CHotel> hoteles, ArrayList<String> servicios,
-			ArrayList<String> subServicios, String estado) {
+			String nombrePaquete, String categoria, ArrayList<CDestino> destinos,
+			ArrayList<CHotel> hoteles, ArrayList<CServicio> servicios,
+			ArrayList<CSubServicio> subServicios, String estado) {
 		super();
 		this.CodReserva = codReserva;
 		this.fechaInicio = fechaInicio;

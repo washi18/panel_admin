@@ -325,6 +325,10 @@ public class CServicio
 		this.seleccionado = seleccionado;
 	}
 	//========================================
+	public CServicio(String cServicioIndioma1)
+	{
+		this.cServicioIndioma1=cServicioIndioma1;
+	}
 	public CServicio() {
 		// TODO Auto-generated constructor stub
 		this.listaOpcionServicios=new ArrayList<String[]>();
