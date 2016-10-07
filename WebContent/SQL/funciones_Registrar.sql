@@ -81,7 +81,8 @@ CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaqueteDestino
 (
 	codPaquete varchar(10),
 	codDestino int,
-	noches int
+	noches int,
+	ordenItinerario int
 )
 RETURNS TABLE (resultado varchar(20),
 		mensaje varchar(200),
@@ -94,7 +95,7 @@ begin
 	else
 		codPaqueteDest=codPaqueteDest+1;
 	end if;
-	insert into tpaquetedestino values(codPaqueteDest,$1,$2,$3);
+	insert into tpaquetedestino values(codPaqueteDest,$1,$2,$3,$4);
 	resultado='correcto';
 	mensaje='Datos Registrados Correctamente';
 	return Query select resultado,mensaje,codPaqueteDest;

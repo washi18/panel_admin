@@ -95,9 +95,9 @@ public class CPaqueteDAO extends CConexion
 		Object[] values={codPaquete,codServicio};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaqueteServicio", values);
 	}
-	public List insertarPaqueteDestino(String codPaquete,int codDestino,int noches)
+	public List insertarPaqueteDestino(String codPaquete,int codDestino,int noches,int ordenItinerario)
 	{
-		Object[] values={codPaquete,codDestino,noches};
+		Object[] values={codPaquete,codDestino,noches,ordenItinerario};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaqueteDestino", values);
 	}
 	public List insertarPaqueteCatHotel(String codPaquete)

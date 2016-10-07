@@ -307,6 +307,68 @@
       border-radius: 2px;
       color: #fff;
 }
+/*****/
+.style_restricciones_conDestino.z-radiogroup{
+	background: rgba(0,0,0,0.2);
+	padding: 8px;
+	border-radius:5px;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+}
+@media (max-width:400px){
+	.style_restricciones_conDestino.z-radiogroup{
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+}
+.style_restricciones_conDestino.z-radiogroup .z-radio input[type="radio"]{
+	display: none;
+}
+.style_restricciones_conDestino.z-radiogroup .z-radio label{
+/* 	color: #053351; */
+	margin-left: 2px;
+	display: inline-block;
+    cursor: pointer;
+    color: #053351;
+    position: relative;
+    padding: 5px 15px 5px 18px;
+    font-size: 12px;
+    font-weight:bold;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.style_restricciones_conDestino.z-radiogroup .z-radio label:hover{
+	background: rgba(0, 0, 0, 0.2);
+}
+.style_restricciones_conDestino.z-radiogroup .z-radio label:before{
+	  content:'';
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      position: absolute;
+      left: 2px;
+      top:8px;
+      border-radius: 50%;
+      background: none;
+      border: 2px solid #053351;
+}
+.style_restricciones_conDestino.z-radiogroup input[type="radio"]:checked + label:before {
+      display: none; 
+}
+.style_restricciones_conDestino.z-radiogroup input[type="radio"]:checked + label{
+	  padding: 5px 15px;
+      background: #053351;
+      border-radius: 2px;
+      color: #fff;
+}
 /******/
 .lbl_dia_tur_camino_inca{
 	color:#8810E1;
@@ -385,4 +447,16 @@
       background: #1487D1;
       border-radius: 2px;
       color: #fff;
+}
+.int_nroNoches_Destino{
+	text-align: center;
+	border: 1px solid black;
+	color: green;
+	font-size: 15px;
+	font-weight: bold;
+}
+.lbl_orden_itinerario{
+	color: #9E257D;
+	font-size: 15px;
+	font-weight: bold;
 }
