@@ -172,7 +172,7 @@ public class paquetesVM
 	}
 	@Command
 	@NotifyChange({"oDestino","oPaquete","listaDestinos",
-			"listaPaquetes","listaServicios"})
+			"listaPaquetes","listaServicios","conDestino","sinDestino"})
 	public void insertarPaquete(@BindingParam("componente")Component comp)
 	{
 		if(!validoParaInsertar(comp))
@@ -241,7 +241,7 @@ public class paquetesVM
 			{
 				if(destino.isSeleccionado())
 				{
-					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteDestino(codPaquete, destino.getnDestinoCod(),destino.getnNoches(),destino.getnOrdenItinerario()));
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteDestino(codPaquete, destino.getnDestinoCod(),destino.getnNoches(),destino.getnOrdenItinerario(),destino.isConCaminoInka()));
 				}
 			}
 			for(CServicio servicio:listaServicios)
@@ -265,7 +265,7 @@ public class paquetesVM
 			{
 				if(destino.isSeleccionado())
 				{
-					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteDestino(codPaquete, destino.getnDestinoCod(),destino.getnNoches(),destino.getnOrdenItinerario()));
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteDestino(codPaquete, destino.getnDestinoCod(),destino.getnNoches(),destino.getnOrdenItinerario(),destino.isConCaminoInka()));
 				}
 			}
 			for(CServicio servicio:listaServicios)
@@ -280,6 +280,11 @@ public class paquetesVM
 		Clients.showNotification("El paquete se inserto correctamente", Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 		/**Inicializando los objetos**/
 		oPaquete=new CPaquete();
+		/**Inicializando los estados nuevamente**/
+		conDestino=false;
+		sinDestino=true;
+		nroDestinosSelect=0;
+		ordenDesSelect=0;
 		/**Obtencion de los paquetes existente desde la base de datos**/
 		paqueteDao.asignarListaPaquetes(paqueteDao.recuperarPaquetesBD());
 		setListaPaquetes(paqueteDao.getListaPaquetes());

@@ -68,6 +68,14 @@ $$
 	order by nserviciocod;
 $$ 
 LANGUAGE SQL;
+/*+++++++++++++++++++++++++++++++++++*/
+CREATE OR REPLACE FUNCTION Pricing_sp_MostrarTodosServicios()
+  RETURNS SETOF tservicio AS
+$$
+	select * from tservicio
+	order by nserviciocod;
+$$
+  LANGUAGE sql;
 /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
 CREATE OR REPLACE function Pricing_sp_MostrarServiciosconSubServicios
 ()

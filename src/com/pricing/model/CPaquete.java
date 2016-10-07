@@ -2,6 +2,12 @@ package com.pricing.model;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+
+import com.pricing.dao.CDestinoDAO;
+import com.pricing.dao.CPaqueteDestinoDAO;
+import com.pricing.dao.CPaqueteServicioDAO;
+import com.pricing.dao.CServicioDAO;
 
 public class CPaquete 
 {
@@ -43,7 +49,19 @@ public class CPaquete
 	private boolean manejo_propio;
 	private boolean manejo_normal;
 	private boolean manejoPropio_conCaminoInka;
+	private boolean conDestino;
+	private boolean sinDestino;
+	private int nroDestinosSelect;
+	private int ordenDesSelect;
 	private boolean editable;
+	private CDestinoDAO destinoDao;
+	private CServicioDAO servicioDao;
+	private CPaqueteDestinoDAO paqueteDestinoDao;
+	private CPaqueteServicioDAO paqueteServicioDao;
+	private ArrayList<CDestino> listaDestinos;
+	private ArrayList<CServicio> listaServicios;
+	private ArrayList<CPaqueteDestino> listaPaqueteDestinos;
+	private ArrayList<CPaqueteServicio> listaPaqueteServicios;
 	//==========================
 	public String getcPaqueteCod() {
 		return cPaqueteCod;
@@ -256,6 +274,62 @@ public class CPaquete
 	public void setManejoPropio_conCaminoInka(boolean manejoPropio_conCaminoInka) {
 		this.manejoPropio_conCaminoInka = manejoPropio_conCaminoInka;
 	}
+	public ArrayList<CDestino> getListaDestinos() {
+		return listaDestinos;
+	}
+	public void setListaDestinos(ArrayList<CDestino> listaDestinos) {
+		this.listaDestinos = listaDestinos;
+	}
+	public ArrayList<CServicio> getListaServicios() {
+		return listaServicios;
+	}
+	public void setListaServicios(ArrayList<CServicio> listaServicios) {
+		this.listaServicios = listaServicios;
+	}
+	public ArrayList<CPaqueteDestino> getListaPaqueteDestinos() {
+		return listaPaqueteDestinos;
+	}
+	public void setListaPaqueteDestinos(
+			ArrayList<CPaqueteDestino> listaPaqueteDestinos) {
+		this.listaPaqueteDestinos = listaPaqueteDestinos;
+	}
+	public ArrayList<CPaqueteServicio> getListaPaqueteServicios() {
+		return listaPaqueteServicios;
+	}
+	public void setListaPaqueteServicios(
+			ArrayList<CPaqueteServicio> listaPaqueteServicios) {
+		this.listaPaqueteServicios = listaPaqueteServicios;
+	}
+	public boolean isConDestino() {
+		return conDestino;
+	}
+	public void setConDestino(boolean conDestino) {
+		this.conDestino = conDestino;
+	}
+	public boolean isSinDestino() {
+		return sinDestino;
+	}
+	public void setSinDestino(boolean sinDestino) {
+		this.sinDestino = sinDestino;
+	}
+	public int getNroDestinosSelect() {
+		return nroDestinosSelect;
+	}
+	public void setNroDestinosSelect(int nroDestinosSelect) {
+		this.nroDestinosSelect = nroDestinosSelect;
+	}
+	public int getOrdenDesSelect() {
+		return ordenDesSelect;
+	}
+	public void setOrdenDesSelect(int ordenDesSelect) {
+		this.ordenDesSelect = ordenDesSelect;
+	}
+	public CDestinoDAO getDestinoDao() {
+		return destinoDao;
+	}
+	public void setDestinoDao(CDestinoDAO destinoDao) {
+		this.destinoDao = destinoDao;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -283,6 +357,10 @@ public class CPaquete
 		nPrecioCuatro=0;
 		nPrecioCinco=0;
 		manejoPropio_conCaminoInka=false;
+		conDestino=false;
+		sinDestino=true;
+		nroDestinosSelect=0;
+		ordenDesSelect=0;
 	}
 	public CPaquete(String cPaqueteCod, String cTituloIdioma1,
 			String cTituloIdioma2, String cTituloIdioma3,
@@ -322,7 +400,84 @@ public class CPaquete
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
+		/***Recuperando lo que contiene el paquete***/
+		destinoDao=new CDestinoDAO();
+		servicioDao=new CServicioDAO();
+		paqueteDestinoDao=new CPaqueteDestinoDAO();
+		paqueteServicioDao=new CPaqueteServicioDAO();
+		listaDestinos=new ArrayList<CDestino>();
+		listaServicios=new ArrayList<CServicio>();
+		listaPaqueteDestinos=new ArrayList<CPaqueteDestino>();
+		listaPaqueteServicios=new ArrayList<CPaqueteServicio>();
+		//RECUPERAR LISTA DESTINOS
+		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
+		setListaDestinos(destinoDao.getListaDestinos());
+		//RECUPERAR LISTA SERVICIOS
+		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosBD());
+		setListaServicios(servicioDao.getListaServicios());
+		//RECUPERAR LISTA PAQUETE-DESTINOS
+		paqueteDestinoDao.asignarListaPaqueteDestinos(paqueteDestinoDao.recuperarPaqueteDestinos(cPaqueteCod));
+		setListaPaqueteDestinos(paqueteDestinoDao.getListaPaqueteDestinos());
+		//RECUPERAR LISTA PAQUETE-SERVICIOS
+		paqueteServicioDao.asignarListaPaqueteServicios(paqueteServicioDao.recuperarPaqueteServiciosBD(cPaqueteCod));
+		setListaPaqueteServicios(paqueteServicioDao.getListaPaqueteServicios());
+		/***INICIALIZAMOS LOS ESTADOS DE LOS DESTINOS Y SERVICIOS DEL PAQUETE**/
+		inicializarEstadosDeDestinosYServicios();
+		determinarTipoDeManejoPaquete(cDisponibilidad);
 	}
-	
-	
+	public void determinarTipoDeManejoPaquete(String manejo)
+	{
+		if(manejo.equals("CAMINO_INKA"))
+		{
+			manejo_camino_inca=true;
+			manejo_propio=false;
+			manejo_normal=false;
+		}else if(manejo.equals("MANEJO_PROPIO"))
+		{
+			manejo_camino_inca=false;
+			manejo_propio=true;
+			manejo_normal=false;
+		}else if(manejo.equals("MANEJO_NORMAL"))
+		{
+			manejo_camino_inca=false;
+			manejo_propio=false;
+			manejo_normal=true;
+		}
+	}
+	public void inicializarEstadosDeDestinosYServicios()
+	{
+		conDestino=false;
+		sinDestino=true;
+		nroDestinosSelect=listaPaqueteDestinos.size();
+		ordenDesSelect=0;
+		for(CPaqueteDestino PDestino:listaPaqueteDestinos)
+		{
+			for(CDestino destino:listaDestinos)
+			{
+				if(PDestino.getnDestinoCod()==destino.getnDestinoCod())
+				{
+					conDestino=true;
+					sinDestino=false;
+					destino.setSeleccionado(true);
+					destino.setnNoches(PDestino.getnNoches());
+					destino.setnOrdenItinerario(PDestino.getnOrdenItinerario());
+					if(PDestino.isbConCaminoInka())
+					{
+						destino.setConCaminoInka(true);
+						destino.setSinCaminoInka(false);
+						destino.setPuedeCaminoInka(true);
+					}
+				}
+			}
+		}
+		
+		for(CPaqueteServicio PServicio:listaPaqueteServicios)
+		{
+			for(CServicio servicio:listaServicios)
+			{
+				if(PServicio.getnServicioCod()==servicio.getnServicioCod())
+					servicio.setSeleccionado(true);
+			}
+		}
+	}
 }
