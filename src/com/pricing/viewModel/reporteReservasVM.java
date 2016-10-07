@@ -157,6 +157,25 @@ public class reporteReservasVM {
 			FechaFinal=fecha;
 	}
 	@Command
+	@NotifyChange({"estadoPagoParcial","estadoPagoPendiente","estadoPagoTotal"})
+	public void seleccion_radio(@BindingParam("radio")String idRadio)
+	{
+		if(idRadio.equals("rdPagoPendiente"))
+		{
+			estadoPagoPendiente=true;
+			estadoPagoParcial=estadoPagoTotal=false;
+		}else if(idRadio.equals("rdPagoParcial"))
+		{
+			estadoPagoParcial=true;
+			estadoPagoPendiente=estadoPagoTotal=false;
+		}else if(idRadio.equals("rdPagoTotal"))
+		{
+			estadoPagoTotal=true;
+			estadoPagoParcial=estadoPagoPendiente=false;
+		}
+	}
+	
+	@Command
 	@NotifyChange({"listaReporteReserva","listanuevaReporteReserva","listaHoteles","reporteReserva"})
 	public void Buscar_Reservas(@BindingParam("componente")Component componente)
 	{
@@ -186,13 +205,10 @@ public class reporteReservasVM {
 			String NombrePago="";
 			if(estadoPagoPendiente)
 			{
-				estadoPagoPendiente=false;
 				NombrePago="PENDIENTE DE PAGO";
 			}else if(estadoPagoParcial){
-				estadoPagoParcial=false;
 				NombrePago="PAGO PARCIAL";
 			}else if(estadoPagoTotal){
-				estadoPagoTotal=false;
 				NombrePago="PAGO TOTAL";
 			}
 			listaReporteReserva.clear();
@@ -221,6 +237,12 @@ public class reporteReservasVM {
 				listaServicios=new ArrayList<CServicio>();
 				listasubServicios=new ArrayList<CSubServicio>();
 				listaHoteles=new ArrayList<CHotel>();
+				boolean continuaHoteles=true;
+				boolean continuaServicios=true;
+				listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios()));
+				listasubServicios.add(new CSubServicio(listaReporteReserva.get(contador).getSubServicios()));
+				hotelAnterior=listaReporteReserva.get(contador).getHoteles();
+				servicioAnterior=listaReporteReserva.get(contador).getServicios();
 				while((contador<listaReporteReserva.size()) && (listaReporteReserva.get(contador).getCodReserva().equals(codReservaAnterior)))
 				{
 					System.out.println("el valor de cod reserva:"+listaReporteReserva.get(contador).getCodReserva());
@@ -232,26 +254,35 @@ public class reporteReservasVM {
 						destinoAnterior = listaReporteReserva.get(contador).getDestinos();
 						listaDestinos.add(new CDestino(listaReporteReserva.get(contador).getDestinos().toString()));
 					}
-					
 					if(listaReporteReserva.get(contador).getHoteles()==null){
 						hotelAnterior = listaReporteReserva.get(contador).getHoteles();
 					}else if(!listaReporteReserva.get(contador).getHoteles().equals(hotelAnterior)) {
 						hotelAnterior = listaReporteReserva.get(contador).getHoteles();
 						listaHoteles.add(new CHotel(listaReporteReserva.get(contador).getHoteles()));
-					}
-					
-					if(listaReporteReserva.get(contador).getServicios()==null){
-						servicioAnterior = listaReporteReserva.get(contador).getServicios();
-					}else if(!listaReporteReserva.get(contador).getServicios().equals(servicioAnterior)) {
-						servicioAnterior = listaReporteReserva.get(contador).getServicios();
-						listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios().toString()));
-					}
-					System.out.println("el valor del destino es:"+listaReporteReserva.get(contador).getSubServicios());
-					if(listaReporteReserva.get(contador).getSubServicios()==null){
-						servicioAnterior = listaReporteReserva.get(contador).getSubServicios();
-					}else if (!listaReporteReserva.get(contador).getSubServicios().equals(subservicioAnterior)) {
-						subservicioAnterior = listaReporteReserva.get(contador).getSubServicios();
-						listasubServicios.add(new CSubServicio(listaReporteReserva.get(contador).getSubServicios()));
+						continuaHoteles=false;
+					}else{
+						if(continuaHoteles)
+						{
+							System.out.println("sigue imprimiendo esto 1");
+							if(listaReporteReserva.get(contador).getServicios()==null){
+								servicioAnterior = listaReporteReserva.get(contador).getServicios();
+							}else if(!listaReporteReserva.get(contador).getServicios().equals(servicioAnterior)) {
+								servicioAnterior = listaReporteReserva.get(contador).getServicios();
+								listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios().toString()));
+								continuaServicios=false;
+							}else {
+								if(continuaServicios)
+								{
+									System.out.println("sigue imprimiendo esto 2");
+									if(listaReporteReserva.get(contador).getSubServicios()==null){
+										servicioAnterior = listaReporteReserva.get(contador).getSubServicios();
+									}else if (!listaReporteReserva.get(contador).getSubServicios().equals(subservicioAnterior)) {
+										subservicioAnterior = listaReporteReserva.get(contador).getSubServicios();
+										listasubServicios.add(new CSubServicio(listaReporteReserva.get(contador).getSubServicios()));
+									}
+								}
+							}
+						}
 					}
 					contador++;
 					System.out.println("el valor del contador:"+contador);
@@ -280,18 +311,6 @@ public class reporteReservasVM {
 				FechaInicio="";
 				FechaFinal="";
 				System.out.println("entro aqui 7");
-			}
-			for(int e=0;e<listanuevaReporteReserva.size();e++)
-			{
-				System.out.println("cod:"+listanuevaReporteReserva.get(e).getCodReserva());
-				System.out.println("cod:"+listanuevaReporteReserva.get(e).getNombreContacto());
-				System.out.println("el valor de hotel es:"+listanuevaReporteReserva.get(e).getHoteles());
-				System.out.println("el valor de hotel es:"+listanuevaReporteReserva.get(e).getDestinos().size());
-				System.out.println("================================================");
-				for(int k=0;k<listanuevaReporteReserva.get(e).getHoteles().size();k++)
-				{
-					System.out.println("el valor de hotel es:"+listanuevaReporteReserva.get(e).getHoteles().get(k).getcHotel());
-				}
 			}
 		}else{
 			Clients.showNotification("Eliga un ESTADO DE PAGO", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);

@@ -1,0 +1,71 @@
+.div_opciones_busqueda{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content: center !important;
+	padding: 4px;
+	background: lightgray;
+}
+
+.intervalo_fechas{
+	vertical-align: middle;
+	display: flex;
+   display: -webkit-flex;
+   display: -moz-flex;
+   display: -ms-flex;
+   display: -o-flex;
+   align-items: center;
+   width: 35%;
+}
+
+.estilo_div_estado_pagos {
+	width: 57%;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+}
+
+@media only screen and (max-width: 416px)
+{
+
+	.div_opciones_busqueda{
+       display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   width: 100% !important;
+    }
+    .intervalo_fechas .z-datebox{
+		width: 60% !important;
+	}
+	.intervalo_fechas .z-datebox .z-datebox-input{
+		width: 100% !important;
+	}
+    .intervalo_fechas{
+	   display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   justify-content: center;
+	   width: 100% !important;
+    }
+    .estilo_div_estado_pagos {
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		align-items: center;
+		flex-direction: column;
+		width: 100% !important;
+	}
+}

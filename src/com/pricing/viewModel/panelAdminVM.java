@@ -346,16 +346,16 @@ public class panelAdminVM
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}else if (cambios.equals("itemReporteReservas") || cambios.equals("btnReporteReservas") || cambios.equals("tabReporteReserva")) {
 				visibleReportReservas=true;
-				visibleHoteles=visibleImpuestos=visibleDestinos=false;
+				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;
 				seleccionReportReservas=true;
 				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
-			else if (cambios.equals("itemRepotePagos")) {
+			else if (cambios.equals("itemRepotePagos") || cambios.equals("btnReportePagos") || cambios.equals("tabReportePagos")) {
 				visibleReportPagos=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=false;
-				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
 				visibleSubServicios=false;
 				seleccionReportPagos=true;
 				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;

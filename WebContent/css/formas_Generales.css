@@ -169,50 +169,6 @@
 .cbox_llenar_datos .z-comboitem.z-comboitem-selected .z-comboitem-text{
 	color: white;
 }
-/********************* ESTILO LISTBOX **************************/
-.z-listbox .z-listbox-header table tbody .z-listhead .z-listheader .z-listheader-content {
-	background: #717375;
-	text-align: center;
-	color: black;
-}
-
-.z-listbox .z-listbox-body table tbody .z-listitem.z-listbox-odd{
-	background: none;
-}
-
-.z-listbox .z-listbox-body table tbody tr:HOVER .z-listcell, .z-listbox .z-listbox-body table tbody tr:VISITED .z-listcell{
-	background:#F9F7F7;
-}
-
-.z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content {
-	display: flex;
-	align-items: center;
-}
-
-.centrado_datos{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-
-
-.estilo_start_descripcion {
-	display: flex;
-	justify-content: center;
-	align-items: start;
-	flex-direction: column;
-}
-
-.centrar_banderas {
-	display: flex;
-	align-items: center;
-}
-
-.estilo_etiquetas {
-	position: relative !important;
-	left: 0 !important;
-}
 /********************* ESTILO ACCION EDITAR **************************/
 .estilo_editar {
 	/*  display: block !important; */

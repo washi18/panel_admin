@@ -80,8 +80,7 @@
    flex-direction: column;
    justify-content: center !important;
    align-items: center;
-   width: 24%;
-   border-left:1px solid black; 
+   width: 24%; 
 }
 .div_content_info_listRepReserva{
 	width: 19% ;
@@ -93,7 +92,7 @@
    	display: -moz-flex;
    	display: -ms-flex;
    	display: -o-flex;
-	width: 90%;
+	width: 100%;
 }
 
 .estilo_fechas {
@@ -101,6 +100,12 @@
 	font-size: 13px;
 	color: black;
 	width: 19%;
+	display: flex;
+	display: -webkit-flex;
+   	display: -moz-flex;
+   	display: -ms-flex;
+   	display: -o-flex;
+   	flex-direction: column;
 }
 .intervalo_fechas{
 	vertical-align: middle;
@@ -147,6 +152,50 @@
 .numeracion-desktop {
 	width: 10%;
 }
+
+/********************* ESTILO LISTBOX **************************/
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-header table tbody .z-listhead .z-listheader .z-listheader-content {
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 4px;
+	padding: 2px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.2);
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    height: 25px;
+    vertical-align: center;
+}
+
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem.z-listbox-odd{
+	background: none !important;
+}
+
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem{
+	background: transparent;
+}
+
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem:hover{
+	background: transparent;
+}
+
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content {
+	display: flex;
+	align-items: center;
+	background: transparent;
+}
+
+.div_contenedor_datos {
+	display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   width: 100% ;
+}
+
 @media only screen and (max-width: 416px)
 {
 	.numeracion-desktop {
@@ -205,11 +254,18 @@
 	   	display: -ms-flex;
 	   	display: -o-flex;
 	   	flex-direction: column;
-		width: 90% !important;
+		width: 100% !important;
 	}
 	
 	.estilo_fechas {
 		width: 100% !important;
+		display: flex;
+		display: -webkit-flex;
+	   	display: -moz-flex;
+	   	display: -ms-flex;
+	   	display: -o-flex;
+	   	flex-direction: column;
+		justify-content: center;
 	}
 	
 	.div_content_info_listRepReserva{

@@ -216,6 +216,7 @@
 									<button id="tabHotel" zclass="btn_opciones_config" label="Hoteles" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="tabDestino" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="tabReporteReserva" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabReportePagos" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
@@ -245,6 +246,9 @@
 									<div visible="@bind(vmAdmin.visibleReportReservas)">
 										<include src="reporte_reservas.zul"/>
 									</div>
+									<div visible="@bind(vmAdmin.visibleReportPagos)">
+										<include src="reporte_pagos.zul"/>
+									</div>
 								</div>
 							</div>
 							<div sclass="estilo_tabbox visible_grande"  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
@@ -258,6 +262,7 @@
 									<button id="btnHoteles" zclass="btn_opciones_config" label="Hoteles"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="btnDestinos" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="btnReporteReservas" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnReportePagos" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
@@ -286,6 +291,9 @@
 									</div>
 									<div visible="@bind(vmAdmin.visibleReportReservas)">
 										<include src="reporte_reservas.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleReportPagos)">
+										<include src="reporte_pagos.zul"/>
 									</div>
 								</div>
 							</div>

@@ -251,7 +251,7 @@ $$
 			left join tservicio as s on(ps.nserviciocod=s.nserviciocod)
 			left join tsubservicio as ss on(ps.nserviciocod=ss.nserviciocod)
 			left join tdestino as d on(dh.ndestinocod=d.ndestinocod)
-			left join thotel as h on(dh.nhotelcod=h.nhotelcod)
+			left join thotel as h on(dh.nhotelcod=h.nhotelcod and c.categoriahotelcod=h.categoriahotelcod)
 			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado=$3
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
 				p.ctituloidioma1,c.ccategoriaidioma1,d.cdestino,h.chotel,s.cservicioindioma1,ss.csubservicioindioma1,r.cestado
