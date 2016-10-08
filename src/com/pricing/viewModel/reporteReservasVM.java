@@ -141,14 +141,15 @@ public class reporteReservasVM {
 		estadoPagoTotal=false;
 		/**Inicializando los objetos**/
 		listaReporteReserva=new ArrayList<CReporteReserva>();
-		reporteReservaDAO=new CReporteReservaDAO();
 		FechaInicio="";
 		FechaFinal="";
+		reporteReservaDAO=new CReporteReservaDAO();
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 	}
 	
 	@Command
+	@NotifyChange({"FechaInicio","FechaFinal"})
 	public void recuperarFechaDatebox(@BindingParam("fecha")String fecha,@BindingParam("id")String id)
 	{
 		if(id.equals("db_desde"))
@@ -179,11 +180,6 @@ public class reporteReservasVM {
 	@NotifyChange({"listaReporteReserva","listanuevaReporteReserva","listaHoteles","reporteReserva"})
 	public void Buscar_Reservas(@BindingParam("componente")Component componente)
 	{
-		System.out.println("La fecha inicio es: "+FechaInicio);
-		System.out.println("La fecha final es: "+FechaFinal);
-		System.out.println("el pago parcial es: "+estadoPagoParcial);
-		System.out.println("el pago pendiente es: "+estadoPagoPendiente);
-		System.out.println("el pago total es: "+estadoPagoTotal);
 		if(FechaInicio.isEmpty() || FechaFinal.isEmpty())
 		{
 			Clients.showNotification("Las fechas DESDE-HASTA son obligatorias ", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
@@ -237,22 +233,34 @@ public class reporteReservasVM {
 				listaServicios=new ArrayList<CServicio>();
 				listasubServicios=new ArrayList<CSubServicio>();
 				listaHoteles=new ArrayList<CHotel>();
+				boolean continuaDestinos=true;
 				boolean continuaHoteles=true;
 				boolean continuaServicios=true;
-				listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios()));
-				listasubServicios.add(new CSubServicio(listaReporteReserva.get(contador).getSubServicios()));
+				boolean hotelesVacios=false;
+				boolean primerosHotelesVacios=false;
+				if(listaReporteReserva.get(contador).getServicios()!=null)
+					listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios()));
+				if(listaReporteReserva.get(contador).getSubServicios()!=null)
+					listasubServicios.add(new CSubServicio(listaReporteReserva.get(contador).getSubServicios()));
+				if(listaReporteReserva.get(contador).getDestinos()!=null)
+					listaDestinos.add(new CDestino(listaReporteReserva.get(contador).getDestinos()));
 				hotelAnterior=listaReporteReserva.get(contador).getHoteles();
 				servicioAnterior=listaReporteReserva.get(contador).getServicios();
+				destinoAnterior=listaReporteReserva.get(contador).getDestinos();
 				while((contador<listaReporteReserva.size()) && (listaReporteReserva.get(contador).getCodReserva().equals(codReservaAnterior)))
 				{
-					System.out.println("el valor de cod reserva:"+listaReporteReserva.get(contador).getCodReserva());
-					System.out.println("el valor del destino es:"+listaReporteReserva.get(contador).getDestinos());
+					if(contador==0 && listaReporteReserva.get(contador).getHoteles()==null)
+					{
+						primerosHotelesVacios=true;
+					}
 					if(listaReporteReserva.get(contador).getDestinos()==null){
 						System.out.println("sale este null");
 						destinoAnterior = listaReporteReserva.get(contador).getDestinos();
 					}else if(!listaReporteReserva.get(contador).getDestinos().equals(destinoAnterior)) {
 						destinoAnterior = listaReporteReserva.get(contador).getDestinos();
 						listaDestinos.add(new CDestino(listaReporteReserva.get(contador).getDestinos().toString()));
+						continuaDestinos=false;
+						primerosHotelesVacios=false;
 					}
 					if(listaReporteReserva.get(contador).getHoteles()==null){
 						hotelAnterior = listaReporteReserva.get(contador).getHoteles();
@@ -284,10 +292,19 @@ public class reporteReservasVM {
 							}
 						}
 					}
+					if(continuaDestinos && primerosHotelesVacios)
+					{
+							System.out.println("ingresa aqui o no");
+							if(listaReporteReserva.get(contador).getServicios()==null){
+								servicioAnterior = listaReporteReserva.get(contador).getServicios();
+							}else if(!listaReporteReserva.get(contador).getServicios().equals(servicioAnterior)) {
+								servicioAnterior = listaReporteReserva.get(contador).getServicios();
+								listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios().toString()));
+								continuaServicios=false;
+							}
+					}
 					contador++;
-					System.out.println("el valor del contador:"+contador);
 					factorIncremento++;
-					System.out.println("valor del factor de incremento"+factorIncremento);
 				}
 				reporteReserva=new CReporteReservaMuestra();
 				reporteReserva.setCodReserva(listaReporteReserva.get(i).getCodReserva());
@@ -308,15 +325,11 @@ public class reporteReservasVM {
 				reporteReserva.setEstado(listaReporteReserva.get(i).getEstado());
 				System.out.println("aqui esta el tamanio de listahotel "+listaHoteles.size());
 				listanuevaReporteReserva.add(reporteReserva);
-				FechaInicio="";
-				FechaFinal="";
-				System.out.println("entro aqui 7");
 			}
 		}else{
 			Clients.showNotification("Eliga un ESTADO DE PAGO", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
 		}
 	}
-	
 	public String cambiarFormatoMes(String mes)
 	{
 		String nuevo="";

@@ -33,12 +33,12 @@
 				<listitem>
 					<listcell>
 				    	<div width="100%" zclass="div_list_cell">
-					    	<div zclass="div_numeracion" width="auto">
+					    	<div zclass="div_numeracion_reporte_reserva">
 									<label value="@load(each.codReserva)"/>
 							</div>
 							<div sclass="div_contenedor_datos" >
 								<div width="100%">
-					    			<label value="@load(each.nombrePaquete)" sclass="estilo_nombre_subServicio"></label>
+					    			<label value="@load(each.nombrePaquete)" sclass="estilo_nombre_paquete_reserva"></label>
 					    		</div>
 					    		<div zclass="div_contenedor_datos_listRepReserva">
 					    		<div zclass="estilo_fechas">
@@ -52,18 +52,20 @@
 					    				<label width="100%" height="auto"
 					    					value="@load(each.telefono)" style="font-size: 13px; color: black; font-weight: bold;"/>
 					    			</div>
-					    			<div style="display:flex; align-items: center;">
-						    			<div width="auto">
+					    			<div>
+						    			<div width="auto" style="display: flex; align-items: center;">
+						    				<label value="Fecha Inicio:" style="font-size: 13px; color: black; font-weight: bold;"></label>
+						    				<space></space>
 						    				<label height="100%" value="@load(each.fechaInicio)"/>
 						    			</div>
-						    			<space></space>
-						    			<label value=" / " style="color: black; font-size: 16px; font-weight: bold;"></label>
-						    			<space></space>
-						    			<div width="auto">
+						    			<div width="auto" style="display: flex; align-items: center;">
+						    				<label value="Fecha Fin:" style="font-size: 13px; color: black; font-weight: bold;"></label>
+						    				<space></space>
 						    				<label height="100%" value="@load(each.fechaFin)"/>
 						    			</div>
 					    			</div>
 					    			<div width="auto">
+					    				<label value="Fecha Reserva" style="font-size: 13px; color: black; font-weight: bold;"></label>
 					    				<label height="100%" value="@load(each.fecha)"/>
 					    			</div>
 					    			<div>
@@ -78,10 +80,11 @@
 					    						</listheader>
 					    					</listhead>
 					    					<template name="model" var="destino">
-					    					<listitem>
+					    					<listitem zclass="div_list_cell">
 					    						<listcell>
-					    							<div style="display:flex; align-items: center;" width="100%">
-					    								<label value="*"></label>
+					    							<div style="display:flex; align-items: center;" width="100%" zclass="div_list_cell">
+					    								<label value="■"></label>
+					    								<space></space>
 					    								<label value="@load(destino.cDestino)"></label>
 					    							</div>
 					    						</listcell>
@@ -102,7 +105,8 @@
 					    					<listitem>
 					    						<listcell>
 					    							<div style="display:flex; align-items: center;"  width="100%">
-					    								<label value="*"></label>
+					    								<label value="■"></label>
+					    								<space></space>
 					    								<label value="@load(hoteles.cHotel)"></label>
 					    							</div>
 					    						</listcell>
@@ -123,7 +127,8 @@
 					    					<listitem>
 					    						<listcell>
 					    							<div style="display:flex; align-items: center;" width="100%">
-					    								<label value="*"></label>
+					    								<label value="■"></label>
+					    								<space></space>
 					    								<label value="@load(servicio.cServicioIndioma1)"></label>
 					    							</div>
 					    						</listcell>
@@ -137,10 +142,10 @@
 					    		    <div>
 					    				<label value="@load(each.estado)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    			</div>
-					    			<div>
+					    			<div sclass="estilo_monto_persona">
 					    				<label value="$"></label>
 					    				<label value="@load(each.precioPersona)"></label>
-					    				<label value="X"></label>
+					    				<label value="/"></label>
 					    				<label value="@load(each.nroPersonas)"></label>
 					    				<label value="personas"></label>
 					    			</div>

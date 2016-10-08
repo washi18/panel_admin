@@ -153,6 +153,17 @@
 	width: 10%;
 }
 
+.estilo_monto_persona .z-label {
+	font-style: italic;
+	font-weight: bold; 
+	font-size: 15px;
+}
+.estilo_nombre_paquete_reserva {
+	color: #069;
+	font-size: 16px;
+	font-weight: bold;
+}
+
 /********************* ESTILO LISTBOX **************************/
 .div_contenedor_datos_listRepReserva .z-listbox .z-listbox-header table tbody .z-listhead .z-listheader .z-listheader-content {
 	border: 1px solid rgba(0,0,0,0.1);
@@ -185,6 +196,9 @@
 	align-items: center;
 	background: transparent;
 }
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content:hover{
+	background: transparent;
+}
 
 .div_contenedor_datos {
 	display: flex;
@@ -196,10 +210,55 @@
 	   width: 100% ;
 }
 
+.div_numeracion_reporte_reserva{
+	background: #053351;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	width: 10%;
+	height: 26px;
+	padding: 2px;
+	position: relative;
+	top: -15px;
+	left: -15px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+}
+.div_numeracion_reporte_reserva:AFTER{
+	content: '';
+	border-bottom:13px solid #053351;
+	border-top:13px solid #053351;
+/* 	border-left:10px solid #2f2f2f; */
+	border-right:10px solid transparent;
+	top:0;
+	right: -10px;
+	position: absolute;
+}
+.div_numeracion_reporte_reserva:BEFORE {
+	content: '';
+	border-bottom:13px solid transparent;
+	border-top:13px solid gray;
+	border-left:5px solid transparent;
+	top:26px;
+	left:0;
+	position: absolute;
+}
+
+.div_content_destino .z-listbox .z-listbox-item .z-listcell .z-listcell-content {
+	width: 100% !important;
+}
+
 @media only screen and (max-width: 416px)
 {
+	.estilo_nombre_paquete_reserva {
+		font-size: 14px;
+	}
 	.numeracion-desktop {
 		display: 100px !important;
+	}
+	.div_numeracion_reporte_reserva {
+		width: 26% !important;
 	}
 	.intervalo_fechas .z-datebox{
 		width: 60% !important;
