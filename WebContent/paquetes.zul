@@ -214,8 +214,8 @@
 					    					onClick="@command('Editar',paquete=each)"
 					    					zclass="btn_editar" />
 					    				<separator spacing="2px"></separator>
-					    				<button label="Activar"
-					    					zclass="btn_actualizar">
+					    				<button label="Activo"
+					    					zclass="btn_activo">
 					    				</button>
 					    			</div>
 					    		</div>
@@ -272,6 +272,11 @@
 			<template name="modeleditable">
 				<listitem>
 				    <listcell>
+				    	<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete',opcion=self.selectedItem.value)">
+							<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" checked="@bind(each.manejo_camino_inca)"/>
+							<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" checked="@bind(each.manejo_propio)"/>
+							<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" checked="@bind(each.manejo_normal)"/>
+						</radiogroup>
 				    	<div width="100%" zclass="div_list_cell">
 				    		<div zclass="div_numeracion">
 								<label value="@bind(each.cPaqueteCod)"/>
@@ -358,24 +363,17 @@
 				    							value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')" />
 				    					</div>
 				    				</div>
-				    				<div sclass="estilo_div_disponibilidad">
-				    				    <label value="Disponibilidad:" sclass="lbl_llenar_datos"></label>
-					    				<checkbox label="@bind(each.cDisponibilidad)" width="160px"></checkbox>
-				    				</div>
-				    				<div>
-					    				<label
-					    					value="Nº Noches:" zclass="lbl_llenar_datos" />
-					    				<textbox placeholder="Ingrese nro Noches" value="@bind(each.nNoches)" sclass="txt_llenar_datos"></textbox>
-				    			    </div>
-				    			    <div>
-					    				<label
-					    					value="Nº Dias:" zclass="lbl_llenar_datos" />
-					    				<textbox placeholder="Ingrese nro Dias" value="@bind(each.nDias)" sclass="txt_llenar_datos"></textbox>
-				    				</div>
-				    			</div>
-				    		</div>
-				    		<space></space>
-				    		<div zclass="div_content_datosAdicionales_paq">
+				    				<div visible="@bind(!each.manejo_camino_inca)">
+										<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDestino',opcion=self.selectedItem.value)">
+											<radio label="CON DESTINO" checked="@bind(each.conDestino)" value="con_destino"/>
+											<radio label="SIN DESTINO" checked="@bind(each.sinDestino)" value="sin_destino"/>
+										</radiogroup>
+										<div visible="@bind(each.sinDestino)">
+											<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
+											<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
+													onChange="@command('diasSinDestino',dias=self.value)"/>
+										</div>
+									</div>
 				    				<div>
 				    				  <div>
 				    				  	<label value="COSTOS ($):" sclass="lbl_llenar_datos"></label>
@@ -407,11 +405,66 @@
 				    					<textbox placeholder="Ingrese costo 5" value="@bind(each.nPrecioCinco)" sclass="txt_llenar_datos"></textbox>
 				    				  </div>
 				    				</div>
-				    		</div>
-				    		<div sclass="div_content_actualizar">
-				    			<button label="Actualizar"
+				    				<button label="Actualizar"
 				    				onClick="@command('actualizarPaquete',paquete=each)"
-				    				zclass="btn_actualizar"/>
+				    				zclass="btn_actualizar_paquete"/>
+				    			</div>
+				    		</div>
+				    		<space visible="@bind(each.conDestino)"/>
+				    		<div zclass="div_content_datos_listaPaq" visible="@bind(each.conDestino)">
+				    			<div zclass="div_contiene_title">
+									<label value="DESTINOS" zclass="title_contiene_paquete"/>
+								</div>
+				    			<listbox model="@load(each.listaDestinos)" sclass="dest_serv_list">
+				    				<listhead>
+				    					<listheader></listheader>
+				    				</listhead>
+				    				<template name="model" var="destino">
+				    					<listitem>
+				    						<listcell>
+				    							<checkbox label="@load(destino.cDestino)" checked="@load(destino.seleccionado)" width="100%" sclass="select_dest_serv" onClick="@command('selectDestinos',dest=destino)"/>
+												<div visible="@load(destino.seleccionado)">
+													<hbox>
+														<label value="N° Noches: " zclass="lbl_nro_noches_Destino"/>
+													<intbox value="@load(destino.nNoches)" zclass="int_nroNoches_Destino"
+															onChange="@command('determinarNroNochesDestino',dest=destino)" 
+															width="30px"/>
+													<space/>
+													<label value="N° Orden Itinerario: " zclass="lbl_nro_noches_Destino"/>
+													<label value="@load(destino.nOrdenItinerario)" zclass="lbl_orden_itinerario"/>
+													</hbox>
+													<div visible="@load(destino.puedeCaminoInka)">
+														<radiogroup sclass="style_restricciones_conCaminoInka" onCheck="@command('manejo_propio_CaminoInka',opcion=self.selectedItem.value,dest=destino)">
+															<radio label="CON CAMINO INCA" checked="@load(destino.conCaminoInka)" value="con_camino_inka"/>
+															<radio label="SIN CAMINO INCA" checked="@load(destino.sinCaminoInka)" value="sin_camino_inka"/>
+														</radiogroup>
+													</div>
+													<separator bar="true"/>
+												</div>
+				    						</listcell>
+				    					</listitem>
+				    				</template>
+				    			</listbox>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_datos_listaPaq">
+				    			<div zclass="div_contiene_title">
+									<label value="SERVICIOS" zclass="title_contiene_paquete"/>
+								</div>
+				    			<listbox model="@load(each.listaServicios)" sclass="dest_serv_list">
+				    				<listhead>
+				    					<listheader></listheader>
+				    				</listhead>
+				    				<template name="model" var="servicio">
+				    					<listitem>
+				    						<listcell>
+				    							<div zclass="div_list_content_destino_servicio" width="100%">
+													<checkbox label="@load(servicio.cServicioIndioma1)" checked="@load(servicio.seleccionado)" width="100%" sclass="select_dest_serv" onClick="@command('selectServicios',serv=servicio)"/>
+												</div>
+				    						</listcell>
+				    					</listitem>
+				    				</template>
+				    			</listbox>
 				    		</div>
 				    	</div>
 				    </listcell>

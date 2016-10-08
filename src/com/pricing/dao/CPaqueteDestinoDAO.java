@@ -48,7 +48,9 @@ public class CPaqueteDestinoDAO extends CConexion
 		{
 			Map row=(Map)lista.get(i);
 			listaPaqueteDestinos.add(new CPaqueteDestino((int)row.get("codpaquetedestino"), 
-					(String)row.get("cpaquetecod"),(int)row.get("ndestinocod")));
+					(String)row.get("cpaquetecod"),(int)row.get("ndestinocod"),
+					(int)row.get("nnoches"),(int)row.get("nordenitinerario"),
+					(boolean)row.get("bconcaminoinka")));
 		}
 	}
 }
