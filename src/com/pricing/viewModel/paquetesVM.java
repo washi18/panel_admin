@@ -392,7 +392,7 @@ public class paquetesVM
 		{
 			oPaquete.setManejoPropio_conCaminoInka(true);
 			oPaquete.setnNoches(oPaquete.getnNoches()+4);
-			oPaquete.setnDias(oPaquete.getnNoches());
+			oPaquete.setnDias(oPaquete.getnNoches()+1);
 			destino.setConCaminoInka(true);
 			destino.setSinCaminoInka(false);
 			for(CDestino dest:listaDestinos)
@@ -524,7 +524,6 @@ public class paquetesVM
 					oPaquete.setnDias(oPaquete.getnNoches());
 				else
 					oPaquete.setnDias(0);
-				System.out.println("Llegue hasta aqui 1");
 			}else
 			{
 				oPaquete.setnNoches(oPaquete.getnNoches()-destino.getnNoches());
@@ -532,12 +531,10 @@ public class paquetesVM
 					oPaquete.setnDias(oPaquete.getnNoches()+1);
 				else
 					oPaquete.setnDias(0);
-				System.out.println("Llegue hasta aqui 2");
 			}
 			if(oPaquete.isManejoPropio_conCaminoInka() && destino.getnCodPostal()==84 &&
 					destino.isConCaminoInka())
 			{
-				System.out.println("No entre aqui");
 				oPaquete.setnNoches(oPaquete.getnNoches()-4);
 				if(oPaquete.getnNoches()!=0)
 					oPaquete.setnDias(oPaquete.getnNoches()+1);
@@ -597,7 +594,7 @@ public class paquetesVM
 		if(oPaquete.isManejo_propio() && oPaquete.isManejoPropio_conCaminoInka())
 		{
 			oPaquete.setnNoches(oPaquete.getnNoches()+4);
-			oPaquete.setnDias(oPaquete.getnNoches());
+			oPaquete.setnDias(oPaquete.getnNoches()+1);
 		}
 		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
@@ -676,7 +673,7 @@ public class paquetesVM
 				if(oPaquete.isManejoPropio_conCaminoInka())
 				{
 					oPaquete.setnNoches(oPaquete.getnNoches()+4);
-					oPaquete.setnDias(oPaquete.getnNoches());
+					oPaquete.setnDias(oPaquete.getnNoches()+1);
 				}
 			}else if(oPaquete.isManejo_normal())
 			{
@@ -715,7 +712,7 @@ public class paquetesVM
 			if(oPaquete.isManejo_propio() && oPaquete.isManejoPropio_conCaminoInka())
 			{
 				oPaquete.setnNoches(oPaquete.getnNoches()+4);
-				oPaquete.setnDias(oPaquete.getnNoches());
+				oPaquete.setnDias(oPaquete.getnNoches()+1);
 			}
 
 		}
