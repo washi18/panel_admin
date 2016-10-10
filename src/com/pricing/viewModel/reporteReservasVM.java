@@ -306,6 +306,7 @@ public class reporteReservasVM {
 					contador++;
 					factorIncremento++;
 				}
+				Number totalPrecio=listaReporteReserva.get(i).getNroPersonas()*listaReporteReserva.get(i).getPrecioPersona().doubleValue();
 				reporteReserva=new CReporteReservaMuestra();
 				reporteReserva.setCodReserva(listaReporteReserva.get(i).getCodReserva());
 				reporteReserva.setFechaInicio(listaReporteReserva.get(i).getFechaInicio());
@@ -323,6 +324,7 @@ public class reporteReservasVM {
 				reporteReserva.setServicios(listaServicios);
 				reporteReserva.setSubServicios(listasubServicios);
 				reporteReserva.setEstado(listaReporteReserva.get(i).getEstado());
+				reporteReserva.setPrecioTotal(totalPrecio);
 				System.out.println("aqui esta el tamanio de listahotel "+listaHoteles.size());
 				listanuevaReporteReserva.add(reporteReserva);
 			}

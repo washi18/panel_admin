@@ -220,19 +220,6 @@ $$
 	select * from treserva;
 $$
 LANGUAGE SQL;
- /*+++++++++++++++++++++++++++++++++++++++++++++++++
-Nombre		:Pricing_sp_BuscarReservas
-+++++++++++++++++++++++++++++++++++++++++++++++++*/ 
-CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
-fechaInicio Date,
-fechaFin Date,
-estadoPago varchar(20)
-)
-  RETURNS SETOF treserva AS
-$$
-	select * from treserva where dfechainicio=$1 and dfechafin=$2 and cestado=$3;
-$$
-  LANGUAGE sql;
 /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_BsucarReservasEntreFechasBD
 +++++++++++++++++++++++++++++++++++++++++++++++++*/ 
@@ -266,5 +253,37 @@ $$
 			order by r.creservacod;
 $$
   LANGUAGE sql;
+ /*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_BuscarPagosEntreFechasBD
++++++++++++++++++++++++++++++++++++++++++++++++++*/
+ create or replace function Pricing_sp_BuscarPagosEntreFechasBD
+(
+	fechaInicio varchar(12),
+	fechaFin varchar(12),
+	estadoPago varchar(10)
+)
+RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,npreciopaquetepersona numeric,nnropersonas int,ctituloidioma1 varchar(200),nimporte numeric,nporcentaje numeric,
+formapago varchar(20),estado varchar(10),fechayhora_initx timestamp ,nro_tarjeta varchar(20),cod_autorizacion varchar(6)
+,codtransaccion varchar(20),telefonopagador varchar(50),pais varchar(3),direccion varchar(50),emailpagador varchar(100),nom_th varchar(100),capellidos varchar(100),
+cnombres varchar(100),csexo char(1),nedad int,cabrevtipodoc varchar(20),cnombreesp varchar(60)) AS
+$$
+	select p.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,p.nimporte,p.nporcentaje,p.formapago,p.estado,p.fechayhora_initx,p.nro_tarjeta,
+		p.cod_autorizacion,p.codtransaccion,p.telefonopagador,p.pais,p.direccion,p.emailPagador,p.nom_th,pa.capellidos,pa.cnombres,
+		pa.csexo,pa.nedad,tp.cabrevtipodoc,pais.cnombreesp
+			from tpagosonline as p 
+			left join treserva as r on(p.creservacod=r.creservacod) 
+			left join tpasajero as pa on(p.creservacod=pa.creservacod)
+			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod)
+			left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
+			left join tpaquete as paq on(ps.cpaquetecod=paq.cpaquetecod)
+			left join ttipodocumento as tp on(pa.ntipodoc=tp.ntipodoc)
+			left join tpais as pais on(pa.npaiscod=pais.npaiscod)
+			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado=$3
+			group by p.creservacod,r.dfechainicio,r.dfechafin,r.npreciopaquetepersona,r.nnropersonas,r.dfecha,paq.ctituloidioma1,p.nimporte,p.nporcentaje,p.formapago,p.estado,p.fechayhora_initx,p.nro_tarjeta,
+				p.cod_autorizacion,p.codtransaccion,p.telefonopagador,p.pais,p.direccion,p.emailPagador,p.nom_th,pa.capellidos,pa.cnombres,
+				pa.csexo,pa.nedad,tp.cabrevtipodoc,pais.cnombreesp
+			order by p.creservacod;
+$$
+  LANGUAGE sql;
 
-select creservacod  from treserva where (dfecha between '2016-07-14' and '2016-08-14') and cestado='PENDIENTE DE PAGO';
+

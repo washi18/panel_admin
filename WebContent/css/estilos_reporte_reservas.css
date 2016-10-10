@@ -152,10 +152,35 @@
 .numeracion-desktop {
 	width: 10%;
 }
+.estilo_columnas_precios_etiqueta{
+	text-align: left;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	flex-direction: column;
+}
+.estilo_columnas_precios{
+	text-align: right;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	flex-direction: column;
+}
+
+.estilo_monto_persona {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	}
 
 .estilo_monto_persona .z-label {
-	font-style: italic;
-	font-weight: bold; 
+	font-style: italic; 
 	font-size: 15px;
 }
 .estilo_nombre_paquete_reserva {

@@ -21,6 +21,7 @@ public class CReporteReservaMuestra {
 	private ArrayList<CServicio> servicios;
 	private ArrayList<CSubServicio> subServicios;
 	private String estado;
+	private Number PrecioTotal;
 	//==============getter and setter========
 	public String getCodReserva() {
 		return CodReserva;
@@ -119,6 +120,13 @@ public class CReporteReservaMuestra {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	
+	public Number getPrecioTotal() {
+		return PrecioTotal;
+	}
+	public void setPrecioTotal(Number precioTotal) {
+		PrecioTotal = precioTotal;
+	}
 	//==============constructores====
 	public CReporteReservaMuestra()
 	{
@@ -129,7 +137,7 @@ public class CReporteReservaMuestra {
 			String telefono, int nroPersonas, Number precioPersona,
 			String nombrePaquete, String categoria, ArrayList<CDestino> destinos,
 			ArrayList<CHotel> hoteles, ArrayList<CServicio> servicios,
-			ArrayList<CSubServicio> subServicios, String estado) {
+			ArrayList<CSubServicio> subServicios, String estado,Number precioTotal) {
 		super();
 		this.CodReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -147,6 +155,7 @@ public class CReporteReservaMuestra {
 		this.servicios = servicios;
 		this.subServicios = subServicios;
 		this.estado = estado;
+		this.PrecioTotal=precioTotal;
 	}
 	
 }

@@ -61,5 +61,25 @@ public class reportePagosVM {
 			estadoPagosAutorizados=false;
 		}
 	}
+	public String cambiarFormatoMes(String mes)
+	{
+		String nuevo="";
+		switch(mes)
+		{
+			case "ene":nuevo="01";break;
+			case "feb":nuevo="02";break;
+			case "mar":nuevo="03";break;
+			case "abr":nuevo="04";break;
+			case "may":nuevo="05";break;
+			case "jun":nuevo="06";break;
+			case "jul":nuevo="07";break;
+			case "ago":nuevo="08";break;
+			case "sep":nuevo="09";break;
+			case "oct":nuevo="10";break;
+			case "nov":nuevo="11";break;
+			case "dic":nuevo="12";break;
+		}
+		return nuevo;
+	}
 	
 }
