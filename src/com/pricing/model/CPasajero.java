@@ -178,5 +178,13 @@ public class CPasajero
 		this.esEdit = esEdit;
 		this.cUrlDocumento = cUrlDocumento;
 	}
-	
+	public CPasajero(String tipoDocumento,
+			String cApellidos, String cNombres,
+			String nombrePais, int nEdad){
+		this.TipoDocumento=tipoDocumento;
+		this.cApellidos=cApellidos;
+		this.cNombres=cNombres;
+		this.nombrePais=nombrePais;
+		this.nEdad=nEdad;
+	}
 }

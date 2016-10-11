@@ -16,12 +16,7 @@ public class CReportePagos {
 	private String formaPago;
 	private String estado;
 	private Date fechayhoraTransaccion;
-	private String cod_autorizacion;
 	private String codTransaccion;
-	private String telefonoPagador;
-	private String pais;
-	private String direccion;
-	private String emailPagador;
 	private String nombreCliente;
 	private String apellidos;
 	private String nombres;
@@ -105,41 +100,11 @@ public class CReportePagos {
 	public void setFechayhoraTransaccion(Date fechayhoraTransaccion) {
 		this.fechayhoraTransaccion = fechayhoraTransaccion;
 	}
-	public String getCod_autorizacion() {
-		return cod_autorizacion;
-	}
-	public void setCod_autorizacion(String cod_autorizacion) {
-		this.cod_autorizacion = cod_autorizacion;
-	}
 	public String getCodTransaccion() {
 		return codTransaccion;
 	}
 	public void setCodTransaccion(String codTransaccion) {
 		this.codTransaccion = codTransaccion;
-	}
-	public String getTelefonoPagador() {
-		return telefonoPagador;
-	}
-	public void setTelefonoPagador(String telefonoPagador) {
-		this.telefonoPagador = telefonoPagador;
-	}
-	public String getPais() {
-		return pais;
-	}
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-	public String getDireccion() {
-		return direccion;
-	}
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-	public String getEmailPagador() {
-		return emailPagador;
-	}
-	public void setEmailPagador(String emailPagador) {
-		this.emailPagador = emailPagador;
 	}
 	public String getNombreCliente() {
 		return nombreCliente;
@@ -200,12 +165,7 @@ public class CReportePagos {
 		this.porcentaje =0;
 		this.formaPago = "";
 		this.estado = "";
-		this.cod_autorizacion = "";
 		this.codTransaccion = "";
-		this.telefonoPagador = "";
-		this.pais = "";
-		this.direccion = "";
-		this.emailPagador = "";
 		this.nombreCliente = "";
 		this.apellidos = "";
 		this.nombres = "";
@@ -218,9 +178,8 @@ public class CReportePagos {
 	public CReportePagos(String codReserva, Date fechaInicio,
 			Date fechaFin, Date fecha, String nombrePaquete, int nroPersonas,
 			Number importe, Number porcentaje, String formaPago, String estado,
-			Date fechayhoraTransaccion, String cod_autorizacion,
-			String codTransaccion, String telefonoPagador, String pais,
-			String direccion, String emailPagador, String nombreCliente,
+			Date fechayhoraTransaccion,
+			String codTransaccion, String nombreCliente,
 			String apellidos, String nombres, char sexo, int edad,
 			String tipoDocumento, String nombrePais, String nroTarjeta) {
 		super();
@@ -235,12 +194,7 @@ public class CReportePagos {
 		this.formaPago = formaPago;
 		this.estado = estado;
 		this.fechayhoraTransaccion = fechayhoraTransaccion;
-		this.cod_autorizacion = cod_autorizacion;
 		this.codTransaccion = codTransaccion;
-		this.telefonoPagador = telefonoPagador;
-		this.pais = pais;
-		this.direccion = direccion;
-		this.emailPagador = emailPagador;
 		this.nombreCliente = nombreCliente;
 		this.apellidos = apellidos;
 		this.nombres = nombres;

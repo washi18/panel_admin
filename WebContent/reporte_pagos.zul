@@ -24,7 +24,7 @@
 			<space></space>
 			<button label="Buscar" zclass="btn_editar" width="8%" onClick="@command('Buscar_Pagos',componente=self)"></button>	
 		</div>
-<!-- 		<listbox sclass="listados" model="@load(vmReserva.listanuevaReporteReserva)" mold="paging" pageSize="5" pagingPosition="both"> 
+	<listbox sclass="listados" model="@load(vmPagos.listanuevaReportePagos)" mold="paging" pageSize="5" pagingPosition="both"> 
 			<listhead>
 				<listheader/>
 			</listhead>
@@ -43,13 +43,13 @@
 					    		<div zclass="estilo_fechas">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="15px" style="font-size: 15px; color: black; font-weight: bold;"
-					    					value="@load(each.nombreContacto)" />
+					    					value="@load(each.nombreCliente)" />
 					    				<div sclass="descripcion_costado">
 					    				<label width="100%" height="auto"
-					    					value="@load(each.email)" sclass="estilo_desborde_descripcion"/>
+					    					value="@load(each.edad)" sclass="estilo_desborde_descripcion"/>
 					    				</div>
 					    				<label width="100%" height="auto"
-					    					value="@load(each.telefono)" style="font-size: 13px; color: black; font-weight: bold;"/>
+					    					value="@load(each.estado)" style="font-size: 13px; color: black; font-weight: bold;"/>
 					    			</div>
 					    			<div style="display:flex; align-items: center;">
 						    			<div width="auto">
@@ -65,23 +65,20 @@
 					    			<div width="auto">
 					    				<label height="100%" value="@load(each.fecha)"/>
 					    			</div>
-					    			<div>
-					    				<label value="@load(each.categoria)" style="font-size: 13px; color: black; font-weight: bold;"></label>
-					    			</div>
 					    		</div>
 					    		<div sclass="div_destinos">
 					    			<div width="100%" sclass="div_content_destino">
-					    				<listbox style="border: none;" model="@load(each.destinos)"> 
+					    				<listbox style="border: none;" model="@load(each.listaPasajeros)"> 
 					    					<listhead> 
-					    						<listheader label="Destinos">
+					    						<listheader label="pasajeros">
 					    						</listheader>
 					    					</listhead>
-					    					<template name="model" var="destino">
+					    					<template name="model" var="pasajero">
 					    					<listitem>
 					    						<listcell>
 					    							<div style="display:flex; align-items: center;" width="100%">
 					    								<label value="*"></label>
-					    								<label value="@load(destino.cDestino)"></label>
+					    								<label value="@load(pasajero.cNombres)"></label>
 					    							</div>
 					    						</listcell>
 					    					</listitem>
@@ -89,49 +86,6 @@
 					    				</listbox>
 					    			</div>
 					    		</div>
-					    		<space></space>
-					    		<div zclass="div_content_info_listRepReserva">
-					    			<div width="100%" sclass="div_content_destino">
-					    				<listbox style="border: none;" model="@load(each.hoteles)"> 
-					    					<listhead>
-					    						<listheader label="Hoteles">
-					    						</listheader>
-					    					</listhead>
-					    					<template name="model" var="hoteles">
-					    					<listitem>
-					    						<listcell>
-					    							<div style="display:flex; align-items: center;"  width="100%">
-					    								<label value="*"></label>
-					    								<label value="@load(hoteles.cHotel)"></label>
-					    							</div>
-					    						</listcell>
-					    					</listitem>
-					    					</template>
-					    				</listbox>
-					    			</div>
-					    		</div>
-					    		<space></space>
-					    		<div sclass="div_paquete">
-					    			<div width="100%" sclass="div_content_destino">
-					    				<listbox style="border: none;" model="@load(each.servicios)"> 
-					    					<listhead>
-					    						<listheader label="Servicios">
-					    						</listheader>
-					    					</listhead>
-					    					<template name="model" var="servicio">
-					    					<listitem>
-					    						<listcell>
-					    							<div style="display:flex; align-items: center;" width="100%">
-					    								<label value="*"></label>
-					    								<label value="@load(servicio.cServicioIndioma1)"></label>
-					    							</div>
-					    						</listcell>
-					    					</listitem>
-					    					</template>
-					    				</listbox>
-					    			</div>
-					    		</div>
-					    		<space></space>
 					    		<div sclass="estilo_contenedor_estadoPago">
 					    		    <div>
 					    				<label value="@load(each.estado)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
@@ -150,6 +104,6 @@
 				    </listcell>
 				</listitem>
 			</template>
-		</listbox> -->
+		</listbox>
 	</div>
 </zk>
