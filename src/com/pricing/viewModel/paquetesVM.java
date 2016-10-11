@@ -41,10 +41,6 @@ public class paquetesVM
 	private CServicioDAO servicioDao;
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CServicio> listaServicios;
-	private int nroDestinosSelect;
-	private int ordenDesSelect;
-	private boolean conDestino;
-	private boolean sinDestino;
 	/**
 	 * GETTER AND SETTER
 	 */
@@ -120,22 +116,6 @@ public class paquetesVM
 		this.select_manejo = select_manejo;
 	}
 
-	public boolean isConDestino() {
-		return conDestino;
-	}
-
-	public void setConDestino(boolean conDestino) {
-		this.conDestino = conDestino;
-	}
-
-	public boolean isSinDestino() {
-		return sinDestino;
-	}
-
-	public void setSinDestino(boolean sinDestino) {
-		this.sinDestino = sinDestino;
-	}
-
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
 	 */
@@ -147,11 +127,7 @@ public class paquetesVM
 		simbolos.setDecimalSeparator('.');
 		df=new DecimalFormat("########0.00",simbolos);
 		/*******************************/
-		nroDestinosSelect=0;
-		ordenDesSelect=0;
 		select_manejo=false;
-		conDestino=false;
-		sinDestino=true;
 		/**Inicializando los objetos**/
 		oPaquete=new CPaquete();
 		servicioDao=new CServicioDAO();
@@ -178,6 +154,13 @@ public class paquetesVM
 		if(!validoParaInsertar(comp))
 			return;
 //		System.out.println("hay "+nroDestinosSelect+" destinos");
+		if(oPaquete.isSinDescuento())
+		{
+			oPaquete.setnPrecioDos(oPaquete.getnPrecioUno().doubleValue());
+			oPaquete.setnPrecioTres(oPaquete.getnPrecioUno().doubleValue());
+			oPaquete.setnPrecioCuatro(oPaquete.getnPrecioUno().doubleValue());
+			oPaquete.setnPrecioCinco(oPaquete.getnPrecioUno().doubleValue());
+		}
 		if(oPaquete.isManejo_camino_inca())
 		{
 			oPaquete.setcTituloIdioma1(oPaquete.getTitulo());
@@ -202,7 +185,7 @@ public class paquetesVM
 			oPaquete.setcTituloIdioma4("");
 			oPaquete.setcTituloIdioma5("");
 			oPaquete.setcDisponibilidad("MANEJO_PROPIO");
-			if(conDestino)
+			if(oPaquete.isConDestino())
 			{
 				if(oPaquete.isManejoPropio_conCaminoInka())
 				{
@@ -210,7 +193,7 @@ public class paquetesVM
 					int iter=1;
 					int nroNoches=0;
 					boolean seEncontroCaminoInka=false;
-					while(iter<=nroDestinosSelect)
+					while(iter<=oPaquete.getNroDestinosSelect())
 					{
 						for(CDestino dest:listaDestinos)
 						{
@@ -280,11 +263,6 @@ public class paquetesVM
 		Clients.showNotification("El paquete se inserto correctamente", Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 		/**Inicializando los objetos**/
 		oPaquete=new CPaquete();
-		/**Inicializando los estados nuevamente**/
-		conDestino=false;
-		sinDestino=true;
-		nroDestinosSelect=0;
-		ordenDesSelect=0;
 		/**Obtencion de los paquetes existente desde la base de datos**/
 		paqueteDao.asignarListaPaquetes(paqueteDao.recuperarPaquetesBD());
 		setListaPaquetes(paqueteDao.getListaPaquetes());
@@ -308,14 +286,22 @@ public class paquetesVM
 			{
 				valido=false;
 				Clients.showNotification("El paquete debe de tener un numero de dias", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-			}else if(oPaquete.getnPrecioUno().doubleValue()==0 ||
-					oPaquete.getnPrecioDos().doubleValue()==0 ||
-					oPaquete.getnPrecioTres().doubleValue()==0 ||
-					oPaquete.getnPrecioCuatro().doubleValue()==0 ||
-					oPaquete.getnPrecioCinco().doubleValue()==0)
-			{
-				valido=false;
-				Clients.showNotification("Ningun precio del paquete puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+			}else{
+				if(oPaquete.isConDescuento())
+				{
+					if(oPaquete.getnPrecioUno().doubleValue()==0 ||
+							oPaquete.getnPrecioDos().doubleValue()==0 ||
+							oPaquete.getnPrecioTres().doubleValue()==0 ||
+							oPaquete.getnPrecioCuatro().doubleValue()==0 ||
+							oPaquete.getnPrecioCinco().doubleValue()==0)
+					{
+						valido=false;
+						Clients.showNotification("Ningun precio del paquete puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+					}
+				}else if(oPaquete.getnPrecioUno().doubleValue()==0){
+					valido=false;
+					Clients.showNotification("El precio del paquete no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+				}
 			}
 		}else
 		{
@@ -323,28 +309,40 @@ public class paquetesVM
 			{
 				valido=false;
 				Clients.showNotification("El paquete debe de tener un nombre", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-			}else if(oPaquete.getnPrecioUno().doubleValue()==0 ||
-					oPaquete.getnPrecioDos().doubleValue()==0 ||
-					oPaquete.getnPrecioTres().doubleValue()==0 ||
-					oPaquete.getnPrecioCuatro().doubleValue()==0 ||
-					oPaquete.getnPrecioCinco().doubleValue()==0)
-			{
-				valido=false;
-				Clients.showNotification("Ningun precio del paquete puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-			}else if(oPaquete.getnNoches()==0){
-				valido=false;
-				Clients.showNotification("El paquete debe tener un numero de dias y noches", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-			}else
-			{
-				if(conDestino)
+			}else{
+				if(oPaquete.isConDescuento())
 				{
-					for(CDestino destino:listaDestinos)
+					if(oPaquete.getnPrecioUno().doubleValue()==0 ||
+							oPaquete.getnPrecioDos().doubleValue()==0 ||
+							oPaquete.getnPrecioTres().doubleValue()==0 ||
+							oPaquete.getnPrecioCuatro().doubleValue()==0 ||
+							oPaquete.getnPrecioCinco().doubleValue()==0)
 					{
-						if(destino.isSeleccionado() && destino.getnNoches()==0)
+						valido=false;
+						Clients.showNotification("Ningun precio del paquete puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+					}
+				}else if(oPaquete.getnPrecioUno().doubleValue()==0){
+					valido=false;
+					Clients.showNotification("El precio del paquete no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+				}
+			}
+			if(valido)
+			{
+				if(oPaquete.getnNoches()==0){
+					valido=false;
+					Clients.showNotification("El paquete debe tener un numero de dias y noches", Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+				}else
+				{
+					if(oPaquete.isConDestino())
+					{
+						for(CDestino destino:listaDestinos)
 						{
-							valido=false;
-							Clients.showNotification("Debe especificar Cuantas noches se quedará en "+destino.getcDestino(), Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
-							break;
+							if(destino.isSeleccionado() && destino.getnNoches()==0)
+							{
+								valido=false;
+								Clients.showNotification("Debe especificar Cuantas noches se quedará en "+destino.getcDestino(), Clients.NOTIFICATION_TYPE_ERROR, comp, "before_start", 2700);
+								break;
+							}
 						}
 					}
 				}
@@ -511,7 +509,7 @@ public class paquetesVM
 		 }
 	}
 	@Command
-	@NotifyChange({"oDestino","oPaquete"})
+	@NotifyChange({"oPaquete"})
 	public void selectDestinos(@BindingParam("destino")CDestino destino)
 	{
 		if(destino.isSeleccionado())
@@ -554,7 +552,25 @@ public class paquetesVM
 			}
 			oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 			destino.setnNoches(0);
-			ordenDesSelect=destino.getnOrdenItinerario();//recupero el orden des seleccionado
+			//Recupero el orden de itinerario des seleccionado
+			oPaquete.setOrdenDesSelect(destino.getnOrdenItinerario());
+			//Disminuyo el numero de destinos seleccionados
+			oPaquete.setNroDestinosSelect(oPaquete.getNroDestinosSelect()-1);
+			//Actualizo los itinerarios
+			while(oPaquete.getOrdenDesSelect()<=oPaquete.getNroDestinosSelect())
+			{
+				for(CDestino dest:listaDestinos)
+				{
+					if((oPaquete.getOrdenDesSelect()+1)==dest.getnOrdenItinerario())
+					{
+						dest.setnOrdenItinerario(oPaquete.getOrdenDesSelect());
+						BindUtils.postNotifyChange(null, null, dest, "nOrdenItinerario");
+						break;
+					}
+				}
+				oPaquete.setOrdenDesSelect(oPaquete.getOrdenDesSelect()+1);
+			}
+			oPaquete.setOrdenDesSelect(0);
 			destino.setnOrdenItinerario(0);
 			destino.setPuedeCaminoInka(false);
 		}
@@ -563,12 +579,8 @@ public class paquetesVM
 			destino.setSeleccionado(true);
 			if(oPaquete.isManejo_propio() && !oPaquete.isManejoPropio_conCaminoInka())
 				destino.asignaPuedeCaminoInka(destino);
-			if(ordenDesSelect!=0)
-			{
-				destino.setnOrdenItinerario(ordenDesSelect);
-				ordenDesSelect=0;
-			}else
-				destino.setnOrdenItinerario(++nroDestinosSelect);
+			oPaquete.setNroDestinosSelect(oPaquete.getNroDestinosSelect()+1);
+			destino.setnOrdenItinerario(oPaquete.getNroDestinosSelect());
 		}
 		BindUtils.postNotifyChange(null, null, destino, "seleccionado");
 		BindUtils.postNotifyChange(null, null, destino, "puedeCaminoInka");
@@ -622,7 +634,7 @@ public class paquetesVM
 			oPaquete.setManejo_camino_inca(false);
 			oPaquete.setManejo_propio(true);
 			oPaquete.setManejo_normal(false);
-			if(nroDestinosSelect>0)
+			if(oPaquete.getNroDestinosSelect()>0)
 				for(CDestino dest:listaDestinos)
 				{
 					if(oPaquete.isManejoPropio_conCaminoInka())
@@ -642,7 +654,7 @@ public class paquetesVM
 			oPaquete.setManejo_camino_inca(false);
 			oPaquete.setManejo_propio(false);
 			oPaquete.setManejo_normal(true);
-			if(nroDestinosSelect>0)
+			if(oPaquete.getNroDestinosSelect()>0)
 				for(CDestino dest:listaDestinos)
 				{
 					if(dest.isSeleccionado() && dest.getnCodPostal()==84)
@@ -658,7 +670,7 @@ public class paquetesVM
 	{
 		oPaquete.setnDias(0);
 		oPaquete.setnNoches(0);
-		if(conDestino)
+		if(oPaquete.isConDestino())
 		{
 			if(oPaquete.isManejo_propio())
 			{
@@ -690,17 +702,19 @@ public class paquetesVM
 		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
-	@NotifyChange({"oPaquete","sinDestino","conDestino"})
+	@NotifyChange({"oPaquete"})
 	public void select_paquete_conDestino(@BindingParam("opcion")String opcion)
 	{
 		oPaquete.setnNoches(0);
 		oPaquete.setnDias(0);
 		if(opcion.equals("sin_destino"))
 		{
-			sinDestino=true;conDestino=false;
+			oPaquete.setConDestino(false);
+			oPaquete.setSinDestino(true);
 		}else
 		{
-			sinDestino=false;conDestino=true;
+			oPaquete.setConDestino(true);
+			oPaquete.setSinDestino(false);
 			for(CDestino destino:listaDestinos)
 			{
 				if(destino.isSeleccionado())
@@ -717,6 +731,20 @@ public class paquetesVM
 
 		}
 		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+	}
+	@Command
+	public void select_paquete_conDescuento(@BindingParam("opcion")String opcion)
+	{
+		if(opcion.equals("sin_descuento"))
+		{
+			oPaquete.setConDescuento(false);
+			oPaquete.setSinDescuento(true);
+		}
+		else
+		{
+			oPaquete.setConDescuento(true);
+			oPaquete.setSinDescuento(false);
+		}
 	}
 	@Command
 	@NotifyChange({"oPaquete"})

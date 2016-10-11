@@ -51,6 +51,8 @@ public class CPaquete
 	private boolean manejoPropio_conCaminoInka;
 	private boolean conDestino;
 	private boolean sinDestino;
+	private boolean conDescuento;
+	private boolean sinDescuento;
 	private int nroDestinosSelect;
 	private int ordenDesSelect;
 	private boolean editable;
@@ -330,6 +332,18 @@ public class CPaquete
 	public void setDestinoDao(CDestinoDAO destinoDao) {
 		this.destinoDao = destinoDao;
 	}
+	public boolean isConDescuento() {
+		return conDescuento;
+	}
+	public void setConDescuento(boolean conDescuento) {
+		this.conDescuento = conDescuento;
+	}
+	public boolean isSinDescuento() {
+		return sinDescuento;
+	}
+	public void setSinDescuento(boolean sinDescuento) {
+		this.sinDescuento = sinDescuento;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -359,6 +373,8 @@ public class CPaquete
 		manejoPropio_conCaminoInka=false;
 		conDestino=false;
 		sinDestino=true;
+		conDescuento=false;
+		sinDescuento=true;
 		nroDestinosSelect=0;
 		ordenDesSelect=0;
 	}

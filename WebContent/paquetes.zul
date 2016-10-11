@@ -65,10 +65,10 @@
 						</div>
 						<div id="div_conDestino" visible="false">
 							<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDestino',opcion=self.selectedItem.value)">
-								<radio label="CON DESTINO" checked="@bind(vmPaquete.conDestino)" value="con_destino" onCheck="div_select_destinos.setVisible(true);div_select_sindestinos.setVisible(false)"/>
-								<radio label="SIN DESTINO" checked="@bind(vmPaquete.sinDestino)" value="sin_destino" onCheck="div_select_destinos.setVisible(false);div_select_sindestinos.setVisible(true)"/>
+								<radio label="CON DESTINO" checked="@bind(vmPaquete.oPaquete.conDestino)" value="con_destino" onCheck="div_select_destinos.setVisible(true);div_select_sindestinos.setVisible(false)"/>
+								<radio label="SIN DESTINO" checked="@bind(vmPaquete.oPaquete.sinDestino)" value="sin_destino" onCheck="div_select_destinos.setVisible(false);div_select_sindestinos.setVisible(true)"/>
 							</radiogroup>
-							<div id="div_select_sindestinos" visible="false">
+							<div id="div_select_sindestinos" visible="true">
 								<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
 								<intbox value="@bind(vmPaquete.oPaquete.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
 										onChange="@command('diasSinDestino',dias=self.value)"/>
@@ -76,38 +76,56 @@
 						</div>
 						<div>
 							<separator bar="true"/>
-							<label value="COSTO 1($): " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmPaquete.oPaquete.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-									 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
-							<space></space>
-						</div>
-						<div>
-							<separator bar="true"/>
-							<label value="COSTO 2($): " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmPaquete.oPaquete.nPrecio2_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-									 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio2',componente=self)"/>
-							<space></space>
-						</div>
-						<div>
-							<separator bar="true"/>
-							<label value="COSTO 3($): " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmPaquete.oPaquete.nPrecio3_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-									 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio3',componente=self)"/>
-							<space></space>
-						</div>
-						<div>
-							<separator bar="true"/>
-							<label value="COSTO 4($): " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmPaquete.oPaquete.nPrecio4_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-									 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio4',componente=self)"/>
-							<space></space>
-						</div>
-						<div>
-							<separator bar="true"/>
-							<label value="COSTO 5($): " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmPaquete.oPaquete.nPrecio5_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-									 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio5',componente=self)"/>
-							<space></space>
+							<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento',opcion=self.selectedItem.value)">
+								<radio label="CON DESCUENTO" checked="@bind(vmPaquete.oPaquete.conDescuento)" value="con_descuento" onCheck="div_conDescuento.setVisible(true);div_sinDescuento.setVisible(false)"/>
+								<radio label="SIN DESCUENTO" checked="@bind(vmPaquete.oPaquete.sinDescuento)" value="sin_descuento" onCheck="div_conDescuento.setVisible(false);div_sinDescuento.setVisible(true)"/>
+							</radiogroup>
+							<div id="div_sinDescuento" visible="true">
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
+									<space></space>
+								</div>
+							</div>
+							<div id="div_conDescuento" visible="false">
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 1($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
+									<space></space>
+								</div>
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 2($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio2_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio2',componente=self)"/>
+									<space></space>
+								</div>
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 3($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio3_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio3',componente=self)"/>
+									<space></space>
+								</div>
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 4($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio4_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio4',componente=self)"/>
+									<space></space>
+								</div>
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 5($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio5_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio5',componente=self)"/>
+									<space></space>
+								</div>
+							</div>
 						</div>
 						<button label="Guardar" zclass="btn_guardar" onClick="@command('insertarPaquete',componente=self)"/>
 					</div>
