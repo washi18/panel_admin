@@ -26,24 +26,32 @@ public class CReportePagosDAO  extends CConexion{
 		this.reportePagos = reportePagos;
 	}
 	//=====================constructores==========
+	
 	public CReportePagosDAO()
 	{
 		super();
+		this.listaReportePagos = new ArrayList<CReportePagos>();
+	}
+	public CReportePagosDAO(ArrayList<CReportePagos> listaReportePagos,
+			CReportePagos reportePagos) {
+		super();
+		this.listaReportePagos = listaReportePagos;
+		this.reportePagos = reportePagos;
 	}
 	//====================metodos====================
 	public List recuperarPagosVisaBD(String fechaInicio,String fechaFinal,String estado)
 	{
-		Object[] values={fechaInicio,fechaFinal,estado};
+		System.out.println("aparece esto?");
+		String[] values={fechaInicio,fechaFinal,estado};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarPagosVisaEntreFechasBD",values);
 	}
 	public List recuperarPagosPaypalBD(String fechaInicio,String fechaFinal,String estado)
 	{
-		Object[] values={fechaInicio,fechaFinal,estado};
+		String[] values={fechaInicio,fechaFinal,estado};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarPagosPaypalEntreFechasBD",values);
 	}
 	public void asignarVisaListaReportePagos(List lista)
 	{
-		this.listaReportePagos = new ArrayList<CReportePagos>();
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
@@ -52,8 +60,12 @@ public class CReportePagosDAO  extends CConexion{
 					(String)row.get("ctituloidioma1"),(int)row.get("nnropersonas"),
 					(Number)row.get("nimporte"),(Number)row.get("nporcentaje"),(String)row.get("formapago"),
 					(String)row.get("estado"),(Date)row.get("fechayhora_initx"),(String)row.get("codtransaccion"),
-					(String)row.get("nom_th"),(String)row.get("capellidos"),(String)row.get("cnombres"),(char)row.get("csexo"),
-					(int)row.get("nedad"),(String)row.get("cabrevtipodoc"),(String)row.get("cnombreesp"),(String)row.get("nro_tarjeta")));
+					(String)row.get("nom_th"),(String)row.get("capellidos"),
+					(String)row.get("cnombres"),
+					(String)row.get("csexo"),
+					(String)row.get("cabrevtipodoc"),(String)row.get("cnrodoc"),
+					(String)row.get("cnombreesp"),
+					(String)row.get("nro_tarjeta"),(String)row.get("cestado")));
 		}
 	}
 }

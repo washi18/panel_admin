@@ -180,11 +180,13 @@ public class CPasajero
 	}
 	public CPasajero(String tipoDocumento,
 			String cApellidos, String cNombres,
-			String nombrePais, int nEdad){
+			String nombrePais, int nEdad,String nrodoc,String csexo){
 		this.TipoDocumento=tipoDocumento;
 		this.cApellidos=cApellidos;
 		this.cNombres=cNombres;
 		this.nombrePais=nombrePais;
 		this.nEdad=nEdad;
+		this.cNroDoc=nrodoc;
+		this.cSexo=csexo;
 	}
 }

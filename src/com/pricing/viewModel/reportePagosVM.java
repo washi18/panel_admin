@@ -5,16 +5,19 @@ import java.util.Date;
 
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.Clients;
 
 import com.pricing.dao.CReportePagosDAO;
+import com.pricing.dao.CReporteReservaDAO;
 import com.pricing.model.CDestino;
 import com.pricing.model.CHotel;
 import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
 import com.pricing.model.CReportePagosMuestra;
+import com.pricing.model.CReporteReserva;
 import com.pricing.model.CReporteReservaMuestra;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
@@ -22,28 +25,17 @@ import com.pricing.model.CSubServicio;
 public class reportePagosVM {
 	
 	//===============atributos======
-	private boolean estadoPagosAutorizados;
-	private boolean estadoPagosDenegados;
 	private ArrayList<CReportePagos> listaReportePagos;
 	private CReportePagosDAO reportePagosDAO;
+	private boolean estadoPagoPendiente;
+	private boolean estadoPagoParcial;
+	private boolean estadoPagoTotal;
 	private String fechaInicio;
 	private String fechaFinal;
 	private ArrayList<CPasajero> listaPasajeros;
 	private ArrayList<CReportePagosMuestra> listanuevaReportePagos;
 	private CReportePagosMuestra reportepagosMuestra;
 	//===============getter and setter=======
-	public boolean isEstadoPagosAutorizados() {
-		return estadoPagosAutorizados;
-	}
-	public void setEstadoPagosAutorizados(boolean estadoPagosAutorizados) {
-		this.estadoPagosAutorizados = estadoPagosAutorizados;
-	}
-	public boolean isEstadoPagosDenegados() {
-		return estadoPagosDenegados;
-	}
-	public void setEstadoPagosDenegados(boolean estadoPagosDenegados) {
-		this.estadoPagosDenegados = estadoPagosDenegados;
-	}
 	public String getFechaInicio() {
 		return fechaInicio;
 	}
@@ -90,7 +82,40 @@ public class reportePagosVM {
 	public void setReportepagosMuestra(CReportePagosMuestra reportepagosMuestra) {
 		this.reportepagosMuestra = reportepagosMuestra;
 	}
+	
+	public boolean isEstadoPagoPendiente() {
+		return estadoPagoPendiente;
+	}
+	public void setEstadoPagoPendiente(boolean estadoPagoPendiente) {
+		this.estadoPagoPendiente = estadoPagoPendiente;
+	}
+	public boolean isEstadoPagoParcial() {
+		return estadoPagoParcial;
+	}
+	public void setEstadoPagoParcial(boolean estadoPagoParcial) {
+		this.estadoPagoParcial = estadoPagoParcial;
+	}
+	public boolean isEstadoPagoTotal() {
+		return estadoPagoTotal;
+	}
+	public void setEstadoPagoTotal(boolean estadoPagoTotal) {
+		this.estadoPagoTotal = estadoPagoTotal;
+	}
 	//=====================constructores======
+	@Init
+	public void initVM()
+	{
+		estadoPagoParcial=false;
+		estadoPagoPendiente=false;
+		estadoPagoTotal=false;
+		/**Inicializando los objetos**/
+		listaReportePagos=new ArrayList<CReportePagos>();
+		fechaInicio="";
+		fechaFinal="";
+		reportePagosDAO=new CReportePagosDAO();
+		/**Obtencion de las etiquetas de la base de datos**/
+		/**Asignacion de las etiquetas a la listaEtiquetas**/
+	}
 	//====================metodos============
 	@Command
 	public void recuperarFechaDatebox(@BindingParam("fecha")String fecha,@BindingParam("id")String id)
@@ -100,30 +125,35 @@ public class reportePagosVM {
 		else
 			fechaFinal=fecha;
 	}
+	
 	@Command
-	@NotifyChange({"estadoPagosAutorizados","estadoPagosDenegados"})
+	@NotifyChange({"estadoPagoParcial","estadoPagoPendiente","estadoPagoTotal"})
 	public void seleccion_radio(@BindingParam("radio")String idRadio)
 	{
-		if(idRadio.equals("rdPagoAutorizado"))
+		if(idRadio.equals("rdPagoPendiente"))
 		{
-			estadoPagosAutorizados=true;
-			estadoPagosDenegados=false;
-		}else if(idRadio.equals("rdPagoDenegado"))
+			estadoPagoPendiente=true;
+			estadoPagoParcial=estadoPagoTotal=false;
+		}else if(idRadio.equals("rdPagoParcial"))
 		{
-			estadoPagosDenegados=true;
-			estadoPagosAutorizados=false;
+			estadoPagoParcial=true;
+			estadoPagoPendiente=estadoPagoTotal=false;
+		}else if(idRadio.equals("rdPagoTotal"))
+		{
+			estadoPagoTotal=true;
+			estadoPagoParcial=estadoPagoPendiente=false;
 		}
 	}
 	
 	@Command
-	@NotifyChange({"listaReporteReserva","listanuevaReporteReserva","listaHoteles","reporteReserva"})
+	@NotifyChange({"listaReportePagos","listanuevaReportePagos","listaPasajeros"})
 	public void Buscar_Pagos(@BindingParam("componente")Component componente)
 	{
 		if(fechaInicio.isEmpty() || fechaFinal.isEmpty())
 		{
 			Clients.showNotification("Las fechas DESDE-HASTA son obligatorias ", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
 		}
-		else if(estadoPagosAutorizados==true || estadoPagosDenegados==true)
+		else if(estadoPagoParcial==true || estadoPagoPendiente==true || estadoPagoTotal==true)
 		{
 			//-------despedasando la fecha desde------
 			String diaStart=fechaInicio.substring(0,2);
@@ -138,21 +168,24 @@ public class reportePagosVM {
 			String fecha2=anioEnd+"-"+mesEnd+"-"+diaEnd;
 			/****Validando la fecha****/
 			String NombrePago="";
-			if(estadoPagosAutorizados)
+			if(estadoPagoPendiente)
 			{
-				NombrePago="INICIADO";
-			}else if(estadoPagosDenegados){
-				NombrePago="DENEGADO";
+				NombrePago="PENDIENTE DE PAGO";
+			}else if(estadoPagoParcial){
+				NombrePago="PAGO PARCIAL";
+			}else if(estadoPagoTotal){
+				NombrePago="PAGO TOTAL";
 			}
 			listaReportePagos.clear();
-			System.out.println("entro aqui 1");
-			reportePagosDAO.asignarVisaListaReportePagos(reportePagosDAO.recuperarPagosVisaBD(fecha1,fecha2,NombrePago));
+			System.out.println("el valor de pago es:"+fecha1);
+			System.out.println("el valor de pago es:"+fecha2);
+			System.out.println("el valor de pago es:"+NombrePago);
+			reportePagosDAO.asignarVisaListaReportePagos(reportePagosDAO.recuperarPagosVisaBD(fecha1, fecha2,NombrePago));
 			reportePagosDAO.asignarVisaListaReportePagos(reportePagosDAO.recuperarPagosPaypalBD(fecha1,fecha2,NombrePago));
 			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
 			System.out.println("entro aqui 2");
-			String codReservaAnterior,destinoAnterior,hotelAnterior,servicioAnterior,subservicioAnterior;
 			System.out.println("entro aqui 3");
-			codReservaAnterior="";
+			String codReservaAnterior="";
 			int factorIncremento=0;
 			System.out.println("el nro de filas es:"+listaReportePagos.size());
 			listanuevaReportePagos=new ArrayList<CReportePagosMuestra>();
@@ -169,8 +202,9 @@ public class reportePagosVM {
 				{
 					listaPasajeros.add(new CPasajero(listaReportePagos.get(contador).getTipoDocumento(),listaReportePagos.get(contador).getApellidos(),
 							listaReportePagos.get(contador).getNombres(),listaReportePagos.get(contador).getNombrePais(),
-							listaReportePagos.get(contador).getEdad()));
+							listaReportePagos.get(contador).getEdad(),listaReportePagos.get(contador).getNroDoc(),listaReportePagos.get(contador).getSexo()));
 				}
+				pasajeroAnterior=listaReportePagos.get(contador).getNombres();
 				while((contador<listaReportePagos.size()) && (listaReportePagos.get(contador).getCodReserva().equals(codReservaAnterior)))
 				{
 					if(listaReportePagos.get(contador).getNombres()==null){
@@ -180,7 +214,7 @@ public class reportePagosVM {
 						pasajeroAnterior = listaReportePagos.get(contador).getNombres();
 						listaPasajeros.add(new CPasajero(listaReportePagos.get(contador).getTipoDocumento(),listaReportePagos.get(contador).getApellidos(),
 								listaReportePagos.get(contador).getNombres(),listaReportePagos.get(contador).getNombrePais(),
-								listaReportePagos.get(contador).getEdad()));
+								listaReportePagos.get(contador).getEdad(),listaReportePagos.get(contador).getNroDoc(),listaReportePagos.get(contador).getSexo()));
 					}
 					contador++;
 					factorIncremento++;
@@ -200,13 +234,8 @@ public class reportePagosVM {
 				reportepagosMuestra.setFechayhoraTransaccion(listaReportePagos.get(i).getFechayhoraTransaccion());
 				reportepagosMuestra.setCodTransaccion(listaReportePagos.get(i).getCodTransaccion());
 				reportepagosMuestra.setNombreCliente(listaReportePagos.get(i).getNombreCliente());
-				reportepagosMuestra.setApellidos(listaReportePagos.get(i).getApellidos());
-				reportepagosMuestra.setNombres(listaReportePagos.get(i).getNombres());
-				reportepagosMuestra.setEdad(listaReportePagos.get(i).getEdad());
-				reportepagosMuestra.setSexo(listaReportePagos.get(i).getSexo());
-				reportepagosMuestra.setTipoDocumento(listaReportePagos.get(i).getTipoDocumento());
-				reportepagosMuestra.setNombrePais(listaReportePagos.get(i).getNombrePais());
 				reportepagosMuestra.setNroTarjeta(listaReportePagos.get(i).getNroTarjeta());
+				reportepagosMuestra.setEstadoReserva(listaReportePagos.get(i).getEstadoReserva());
 				reportepagosMuestra.setListaPasajeros(listaPasajeros);
 				listanuevaReportePagos.add(reportepagosMuestra);
 			}

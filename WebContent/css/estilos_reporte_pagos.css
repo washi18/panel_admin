@@ -30,9 +30,24 @@
 	align-items: center;
 }
 
+.div_pasajeros {
+	width: 57%;
+}
+
+.estilo_pagos {
+   border: 1px solid rgba(0,0,0,0.1);
+   padding: 10px;
+   box-sizing:border-box;
+   box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   background: rgba(0,0,0,0.1);
+}
+
 @media only screen and (max-width: 416px)
 {
-
+	
+	.div_pasajeros {
+		width: 100% !important;
+	}
 	.div_opciones_busqueda{
        display: flex;
 	   display: -webkit-flex;

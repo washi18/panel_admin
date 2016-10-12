@@ -36,9 +36,9 @@ public class CReporteReservaDAO extends CConexion{
 		this.listaReporteReservas = listaReporteReservas;
 	}
 	//=====================otros metodos=========================
-	public List recuperarReporteReservasBD(String FechaIni,String FechaFin,String EstadoPago)
+	public List recuperarReporteReservasBD(String FechaIni,String FechaFin)
 	{
-		String[] values={FechaIni,FechaFin,EstadoPago};
+		String[] values={FechaIni,FechaFin};
 		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarreservas",values);
 	}
 	

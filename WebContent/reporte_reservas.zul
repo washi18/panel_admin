@@ -4,7 +4,7 @@
 	<style src="css/estilos_reporte_reservas.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmReserva') @init('com.pricing.viewModel.reporteReservasVM')">
-		<div sclass="div_opciones_busqueda" width="100%">
+		<div sclass="div_opciones_busqueda_reservas" width="100%">
 			<div sclass="intervalo_fechas">
 				<div width="80%">
 					<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
@@ -15,15 +15,8 @@
 					<datebox id="db_hasta" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
 				</div>
 			</div>
-			<div sclass="estilo_div_estado_pagos">
-				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
-					<radio id="rdPagoPendiente" label="Pagos pendientes" value="PagosPendientes" checked="@bind(vmReserva.estadoPagoPendiente)" onCheck="@command('seleccion_radio',radio=self.id)" width="33%"/>
-					<radio id="rdPagoParcial" label="Pagos Parciales" value="PagosParciales" checked="@bind(vmReserva.estadoPagoParcial)" onCheck="@command('seleccion_radio',radio=self.id)" width="33%"/>
-					<radio id="rdPagoTotal" label="Pagos totales" value="PagosTotales" checked="@bind(vmReserva.estadoPagoTotal)" onCheck="@command('seleccion_radio',radio=self.id)" width="33%"/>
-				</radiogroup>
-			</div>
 			<space></space>
-			<button label="Buscar" zclass="btn_editar" width="8%" onClick="@command('Buscar_Reservas',componente=self)"></button>	
+			<button label="Buscar" zclass="btn_editar" width="8%" onClick="@command('Buscar_Reservas',componente=self)"></button>
 		</div>
 		<listbox sclass="listados" model="@load(vmReserva.listanuevaReporteReserva)" mold="paging" pageSize="5" pagingPosition="both">
 			<listhead>

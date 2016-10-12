@@ -20,11 +20,13 @@ public class CReportePagos {
 	private String nombreCliente;
 	private String apellidos;
 	private String nombres;
-	private char sexo;
+	private String sexo;
 	private int edad;
 	private String tipoDocumento;
+	private String nroDoc;
 	private String nombrePais;
 	private String nroTarjeta;
+	private String estadoReserva;
 	
 	//===============getter and setter=======
 	public String getCodPago() {
@@ -124,12 +126,15 @@ public class CReportePagos {
 	public void setNombres(String nombres) {
 		this.nombres = nombres;
 	}
-	public char getSexo() {
+	
+	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(char sexo) {
+
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
+
 	public int getEdad() {
 		return edad;
 	}
@@ -154,6 +159,23 @@ public class CReportePagos {
 	public void setNroTarjeta(String nroTarjeta) {
 		this.nroTarjeta = nroTarjeta;
 	}
+	
+	public String getNroDoc() {
+		return nroDoc;
+	}
+
+	public void setNroDoc(String nroDoc) {
+		this.nroDoc = nroDoc;
+	}
+
+	public String getEstadoReserva() {
+		return estadoReserva;
+	}
+
+	public void setEstadoReserva(String estadoReserva) {
+		this.estadoReserva = estadoReserva;
+	}
+
 	//==================constructores==================
 	public CReportePagos()
 	{
@@ -169,10 +191,13 @@ public class CReportePagos {
 		this.nombreCliente = "";
 		this.apellidos = "";
 		this.nombres = "";
-		this.edad = 0;
+		this.edad=0;
+		this.sexo="";
 		this.tipoDocumento = "";
 		this.nombrePais = "";
 		this.nroTarjeta = "";
+		this.nroDoc="";
+		this.estadoReserva="";
 	}
 
 	public CReportePagos(String codReserva, Date fechaInicio,
@@ -180,8 +205,8 @@ public class CReportePagos {
 			Number importe, Number porcentaje, String formaPago, String estado,
 			Date fechayhoraTransaccion,
 			String codTransaccion, String nombreCliente,
-			String apellidos, String nombres, char sexo, int edad,
-			String tipoDocumento, String nombrePais, String nroTarjeta) {
+			String apellidos, String nombres, String sexo,
+			String tipoDocumento,String nroDoc, String nombrePais, String nroTarjeta,String estadoReserva) {
 		super();
 		this.codReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -199,10 +224,11 @@ public class CReportePagos {
 		this.apellidos = apellidos;
 		this.nombres = nombres;
 		this.sexo = sexo;
-		this.edad = edad;
 		this.tipoDocumento = tipoDocumento;
+		this.nroDoc=nroDoc;
 		this.nombrePais = nombrePais;
 		this.nroTarjeta = nroTarjeta;
+		this.estadoReserva=estadoReserva;
 	}
 	
 	

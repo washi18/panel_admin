@@ -295,43 +295,43 @@ public class panelAdminVM
 		if (cambios.equals("itemDisponibilidad") || cambios.equals("btnDisponibilidad") || cambios.equals("tabDisponibilidad") ) {
 				visibleDisponibilidad=true;
 				visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=visibleReportReservas=visibleHoteles=false;
-				visibleSubServicios=visibleImpuestos=visibleDestinos=false;
+				visibleSubServicios=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				seleccionDisponibilidad=true;
 				seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			} else if (cambios.equals("itemEtiqueta") || cambios.equals("btnEtiquetas") || cambios.equals("tabEtiqueta") ) {
 				visibleEtiqueta = true;
 				visibleDisponibilidad=visiblePaquetes=visibleServicios=visibleSubServicios=visibleReportReservas=visibleHoteles=false;
-				visibleImpuestos=visibleDestinos=false;
+				visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				seleccionEtiquetas=true;
 				seleccionDisponibilidad=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			} else if (cambios.equals("itemPaquete") || cambios.equals("btnPaquetes") || cambios.equals("tabPaquete")) {
 				visiblePaquetes=true;
 				visibleDisponibilidad=visibleEtiqueta=visibleServicios=visibleReportReservas=visibleHoteles=false;
-				visibleSubServicios=visibleImpuestos=visibleDestinos=false;
+				visibleSubServicios=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				seleccionPaquetes=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionServicios=seleccionSubServicios=false;
 			} else if (cambios.equals("itemServicio") || cambios.equals("btnServicios") || cambios.equals("tabServicio")) {
 				visibleServicios=true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleReportReservas=visibleHoteles=false;
-				visibleSubServicios=visibleImpuestos=visibleDestinos=false;
+				visibleSubServicios=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				seleccionServicios=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionSubServicios=false;
 			} else if (cambios.equals("itemSubServicio") || cambios.equals("btnSubServicios") || cambios.equals("tabSubServicio")) {
 				visibleSubServicios =true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleHoteles=false;
-				visibleImpuestos=visibleDestinos=false;
+				visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				seleccionSubServicios=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=false;
 			} else if (cambios.equals("itemImpuesto") || cambios.equals("btnImpuestos") || cambios.equals("tabImpuesto")) {
 				visibleImpuestos=true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleHoteles=false;
-				visibleSubServicios=visibleDestinos=false;
+				visibleSubServicios=visibleDestinos=visibleReportPagos=false;
 				seleccionImpuestos=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}else if (cambios.equals("itemHoteles") || cambios.equals("btnHoteles") || cambios.equals("tabHotel")) {
 				visibleHoteles=true;
 				visibleImpuestos=false;
-				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleReportPagos=false;
 				visibleSubServicios=visibleDestinos=false;
 				seleccionHoteles=true;
 				seleccionImpuestos=false;
@@ -340,7 +340,7 @@ public class panelAdminVM
 				visibleDestinos=true;
 				visibleHoteles=visibleImpuestos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
-				visibleSubServicios=false;
+				visibleSubServicios=visibleReportPagos=false;
 				seleccionDestinos=true;
 				seleccionHoteles=seleccionImpuestos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;

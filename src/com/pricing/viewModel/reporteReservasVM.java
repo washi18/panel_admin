@@ -23,9 +23,6 @@ public class reporteReservasVM {
 	private ArrayList<CReporteReserva> listaReporteReserva;
 	private ArrayList<CReporteReservaMuestra> listanuevaReporteReserva;
 	private CReporteReservaDAO reporteReservaDAO;
-	private boolean estadoPagoPendiente;
-	private boolean estadoPagoParcial;
-	private boolean estadoPagoTotal;
 	private String FechaInicio;
 	private String FechaFinal;
 	private ArrayList<CDestino> listaDestinos;
@@ -34,10 +31,6 @@ public class reporteReservasVM {
 	private ArrayList<CSubServicio> listasubServicios;
 	
 	//=======getter and setter=====
-	
-	public boolean isEstadoPagoPendiente() {
-		return estadoPagoPendiente;
-	}
 	
 	public ArrayList<CReporteReserva> getListaReporteReserva() {
 		return listaReporteReserva;
@@ -53,21 +46,6 @@ public class reporteReservasVM {
 	}
 	public void setReporteReservaDAO(CReporteReservaDAO reporteReservaDAO) {
 		this.reporteReservaDAO = reporteReservaDAO;
-	}
-	public void setEstadoPagoPendiente(boolean estadoPagoPendiente) {
-		this.estadoPagoPendiente = estadoPagoPendiente;
-	}
-	public boolean isEstadoPagoParcial() {
-		return estadoPagoParcial;
-	}
-	public void setEstadoPagoParcial(boolean estadoPagoParcial) {
-		this.estadoPagoParcial = estadoPagoParcial;
-	}
-	public boolean isEstadoPagoTotal() {
-		return estadoPagoTotal;
-	}
-	public void setEstadoPagoTotal(boolean estadoPagoTotal) {
-		this.estadoPagoTotal = estadoPagoTotal;
 	}
 	public String getFechaInicio() {
 		return FechaInicio;
@@ -136,9 +114,6 @@ public class reporteReservasVM {
 	@Init
 	public void initVM()
 	{
-		estadoPagoParcial=false;
-		estadoPagoPendiente=false;
-		estadoPagoTotal=false;
 		/**Inicializando los objetos**/
 		listaReporteReserva=new ArrayList<CReporteReserva>();
 		FechaInicio="";
@@ -157,24 +132,6 @@ public class reporteReservasVM {
 		else
 			FechaFinal=fecha;
 	}
-	@Command
-	@NotifyChange({"estadoPagoParcial","estadoPagoPendiente","estadoPagoTotal"})
-	public void seleccion_radio(@BindingParam("radio")String idRadio)
-	{
-		if(idRadio.equals("rdPagoPendiente"))
-		{
-			estadoPagoPendiente=true;
-			estadoPagoParcial=estadoPagoTotal=false;
-		}else if(idRadio.equals("rdPagoParcial"))
-		{
-			estadoPagoParcial=true;
-			estadoPagoPendiente=estadoPagoTotal=false;
-		}else if(idRadio.equals("rdPagoTotal"))
-		{
-			estadoPagoTotal=true;
-			estadoPagoParcial=estadoPagoPendiente=false;
-		}
-	}
 	
 	@Command
 	@NotifyChange({"listaReporteReserva","listanuevaReporteReserva","listaHoteles","reporteReserva"})
@@ -184,7 +141,7 @@ public class reporteReservasVM {
 		{
 			Clients.showNotification("Las fechas DESDE-HASTA son obligatorias ", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
 		}
-		else if(estadoPagoParcial==true || estadoPagoPendiente==true || estadoPagoTotal==true)
+		else
 		{
 			//-------despedasando la fecha desde------
 			String diaStart=FechaInicio.substring(0,2);
@@ -198,18 +155,9 @@ public class reporteReservasVM {
 			String fecha1=anioStart+"-"+mesStart+"-"+diaStart;
 			String fecha2=anioEnd+"-"+mesEnd+"-"+diaEnd;
 			/****Validando la fecha****/
-			String NombrePago="";
-			if(estadoPagoPendiente)
-			{
-				NombrePago="PENDIENTE DE PAGO";
-			}else if(estadoPagoParcial){
-				NombrePago="PAGO PARCIAL";
-			}else if(estadoPagoTotal){
-				NombrePago="PAGO TOTAL";
-			}
 			listaReporteReserva.clear();
 			System.out.println("entro aqui 1");
-			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(fecha1,fecha2,NombrePago));
+			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(fecha1,fecha2));
 			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
 			System.out.println("entro aqui 2");
 			String codReservaAnterior,destinoAnterior,hotelAnterior,servicioAnterior,subservicioAnterior;
@@ -328,8 +276,6 @@ public class reporteReservasVM {
 				System.out.println("aqui esta el tamanio de listahotel "+listaHoteles.size());
 				listanuevaReporteReserva.add(reporteReserva);
 			}
-		}else{
-			Clients.showNotification("Eliga un ESTADO DE PAGO", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
 		}
 	}
 	public String cambiarFormatoMes(String mes)

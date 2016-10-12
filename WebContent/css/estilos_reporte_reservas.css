@@ -55,13 +55,13 @@
       color: #fff;
 }
 
-.div_opciones_busqueda{
+.div_opciones_busqueda_reservas{
 	display: flex;
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
 	display: -o-flex;
-	justify-content: center !important;
+	justify-content: start !important;
 	padding: 4px;
 	background: lightgray;
 }
@@ -108,13 +108,14 @@
    	flex-direction: column;
 }
 .intervalo_fechas{
-	vertical-align: middle;
 	display: flex;
    display: -webkit-flex;
    display: -moz-flex;
    display: -ms-flex;
    display: -o-flex;
    align-items: center;
+   justify-content: start;
+   left: 0;
    width: 35%;
 }
 .estilo_div_estado_pagos {
@@ -304,7 +305,7 @@
 	   justify-content: center;
 	   width: 100% !important;
     }
-    .div_opciones_busqueda{
+    .div_opciones_busqueda_reservas{
        display: flex;
 	   display: -webkit-flex;
 	   display: -moz-flex;
