@@ -33,6 +33,9 @@
 					<separator spacing="5px"/>
 					<label value="NOMBRE PAQUETE:" zclass="lbl_subtitle_nombre_paquete"/>
 					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete"/>
+					<space/>
+					<label value="N° DIAS Y NOCHES:" zclass="lbl_subtitle_nombre_paquete"/>
+					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete"/>
 				</div>
 				<separator spacing="5px"/>
 				<div zclass="div_contenedor_nuevo_paquete" visible="@bind(vmPaquete.select_manejo)">
