@@ -42,6 +42,7 @@ public class CPaquete
 	private String nPrecio4_text;
 	private String nPrecio5_text;
 	private String Titulo;
+	private String dias_noches;
 	private boolean visibleEspanol;
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
@@ -344,6 +345,12 @@ public class CPaquete
 	public void setSinDescuento(boolean sinDescuento) {
 		this.sinDescuento = sinDescuento;
 	}
+	public String getDias_noches() {
+		return dias_noches;
+	}
+	public void setDias_noches(String dias_noches) {
+		this.dias_noches = dias_noches;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -353,6 +360,7 @@ public class CPaquete
 		df=new DecimalFormat("########0.00",simbolos);
 		/*******************************/
 		Titulo="";
+		dias_noches="";
 		manejo_camino_inca=false;
 		manejo_propio=false;
 		manejo_normal=false;
@@ -394,6 +402,7 @@ public class CPaquete
 		/*******************************/
 		this.cPaqueteCod = cPaqueteCod;
 		this.cTituloIdioma1 = cTituloIdioma1;
+		this.Titulo=cTituloIdioma1;
 		this.cTituloIdioma2 = cTituloIdioma2;
 		this.cTituloIdioma3 = cTituloIdioma3;
 		this.cTituloIdioma4 = cTituloIdioma4;
@@ -405,11 +414,17 @@ public class CPaquete
 		this.cDescripcionIdioma5 = cDescripcionIdioma5;
 		this.nDias = nDias;
 		this.nNoches = nNoches;
+		this.dias_noches=nDias+" DIAS Y "+nNoches+" NOCHES";
 		this.nPrecioUno = nPrecioUno;
+		this.nPrecio1_text=df.format(nPrecioUno.doubleValue());
 		this.nPrecioDos = nPrecioDos;
+		this.nPrecio2_text=df.format(nPrecioDos.doubleValue());
 		this.nPrecioTres = nPrecioTres;
+		this.nPrecio3_text=df.format(nPrecioTres.doubleValue());
 		this.nPrecioCuatro = nPrecioCuatro;
+		this.nPrecio4_text=df.format(nPrecioCuatro.doubleValue());
 		this.nPrecioCinco = nPrecioCinco;
+		this.nPrecio5_text=df.format(nPrecioCinco.doubleValue());
 		this.cDisponibilidad = cDisponibilidad;
 		this.bEstado = bEstado;
 		this.editable=false;
@@ -440,6 +455,31 @@ public class CPaquete
 		/***INICIALIZAMOS LOS ESTADOS DE LOS DESTINOS Y SERVICIOS DEL PAQUETE**/
 		inicializarEstadosDeDestinosYServicios();
 		determinarTipoDeManejoPaquete(cDisponibilidad);
+		determinarSiHayDescuento();
+	}
+	public void determinarSiHayDescuento()
+	{
+		if(nPrecioUno.doubleValue()!=nPrecioDos.doubleValue())
+		{
+			sinDescuento=false;
+			conDescuento=true;
+		}else if(nPrecioUno.doubleValue()!=nPrecioTres.doubleValue())
+		{
+			sinDescuento=false;
+			conDescuento=true;
+		}else if(nPrecioUno.doubleValue()!=nPrecioCuatro.doubleValue())
+		{
+			sinDescuento=false;
+			conDescuento=true;
+		}else if(nPrecioUno.doubleValue()!=nPrecioCinco.doubleValue())
+		{
+			sinDescuento=false;
+			conDescuento=true;
+		}else
+		{
+			sinDescuento=true;
+			conDescuento=false;
+		}
 	}
 	public void determinarTipoDeManejoPaquete(String manejo)
 	{

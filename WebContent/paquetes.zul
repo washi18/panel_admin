@@ -17,14 +17,17 @@
 				<separator spacing="5px"/>
 				<div id="div_llenar_paquetes" visible="false">
 					<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete',opcion=self.selectedItem.value)">
-						<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" 
+						<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA"
+							   sclass="radio_camino_inka" 
 							   onCheck="div_lbl_solo_camino_inca.setVisible(true);
 							   div_select_destinos.setVisible(false);
 							   div_conDestino.setVisible(false)"/>
-						<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" 
+						<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO"
+							   sclass="radio_manejo_propio"
 							   onCheck="div_lbl_solo_camino_inca.setVisible(false);
 							   div_conDestino.setVisible(true)"/>
 						<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" 
+							   sclass="radio_manejo_normal"
 							   onCheck="div_lbl_solo_camino_inca.setVisible(false);
 							   div_conDestino.setVisible(true)"/>
 					</radiogroup>
@@ -35,7 +38,7 @@
 					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete"/>
 					<space/>
 					<label value="N° DIAS Y NOCHES:" zclass="lbl_subtitle_nombre_paquete"/>
-					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete"/>
+					<label value="@bind(vmPaquete.oPaquete.dias_noches)" zclass="lbl_nombre_paquete"/>
 				</div>
 				<separator spacing="5px"/>
 				<div zclass="div_contenedor_nuevo_paquete" visible="@bind(vmPaquete.select_manejo)">
@@ -294,10 +297,24 @@
 				<listitem>
 				    <listcell>
 				    	<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete',opcion=self.selectedItem.value)">
-							<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" checked="@bind(each.manejo_camino_inca)"/>
-							<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" checked="@bind(each.manejo_propio)"/>
-							<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" checked="@bind(each.manejo_normal)"/>
+							<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" 
+								   sclass="radio_camino_inka"
+								   checked="@bind(each.manejo_camino_inca)"/>
+							<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO"
+								   sclass="radio_manejo_propio"
+								   checked="@bind(each.manejo_propio)"/>
+							<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL"
+								   sclass="radio_manejo_normal"
+								   checked="@bind(each.manejo_normal)"/>
 						</radiogroup>
+						<div>
+							<separator spacing="5px"/>
+							<label value="NOMBRE PAQUETE:" zclass="lbl_subtitle_nombre_paquete"/>
+							<label value="@bind(each.titulo)" zclass="lbl_nombre_paquete"/>
+							<space/>
+							<label value="N° DIAS Y NOCHES:" zclass="lbl_subtitle_nombre_paquete"/>
+							<label value="@bind(each.dias_noches)" zclass="lbl_nombre_paquete"/>
+						</div>
 				    	<div width="100%" zclass="div_list_cell">
 				    		<div zclass="div_numeracion">
 								<label value="@bind(each.cPaqueteCod)"/>
@@ -396,36 +413,58 @@
 										</div>
 									</div>
 				    				<div>
-				    				  <div>
-				    				  	<label value="COSTOS ($):" sclass="lbl_llenar_datos"></label>
-				    				  </div>
-				    				  <separator bar="true"></separator>
-				    				  <div>
-				    					<label value="Costo" zclass="lbl_llenar_datos"/>
-				    					<image src="img/uno.png"></image>
-				    					<textbox placeholder="Ingrese costo 1"  value="@bind(each.nPrecioUno)" sclass="txt_llenar_datos"></textbox>
-				    				  </div>
-				    				  <div>
-				    					<label value="Costo" zclass="lbl_llenar_datos" />
-				    					<image src="img/dos.png"></image>
-				    					<textbox placeholder="Ingrese costo 2" value="@bind(each.nPrecioDos)" sclass="txt_llenar_datos"></textbox>
-				    				  </div>
-				    				  <div>
-				    					<label value="Costo" zclass="lbl_llenar_datos" />
-				    					<image src="img/tres.png"></image>
-				    					<textbox placeholder="Ingrese costo 3" value="@bind(each.nPrecioTres)" sclass="txt_llenar_datos"></textbox>
-				    				  </div>
-				    				  <div>
-				    					<label value="Costo" zclass="lbl_llenar_datos" />
-				    					<image src="img/cuatro.png"></image>
-				    					<textbox placeholder="Ingrese costo 4" value="@bind(each.nPrecioCuatro)" sclass="txt_llenar_datos"></textbox>
-				    				  </div>
-				    				  <div>
-				    					<label value="Costo" zclass="lbl_llenar_datos" />
-				    					<image src="img/cinco.png"></image>
-				    					<textbox placeholder="Ingrese costo 5" value="@bind(each.nPrecioCinco)" sclass="txt_llenar_datos"></textbox>
-				    				  </div>
-				    				</div>
+										<separator bar="true"/>
+										<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento',opcion=self.selectedItem.value)">
+											<radio label="CON DESCUENTO" checked="@bind(each.conDescuento)" value="con_descuento"/>
+											<radio label="SIN DESCUENTO" checked="@bind(each.sinDescuento)" value="sin_descuento"/>
+										</radiogroup>
+										<div visible="@bind(each.sinDescuento)">
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
+												<space></space>
+											</div>
+										</div>
+										<div visible="@bind(each.conDescuento)">
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 1($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 2($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio2_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio2',componente=self)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 3($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio3_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio3',componente=self)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 4($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio4_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio4',componente=self)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 5($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio5_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio5',componente=self)"/>
+												<space></space>
+											</div>
+										</div>
+									</div>
 				    				<button label="Actualizar"
 				    				onClick="@command('actualizarPaquete',paquete=each)"
 				    				zclass="btn_actualizar_paquete"/>
@@ -487,6 +526,9 @@
 				    				</template>
 				    			</listbox>
 				    		</div>
+				    		<button label="Actualizar"
+				    				onClick="@command('actualizarPaquete',paquete=each)"
+				    				zclass="btn_actualizar_paquete_responsive"/>
 				    	</div>
 				    </listcell>
 				</listitem>
