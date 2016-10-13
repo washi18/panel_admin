@@ -41,7 +41,7 @@
 					    			<label value="@load(each.nombrePaquete)" sclass="estilo_nombre_subServicio"></label>
 					    		</div>
 					    		<div zclass="div_contenedor_datos_listRepReserva">
-					    		<div zclass="estilo_fechas">
+					    		<div zclass="estilo_fechas" width="76%">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="15px" style="font-size: 15px; color: black; font-weight: bold;"
 					    					value="@load(each.nombreCliente)" />
@@ -63,12 +63,16 @@
 						    			<space></space>
 					    				<label height="100%" value="@load(each.fechayhoraTransaccion)"/>
 					    			</div>
+					    			<div>
+					    				<button label="Ver lista Pasajeros" onClick="@command('habilitarPasajerosPOP',cpasajero=each)" sclass="btn_lista_pasajeros" width="auto"></button>
+					    			</div>
 					    		</div>
-					    		<div sclass="div_pasajeros">
+					    		  <window visible="@load(each.visiblepasajerospop)" mode="popup" position="parent" width="50%" zclass="estilo_win_popup">
+					    			<div sclass="div_pasajeros" width="100%">
 					    			<div width="100%" sclass="div_content_destino">
-					    				<listbox style="border: none;" model="@load(each.listaPasajeros)"> 
+					    				<listbox style="border: none;" model="@load(each.listaPasajeros)" width="100%"> 
 					    					<listhead> 
-					    						<listheader label="Lista Pasajeros" style="font-size: 13px; color: black; font-weight: bold;"></listheader>
+					    						<listheader label="Lista Pasajeros" style="font-size: 13px; color: black; font-weight: bold;" align="center"></listheader>
 					    					</listhead>
 					    					<template name="model" var="pasajero">
 					    					<listitem>
@@ -101,8 +105,9 @@
 					    					</listitem>
 					    					</template>
 					    				</listbox>
+					    				</div>
 					    			</div>
-					    		</div>
+					    			</window>
 					    		<space></space>
 					    		<div width="24%">
 					    			<div sclass="estilo_pagos"  width="100%">

@@ -3,6 +3,7 @@ package com.pricing.viewModel;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -35,6 +36,7 @@ public class reportePagosVM {
 	private ArrayList<CPasajero> listaPasajeros;
 	private ArrayList<CReportePagosMuestra> listanuevaReportePagos;
 	private CReportePagosMuestra reportepagosMuestra;
+	private CReportePagosMuestra reportePagosMuestraAnterior;
 	//===============getter and setter=======
 	public String getFechaInicio() {
 		return fechaInicio;
@@ -101,6 +103,14 @@ public class reportePagosVM {
 	public void setEstadoPagoTotal(boolean estadoPagoTotal) {
 		this.estadoPagoTotal = estadoPagoTotal;
 	}
+	
+	public CReportePagosMuestra getReportePagosMuestraAnterior() {
+		return reportePagosMuestraAnterior;
+	}
+	public void setReportePagosMuestraAnterior(
+			CReportePagosMuestra reportePagosMuestraAnterior) {
+		this.reportePagosMuestraAnterior = reportePagosMuestraAnterior;
+	}
 	//=====================constructores======
 	@Init
 	public void initVM()
@@ -113,10 +123,19 @@ public class reportePagosVM {
 		fechaInicio="";
 		fechaFinal="";
 		reportePagosDAO=new CReportePagosDAO();
+		reportePagosMuestraAnterior=new CReportePagosMuestra();
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 	}
 	//====================metodos============
+	@Command
+	public void habilitarPasajerosPOP(@BindingParam("cpasajero") CReportePagosMuestra pasajero)
+	{
+		pasajero.setVisiblepasajerospop(true);
+		reportePagosMuestraAnterior.setVisiblepasajerospop(false);
+		reportePagosMuestraAnterior=pasajero;
+		BindUtils.postNotifyChange(null, null, pasajero,"visiblepasajerospop");
+	}
 	@Command
 	public void recuperarFechaDatebox(@BindingParam("fecha")String fecha,@BindingParam("id")String id)
 	{
