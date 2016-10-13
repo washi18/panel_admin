@@ -61,39 +61,9 @@
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemPaquete" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-package estilos-iconos"/>
-											<label value="Paquetes" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-cogs estilos-iconos"/>
-											<label value="Servicios" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-tree estilos-iconos"/>
-											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
 										<div id="itemImpuesto" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-coin-dollar estilos-iconos"/>
 											<label value="Impuestos" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemHoteles" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-office estilos-iconos"/>
-											<label value="Hoteles" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemDestinos" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-airplane estilos-iconos"/>
-											<label value="Destinos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
@@ -133,27 +103,33 @@
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Destinos" sclass="lbls_mantenimientos"/>
+										<div id="itemPaquete" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-package estilos-iconos"/>
+											<label value="Paquetes" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-profile estilos-iconos"/>
+										<div id="itemServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-cogs estilos-iconos"/>
+											<label value="Servicios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-tree estilos-iconos"/>
+											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemHoteles" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-office estilos-iconos"/>
 											<label value="Hoteles" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Tours" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Tours Con Hoteles" sclass="lbls_mantenimientos"/>
+										<div id="itemDestinos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-airplane estilos-iconos"/>
+											<label value="Destinos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 								</div>

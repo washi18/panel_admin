@@ -32,6 +32,7 @@ public class paquetesVM
 	 * ATRIBUTOS
 	 */
 	private CPaquete oPaquete;
+	private CPaquete oPaqueteUpdate;
 	private CPaqueteDAO paqueteDao;
 	private ArrayList<CPaquete> listaPaquetes;
 	private boolean visibleGeneral=true;
@@ -47,7 +48,6 @@ public class paquetesVM
 	public CPaquete getoPaquete() {
 		return oPaquete;
 	}
-	
 	public void setoPaquete(CPaquete oPaquete) {
 		this.oPaquete = oPaquete;
 	}
@@ -81,7 +81,6 @@ public class paquetesVM
 	public ArrayList<CDestino> getListaDestinos() {
 		return listaDestinos;
 	}
-
 	public void setListaDestinos(ArrayList<CDestino> listaDestinos) {
 		this.listaDestinos = listaDestinos;
 	}
@@ -89,7 +88,6 @@ public class paquetesVM
 	public ArrayList<CServicio> getListaServicios() {
 		return listaServicios;
 	}
-
 	public void setListaServicios(ArrayList<CServicio> listaServicios) {
 		this.listaServicios = listaServicios;
 	}
@@ -130,6 +128,7 @@ public class paquetesVM
 		select_manejo=false;
 		/**Inicializando los objetos**/
 		oPaquete=new CPaquete();
+		oPaqueteUpdate=new CPaquete();
 		servicioDao=new CServicioDAO();
 		destinoDao=new CDestinoDAO();
 		paqueteDao=new CPaqueteDAO();
@@ -147,8 +146,6 @@ public class paquetesVM
 		setListaDestinos(destinoDao.getListaDestinos());
 	}
 	@Command
-	@NotifyChange({"oDestino","oPaquete","listaDestinos",
-			"listaPaquetes","listaServicios","conDestino","sinDestino"})
 	public void insertarPaquete(@BindingParam("componente")Component comp)
 	{
 		if(!validoParaInsertar(comp))
@@ -272,6 +269,14 @@ public class paquetesVM
 		/**Obtencion de los destinos desde la base de datos**/
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
 		setListaDestinos(destinoDao.getListaDestinos());
+		refrescarSistema();
+	}
+	public void refrescarSistema()
+	{
+		BindUtils.postNotifyChange(null, null,this,"oPaquete");
+		BindUtils.postNotifyChange(null, null, this,"listaDestinos");
+		BindUtils.postNotifyChange(null, null, this,"listaServicios");
+		BindUtils.postNotifyChange(null, null, this,"listaPaquetes");
 	}
 	public boolean validoParaInsertar(Component comp)
 	{
@@ -364,9 +369,9 @@ public class paquetesVM
 	@Command
 	 public void Editar(@BindingParam("paquete") CPaquete p) 
 	{
-		oPaquete.setEditable(false);
-		refrescaFilaTemplate(oPaquete);
-		oPaquete=p;
+		oPaqueteUpdate.setEditable(false);
+		refrescaFilaTemplate(oPaqueteUpdate);
+		oPaqueteUpdate=p;
 		//le damos estado editable
 		p.setEditable(!p.isEditable());	
 		//lcs.setEditingStatus(!lcs.getEditingStatus());
@@ -430,7 +435,7 @@ public class paquetesVM
 				}
 			}
 		}
-		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+		oPaquete.setDias_noches(oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
 	@NotifyChange({"oPaquete"})
@@ -519,7 +524,7 @@ public class paquetesVM
 			{
 				oPaquete.setnNoches(oPaquete.getnNoches()-destino.getnNoches());
 				if(oPaquete.getnNoches()!=0)
-					oPaquete.setnDias(oPaquete.getnNoches());
+					oPaquete.setnDias(oPaquete.getnNoches()+1);
 				else
 					oPaquete.setnDias(0);
 			}else
@@ -550,7 +555,7 @@ public class paquetesVM
 					BindUtils.postNotifyChange(null, null, dest, "puedeCaminoInka");
 				}
 			}
-			oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+			oPaquete.setDias_noches(oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 			destino.setnNoches(0);
 			//Recupero el orden de itinerario des seleccionado
 			oPaquete.setOrdenDesSelect(destino.getnOrdenItinerario());
@@ -608,7 +613,7 @@ public class paquetesVM
 			oPaquete.setnNoches(oPaquete.getnNoches()+4);
 			oPaquete.setnDias(oPaquete.getnNoches()+1);
 		}
-		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+		oPaquete.setDias_noches(oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
 	public void selectServicios(@BindingParam("servicio")CServicio servicio)
@@ -699,7 +704,7 @@ public class paquetesVM
 					oPaquete.setnDias(oPaquete.getnNoches()+1);
 			}
 		}
-		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+		oPaquete.setDias_noches(oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
 	@NotifyChange({"oPaquete"})
@@ -730,7 +735,7 @@ public class paquetesVM
 			}
 
 		}
-		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+		oPaquete.setDias_noches(oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
 	public void select_paquete_conDescuento(@BindingParam("opcion")String opcion)
@@ -752,7 +757,7 @@ public class paquetesVM
 	{
 		oPaquete.setnDias(dias);
 		oPaquete.setnNoches(dias-1);
-		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+		oPaquete.setDias_noches(oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
 	@NotifyChange({"oPaquete"})
@@ -760,14 +765,14 @@ public class paquetesVM
 	{
 		oPaquete.setnDias(dias);
 		oPaquete.setnNoches(dias-1);
-		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+		oPaquete.setDias_noches(oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
 	}
 	@Command
 	@NotifyChange({"oPaquete"})
 	public void asignarNamePaquete()
 	{
 		oPaquete.setcTituloIdioma1(oPaquete.getcTituloIdioma1().toUpperCase());
-		oPaquete.setTitulo(oPaquete.getcTituloIdioma1()+" "+oPaquete.getnDias()+" DIAS Y "+oPaquete.getnNoches()+" NOCHES");
+		oPaquete.setTitulo(oPaquete.getcTituloIdioma1());
 	}
 	@Command
 	public void cambioIdiomas(@BindingParam("idioma")String idIdioma,@BindingParam("paquete")CPaquete paquete)
