@@ -71,12 +71,13 @@
 					    		</div>
 					    		<space></space>
 					    		<div sclass="div_destinos">
-					    		<button label="Ver Lista Destinos" onClick="@command('habilitarDestinosPOP',creserva=each)" sclass="btn_lista_pasajeros" width="auto"></button>
-					    		 <window visible="@load(each.visibleDestinospop)" mode="popup" position="parent" width="20%" zclass="estilo_win_popup">
+					    		<button label="Ver Lista Destinos" onClick="@command('habilitarDestinosPOP',creserva=each,idBoton=self.label)" sclass="btn_lista_pasajeros" style="@bind(each.colornoExisteListaDestinos)" width="auto"></button>
+					    		 <div>
+					    		 <window visible="@load(each.visibleDestinospop)" mode="popup" position="parent" width="13.5%" zclass="estilo_win_popup">
 					    			<div width="100%" sclass="div_content_destino">
-					    				<listbox style="border: none; overflow:auto;" model="@load(each.listaDestinos)" height="178"> 
+					    				<listbox style="border: none; overflow:auto;" model="@load(each.listaDestinos)"> 
 					    					<listhead> 
-					    						<listheader label="Destinos" style="font-size: 13px; color: black; font-weight: bold;">
+					    						<listheader>
 					    						</listheader>
 					    					</listhead>
 					    					<template name="model" var="destino">
@@ -93,15 +94,17 @@
 					    				</listbox>
 					    			</div>
 					    			</window>
+					    		  </div>
 					    		</div>
 					    		<space></space>
 					    		<div zclass="div_content_info_listRepReserva">
-					    		 <button label="Ver Lista Hoteles" onClick="@command('habilitarHotelesPOP',creserva=each)" sclass="btn_lista_pasajeros" width="auto"></button>
-					    		  <window visible="@load(each.visibleHotelespop)" mode="popup" position="parent" width="20%" zclass="estilo_win_popup">
+					    		 <button label="Ver Lista Hoteles" onClick="@command('habilitarHotelesPOP',creserva=each,idBoton=self.label)" sclass="btn_lista_pasajeros" style="@bind(each.colornoExisteListaHoteles)" width="auto"></button>
+					    		  <div>
+					    		  <window visible="@load(each.visibleHotelespop)" mode="popup" position="parent" width="12.5%" zclass="estilo_win_popup">
 					    			<div width="100%" sclass="div_content_destino">
-					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaHoteles)" height="176px">  
+					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaHoteles)" >  
 					    					<listhead>
-					    						<listheader label="Hoteles" style="font-size: 13px; color: black; font-weight: bold;">
+					    						<listheader>
 					    						</listheader>
 					    					</listhead>
 					    					<template name="model" var="hoteles">
@@ -118,15 +121,17 @@
 					    				</listbox>
 					    			</div>
 					    		  </window>
+					    		  </div>
 					    		</div>
 					    		<space></space>
 					    		<div sclass="div_paquete">
-					    		  <button label="Ver Lista Servicios" onClick="@command('habilitarServiciosPOP',creserva=each)" sclass="btn_lista_pasajeros" width="auto"></button>
-					    		  <window visible="@load(each.visibleServiciospop)" mode="popup" position="parent" width="20%" zclass="estilo_win_popup">
+					    		  <button label="Ver Lista Servicios" onClick="@command('habilitarServiciosPOP',creserva=each,idBoton=self.label)" sclass="btn_lista_pasajeros" style="@bind(each.colornoExisteListaServicios)" width="auto"></button>
+					    		  <div>
+					    		  <window visible="@load(each.visibleServiciospop)" mode="popup" position="parent" width="13.5%" zclass="estilo_win_popup">
 					    			<div width="100%" sclass="div_content_destino">
-					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaServicios)" height="184px"> 
+					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaServicios)"> 
 					    					<listhead>
-					    						<listheader label="Servicios" style="font-size: 13px; color: black; font-weight: bold;">
+					    						<listheader>
 					    						</listheader>
 					    					</listhead>
 					    					<template name="model" var="servicio">
@@ -143,6 +148,7 @@
 					    				</listbox>
 					    			</div>
 					    		  </window>
+					    		  </div>
 					    		</div>
 					    		<space></space>
 					    		<div sclass="estilo_contenedor_estadoPago">
@@ -160,7 +166,7 @@
 						    				<label value="@load(each.precioPersona)"></label>
 						    				<label value="@load(each.nroPersonas)" style="text-align: right;"></label>
 						    				<space bar="true" orient="horizontal"></space>
-						    				<label value="@load(each.precioPersona)" style="color: black; font-weight:bold;"></label>
+						    				<label value="@load(each.precioTotal)" style="color: black; font-weight:bold;"></label>
 					    				</div>
 					    			</div>
 					    		</div>

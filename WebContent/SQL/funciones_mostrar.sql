@@ -532,7 +532,7 @@ RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha t
 cemail varchar(100),ctelefono varchar(50),nnropersonas int,npreciopaquetepersona numeric,ctituloidioma1 varchar(200),
 ccategoriaidioma1 varchar(200),cestado varchar(20)) AS
 $$
-	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
+	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( c.categoriahotelcod, 0 ),r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
 		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
 			from treserva as r 
 			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
@@ -543,7 +543,7 @@ $$
 			left join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
 			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd'))
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-					p.ctituloidioma1,c.categoriahotelcod,c.ccategoriaidioma1,r.cestado
+					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
 			order by r.creservacod;
 $$
   LANGUAGE sql;

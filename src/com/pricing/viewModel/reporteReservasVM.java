@@ -120,40 +120,81 @@ public class reporteReservasVM {
 	@NotifyChange("listaDestinos")
 	public void habilitarDestinosPOP(@BindingParam("creserva") CReporteReserva servicio)
 	{
-		reporteReservaDAO.asignarDestinosReserva(reporteReservaDAO.recuperarDestinosReservaBD(servicio.getCodReserva()));
-		this.setListaDestinos(reporteReservaDAO.getListaDestinosReserva());
-		servicio.setListaDestinos(this.getListaDestinos());
-		servicio.setVisibleDestinospop(true);
-		reporteReservaAnterior.setVisibleDestinospop(false);
-		reporteReservaAnterior=servicio;
+		if(!servicio.getCodReserva().equals(reporteReservaAnterior.getCodReserva()))
+		{
+			reporteReservaDAO.asignarDestinosReserva(reporteReservaDAO.recuperarDestinosReservaBD(servicio.getCodReserva()));
+			this.setListaDestinos(reporteReservaDAO.getListaDestinosReserva());
+			servicio.setListaDestinos(this.getListaDestinos());
+			if(this.getListaDestinos().isEmpty()){
+				servicio.setVisibleDestinospop(false);
+				servicio.setColornoExisteListaDestinos("background: #DA0613;");
+			}
+			else{
+				servicio.setVisibleDestinospop(true);
+				servicio.setColornoExisteListaDestinos("background: #3BA420;");
+			}
+			reporteReservaAnterior.setVisibleDestinospop(false);
+			reporteReservaAnterior=servicio;
+		}
+		else{
+			servicio.setVisibleDestinospop(true);
+		}
 		BindUtils.postNotifyChange(null, null, servicio,"visibleDestinospop");
 		BindUtils.postNotifyChange(null, null, servicio,"listaDestinos");
+		BindUtils.postNotifyChange(null, null, servicio,"colornoExisteLista");
 	}
 	@Command
 	@NotifyChange("listaHoteles")
 	public void habilitarHotelesPOP(@BindingParam("creserva") CReporteReserva servicio)
 	{
-		reporteReservaDAO.asignarHotelesReserva(reporteReservaDAO.recuperarHotelesReservaBD(servicio.getCodReserva(),servicio.getCodCategoria()));
-		this.setListaHoteles(reporteReservaDAO.getListaHotelesReserva());
-		servicio.setListaHoteles(this.getListaHoteles());
-		servicio.setVisibleHotelespop(true);
-		reporteReservaAnterior.setVisibleHotelespop(false);
-		reporteReservaAnterior=servicio;
+		if(!servicio.getCodReserva().equals(reporteReservaAnterior.getCodReserva()))
+		{
+			reporteReservaDAO.asignarHotelesReserva(reporteReservaDAO.recuperarHotelesReservaBD(servicio.getCodReserva(),servicio.getCodCategoria()));
+			this.setListaHoteles(reporteReservaDAO.getListaHotelesReserva());
+			servicio.setListaHoteles(this.getListaHoteles());
+			if(this.getListaHoteles().isEmpty()){
+				servicio.setVisibleHotelespop(false);
+				servicio.setColornoExisteListaHoteles("background: #DA0613;");
+			}
+			else{
+				servicio.setVisibleHotelespop(true);
+				servicio.setColornoExisteListaHoteles("background: #3BA420;");
+			}
+			reporteReservaAnterior.setVisibleHotelespop(false);
+			reporteReservaAnterior=servicio;
+		}
+		else {
+			servicio.setVisibleHotelespop(true);
+		}
 		BindUtils.postNotifyChange(null, null, servicio,"visibleHotelespop");
 		BindUtils.postNotifyChange(null, null, servicio,"listaHoteles");
+		BindUtils.postNotifyChange(null, null, servicio,"colornoExisteListaHoteles");
 	}
 	@Command
 	@NotifyChange("listaServicios")
 	public void habilitarServiciosPOP(@BindingParam("creserva") CReporteReserva servicio)
 	{
-		reporteReservaDAO.asignarServiciosReserva(reporteReservaDAO.recuperarServiciosReservaBD(servicio.getCodReserva()));
-		this.setListaServicios(reporteReservaDAO.getListaServiciosReserva());
-		servicio.setListaServicios(this.getListaServicios());
-		servicio.setVisibleServiciospop(false);
-		reporteReservaAnterior.setVisibleHotelespop(false);
-		reporteReservaAnterior=servicio;
+		if(!servicio.getCodReserva().equals(reporteReservaAnterior.getCodReserva()))
+		{
+			reporteReservaDAO.asignarServiciosReserva(reporteReservaDAO.recuperarServiciosReservaBD(servicio.getCodReserva()));
+			this.setListaServicios(reporteReservaDAO.getListaServiciosReserva());
+			servicio.setListaServicios(this.getListaServicios());
+			if(this.getListaServicios().isEmpty()){
+				servicio.setVisibleServiciospop(false);
+				servicio.setColornoExisteListaServicios("background: #DA0613;");
+			}
+			else{
+				servicio.setVisibleServiciospop(true);
+				servicio.setColornoExisteListaServicios("background: #3BA420;");
+			}
+			reporteReservaAnterior.setVisibleServiciospop(false);
+			reporteReservaAnterior=servicio;
+		}else{
+			servicio.setVisibleServiciospop(true);
+		}
 		BindUtils.postNotifyChange(null, null, servicio,"visibleServiciospop");
 		BindUtils.postNotifyChange(null, null, servicio,"listaServicios");
+		BindUtils.postNotifyChange(null, null, servicio,"colornoExisteListaServicios");
 	}
 	
 	@Command
@@ -192,6 +233,7 @@ public class reporteReservasVM {
 			System.out.println("entro aqui 1");
 			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(fecha1,fecha2));
 			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
+			
 		}
 	}
 	public String cambiarFormatoMes(String mes)

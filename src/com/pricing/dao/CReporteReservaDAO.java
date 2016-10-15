@@ -93,13 +93,17 @@ public class CReporteReservaDAO extends CConexion{
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
+			Number a=(Number)row.get("npreciopaquetepersona");
+			double preciopersona=a.doubleValue();
+			int n=(int)row.get("nnropersonas");
+			double total=n*preciopersona;
 			listaReporteReservas.add(new CReporteReserva((String)row.get("creservacod"),(Date)row.get("dfechainicio"), 
 					(Date)row.get("dfechafin"),(Date)row.get("dfecha"),
 					(String)row.get("ccontacto"),(String)row.get("cemail"),
 					(String)row.get("ctelefono"),(int)row.get("nnropersonas"),
 					(Number)row.get("npreciopaquetepersona"),(String) row.get("ctituloidioma1"),
 					(String)row.get("ccategoriaidioma1"),
-					(String)row.get("cestado")));
+					(String)row.get("cestado"),(int)row.get("categoriahotelcod"),total));
 		}
 		System.out.println("termino aqui DAO");
 	}

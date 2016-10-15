@@ -25,6 +25,10 @@ public class CReporteReserva {
 	private ArrayList<CHotel> listaHoteles;
 	private ArrayList<CServicio> listaServicios;
 	private ArrayList<CSubServicio> listasubServicios;
+	private Double PrecioTotal;
+	private String colornoExisteListaDestinos;
+	private String colornoExisteListaHoteles;
+	private String colornoExisteListaServicios;
 	//=======getter and setter===========
 	public String getCodReserva() {
 		return CodReserva;
@@ -151,6 +155,39 @@ public class CReporteReserva {
 	public void setListasubServicios(ArrayList<CSubServicio> listasubServicios) {
 		this.listasubServicios = listasubServicios;
 	}
+	
+	public Double getPrecioTotal() {
+		return PrecioTotal;
+	}
+	public void setPrecioTotal(Double precioTotal) {
+		PrecioTotal = precioTotal;
+	}
+	
+	public String getColornoExisteLista() {
+		return colornoExisteListaDestinos;
+	}
+	public void setColornoExisteLista(String colornoExisteLista) {
+		this.colornoExisteListaDestinos = colornoExisteLista;
+	}
+	
+	public String getColornoExisteListaDestinos() {
+		return colornoExisteListaDestinos;
+	}
+	public void setColornoExisteListaDestinos(String colornoExisteListaDestinos) {
+		this.colornoExisteListaDestinos = colornoExisteListaDestinos;
+	}
+	public String getColornoExisteListaHoteles() {
+		return colornoExisteListaHoteles;
+	}
+	public void setColornoExisteListaHoteles(String colornoExisteListaHoteles) {
+		this.colornoExisteListaHoteles = colornoExisteListaHoteles;
+	}
+	public String getColornoExisteListaServicios() {
+		return colornoExisteListaServicios;
+	}
+	public void setColornoExisteListaServicios(String colornoExisteListaServicios) {
+		this.colornoExisteListaServicios = colornoExisteListaServicios;
+	}
 	//=============metodos constructores===============
 	public CReporteReserva()
 	{
@@ -166,11 +203,13 @@ public class CReporteReserva {
 		this.visibleDestinospop=false;
 		this.visibleHotelespop=false;
 		this.visibleServiciospop=false;
+		this.codCategoria=0;
+		this.PrecioTotal=0.0;
 	}
 	public CReporteReserva(String codReserva, Date fechaInicio, Date fechaFin,
 			Date fecha,String nombreContacto, String Email,
 			String telefono, int nroPersonas,Number precioPersona,
-			String nombrePaquete, String categoria,String estado) {
+			String nombrePaquete, String categoria,String estado,int codCategoria,Double precioTotal) {
 		super();
 		this.CodReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -184,6 +223,8 @@ public class CReporteReserva {
 		this.nombrePaquete = nombrePaquete;
 		this.categoria = categoria;
 		this.estado = estado;
+		this.codCategoria=codCategoria;
+		this.PrecioTotal=precioTotal;
 		
 	}
 	//=================otros metodos======================

@@ -83,7 +83,7 @@
    width: 34%; 
 }
 .div_content_info_listRepReserva{
-	width: 36% ;
+	width: 25% ;
 }
 
 .div_contenedor_datos_listRepReserva{
@@ -99,7 +99,7 @@
 	font-weight: bold;
 	font-size: 13px;
 	color: black;
-	width: 35%;
+	width: 25%;
 	display: flex;
 	display: -webkit-flex;
    	display: -moz-flex;
@@ -137,11 +137,11 @@
 }
 
 .div_paquete{
-	width:19%;
+	width:25%;
 }
 
 .div_destinos{
-	width:19%;
+	width:25%;
 }
 
 .div_content_destino .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content{
