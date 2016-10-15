@@ -266,6 +266,14 @@ public class CHotel
 	public CHotel(String cHotel){
 		this.cHotel=cHotel;
 	}
+	
+	public CHotel(String cHotel,Number precioSimple,Number precioDoble,Number precioTriple)
+	{
+		this.cHotel=cHotel;
+		this.nPrecioSimple=precioSimple;
+		this.nPrecioDoble=precioDoble;
+		this.nPrecioTriple=precioTriple;
+	}
 	public CHotel(int nHotelCod, String cHotel, String cDescripcionIdioma1,
 			String cDescripcionIdioma2, String cDescripcionIdioma3,
 			String cDescripcionIdioma4, String cDescripcionIdioma5,

@@ -19,7 +19,6 @@ import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
 import com.pricing.model.CReportePagosMuestra;
 import com.pricing.model.CReporteReserva;
-import com.pricing.model.CReporteReservaMuestra;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
 
@@ -238,6 +237,11 @@ public class reportePagosVM {
 					contador++;
 					factorIncremento++;
 				}
+				double impuesto=Double.valueOf(listaReportePagos.get(i).getImpuesto().toString())*100;
+				double valorImpuesto=(impuesto*(listaReportePagos.get(i).getImporte().doubleValue()))/100;
+				String impuestoCadena=String.valueOf(impuesto);
+				double porcentaje=Double.valueOf(listaReportePagos.get(i).getPorcentaje().toString())*100;
+				double total=listaReportePagos.get(i).getImporte().doubleValue()+valorImpuesto;
 				reportepagosMuestra=new CReportePagosMuestra();
 				reportepagosMuestra.setCodPago(listaReportePagos.get(i).getCodPago());
 				reportepagosMuestra.setCodReserva(listaReportePagos.get(i).getCodReserva());
@@ -247,7 +251,7 @@ public class reportePagosVM {
 				reportepagosMuestra.setNombrePaquete(listaReportePagos.get(i).getNombrePaquete());
 				reportepagosMuestra.setNroPersonas(listaReportePagos.get(i).getNroPersonas());
 				reportepagosMuestra.setImporte(listaReportePagos.get(i).getImporte());
-				reportepagosMuestra.setPorcentaje(listaReportePagos.get(i).getPorcentaje());
+				reportepagosMuestra.setPorcentaje(porcentaje);
 				reportepagosMuestra.setFormaPago(listaReportePagos.get(i).getFormaPago());
 				reportepagosMuestra.setEstado(listaReportePagos.get(i).getEstado());
 				reportepagosMuestra.setFechayhoraTransaccion(listaReportePagos.get(i).getFechayhoraTransaccion());
@@ -256,6 +260,9 @@ public class reportePagosVM {
 				reportepagosMuestra.setNroTarjeta(listaReportePagos.get(i).getNroTarjeta());
 				reportepagosMuestra.setEstadoReserva(listaReportePagos.get(i).getEstadoReserva());
 				reportepagosMuestra.setListaPasajeros(listaPasajeros);
+				reportepagosMuestra.setMontoTotal(total);
+				reportepagosMuestra.setImpuesto(impuestoCadena);
+				reportepagosMuestra.setValorImpuesto(valorImpuesto);
 				listanuevaReportePagos.add(reportepagosMuestra);
 			}
 		}else{

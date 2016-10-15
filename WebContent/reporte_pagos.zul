@@ -41,7 +41,7 @@
 					    			<label value="@load(each.nombrePaquete)" sclass="estilo_nombre_subServicio"></label>
 					    		</div>
 					    		<div zclass="div_contenedor_datos_listRepReserva">
-					    		<div zclass="estilo_fechas" width="76%">
+					    		<div zclass="estilo_fechas" width="24%">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="15px" style="font-size: 15px; color: black; font-weight: bold;"
 					    					value="@load(each.nombreCliente)" />
@@ -67,37 +67,39 @@
 					    				<button label="Ver lista Pasajeros" onClick="@command('habilitarPasajerosPOP',cpasajero=each)" sclass="btn_lista_pasajeros" width="auto"></button>
 					    			</div>
 					    		</div>
-					    		  <window visible="@load(each.visiblepasajerospop)" mode="popup" position="parent" width="50%" zclass="estilo_win_popup">
+					    		<div width="52%">
+					    		  <window visible="@load(each.visiblepasajerospop)" mode="popup" position="parent" width="37%" zclass="estilo_win_popup">
 					    			<div sclass="div_pasajeros" width="100%">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none;" model="@load(each.listaPasajeros)" width="100%"> 
 					    					<listhead> 
-					    						<listheader label="Lista Pasajeros" style="font-size: 13px; color: black; font-weight: bold;" align="center"></listheader>
+					    						<listheader label="LISTA PASAJEROS" style="font-size: 14px; color: black; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center"></listheader>
 					    					</listhead>
 					    					<template name="model" var="pasajero">
 					    					<listitem>
 					    						<listcell>
-					    						<div style="display: flex;" zclass="div_list_cell" width="100%">
-					    							<div style="display:flex; align-items: center;" width="10%">
+					    						<div zclass="div_list_cell" width="100%">
+					    							<div sclass="estilo_contenidos_centrados" width="10%">
 					    								<label value="■"></label>
 					    								<space></space>
 					    								<label value="@load(pasajero.tipoDocumento)"></label>
 					    							</div>
-					    							<div style="display:flex; align-items: center;" width="30%">
+					    							<div sclass="estilo_contenidos_centrados" width="15%">
 					    								<label value="@load(pasajero.cNroDoc)"></label>
 					    							</div>
-					    							<div width="40%">
-						    							<div style="display:flex; align-items: center;">
+					    							<div width="55%" sclass="estilo_contenidos_centrados">
+						    							<div sclass="estilo_contenidos_centrados">
 						    								<label value="@load(pasajero.cApellidos)"></label>
 						    							</div>
-						    							<div style="display:flex; align-items: center;">
+						    							<space></space>
+						    							<div sclass="estilo_contenidos_centrados">
 						    								<label value="@load(pasajero.cNombres)"></label>
 						    							</div>
 					    							</div>
-					    							<div style="display:flex; align-items: center;" width="10%">
+					    							<div sclass="estilo_contenidos_centrados" width="10%">
 					    								<label value="@load(pasajero.cSexo)"></label>
 					    							</div>
-					    							<div style="display:flex; align-items: center;" width="10%">
+					    							<div sclass="estilo_contenidos_centrados" width="10%">
 					    								<label value="@load(pasajero.nombrePais)"></label>
 					    							</div>
 					    						 </div>
@@ -108,6 +110,7 @@
 					    				</div>
 					    			</div>
 					    			</window>
+					    		  </div>
 					    		<space></space>
 					    		<div width="24%">
 					    			<div sclass="estilo_pagos"  width="100%">
@@ -131,15 +134,20 @@
 							    					<label value="@load(each.porcentaje)"></label>
 							    					<label value="%)"></label>
 						    					</div>
-						    					<label value="Impuesto (6.9%):"></label>
+						    					<div style="display: flex;">
+							    					<label value="Impuesto"></label>
+							    					<label value="("></label>
+							    					<label value="@load(each.impuesto)"></label>
+							    					<label value="%)"></label>
+						    					</div>
 						    					<space orient="horizontal"></space>
 						    					<label value="Total ($):" style="color: black; font-weight:bold;"></label>
 						    				</div>
 						    				<div sclass="estilo_columnas_precios" width="30%">
 							    				<label value="@load(each.importe)"></label>
-							    				<label value="27.05" style="text-align: right;"></label>
+							    				<label value="@load(each.valorImpuesto)" style="text-align: right;"></label>
 							    				<space bar="true" orient="horizontal"></space>
-							    				<label value="@load(each.importe)" style="color: black; font-weight:bold;"></label>
+							    				<label value="@load(each.montoTotal)" style="color: black; font-weight:bold;"></label>
 						    				</div>
 						    			</div>
 					    			</div>

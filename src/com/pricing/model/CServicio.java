@@ -329,6 +329,12 @@ public class CServicio
 	{
 		this.cServicioIndioma1=cServicioIndioma1;
 	}
+	
+	public CServicio(String cServicioIndioma1,Number precioServicio)
+	{
+		this.cServicioIndioma1=cServicioIndioma1;
+		this.nPrecioServicio=precioServicio;
+	}
 	public CServicio() {
 		// TODO Auto-generated constructor stub
 		this.listaOpcionServicios=new ArrayList<String[]>();

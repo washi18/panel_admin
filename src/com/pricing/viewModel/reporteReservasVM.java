@@ -3,6 +3,7 @@ package com.pricing.viewModel;
 import java.util.ArrayList;
 import java.util.Date;
 
+import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
@@ -12,16 +13,15 @@ import org.zkoss.zk.ui.util.Clients;
 import com.pricing.dao.CReporteReservaDAO;
 import com.pricing.model.CDestino;
 import com.pricing.model.CHotel;
+import com.pricing.model.CPasajero;
+import com.pricing.model.CReportePagosMuestra;
 import com.pricing.model.CReporteReserva;
-import com.pricing.model.CReporteReservaMuestra;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
 
 public class reporteReservasVM {
 	//======atributos=====
-	private CReporteReservaMuestra reporteReserva;
 	private ArrayList<CReporteReserva> listaReporteReserva;
-	private ArrayList<CReporteReservaMuestra> listanuevaReporteReserva;
 	private CReporteReservaDAO reporteReservaDAO;
 	private String FechaInicio;
 	private String FechaFinal;
@@ -29,6 +29,7 @@ public class reporteReservasVM {
 	private ArrayList<CHotel> listaHoteles;
 	private ArrayList<CServicio> listaServicios;
 	private ArrayList<CSubServicio> listasubServicios;
+	private CReporteReserva reporteReservaAnterior;
 	
 	//=======getter and setter=====
 	
@@ -58,15 +59,6 @@ public class reporteReservasVM {
 	}
 	public void setFechaFinal(String fechaFinal) {
 		FechaFinal = fechaFinal;
-	}
-
-	public ArrayList<CReporteReservaMuestra> getListanuevaReporteReserva() {
-		return listanuevaReporteReserva;
-	}
-
-	public void setListanuevaReporteReserva(
-			ArrayList<CReporteReservaMuestra> listanuevaReporteReserva) {
-		this.listanuevaReporteReserva = listanuevaReporteReserva;
 	}
 	
 
@@ -101,13 +93,13 @@ public class reporteReservasVM {
 	public void setListasubServicios(ArrayList<CSubServicio> listasubServicios) {
 		this.listasubServicios = listasubServicios;
 	}
-
-	public CReporteReservaMuestra getReporteReserva() {
-		return reporteReserva;
+	
+	public CReporteReserva getReporteReservaAnterior() {
+		return reporteReservaAnterior;
 	}
 
-	public void setReporteReserva(CReporteReservaMuestra reporteReserva) {
-		this.reporteReserva = reporteReserva;
+	public void setReporteReservaAnterior(CReporteReserva reporteReservaAnterior) {
+		this.reporteReservaAnterior = reporteReservaAnterior;
 	}
 
 	//======metodos=====
@@ -119,8 +111,49 @@ public class reporteReservasVM {
 		FechaInicio="";
 		FechaFinal="";
 		reporteReservaDAO=new CReporteReservaDAO();
+		reporteReservaAnterior=new CReporteReserva();
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
+	}
+	
+	@Command
+	@NotifyChange("listaDestinos")
+	public void habilitarDestinosPOP(@BindingParam("creserva") CReporteReserva servicio)
+	{
+		reporteReservaDAO.asignarDestinosReserva(reporteReservaDAO.recuperarDestinosReservaBD(servicio.getCodReserva()));
+		this.setListaDestinos(reporteReservaDAO.getListaDestinosReserva());
+		servicio.setListaDestinos(this.getListaDestinos());
+		servicio.setVisibleDestinospop(true);
+		reporteReservaAnterior.setVisibleDestinospop(false);
+		reporteReservaAnterior=servicio;
+		BindUtils.postNotifyChange(null, null, servicio,"visibleDestinospop");
+		BindUtils.postNotifyChange(null, null, servicio,"listaDestinos");
+	}
+	@Command
+	@NotifyChange("listaHoteles")
+	public void habilitarHotelesPOP(@BindingParam("creserva") CReporteReserva servicio)
+	{
+		reporteReservaDAO.asignarHotelesReserva(reporteReservaDAO.recuperarHotelesReservaBD(servicio.getCodReserva(),servicio.getCodCategoria()));
+		this.setListaHoteles(reporteReservaDAO.getListaHotelesReserva());
+		servicio.setListaHoteles(this.getListaHoteles());
+		servicio.setVisibleHotelespop(true);
+		reporteReservaAnterior.setVisibleHotelespop(false);
+		reporteReservaAnterior=servicio;
+		BindUtils.postNotifyChange(null, null, servicio,"visibleHotelespop");
+		BindUtils.postNotifyChange(null, null, servicio,"listaHoteles");
+	}
+	@Command
+	@NotifyChange("listaServicios")
+	public void habilitarServiciosPOP(@BindingParam("creserva") CReporteReserva servicio)
+	{
+		reporteReservaDAO.asignarServiciosReserva(reporteReservaDAO.recuperarServiciosReservaBD(servicio.getCodReserva()));
+		this.setListaServicios(reporteReservaDAO.getListaServiciosReserva());
+		servicio.setListaServicios(this.getListaServicios());
+		servicio.setVisibleServiciospop(false);
+		reporteReservaAnterior.setVisibleHotelespop(false);
+		reporteReservaAnterior=servicio;
+		BindUtils.postNotifyChange(null, null, servicio,"visibleServiciospop");
+		BindUtils.postNotifyChange(null, null, servicio,"listaServicios");
 	}
 	
 	@Command
@@ -134,7 +167,7 @@ public class reporteReservasVM {
 	}
 	
 	@Command
-	@NotifyChange({"listaReporteReserva","listanuevaReporteReserva","listaHoteles","reporteReserva"})
+	@NotifyChange({"listaReporteReserva","reporteReserva"})
 	public void Buscar_Reservas(@BindingParam("componente")Component componente)
 	{
 		if(FechaInicio.isEmpty() || FechaFinal.isEmpty())
@@ -159,123 +192,6 @@ public class reporteReservasVM {
 			System.out.println("entro aqui 1");
 			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(fecha1,fecha2));
 			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
-			System.out.println("entro aqui 2");
-			String codReservaAnterior,destinoAnterior,hotelAnterior,servicioAnterior,subservicioAnterior;
-			System.out.println("entro aqui 3");
-			codReservaAnterior="";
-			int factorIncremento=0;
-			System.out.println("el nro de filas es:"+listaReporteReserva.size());
-			listanuevaReporteReserva=new ArrayList<CReporteReservaMuestra>();
-			for(int i=0;i<listaReporteReserva.size();i=i+factorIncremento)
-			{	
-				factorIncremento=0;
-				codReservaAnterior=listaReporteReserva.get(i).getCodReserva();
-				int contador=i;
-				System.out.println("el valor del contador:"+contador);
-				destinoAnterior="";
-				hotelAnterior="";
-				servicioAnterior="";
-				subservicioAnterior="";
-				System.out.println("el valor de reserva anterior es:"+codReservaAnterior);
-				listaDestinos=new ArrayList<CDestino>();
-				listaServicios=new ArrayList<CServicio>();
-				listasubServicios=new ArrayList<CSubServicio>();
-				listaHoteles=new ArrayList<CHotel>();
-				boolean continuaDestinos=true;
-				boolean continuaHoteles=true;
-				boolean continuaServicios=true;
-				boolean hotelesVacios=false;
-				boolean primerosHotelesVacios=false;
-				if(listaReporteReserva.get(contador).getServicios()!=null)
-					listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios()));
-				if(listaReporteReserva.get(contador).getSubServicios()!=null)
-					listasubServicios.add(new CSubServicio(listaReporteReserva.get(contador).getSubServicios()));
-				if(listaReporteReserva.get(contador).getDestinos()!=null)
-					listaDestinos.add(new CDestino(listaReporteReserva.get(contador).getDestinos()));
-				hotelAnterior=listaReporteReserva.get(contador).getHoteles();
-				servicioAnterior=listaReporteReserva.get(contador).getServicios();
-				destinoAnterior=listaReporteReserva.get(contador).getDestinos();
-				while((contador<listaReporteReserva.size()) && (listaReporteReserva.get(contador).getCodReserva().equals(codReservaAnterior)))
-				{
-					if(contador==0 && listaReporteReserva.get(contador).getHoteles()==null)
-					{
-						primerosHotelesVacios=true;
-					}
-					if(listaReporteReserva.get(contador).getDestinos()==null){
-						System.out.println("sale este null");
-						destinoAnterior = listaReporteReserva.get(contador).getDestinos();
-					}else if(!listaReporteReserva.get(contador).getDestinos().equals(destinoAnterior)) {
-						destinoAnterior = listaReporteReserva.get(contador).getDestinos();
-						listaDestinos.add(new CDestino(listaReporteReserva.get(contador).getDestinos().toString()));
-						continuaDestinos=false;
-						primerosHotelesVacios=false;
-					}
-					if(listaReporteReserva.get(contador).getHoteles()==null){
-						hotelAnterior = listaReporteReserva.get(contador).getHoteles();
-					}else if(!listaReporteReserva.get(contador).getHoteles().equals(hotelAnterior)) {
-						hotelAnterior = listaReporteReserva.get(contador).getHoteles();
-						listaHoteles.add(new CHotel(listaReporteReserva.get(contador).getHoteles()));
-						continuaHoteles=false;
-					}else{
-						if(continuaHoteles)
-						{
-							System.out.println("sigue imprimiendo esto 1");
-							if(listaReporteReserva.get(contador).getServicios()==null){
-								servicioAnterior = listaReporteReserva.get(contador).getServicios();
-							}else if(!listaReporteReserva.get(contador).getServicios().equals(servicioAnterior)) {
-								servicioAnterior = listaReporteReserva.get(contador).getServicios();
-								listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios().toString()));
-								continuaServicios=false;
-							}else {
-								if(continuaServicios)
-								{
-									System.out.println("sigue imprimiendo esto 2");
-									if(listaReporteReserva.get(contador).getSubServicios()==null){
-										servicioAnterior = listaReporteReserva.get(contador).getSubServicios();
-									}else if (!listaReporteReserva.get(contador).getSubServicios().equals(subservicioAnterior)) {
-										subservicioAnterior = listaReporteReserva.get(contador).getSubServicios();
-										listasubServicios.add(new CSubServicio(listaReporteReserva.get(contador).getSubServicios()));
-									}
-								}
-							}
-						}
-					}
-					if(continuaDestinos && primerosHotelesVacios)
-					{
-							System.out.println("ingresa aqui o no");
-							if(listaReporteReserva.get(contador).getServicios()==null){
-								servicioAnterior = listaReporteReserva.get(contador).getServicios();
-							}else if(!listaReporteReserva.get(contador).getServicios().equals(servicioAnterior)) {
-								servicioAnterior = listaReporteReserva.get(contador).getServicios();
-								listaServicios.add(new CServicio(listaReporteReserva.get(contador).getServicios().toString()));
-								continuaServicios=false;
-							}
-					}
-					contador++;
-					factorIncremento++;
-				}
-				Number totalPrecio=listaReporteReserva.get(i).getNroPersonas()*listaReporteReserva.get(i).getPrecioPersona().doubleValue();
-				reporteReserva=new CReporteReservaMuestra();
-				reporteReserva.setCodReserva(listaReporteReserva.get(i).getCodReserva());
-				reporteReserva.setFechaInicio(listaReporteReserva.get(i).getFechaInicio());
-				reporteReserva.setFechaFin(listaReporteReserva.get(i).getFechaFin());
-				reporteReserva.setFecha(listaReporteReserva.get(i).getFecha());
-				reporteReserva.setNombreContacto(listaReporteReserva.get(i).getNombreContacto());
-				reporteReserva.setEmail(listaReporteReserva.get(i).getEmail());
-				reporteReserva.setTelefono(listaReporteReserva.get(i).getTelefono());
-				reporteReserva.setNroPersonas(listaReporteReserva.get(i).getNroPersonas());
-				reporteReserva.setPrecioPersona(listaReporteReserva.get(i).getPrecioPersona());
-				reporteReserva.setNombrePaquete(listaReporteReserva.get(i).getNombrePaquete());
-				reporteReserva.setCategoria(listaReporteReserva.get(i).getCategoria());
-				reporteReserva.setDestinos(listaDestinos);
-				reporteReserva.setHoteles(listaHoteles);
-				reporteReserva.setServicios(listaServicios);
-				reporteReserva.setSubServicios(listasubServicios);
-				reporteReserva.setEstado(listaReporteReserva.get(i).getEstado());
-				reporteReserva.setPrecioTotal(totalPrecio);
-				System.out.println("aqui esta el tamanio de listahotel "+listaHoteles.size());
-				listanuevaReporteReserva.add(reporteReserva);
-			}
 		}
 	}
 	public String cambiarFormatoMes(String mes)

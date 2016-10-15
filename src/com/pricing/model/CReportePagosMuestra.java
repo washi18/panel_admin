@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 public class CReportePagosMuestra extends CReportePagos{
 	private boolean visiblepasajerospop=false;
-	private String idPasajeropop;
+	private Double montoTotal;
+	private Double valorImpuesto;
 	private ArrayList<CPasajero> listaPasajeros;
 	//=======getter and setter======
 
@@ -23,20 +24,27 @@ public class CReportePagosMuestra extends CReportePagos{
 	public void setVisiblepasajerospop(boolean visiblepasajerospop) {
 		this.visiblepasajerospop = visiblepasajerospop;
 	}
-
-	public String getIdPasajeropop() {
-		return idPasajeropop;
+	
+	public Double getMontoTotal() {
+		return montoTotal;
 	}
 
-	public void setIdPasajeropop(String idPasajeropop) {
-		this.idPasajeropop = idPasajeropop;
+	public void setMontoTotal(Double montoTotal) {
+		this.montoTotal = montoTotal;
+	}
+	
+	public Double getValorImpuesto() {
+		return valorImpuesto;
+	}
+
+	public void setValorImpuesto(Double valorImpuesto) {
+		this.valorImpuesto = valorImpuesto;
 	}
 
 	//===============constructores=====
 	public CReportePagosMuestra()
 	{
 		super();
-		idPasajeropop="";
 		visiblepasajerospop=false;
 	}
 	public CReportePagosMuestra(ArrayList<CPasajero> listaPasajeros) {

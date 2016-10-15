@@ -16,11 +16,15 @@ public class CReporteReserva {
 	private Number precioPersona;
 	private String nombrePaquete;
 	private String categoria;
-	private String destinos;
-	private String hoteles;
-	private String servicios;
-	private String subServicios;
+	private int codCategoria;
 	private String estado;
+	private boolean visibleDestinospop=false;
+	private boolean visibleHotelespop=false;
+	private boolean visibleServiciospop=false;
+	private ArrayList<CDestino> listaDestinos;
+	private ArrayList<CHotel> listaHoteles;
+	private ArrayList<CServicio> listaServicios;
+	private ArrayList<CSubServicio> listasubServicios;
 	//=======getter and setter===========
 	public String getCodReserva() {
 		return CodReserva;
@@ -89,36 +93,63 @@ public class CReporteReserva {
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
-	public String getDestinos() {
-		return destinos;
-	}
-	public void setDestinos(String destinos) {
-		this.destinos = destinos;
-	}
-	public String getHoteles() {
-		return hoteles;
-	}
-	public void setHoteles(String hoteles) {
-		this.hoteles = hoteles;
-	}
-	public String getServicios() {
-		return servicios;
-	}
-	public void setServicios(String servicios) {
-		this.servicios = servicios;
-	}
-	public String getSubServicios() {
-		return subServicios;
-	}
-	public void setSubServicios(String subServicios) {
-		this.subServicios = subServicios;
-	}
 	
 	public Number getPrecioPersona() {
 		return precioPersona;
 	}
 	public void setPrecioPersona(Number precioPersona) {
 		this.precioPersona = precioPersona;
+	}
+	
+	public int getCodCategoria() {
+		return codCategoria;
+	}
+	public void setCodCategoria(int codCategoria) {
+		this.codCategoria = codCategoria;
+	}
+	
+	public boolean isVisibleDestinospop() {
+		return visibleDestinospop;
+	}
+	public void setVisibleDestinospop(boolean visibleDestinospop) {
+		this.visibleDestinospop = visibleDestinospop;
+	}
+	public boolean isVisibleHotelespop() {
+		return visibleHotelespop;
+	}
+	public void setVisibleHotelespop(boolean visibleHotelespop) {
+		this.visibleHotelespop = visibleHotelespop;
+	}
+	public boolean isVisibleServiciospop() {
+		return visibleServiciospop;
+	}
+	public void setVisibleServiciospop(boolean visibleServiciospop) {
+		this.visibleServiciospop = visibleServiciospop;
+	}
+	
+	public ArrayList<CDestino> getListaDestinos() {
+		return listaDestinos;
+	}
+	public void setListaDestinos(ArrayList<CDestino> listaDestinos) {
+		this.listaDestinos = listaDestinos;
+	}
+	public ArrayList<CHotel> getListaHoteles() {
+		return listaHoteles;
+	}
+	public void setListaHoteles(ArrayList<CHotel> listaHoteles) {
+		this.listaHoteles = listaHoteles;
+	}
+	public ArrayList<CServicio> getListaServicios() {
+		return listaServicios;
+	}
+	public void setListaServicios(ArrayList<CServicio> listaServicios) {
+		this.listaServicios = listaServicios;
+	}
+	public ArrayList<CSubServicio> getListasubServicios() {
+		return listasubServicios;
+	}
+	public void setListasubServicios(ArrayList<CSubServicio> listasubServicios) {
+		this.listasubServicios = listasubServicios;
 	}
 	//=============metodos constructores===============
 	public CReporteReserva()
@@ -131,18 +162,15 @@ public class CReporteReserva {
 		this.precioPersona=0.0;
 		this.nombrePaquete = "";
 		this.categoria = "";
-		this.destinos = "";
-		this.hoteles = "";
-		this.servicios = "";
-		this.subServicios = "";
 		this.estado = "";
+		this.visibleDestinospop=false;
+		this.visibleHotelespop=false;
+		this.visibleServiciospop=false;
 	}
 	public CReporteReserva(String codReserva, Date fechaInicio, Date fechaFin,
-			Date fecha, String nombreContacto, String Email,
+			Date fecha,String nombreContacto, String Email,
 			String telefono, int nroPersonas,Number precioPersona,
-			String nombrePaquete, String categoria, String destinos,
-			String hoteles, String servicios,
-			String subServicios,String estado) {
+			String nombrePaquete, String categoria,String estado) {
 		super();
 		this.CodReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -155,10 +183,6 @@ public class CReporteReserva {
 		this.precioPersona=precioPersona;
 		this.nombrePaquete = nombrePaquete;
 		this.categoria = categoria;
-		this.destinos = destinos;
-		this.hoteles = hoteles;
-		this.servicios = servicios;
-		this.subServicios = subServicios;
 		this.estado = estado;
 		
 	}

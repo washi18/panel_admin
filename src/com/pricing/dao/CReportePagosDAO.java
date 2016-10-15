@@ -5,8 +5,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.pricing.model.CDestino;
+import com.pricing.model.CHotel;
 import com.pricing.model.CReportePagos;
 import com.pricing.model.CReporteReserva;
+import com.pricing.model.CServicio;
 
 public class CReportePagosDAO  extends CConexion{
 	//==============atributos===================
@@ -26,7 +29,6 @@ public class CReportePagosDAO  extends CConexion{
 		this.reportePagos = reportePagos;
 	}
 	//=====================constructores==========
-	
 	public CReportePagosDAO()
 	{
 		super();
@@ -65,7 +67,7 @@ public class CReportePagosDAO  extends CConexion{
 					(String)row.get("csexo"),
 					(String)row.get("cabrevtipodoc"),(String)row.get("cnrodoc"),
 					(String)row.get("cnombreesp"),
-					(String)row.get("nro_tarjeta"),(String)row.get("cestado")));
+					(String)row.get("nro_tarjeta"),(String)row.get("cestado"),(String)row.get("impuesto")));
 		}
 	}
 }

@@ -80,10 +80,10 @@
    flex-direction: column;
    justify-content: center !important;
    align-items: center;
-   width: 24%; 
+   width: 34%; 
 }
 .div_content_info_listRepReserva{
-	width: 19% ;
+	width: 36% ;
 }
 
 .div_contenedor_datos_listRepReserva{
@@ -99,7 +99,7 @@
 	font-weight: bold;
 	font-size: 13px;
 	color: black;
-	width: 19%;
+	width: 35%;
 	display: flex;
 	display: -webkit-flex;
    	display: -moz-flex;

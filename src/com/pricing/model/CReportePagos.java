@@ -27,7 +27,7 @@ public class CReportePagos {
 	private String nombrePais;
 	private String nroTarjeta;
 	private String estadoReserva;
-	
+	private String impuesto;
 	//===============getter and setter=======
 	public String getCodPago() {
 		return codPago;
@@ -175,6 +175,14 @@ public class CReportePagos {
 	public void setEstadoReserva(String estadoReserva) {
 		this.estadoReserva = estadoReserva;
 	}
+	
+	public String getImpuesto() {
+		return impuesto;
+	}
+
+	public void setImpuesto(String impuesto) {
+		this.impuesto = impuesto;
+	}
 
 	//==================constructores==================
 	public CReportePagos()
@@ -198,6 +206,7 @@ public class CReportePagos {
 		this.nroTarjeta = "";
 		this.nroDoc="";
 		this.estadoReserva="";
+		this.impuesto="";
 	}
 
 	public CReportePagos(String codReserva, Date fechaInicio,
@@ -206,7 +215,7 @@ public class CReportePagos {
 			Date fechayhoraTransaccion,
 			String codTransaccion, String nombreCliente,
 			String apellidos, String nombres, String sexo,
-			String tipoDocumento,String nroDoc, String nombrePais, String nroTarjeta,String estadoReserva) {
+			String tipoDocumento,String nroDoc, String nombrePais, String nroTarjeta,String estadoReserva,String impuesto) {
 		super();
 		this.codReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -229,6 +238,7 @@ public class CReportePagos {
 		this.nombrePais = nombrePais;
 		this.nroTarjeta = nroTarjeta;
 		this.estadoReserva=estadoReserva;
+		this.impuesto=impuesto;
 	}
 	
 	

@@ -42,9 +42,18 @@
 	text-shadow: none;
 }
 
+.btn_lista_pasajeros:HOVER{
+	background: #3BA420 ;
+}
+
+.btn_lista_pasajeros:FOCUS{
+	background: #3BA420 ;
+	color: white;
+}
+
 .estilo_win_popup {
 	border: 0.3px solid rgba(0,0,0,0.1);
-	padding: 5px;
+	padding: 2px;
 	box-sizing:border-box;
     box-shadow: 0 3px 4px rgba(41,51,57,.5);
     background: rgba(0,0,0,0.1);
@@ -54,12 +63,42 @@
 	width: 57%;
 }
 
+.estilo_titulo_pasajeros {
+	background: -webkit-linear-gradient(top, #ABA8A8 0.2%, rgba(0,0,0,0.1) 100%);
+    background: linear-gradient(to bottom, #ABA8A8 0.2%, rgba(0,0,0,0.1) 100%);
+}
+
+.estilo_pago_porcentaje {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+
 .estilo_pagos {
    border: 1px solid rgba(0,0,0,0.1);
    padding: 10px;
    box-sizing:border-box;
    box-shadow: 0 1px 4px rgba(41,51,57,.5);
    background: rgba(0,0,0,0.1);
+}
+
+.estilo_contenidos_horizontales {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+
+.estilo_contenidos_centrados {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
 }
 
 @media only screen and (max-width: 416px)

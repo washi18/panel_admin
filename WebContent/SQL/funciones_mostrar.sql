@@ -302,7 +302,6 @@ select * from tpagopaypal;
 insert into tpagopaypal values(20011,40001,'C00001',0.40,'R000000012','PAYPAL','AUTORIZADO',237.00,'2016-07-21 13:29:44','LEONARDO CRUZ','T01938373',
 								'trabaja en agencia','72353532','PER','ESTADO1','impuesto sera 1','av.collasuyo A-15','leo@gmail.com')
 
-
  create or replace function Pricing_sp_BuscarPagosVisaEntreFechasBD
 (
 	fechaInicio varchar(12),
@@ -312,10 +311,10 @@ insert into tpagopaypal values(20011,40001,'C00001',0.40,'R000000012','PAYPAL','
 RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,npreciopaquetepersona numeric,nnropersonas int,ctituloidioma1 varchar(200),nimporte numeric,nporcentaje numeric,
 formapago varchar(20),estado varchar(10),fechayhora_initx timestamp ,nro_tarjeta varchar(20),
 codtransaccion varchar(20),nom_th varchar(100),capellidos varchar(100),
-cnombres varchar(100),csexo char(1),nedad int,cabrevtipodoc varchar(20),cnrodoc varchar(12),cnombreesp varchar(60),cestado varchar(20)) AS
+cnombres varchar(100),csexo char(1),nedad int,cabrevtipodoc varchar(20),cnrodoc varchar(12),cnombreesp varchar(60),cestado varchar(20),impuestovisa varchar(5)) AS
 $$
 		select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,pv.nimporte,pv.nporcentaje,pv.formapago,pv.estado,pv.fechayhora_initx,pv.nro_tarjeta,
-			pv.cod_autorizacion,pv.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado
+			pv.cod_autorizacion,pv.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado,ti.impuestovisa
 				from treserva as r 
 				left join tpagovisa as pv on(r.creservacod=pv.creservacod)
 				left join tpasajero as pa on(pv.creservacod=pa.creservacod)
@@ -323,13 +322,16 @@ $$
 				left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
 				left join tpaquete as paq on(ps.cpaquetecod=paq.cpaquetecod)
 				left join ttipodocumento as tp on(pa.ntipodoc=tp.ntipodoc)
-				left join tpais as pais on(pa.npaiscod=pais.npaiscod)
+				left join tpais as pais on(pa.npaiscod=pais.npaiscod),timpuesto as ti
 				where (pv.fechayhora_initx between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado=$3
 				group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,pv.nimporte,pv.nporcentaje,pv.formapago,pv.estado,pv.fechayhora_initx,pv.nro_tarjeta,
-					pv.cod_autorizacion,pv.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado
+					pv.cod_autorizacion,pv.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado,ti.impuestovisa
 				order by r.creservacod;
 $$
   LANGUAGE sql;
+
+select Pricing_sp_BuscarPagosVisaEntreFechasBD('2016-07-20','2016-08-12','PENDIENTE DE PAGO');
+
 
 
 create or replace function Pricing_sp_BuscarPagosPaypalEntreFechasBD
@@ -341,10 +343,10 @@ create or replace function Pricing_sp_BuscarPagosPaypalEntreFechasBD
 RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,npreciopaquetepersona numeric,nnropersonas int,ctituloidioma1 varchar(200),nimporte numeric,nporcentaje numeric,
 formapago varchar(20),estado varchar(10),fechayhora_initx timestamp ,nro_tarjeta varchar(20),
 codtransaccion varchar(20),nom_th varchar(100),capellidos varchar(100),
-cnombres varchar(100),csexo char(1),nedad int,cabrevtipodoc varchar(20),cnrodoc varchar(12),cnombreesp varchar(60),cestado varchar(20)) AS
+cnombres varchar(100),csexo char(1),nedad int,cabrevtipodoc varchar(20),cnrodoc varchar(12),cnombreesp varchar(60),cestado varchar(20),impuestopaypal varchar(5)) AS
 $$
 		select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,pp.nimporte,pp.nporcentaje,pp.formapago,pp.estado,pp.fechayhora_initx,pp.nro_tarjeta,
-			pp.cod_autorizacion,pp.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado
+			pp.cod_autorizacion,pp.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado,ti.impuestopaypal
 				from treserva as r 
 				left join tpagopaypal as pp on(r.creservacod=pp.creservacod)
 				left join tpasajero as pa on(pp.creservacod=pa.creservacod)
@@ -352,20 +354,13 @@ $$
 				left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
 				left join tpaquete as paq on(ps.cpaquetecod=paq.cpaquetecod)
 				left join ttipodocumento as tp on(pa.ntipodoc=tp.ntipodoc)
-				left join tpais as pais on(pa.npaiscod=pais.npaiscod)
+				left join tpais as pais on(pa.npaiscod=pais.npaiscod), timpuesto as ti
 				where (pp.fechayhora_initx between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado=$3
 				group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,pp.nimporte,pp.nporcentaje,pp.formapago,pp.estado,pp.fechayhora_initx,pp.nro_tarjeta,
-					pp.cod_autorizacion,pp.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado
+					pp.cod_autorizacion,pp.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado,ti.impuestopaypal
 				order by r.creservacod;
 $$
   LANGUAGE sql;
-
-
-
-  select Pricing_sp_BuscarPagosVisaEntreFechasBD('2016-07-22 ','2016-07-26 ','PENDIENTE');
-
-  select * from tpagovisa;
-  select * from tpagopaypal;
 
 
 
@@ -401,4 +396,154 @@ $$
 
 select Pricing_sp_BuscarPagosPaypalEntreFechasBD('2016-07-20','2016-08-28','PENDIENTE DE PAGO');
 
+ create or replace function Pricing_sp_BuscarPagosVisaEntreFechasBD
+(
+	fechaInicio varchar(12),
+	fechaFin varchar(12),
+	estadoPago varchar(10)
+)
+RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,npreciopaquetepersona numeric,nnropersonas int,ctituloidioma1 varchar(200),nimporte numeric,nporcentaje numeric,
+formapago varchar(20),estado varchar(10),fechayhora_initx timestamp ,nro_tarjeta varchar(20),
+codtransaccion varchar(20),nom_th varchar(100),capellidos varchar(100),
+cnombres varchar(100),csexo char(1),nedad int,cabrevtipodoc varchar(20),cnrodoc varchar(12),cnombreesp varchar(60),cestado varchar(20),impuesto varchar(5)) AS
+$$
+		select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,pv.nimporte,pv.nporcentaje,pv.formapago,pv.estado,pv.fechayhora_initx,pv.nro_tarjeta,
+			pv.cod_autorizacion,pv.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado,ti.impuestovisa
+				from treserva as r 
+				left join tpagovisa as pv on(r.creservacod=pv.creservacod)
+				left join tpasajero as pa on(pv.creservacod=pa.creservacod)
+				left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod)
+				left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
+				left join tpaquete as paq on(ps.cpaquetecod=paq.cpaquetecod)
+				left join ttipodocumento as tp on(pa.ntipodoc=tp.ntipodoc)
+				left join tpais as pais on(pa.npaiscod=pais.npaiscod),timpuesto as ti
+				where (pv.fechayhora_initx between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado=$3
+				group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,pv.nimporte,pv.nporcentaje,pv.formapago,pv.estado,pv.fechayhora_initx,pv.nro_tarjeta,
+					pv.cod_autorizacion,pv.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado,ti.impuestovisa
+				order by r.creservacod;
+$$
+  LANGUAGE sql;
 
+select Pricing_sp_BuscarPagosVisaEntreFechasBD('2016-07-20','2016-08-12','PENDIENTE DE PAGO');
+
+
+
+create or replace function Pricing_sp_BuscarPagosPaypalEntreFechasBD
+(
+	fechaInicio varchar(12),
+	fechaFin varchar(12),
+	estadoPago varchar(10)
+)
+RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,npreciopaquetepersona numeric,nnropersonas int,ctituloidioma1 varchar(200),nimporte numeric,nporcentaje numeric,
+formapago varchar(20),estado varchar(10),fechayhora_initx timestamp ,nro_tarjeta varchar(20),
+codtransaccion varchar(20),nom_th varchar(100),capellidos varchar(100),
+cnombres varchar(100),csexo char(1),nedad int,cabrevtipodoc varchar(20),cnrodoc varchar(12),cnombreesp varchar(60),cestado varchar(20),impuesto varchar(5)) AS
+$$
+		select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,pp.nimporte,pp.nporcentaje,pp.formapago,pp.estado,pp.fechayhora_initx,pp.nro_tarjeta,
+			pp.cod_autorizacion,pp.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado,ti.impuestopaypal
+				from treserva as r 
+				left join tpagopaypal as pp on(r.creservacod=pp.creservacod)
+				left join tpasajero as pa on(pp.creservacod=pa.creservacod)
+				left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod)
+				left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
+				left join tpaquete as paq on(ps.cpaquetecod=paq.cpaquetecod)
+				left join ttipodocumento as tp on(pa.ntipodoc=tp.ntipodoc)
+				left join tpais as pais on(pa.npaiscod=pais.npaiscod), timpuesto as ti
+				where (pp.fechayhora_initx between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado=$3
+				group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,pp.nimporte,pp.nporcentaje,pp.formapago,pp.estado,pp.fechayhora_initx,pp.nro_tarjeta,
+					pp.cod_autorizacion,pp.nom_th,pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp,r.cestado,ti.impuestopaypal
+				order by r.creservacod;
+$$
+  LANGUAGE sql;
+
+
+
+  select Pricing_sp_BuscarPagosPaypalEntreFechasBD('2016-07-20','2016-08-12','PENDIENTE DE PAGO');
+
+
+
+
+create or replace function Pricing_sp_BuscarDestinosReserva
+(
+  codReserva varchar(12)
+)
+RETURNS table (cdestino varchar(100),ncodpostal int) AS
+$$
+	select d.cdestino, d.ncodpostal 
+			from treservapaqueteservicio as rp 
+			inner join tpaqueteservicio as ps on(rp.codpaqueteservicio=ps.codpaqueteservicio)
+			inner join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
+			inner join tpaquetedestino as pd on(p.cpaquetecod=pd.cpaquetecod)
+			inner join tdestino as d on(pd.ndestinocod=d.ndestinocod)
+			where (rp.creservacod=$1 and d.bestado=true)
+			group by d.cdestino, d.ncodpostal
+			order by d.cdestino;
+$$
+  LANGUAGE sql;
+
+
+ select Pricing_sp_BuscarDestinosReserva('R000000002');
+
+ create or replace function Pricing_sp_BuscarServiciosReserva
+(
+  codReserva varchar(12)
+)
+RETURNS table (cservicioindioma1 varchar(200),nprecioservicio decimal(10,2)) AS
+$$
+	select s.cservicioindioma1, s.nprecioservicio 
+			from treservapaqueteservicio as rp 
+			inner join tpaqueteservicio as ps on(rp.codpaqueteservicio=ps.codpaqueteservicio)
+			inner join tservicio as s on(ps.nserviciocod=s.nserviciocod)
+			where (rp.creservacod=$1 and s.bestado=true)
+			group by s.cservicioindioma1, s.nprecioservicio 
+			order by s.cservicioindioma1;
+$$
+  LANGUAGE sql;
+
+
+
+ create or replace function Pricing_sp_BuscarHotelesReserva
+(
+  codReserva varchar(12),
+  categoriaHotel int
+)
+RETURNS table (chotel varchar(200),npreciosimple decimal(10,2),npreciodoble decimal(10,2),npreciotriple decimal(10,2)) AS
+$$
+	select h.chotel, h.npreciosimple,h.npreciodoble,h.npreciotriple 
+			from treservapaqueteservicio as rp 
+			inner join tpaqueteservicio as ps on(rp.codpaqueteservicio=ps.codpaqueteservicio)
+			inner join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
+			inner join tpaquetedestino as pd on(p.cpaquetecod=pd.cpaquetecod)
+			inner join tdestino as d on(pd.ndestinocod=d.ndestinocod)
+			inner join tdestinohotel as dh on(d.ndestinocod=dh.ndestinocod)
+			inner join thotel as h on(dh.nhotelcod=h.nhotelcod)
+			where (rp.creservacod=$1 and d.bestado=true and h.categoriahotelcod=$2)
+			group by h.chotel, h.npreciosimple,h.npreciodoble,h.npreciotriple 
+			order by h.chotel;
+$$
+  LANGUAGE sql;
+
+
+  CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
+	fechaInicio varchar(12),
+	fechaFin varchar(12)
+)
+RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,categoriaHotelcod int,ccontacto varchar(12),
+cemail varchar(100),ctelefono varchar(50),nnropersonas int,npreciopaquetepersona numeric,ctituloidioma1 varchar(200),
+ccategoriaidioma1 varchar(200),cestado varchar(20)) AS
+$$
+	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
+		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+			from treserva as r 
+			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
+			left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
+			left join treservapaquetecategoriahotel as pch on(r.creservacod=pch.creservacod)
+			left join tpaquetecategoriahotel as pc on (pch.codpaquetecategoriah=pc.codpaquetecategoriah)
+			left join tcategoriahotel as c on(pc.categoriahotelcod=c.categoriahotelcod)
+			left join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
+			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd'))
+			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
+					p.ctituloidioma1,c.categoriahotelcod,c.ccategoriaidioma1,r.cestado
+			order by r.creservacod;
+$$
+  LANGUAGE sql;

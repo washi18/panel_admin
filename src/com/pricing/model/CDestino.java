@@ -131,6 +131,12 @@ public class CDestino
 	public CDestino(String cDestino){
 		this.cDestino=cDestino;
 	}
+	
+	public CDestino(String cDestino,int codPostal)
+	{
+		this.cDestino=cDestino;
+		this.nCodPostal=codPostal;
+	}
 	public CDestino(int nDestinoCod, String cDestino, boolean bEstado,int nCodPostal) {
 		this.nDestinoCod = nDestinoCod;
 		this.cDestino = cDestino;
