@@ -158,6 +158,14 @@
 								<label value="@bind(each.nHotelCod)"/>
 							</div>
 				    		<div zclass="div_content_datos_lista">
+				    			<div>
+									<label value="DESTINO: " zclass="lbl_llenar_datos"/>
+									<combobox model="@load(vmHotel.listaDestinos)" readonly="true" onSelect="@command('selectDestino_update',codDestino=self.selectedItem.value,hotel=each)" sclass="cbox_llenar_datos">
+										<template name="model" var="dest">
+											<comboitem label="@load(dest.cDestino)" value="@load(dest.nDestinoCod)"/>
+										</template>
+									</combobox>
+								</div>
 				    			<div sclass="estilo_editar_respons">
 				    				<div width="100%" sclass="horizontal_label_texbox">
 				    					<label value="Hotel:" sclass="estilo_nombre_servicio"/>
