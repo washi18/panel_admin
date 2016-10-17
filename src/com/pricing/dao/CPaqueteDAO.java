@@ -95,10 +95,25 @@ public class CPaqueteDAO extends CConexion
 		Object[] values={codPaquete,codServicio};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaqueteServicio", values);
 	}
+	public List eliminarPaqueteServicio(int codPS)
+	{
+		Object[] values={codPS};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_EliminarPaqueteServicio", values);
+	}
+	public List eliminarPaqueteDestino(int codPD)
+	{
+		Object[] values={codPD};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_EliminarPaqueteDestino", values);
+	}
 	public List insertarPaqueteDestino(String codPaquete,int codDestino,int noches,int ordenItinerario,boolean conCaminoInka)
 	{
 		Object[] values={codPaquete,codDestino,noches,ordenItinerario,conCaminoInka};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaqueteDestino", values);
+	}
+	public List modificarPaqueteDestino(int codpd,int noches,int ordenItinerario,boolean conCaminoInka)
+	{
+		Object[] values={codpd,noches,ordenItinerario,conCaminoInka};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarPaqueteDestino", values);
 	}
 	public List insertarPaqueteCatHotel(String codPaquete)
 	{
@@ -121,7 +136,8 @@ public class CPaqueteDAO extends CConexion
 				paquete.getcDescripcionIdioma5(),paquete.getnDias(),paquete.getnNoches(),
 				paquete.getnPrecioUno().doubleValue(),paquete.getnPrecioDos().doubleValue(),
 				paquete.getnPrecioTres().doubleValue(),paquete.getnPrecioCuatro().doubleValue(),
-				paquete.getnPrecioCinco().doubleValue(),paquete.getcDisponibilidad()};
+				paquete.getnPrecioCinco().doubleValue(),paquete.getcDisponibilidad(),
+				paquete.getnDiaCaminoInka(),paquete.isbEstado()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarPaquetes", values);
 	}
 	public boolean isOperationCorrect(List lista)

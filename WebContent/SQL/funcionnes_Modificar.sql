@@ -177,7 +177,9 @@ CREATE OR REPLACE FUNCTION Pricing_sp_ModificarPaquetes
   Preciotres decimal(10,2),
   Preciocuatro decimal(10,2),
   Preciocinco decimal(10,2),
-  Disponibilidad varchar(100)
+  Disponibilidad varchar(100),
+  diaCaminoInka int,
+  estado boolean
 )
 RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codPaquete varchar(10)) as
 $$
@@ -200,7 +202,10 @@ begin
 			  npreciotres=$16,
 			  npreciocuatro=$17,
 			  npreciocinco=$18,
-			  cdisponibilidad=$19 where cpaquetecod=$1;
+			  cdisponibilidad=$19,
+			  ndiacaminoinka=$20,
+			  bestado=$21
+			  where cpaquetecod=$1;
 	resultado='correcto';
 	mensaje='Datos Actualizados Correctamente';
 	return Query select resultado,mensaje,codPaquete;
@@ -349,6 +354,25 @@ begin
 	resultado='correcto';
 	mensaje='Datos Actualizados Correctamente';
 	return Query select resultado,mensaje,codDest;
+end
+$$
+language plpgsql;
+--**************************************
+create or replace function Pricing_sp_ModificarPaqueteDestino
+(
+	codpd int,
+	noches int,
+	itinerario int,
+	con_caminoInka boolean
+)
+returns table(resultado varchar(20),mensaje varchar(200),codPDest int)as
+$$
+begin
+	codPDest=$1;
+	update TPaqueteDestino set nnoches=$2, nordenitinerario=$3, bconcaminoinka=$4 where codpd=$1;
+	resultado='correcto';
+	mensaje='Datos Actualizados Correctamente';
+	return Query select resultado,mensaje,codPDest;
 end
 $$
 language plpgsql;

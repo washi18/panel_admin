@@ -2,16 +2,11 @@ package com.pricing.model;
 
 public class CPaqueteServicio 
 {
-	private String codPaqueteServicio;// varchar(10),
+	private int codPaqueteServicio;// int,
 	private String cPaqueteCod;// varchar(10),
 	private int nServicioCod;// int,
 	//==========================
-	public String getCodPaqueteServicio() {
-		return codPaqueteServicio;
-	}
-	public void setCodPaqueteServicio(String codPaqueteServicio) {
-		this.codPaqueteServicio = codPaqueteServicio;
-	}
+	
 	public String getcPaqueteCod() {
 		return cPaqueteCod;
 	}
@@ -24,11 +19,17 @@ public class CPaqueteServicio
 	public void setnServicioCod(int nServicioCod) {
 		this.nServicioCod = nServicioCod;
 	}
+	public int getCodPaqueteServicio() {
+		return codPaqueteServicio;
+	}
+	public void setCodPaqueteServicio(int codPaqueteServicio) {
+		this.codPaqueteServicio = codPaqueteServicio;
+	}
 	//========================================
 	public CPaqueteServicio() {
 		// TODO Auto-generated constructor stub
 	}
-	public CPaqueteServicio(String codPaqueteServicio, String cPaqueteCod,
+	public CPaqueteServicio(int codPaqueteServicio, String cPaqueteCod,
 			int nServicioCod) {
 		this.codPaqueteServicio = codPaqueteServicio;
 		this.cPaqueteCod = cPaqueteCod;

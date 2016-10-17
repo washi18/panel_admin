@@ -16,7 +16,7 @@
 				<space></space>
 				<div>
 					<label value="SERVICIO: " zclass="lbl_llenar_datos"/>
-					<combobox model="@bind(vmServicio.listaServiciosNew)" onSelect="@command('asignacion_servicio',servicio=self.selectedItem.value)" sclass="cbox_llenar_datos" autodrop="true">
+					<combobox model="@bind(vmServicio.listaServiciosNew)" readonly="true" onSelect="@command('asignacion_servicio',servicio=self.selectedItem.value)" sclass="cbox_llenar_datos" autodrop="true">
 						<template name="model">
 							<comboitem label="@bind(each.cServicioIndioma1)" value="@bind(each.nServicioCod)"/>
 						</template>

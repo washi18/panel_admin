@@ -47,7 +47,7 @@ public class CPaqueteServicioDAO extends CConexion
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
-			listaPaqueteServicios.add(new CPaqueteServicio((String)row.get("codpaqueteservicio"),
+			listaPaqueteServicios.add(new CPaqueteServicio((int)row.get("codpaqueteservicio"),
 					(String)row.get("cpaquetecod"),(int)row.get("nserviciocod")));
 			
 		}

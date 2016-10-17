@@ -56,14 +56,19 @@ CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaqueteServicio
 )
 RETURNS TABLE (resultado varchar(20),
 		mensaje varchar(200),
-		codPaqueteServicio varchar(10)) as
+		codPaqueteServ int) as
 $$
 begin
-	codPaqueteServicio=(select concat('PS-',right(concat('000',count(p.codpaqueteservicio)+1),3)) from tpaqueteservicio p where left(p.codpaqueteservicio,3)='PS-');
-	insert into tpaqueteservicio values(codPaqueteServicio,$1,$2);
+	codPaqueteServ=(select max( codpaqueteservicio ) from tpaqueteservicio);
+	if(codPaqueteServ is null)then
+		codPaqueteServ=1;
+	else
+		codPaqueteServ=codPaqueteServ+1;
+	end if;
+	insert into tpaqueteservicio values(codPaqueteServ,$1,$2);
 	resultado='correcto';
 	mensaje='Datos Registrados Correctamente';
-	return Query select resultado,mensaje,codPaqueteServicio;
+	return Query select resultado,mensaje,codPaqueteServ;
 end
 $$
 language plpgsql;

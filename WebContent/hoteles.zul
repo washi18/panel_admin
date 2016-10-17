@@ -18,7 +18,7 @@
 						<div>
 							<div>
 								<label value="DESTINO: " zclass="lbl_llenar_datos"/>
-								<combobox model="@load(vmHotel.listaDestinos)" onSelect="@command('selectDestino',codDestino=self.selectedItem.value)" sclass="cbox_llenar_datos">
+								<combobox model="@load(vmHotel.listaDestinos)" readonly="true" onSelect="@command('selectDestino',codDestino=self.selectedItem.value)" sclass="cbox_llenar_datos">
 									<template name="model">
 										<comboitem label="@load(each.cDestino)" value="@load(each.nDestinoCod)"/>
 									</template>

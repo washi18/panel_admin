@@ -56,6 +56,13 @@ public class CPaquete
 	private boolean sinDescuento;
 	private int nroDestinosSelect;
 	private int ordenDesSelect;
+	private String color_btn_activo;
+	private String color_btn_desactivo;
+	public String COLOR_ACTIVO="background:#3BA420;";
+	public String COLOR_DESACTIVO="background:#DA0613;";
+	public String COLOR_TRANSPARENT="background:transparent;";
+	private boolean estado_activo;
+	private boolean estado_desactivo;
 	private boolean editable;
 	private CDestinoDAO destinoDao;
 	private CServicioDAO servicioDao;
@@ -351,6 +358,30 @@ public class CPaquete
 	public void setDias_noches(String dias_noches) {
 		this.dias_noches = dias_noches;
 	}
+	public String getColor_btn_activo() {
+		return color_btn_activo;
+	}
+	public void setColor_btn_activo(String color_btn_activo) {
+		this.color_btn_activo = color_btn_activo;
+	}
+	public String getColor_btn_desactivo() {
+		return color_btn_desactivo;
+	}
+	public void setColor_btn_desactivo(String color_btn_desactivo) {
+		this.color_btn_desactivo = color_btn_desactivo;
+	}
+	public boolean isEstado_activo() {
+		return estado_activo;
+	}
+	public void setEstado_activo(boolean estado_activo) {
+		this.estado_activo = estado_activo;
+	}
+	public boolean isEstado_desactivo() {
+		return estado_desactivo;
+	}
+	public void setEstado_desactivo(boolean estado_desactivo) {
+		this.estado_desactivo = estado_desactivo;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -368,6 +399,8 @@ public class CPaquete
 		cTituloIdioma1="";
 		cTituloIdioma2="";
 		cTituloIdioma3="";
+		cTituloIdioma4="";
+		cTituloIdioma5="";
 		nPrecio1_text=df.format(0);
 		nPrecio2_text=df.format(0);
 		nPrecio3_text=df.format(0);
@@ -427,6 +460,8 @@ public class CPaquete
 		this.nPrecio5_text=df.format(nPrecioCinco.doubleValue());
 		this.cDisponibilidad = cDisponibilidad;
 		this.bEstado = bEstado;
+		this.estado_activo=bEstado;
+		this.estado_desactivo=!bEstado;
 		this.editable=false;
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
@@ -456,6 +491,19 @@ public class CPaquete
 		inicializarEstadosDeDestinosYServicios();
 		determinarTipoDeManejoPaquete(cDisponibilidad);
 		determinarSiHayDescuento();
+		darColor_estado_paquete();
+	}
+	public void darColor_estado_paquete()
+	{
+		if(bEstado)
+		{
+			color_btn_activo=COLOR_ACTIVO;
+			color_btn_desactivo=COLOR_TRANSPARENT;
+		}
+		else{
+			color_btn_activo=COLOR_TRANSPARENT;
+			color_btn_desactivo=COLOR_DESACTIVO;
+		}
 	}
 	public void determinarSiHayDescuento()
 	{
@@ -504,6 +552,7 @@ public class CPaquete
 	{
 		conDestino=false;
 		sinDestino=true;
+		manejoPropio_conCaminoInka=false;
 		nroDestinosSelect=listaPaqueteDestinos.size();
 		ordenDesSelect=0;
 		for(CPaqueteDestino PDestino:listaPaqueteDestinos)
@@ -522,6 +571,7 @@ public class CPaquete
 						destino.setConCaminoInka(true);
 						destino.setSinCaminoInka(false);
 						destino.setPuedeCaminoInka(true);
+						manejoPropio_conCaminoInka=true;
 					}
 				}
 			}
