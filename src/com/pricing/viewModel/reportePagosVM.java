@@ -130,9 +130,14 @@ public class reportePagosVM {
 	@Command
 	public void habilitarPasajerosPOP(@BindingParam("cpasajero") CReportePagosMuestra pasajero)
 	{
-		pasajero.setVisiblepasajerospop(true);
-		reportePagosMuestraAnterior.setVisiblepasajerospop(false);
-		reportePagosMuestraAnterior=pasajero;
+		if(!pasajero.getCodReserva().equals(reportePagosMuestraAnterior.getCodReserva())){
+			pasajero.setVisiblepasajerospop(true);
+			reportePagosMuestraAnterior.setVisiblepasajerospop(false);
+			reportePagosMuestraAnterior=pasajero;
+		}
+		else{
+			pasajero.setVisiblepasajerospop(true);
+		}
 		BindUtils.postNotifyChange(null, null, pasajero,"visiblepasajerospop");
 	}
 	@Command

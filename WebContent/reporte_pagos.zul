@@ -73,7 +73,7 @@
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none;" model="@load(each.listaPasajeros)" width="100%"> 
 					    					<listhead> 
-					    						<listheader label="LISTA PASAJEROS" style="font-size: 14px; color: black; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center"></listheader>
+					    						<listheader label="LISTA PASAJEROS" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center"></listheader>
 					    					</listhead>
 					    					<template name="model" var="pasajero">
 					    					<listitem>

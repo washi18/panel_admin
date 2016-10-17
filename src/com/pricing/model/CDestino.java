@@ -132,9 +132,10 @@ public class CDestino
 		this.cDestino=cDestino;
 	}
 	
-	public CDestino(String cDestino,int codPostal)
+	public CDestino(String cDestino,int codDestino,int codPostal)
 	{
 		this.cDestino=cDestino;
+		this.nDestinoCod=codDestino;
 		this.nCodPostal=codPostal;
 	}
 	public CDestino(int nDestinoCod, String cDestino, boolean bEstado,int nCodPostal) {

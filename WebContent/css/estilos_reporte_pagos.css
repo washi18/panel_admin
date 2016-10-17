@@ -64,8 +64,8 @@
 }
 
 .estilo_titulo_pasajeros {
-	background: -webkit-linear-gradient(top, #ABA8A8 0.2%, rgba(0,0,0,0.1) 100%);
-    background: linear-gradient(to bottom, #ABA8A8 0.2%, rgba(0,0,0,0.1) 100%);
+	background: -webkit-linear-gradient(top, #202751 0.2%, #053351 100%);
+    background: linear-gradient(to bottom, #202751 0.2%, #053351 100%);
 }
 
 .estilo_pago_porcentaje {

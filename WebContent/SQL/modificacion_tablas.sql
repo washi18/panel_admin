@@ -18,7 +18,7 @@ ALTER TABLE tpaquetedestino alter COLUMN bConCaminoInka drop DEFAULT
 ALTER TABLE tdestino ADD COLUMN nCodPostal int DEFAULT 84
 ALTER TABLE tdestino alter COLUMN nCodPostal drop DEFAULT
 
---creacion de tabla tpagoonline
+--CREACION DE TABLAS DE PAGOS PAYPAL Y DE VISA E INSERCION DE DATOS ALA TABLA
 CREATE TABLE TPagoVisa
 (
 	nroOrden INT,					--codigo del numero de orden generado para el proceso de pago
@@ -47,7 +47,31 @@ CREATE TABLE TPagoVisa
 	fechayhora_devolucion varchar(50),		--fecha y hora de devolucion, anulacion y/o extorno de pago
 	dato_comercio VARCHAR(100),			--dato adicional del comercio
 	PRIMARY KEY (nroOrden),
-	FOREIGN KEY (cReservaCod) REFERENCES TReserva,
+	FOREIGN KEY (cReservaCod) REFERENCES TReserva
+);
+
+
+create table TPagoPaypal(
+    nroorden integer NOT NULL,   
+    codpagador integer,
+    cod_autorizacion character varying(20),
+    nporcentaje numeric(10,2),
+    creservacod character varying(10),
+    formapago character varying(20),
+    estado character varying(10),
+    nimporte numeric(10,2),
+    fechayhora_initx timestamp without time zone,
+    nom_th character varying(100),
+    nro_tarjeta character varying(20),
+    adicionalpagador character varying(100),
+    telefonopagador character varying(50),
+    pais character varying(3),
+    estadopagador character varying(100),
+    detalleimpuesto character varying(20),
+    direccion character varying(50),
+    emailpagador character varying(100),
+    PRIMARY KEY (nroOrden),
+    FOREIGN KEY (cReservaCod) REFERENCES TReserva
 );
 
 insert into TPagoVisa values(1002,'R000000002',125.50,0.3,'VISA','AUTORIZADO','2016-07-22 13:29:44','E002',12344,'T002','A02','codigo de accion1','TAR0002',
@@ -59,46 +83,18 @@ insert into TPagoVisa values(1002,'R000000002',125.50,0.3,'VISA','AUTORIZADO','2
 			(1005,'R000000005',125.50,0.3,'VISA','AUTORIZADO','2016-07-22 13:29:44','E005',12344,'T005','A05','codigo de accion1','TAR0003',
 			'OSCAR GOMEZ','AA','CONTINENTAL','E0002','eci enviado 5','C00002','123',0.18,'2016-07-22 14:29:44','2016-07-22 14:34:44','2016-07-22 15:29:44','comercio2');
 
-select * from tpagovisa;
 
-
-
-CREATE TABLE TPagoPaypal
-(
-	nroOrden INT,						--codigo del numero de orden generado para el proceso de pago
-	codPagador INT,						--codigo del pagador 
-	codTransaccion VARCHAR(20),			--codigo de transaccion de paypal
-	nPorcentaje decimal(10,2),			--porcentaje de pago del total del importe de la reserva
-	cReservaCod VARCHAR(10),			--codigo de la reserva que se pretende pagar
-	formaPago VARCHAR(20),				--forma de pago del cliente (VISA, MASTERCARD,PAYPAL)
-	estado VARCHAR(10),					--estado de la transaccion (AUTORIZADO,CANCELADO,DENEGADO,EXTORNADO,INICIADO)
-	importe decimal(10.2),				--importe de la reserva que se pretende pagar y/o amortizar
-	nombrePagador VARCHAR(100),			--nombre del pagador
-	nro_tarjeta VARCHAR(20),			--numero de la tarjeta del cliente
-	adicionalPagador VARCHAR(100),		--datos adicionales del pagador 
-	telefonoPagador VARCHAR(50),		--nro de telefono del pagador
-	pais VARCHAR(3),					--pais del pagador
-	estadoPagador VARCHAR(100),			--estado del pagador
-	detalleImpuesto VARCHAR(20),		--detalle del impuesto a cobrar
-	direccion VARCHAR(50),				--direccion del pagador
-	emailPagador VARCHAR(100), 			--correo electronico del pagador
-	PRIMARY KEY (nroOrden),
-	FOREIGN KEY (cReservaCod) REFERENCES TReserva,
-);
-
-
-insert into tpagopaypal values(20001,40001,'C00001',0.40,'R000000006','PAYPAL','INICIADO',237.00,'LEONARDO CRUZ','T01938373',
-								'trabaja en agencia','72353532','PERU','ESTADO1','impuesto sera 1','av.collasuyo A-15','leo@gmail.com'),
-								(20002,40002,'C00002',0.40,'R000000007','PAYPAL','INICIADO',257.00,'JUAN CRUZ','T019123373',
-								'trabaja en agencia','72353532','PERU','ESTADO1','impuesto sera 1','av.collasuyo A-15','juan@gmail.com'),
-								(20003,40003,'C00003',0.40,'R000000008','PAYPAL','INICIADO',187.00,'MARIO CRUZ','T01924373',
-								'trabaja en agencia','72353532','COLOMBIA','ESTADO1','impuesto sera 1','av.collasuyo A-15','mario@gmail.com'),
-								(20004,40004,'C00004',0.40,'R000000009','PAYPAL','INICIADO',297.00,'CARMEN CRUZ','T01758373',
+insert into tpagopaypal values(20006,40001,'C00001',0.40,'R000000006','PAYPAL','AUTORIZADO',237.00,'2016-07-22 13:29:44','LEONARDO CRUZ','T01938373',
+								'trabaja en agencia','72353532','PER','ESTADO1','impuesto sera 1','av.collasuyo A-15','leo@gmail.com'),
+								(20007,40002,'C00002',0.40,'R000000007','PAYPAL','AUTORIZADO',257.00,'2016-07-22 13:29:44','JUAN CRUZ','T019123373',
+								'trabaja en agencia','72353532','PER','ESTADO1','impuesto sera 1','av.collasuyo A-15','juan@gmail.com'),
+								(20008,40003,'C00003',0.40,'R000000008','PAYPAL','AUTORIZADO',187.00,'2016-07-23 13:29:44','MARIO CRUZ','T01924373',
+								'trabaja en agencia','72353532','COL','ESTADO1','impuesto sera 1','av.collasuyo A-15','mario@gmail.com'),
+								(20009,40004,'C00004',0.40,'R000000009','PAYPAL','INICIADO',297.00,'2016-07-24 13:29:44','CARMEN CRUZ','T01758373',
 								'trabaja en agencia','72353532','USA','ESTADO1','impuesto sera 1','av.collasuyo A-15','carmen@gmail.com'),
-								(20005,40005,'C00005',0.40,'R000000010','PAYPAL','INICIADO',183.00,'JOSE CRUZ','T01468373',
-								'trabaja en agencia','72353532','ECUADOR','ESTADO1','impuesto sera 1','av.collasuyo A-15','jose@gmail.com');
-								
-
+								(20010,40005,'C00005',0.40,'R000000010','PAYPAL','INICIADO',183.00,'2016-07-25 13:29:44','JOSE CRUZ','T01468373',
+								'trabaja en agencia','72353532','ECU','ESTADO1','impuesto sera 1','av.collasuyo A-15','jose@gmail.com');
+select * from tpagopaypal;
 --==========MODIFICAR TABLA TPAQUETESERVICIO Y TRESERVAPAQUETESERVICIO==
 --Modificar paso a paso
 alter table treservapaqueteservicio drop constraint treservapaqueteservicio_codpaqueteservicio_fkey;
