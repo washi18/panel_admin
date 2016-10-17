@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -138,6 +139,11 @@ public class hotelesVM
 		oHotel.setCodDestino(Integer.parseInt(codDestino));
 	}
 	@Command
+	public void selectDestino_update(@BindingParam("codDestino")String codDestino,@BindingParam("hotel")CHotel hotel)
+	{
+		hotel.setCodDestino(Integer.parseInt(codDestino));
+	}
+	@Command
 	@NotifyChange({"oHotel","listaHoteles"})
 	public void InsertarHotel(@BindingParam("componente")Component componente)
 	{
@@ -201,6 +207,10 @@ public class hotelesVM
 			return;
 		/**Actualizar datos de la etiqueta en la BD**/
 		boolean correcto=hotelDao.isOperationCorrect(hotelDao.modificarHotel(hotel));
+		if(hotel.getCodDestino()!=0)
+		{
+			List l=destinoHotelDao.insertarDestinoHotel(hotel.getCodDestino(),hotel.getnHotelCod());
+		}
 		if(correcto)
 			Clients.showNotification("El Hotel se actualizo correctamente", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
 		else

@@ -925,7 +925,7 @@ public class paquetesVM
 			}
 			for(CDestino dest:listaDestinos)
 			{
-				if(dest.isSeleccionado() && dest.getnCodPostal()==84)
+				if(dest.isSeleccionado() && dest.getnCodPostal()==84 && oPaquete.isManejo_propio())
 				{
 					dest.setPuedeCaminoInka(true);
 					BindUtils.postNotifyChange(null, null, dest, "puedeCaminoInka");
@@ -1005,7 +1005,7 @@ public class paquetesVM
 			}
 			for(CDestino dest:paquete.getListaDestinos())
 			{
-				if(dest.isSeleccionado() && dest.getnCodPostal()==84)
+				if(dest.isSeleccionado() && dest.getnCodPostal()==84 && paquete.isManejo_propio())
 				{
 					dest.setPuedeCaminoInka(true);
 					BindUtils.postNotifyChange(null, null, dest, "puedeCaminoInka");

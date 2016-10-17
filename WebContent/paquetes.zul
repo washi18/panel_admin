@@ -258,6 +258,22 @@
 					    				</template>
 					    			</listbox>
 					    		</div>
+					    		<div zclass="div_contenedor_datos_paquete">
+					    			<listbox model="@bind(each.listaServicios)">
+					    				<listhead>
+					    					<listheader label="SERVICIOS"/>
+					    				</listhead>
+					    				<template name="model" var="servicio">
+					    					<listitem>
+					    						<listcell visible="@bind(servicio.seleccionado)">
+					    							<div>
+					    								<label value="@bind(servicio.cServicioIndioma1)"/>
+					    							</div>
+					    						</listcell>
+					    					</listitem>
+					    				</template>
+					    			</listbox>
+					    		</div>
 					    		<div sclass="estilo_contenedor_costo">
 					    		  <div sclass="horizontal_icons_personas">
 					    			<span zclass="icon-man"></span>

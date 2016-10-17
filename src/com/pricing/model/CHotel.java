@@ -309,6 +309,7 @@ public class CHotel
 		this.nPrecioTriple_text=df.format(nPrecioTriple.doubleValue());
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
+		this.codDestino=0;
 		/*******Activar la categoria seleccionada*********/
 		darColor_estado_hotel();
 		activarCategoria();

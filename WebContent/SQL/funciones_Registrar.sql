@@ -398,3 +398,20 @@ begin
 end
 $$
 language plpgsql;
+--**Registrar Destino-Hotel**--
+create or replace function Pricing_sp_RegistrarDestinoHotel
+(
+	codDestino int,
+	codHotel int
+)
+returns table(resultado varchar(20),mensaje varchar(200),codDestinoHotel varchar(10))as
+$$
+begin
+	codDestinoHotel=(select concat('DH-',right(concat('000',count(r.destinohotelcod)+1),3)) from tdestinohotel r where left(r.destinohotelcod,3)='DH-');
+        insert into tdestinohotel values(codDestinoHotel,$1,$2,0);
+        resultado='correcto';
+        mensaje='Datos Registrados Correctamente';
+        return Query select resultado,mensaje,codDestinoHotel;
+end
+$$
+language plpgsql;

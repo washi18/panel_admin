@@ -79,5 +79,9 @@ public class CDestinoHotelDAO extends CConexion
 					(boolean)row.get("bestado")));
 		}
 	}
-	
+	public List insertarDestinoHotel(int codDestino,int codHotel)
+	{
+		Object[] values={codDestino,codHotel};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarDestinoHotel", values);
+	}
 }
