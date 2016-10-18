@@ -23,6 +23,7 @@ public class CHotel
 	private Number nPrecioTriple;// decimal(10,2),			--precio del hotel con habitacion triple
 	private boolean bEstado;// boolean,				--estado del hotel (si trabaja o no con nuestros paquetes)
 	private int codDestino;
+	private String nombreDestino;
 	private boolean editable;
 	private String categoria;
 	private boolean visibleEspanol;
@@ -244,6 +245,13 @@ public class CHotel
 	public void setCodDestino(int codDestino) {
 		this.codDestino = codDestino;
 	}
+	
+	public String getNombreDestino() {
+		return nombreDestino;
+	}
+	public void setNombreDestino(String nombreDestino) {
+		this.nombreDestino = nombreDestino;
+	}
 	//======================================
 	public CHotel() {
 		// TODO Auto-generated constructor stub
@@ -267,13 +275,13 @@ public class CHotel
 		this.cHotel=cHotel;
 	}
 	
-	public CHotel(String cHotel,Number precioSimple,Number precioDoble,Number precioTriple, int codDestino)
+	public CHotel(String cHotel,Number precioSimple,Number precioDoble,Number precioTriple, String cDestino)
 	{
 		this.cHotel=cHotel;
 		this.nPrecioSimple=precioSimple;
 		this.nPrecioDoble=precioDoble;
 		this.nPrecioTriple=precioTriple;
-		this.codDestino=codDestino;
+		this.nombreDestino=cDestino;
 	}
 	public CHotel(int nHotelCod, String cHotel, String cDescripcionIdioma1,
 			String cDescripcionIdioma2, String cDescripcionIdioma3,

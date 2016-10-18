@@ -18,6 +18,39 @@ ALTER TABLE tpaquetedestino alter COLUMN bConCaminoInka drop DEFAULT
 ALTER TABLE tdestino ADD COLUMN nCodPostal int DEFAULT 84
 ALTER TABLE tdestino alter COLUMN nCodPostal drop DEFAULT
 
+
+--CREACION DE TABLAS LOGIN Y PERFIL
+CREATE TABLE TPerfil
+(
+	nPerfilCod int,					--codigo del perfil
+	cPerfilIdioma1 varchar(100),			--descripcion del perfil en el primer idioma
+	primary key (nPerfilCod)
+);
+
+/*
+Datos de los usuarios que accederan al modulo de administracion de la pagina web de una agencia
+*/
+CREATE TABLE TUsuario
+(
+	cUsuarioCod varchar(150) not null,		--numero del documento del usuario
+	cClave varchar(128),				--clave del usuario
+	nPerfilCod int,					--codigo del perfil
+	imgUsuario varchar(200),			--imagen de perfil del usuario
+	cNroDoc varchar(12),				--numero del documento del usuario
+	cNombres varchar(150),				--nombres del representante legal
+	bEsRepLeg boolean,				--indica si es representante legal de la agencia
+	cSexo char(1),					--sexo del representante legal
+	dFechaNac date,					--fecha de nacimiento del representante legal
+	cCelular varchar(50),				--numero telefonico del usuario
+	primary key (cUsuarioCod),
+	foreign key (nPerfilCod) references TPerfil
+);
+
+insert into tusuario values('73077306','veamos',0001,'codigo.png','73077306','franklin',false,'M','2016-12-23','926345634'),
+				('73077307','veamos2',0002,'codigo.png','73077307','juan',false,'M','2013-12-21','987564328')
+insert into tperfil values(0001,'ADMINISTRADOR'),(0002,'SUPER ADMINISTRADOR'),(0003,'VISITANTE')
+
+
 --CREACION DE TABLAS DE PAGOS PAYPAL Y DE VISA E INSERCION DE DATOS ALA TABLA
 CREATE TABLE TPagoVisa
 (

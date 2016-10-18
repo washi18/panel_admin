@@ -1,5 +1,6 @@
 package com.pricing.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class CReportePagos {
@@ -28,6 +29,21 @@ public class CReportePagos {
 	private String nroTarjeta;
 	private String estadoReserva;
 	private String impuesto;
+	private ArrayList<CPasajero> listaPasajeros;
+	private int codCategoria;
+	private String colornoExisteListaDestinos;
+	private String colornoExisteListaHoteles;
+	private String colornoExisteListaServicios;
+	private String colornoExisteListaPasajeros;
+	private ArrayList<CDestino> listaDestinos;
+	private ArrayList<CHotel> listaHoteles;
+	private ArrayList<CServicio> listaServicios;
+	private Double montoTotal;
+	private Double valorImpuesto;
+	private boolean visiblepasajerospop=false;
+	private boolean visibleDestinospop=false;
+	private boolean visibleHotelespop=false;
+	private boolean visibleServiciospop=false;
 	//===============getter and setter=======
 	public String getCodPago() {
 		return codPago;
@@ -183,6 +199,126 @@ public class CReportePagos {
 	public void setImpuesto(String impuesto) {
 		this.impuesto = impuesto;
 	}
+	
+	public ArrayList<CPasajero> getListaPasajeros() {
+		return listaPasajeros;
+	}
+
+	public void setListaPasajeros(ArrayList<CPasajero> listaPasajeros) {
+		this.listaPasajeros = listaPasajeros;
+	}
+
+	public int getCodCategoria() {
+		return codCategoria;
+	}
+
+	public void setCodCategoria(int codCategoria) {
+		this.codCategoria = codCategoria;
+	}
+
+	public String getColornoExisteListaDestinos() {
+		return colornoExisteListaDestinos;
+	}
+
+	public void setColornoExisteListaDestinos(String colornoExisteListaDestinos) {
+		this.colornoExisteListaDestinos = colornoExisteListaDestinos;
+	}
+
+	public String getColornoExisteListaHoteles() {
+		return colornoExisteListaHoteles;
+	}
+
+	public void setColornoExisteListaHoteles(String colornoExisteListaHoteles) {
+		this.colornoExisteListaHoteles = colornoExisteListaHoteles;
+	}
+
+	public String getColornoExisteListaServicios() {
+		return colornoExisteListaServicios;
+	}
+
+	public void setColornoExisteListaServicios(String colornoExisteListaServicios) {
+		this.colornoExisteListaServicios = colornoExisteListaServicios;
+	}
+
+	public ArrayList<CDestino> getListaDestinos() {
+		return listaDestinos;
+	}
+
+	public void setListaDestinos(ArrayList<CDestino> listaDestinos) {
+		this.listaDestinos = listaDestinos;
+	}
+
+	public ArrayList<CHotel> getListaHoteles() {
+		return listaHoteles;
+	}
+
+	public void setListaHoteles(ArrayList<CHotel> listaHoteles) {
+		this.listaHoteles = listaHoteles;
+	}
+
+	public ArrayList<CServicio> getListaServicios() {
+		return listaServicios;
+	}
+
+	public void setListaServicios(ArrayList<CServicio> listaServicios) {
+		this.listaServicios = listaServicios;
+	}
+
+	public Double getMontoTotal() {
+		return montoTotal;
+	}
+
+	public void setMontoTotal(Double montoTotal) {
+		this.montoTotal = montoTotal;
+	}
+
+	public Double getValorImpuesto() {
+		return valorImpuesto;
+	}
+
+	public void setValorImpuesto(Double valorImpuesto) {
+		this.valorImpuesto = valorImpuesto;
+	}
+
+	public boolean isVisiblepasajerospop() {
+		return visiblepasajerospop;
+	}
+
+	public void setVisiblepasajerospop(boolean visiblepasajerospop) {
+		this.visiblepasajerospop = visiblepasajerospop;
+	}
+
+	public boolean isVisibleDestinospop() {
+		return visibleDestinospop;
+	}
+
+	public void setVisibleDestinospop(boolean visibleDestinospop) {
+		this.visibleDestinospop = visibleDestinospop;
+	}
+
+	public boolean isVisibleHotelespop() {
+		return visibleHotelespop;
+	}
+
+	public void setVisibleHotelespop(boolean visibleHotelespop) {
+		this.visibleHotelespop = visibleHotelespop;
+	}
+
+	public boolean isVisibleServiciospop() {
+		return visibleServiciospop;
+	}
+
+	public void setVisibleServiciospop(boolean visibleServiciospop) {
+		this.visibleServiciospop = visibleServiciospop;
+	}
+
+	public String getColornoExisteListaPasajeros() {
+		return colornoExisteListaPasajeros;
+	}
+
+	public void setColornoExisteListaPasajeros(String colornoExisteListaPasajeros) {
+		this.colornoExisteListaPasajeros = colornoExisteListaPasajeros;
+	}
 
 	//==================constructores==================
 	public CReportePagos()
@@ -210,7 +346,7 @@ public class CReportePagos {
 	}
 
 	public CReportePagos(String codReserva, Date fechaInicio,
-			Date fechaFin, Date fecha, String nombrePaquete, int nroPersonas,
+			Date fechaFin, Date fecha,int codCategoria,String nombrePaquete, int nroPersonas,
 			Number importe, Number porcentaje, String formaPago, String estado,
 			Date fechayhoraTransaccion,
 			String codTransaccion, String nombreCliente,
@@ -221,6 +357,7 @@ public class CReportePagos {
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
 		this.fecha = fecha;
+		this.codCategoria=codCategoria;
 		this.nombrePaquete = nombrePaquete;
 		this.nroPersonas = nroPersonas;
 		this.importe = importe;

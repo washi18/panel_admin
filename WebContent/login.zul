@@ -1,0 +1,86 @@
+
+<zk>
+<style src="css/Login.css"/>
+<zscript><![CDATA[
+        void onfocusTxtUsuario()
+        {
+        limpiarPlaceTxtUsuario();	
+        }
+		
+		void onleaveTxtUsuario()
+		{
+			setPlaceTxtUsuario();
+			
+		}
+		void limpiarPlaceTxtUsuario()
+		{
+			tbUserName.setPlaceholder("");
+			tbUserPass.setPlaceholder("");
+		}
+		void setPlaceTxtUsuario()
+		{
+			tbUserName.setPlaceholder("NOMBRE DE USUARIO");
+			tbUserPass.setPlaceholder("**************");
+		}
+		void onChangeTxtUsuario(String usr)
+		{
+			if(usr.length()!=0)
+			{		
+				com.pricing.viewModel.LoginVM vm= new com.pricing.viewModel.LoginVM();
+				java.awt.image.BufferedImage img=vm.newimg("d:/fotos_prueba/"+usr+".jpg");
+				if(img!=null)
+					
+				imagenFoto.setContent(img);
+				else
+					imagenFoto.setSrc("Resources/img/user_default.png");
+				btInicio.setDisabled(false);
+			}
+			else
+			{
+				imagenFoto.setSrc("Resources/img/user_default.png");
+				btInicio.setDisabled(true);
+			}
+		}
+		void onChanginTxtUsuario()
+		{
+		
+		}
+		
+        ]]></zscript>
+	<borderlayout  apply="org.zkoss.bind.BindComposer" viewModel="@id('vm') @init('com.pricing.viewModel.LoginVM')">
+	<center border="none" style="background : linear-gradient(to bottom right, #004881 0%,#004881 100%)" >
+	<box align="center" pack="center" hflex="1" vflex="1" width="50px" height="50px" style="background:none">
+	 <box width="240px" height="400px" style="border-radius: 8px;background:none;">
+	<box style="border-radius: 8px;background:none;">
+	<div align="center" style="position:relative;top:70px; left:45px;"><image src="Resources/img/logo.png" width="268" hspace="16" height="268" vspace="16" />
+		<div style="position:absolute; top:120px; left:67px;"><image  src="Resources/img/off.png" width="300" height="300" /></div>
+		<div style="position:absolute; top:25px; left:25px;"><image id="imagenFoto_default" src="Resources/img/user_default.png" width="300" height="300" /></div>
+		<div style="position:absolute; top:25px; left:25px;"><image id="imagenFoto" width="300" height="300" /></div>
+		</div>
+	</box>
+	<box id="loginWin" style="border-radius: 8px;background:none;" >
+		<vbox   width="228px" height="228px" style="background-image: url('Resources/img/panel.png');">
+			<hbox sclass="seccion" spacing="0" style="position:relative; top:65px; left:13px;">
+				<image height="32px" src="Resources/img/user_32.png" style="border:0px solid #4AAFE3; background:#4AAFE3;"/>
+				<popup id="tooltipUsuario"><label value="INGRESE USUARIO"></label></popup>
+				<textbox value="@bind(vm.tbNombreUsuario)" onChanging="onChangeTxtUsuario(event.value)" tooltip="tooltipUsuario,position=end_before" sclass="usuarioInput" 
+				id="tbUserName" onBlur="setPlaceTxtUsuario()" onFocus="limpiarPlaceTxtUsuario()" 
+				placeholder="NOMBRE DE USUARIO" height="32px" width="170px" onOK="tbUserPass.setFocus(true)" ></textbox>
+			</hbox>
+    		<hbox sclass="seccion" spacing="0" style="position:relative; top:70px; left:13px;">
+    			<image height="32px" src="Resources/img/pass_32.png" style="border:0px solid #4AAFE3; background:#4AAFE3;"/>
+    			<popup id="tooltipPass"><label value="INGRESE CONTRASEÑA"></label></popup>
+    			<textbox value="@bind(vm.tbContrasenia)" tooltip="tooltipPass,position=end_before" sclass="claveInput" id="tbUserPass" onBlur="setPlaceTxtUsuario()" 
+    			onFocus="limpiarPlaceTxtUsuario()" placeholder="**************" type="password" height="32px" width="170px"
+    			onOK="@command('doLogin')" ></textbox>
+    		</hbox>
+    		<label  id="mesg"  height="10px" style="position:relative; top:75px; left:13px;color:red" visible="@bind(vm.falloAutenticasion)" 
+    		value="@bind(vm.lblMensaje)" />
+    		 <button  onClick="@command('doLogin')" id="btInicio" sclass="boton" disabled="true"  label="INGRESAR" iconSclass="z-icon-session" width="204px" height="32px" style="position:relative; top:85px; left:13px;"/>    		
+    	</vbox>
+	</box>
+	</box>
+	</box>
+	</center>
+</borderlayout>  
+</zk>

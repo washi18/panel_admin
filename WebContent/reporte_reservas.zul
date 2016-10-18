@@ -91,7 +91,7 @@
 					    		 <div>
 					    		  <window visible="@load(each.visibleHotelespop)" mode="popup" position="parent" width="30%" zclass="estilo_win_popup">
 					    			<div width="100%" sclass="div_content_destino">
-					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaHoteles)" >  
+					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaDestinosconHoteles)" >  
 					    					<listhead>
 					    						<listheader label="LISTA HOTELES" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center">
 					    						</listheader>
@@ -99,16 +99,18 @@
 					    					<template name="model" var="hoteles">
 					    					<listitem>
 					    						<listcell>
-					    							<div style="display:flex; align-items: center;"  width="100%" zclass="div_list_cell">
-					    								<label value="■"></label>
-					    								<space></space>
-					    								<label value="@load(hoteles.cHotel)" width="50%" sclass="estilo_texto_pop"></label>
-					    								<div width="50%" sclass="estilo_datos_pop_reserva">
-						    								<image src="img/uno.png"></image>
-						    								<label value="$." sclass="estilo_texto_pop"></label>
-						    								<label value="@load(hoteles.nPrecioSimple)" sclass="estilo_texto_pop"></label>
-					    								</div>
-					    							</div>
+					    						    <listbox model="@load(hoteles.listaDestinosHoteles)">
+						    						      <listhead>
+						    						        <listheader label="@load(hoteles.destino)"></listheader>
+						    						      </listhead>
+						    						    <template name="model" var="lista">
+						    						    	<listitem>
+						    						    	  <listcell>
+						    						    	     <label value="@load(lista.cHotel)"></label>
+						    						    	  </listcell>
+						    						    	</listitem>
+						    						    </template>
+					    						    </listbox>
 					    						</listcell>
 					    					</listitem>
 					    					</template>

@@ -17,7 +17,6 @@ import com.pricing.model.CDestino;
 import com.pricing.model.CHotel;
 import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
-import com.pricing.model.CReportePagosMuestra;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
@@ -33,9 +32,10 @@ public class reportePagosVM {
 	private String fechaInicio;
 	private String fechaFinal;
 	private ArrayList<CPasajero> listaPasajeros;
-	private ArrayList<CReportePagosMuestra> listanuevaReportePagos;
-	private CReportePagosMuestra reportepagosMuestra;
-	private CReportePagosMuestra reportePagosMuestraAnterior;
+	private ArrayList<CDestino> listaDestinos;
+	private ArrayList<CHotel> listaHoteles;
+	private ArrayList<CServicio> listaServicios;
+	private CReportePagos reportePagosAnterior;
 	//===============getter and setter=======
 	public String getFechaInicio() {
 		return fechaInicio;
@@ -69,21 +69,6 @@ public class reportePagosVM {
 		this.listaPasajeros = listaPasajeros;
 	}
 	
-	public ArrayList<CReportePagosMuestra> getListanuevaReportePagos() {
-		return listanuevaReportePagos;
-	}
-	public void setListanuevaReportePagos(
-			ArrayList<CReportePagosMuestra> listanuevaReportePagos) {
-		this.listanuevaReportePagos = listanuevaReportePagos;
-	}
-	
-	public CReportePagosMuestra getReportepagosMuestra() {
-		return reportepagosMuestra;
-	}
-	public void setReportepagosMuestra(CReportePagosMuestra reportepagosMuestra) {
-		this.reportepagosMuestra = reportepagosMuestra;
-	}
-	
 	public boolean isEstadoPagoPendiente() {
 		return estadoPagoPendiente;
 	}
@@ -102,13 +87,30 @@ public class reportePagosVM {
 	public void setEstadoPagoTotal(boolean estadoPagoTotal) {
 		this.estadoPagoTotal = estadoPagoTotal;
 	}
-	
-	public CReportePagosMuestra getReportePagosMuestraAnterior() {
-		return reportePagosMuestraAnterior;
+	public ArrayList<CDestino> getListaDestinos() {
+		return listaDestinos;
 	}
-	public void setReportePagosMuestraAnterior(
-			CReportePagosMuestra reportePagosMuestraAnterior) {
-		this.reportePagosMuestraAnterior = reportePagosMuestraAnterior;
+	public void setListaDestinos(ArrayList<CDestino> listaDestinos) {
+		this.listaDestinos = listaDestinos;
+	}
+	public ArrayList<CHotel> getListaHoteles() {
+		return listaHoteles;
+	}
+	public void setListaHoteles(ArrayList<CHotel> listaHoteles) {
+		this.listaHoteles = listaHoteles;
+	}
+	public ArrayList<CServicio> getListaServicios() {
+		return listaServicios;
+	}
+	public void setListaServicios(ArrayList<CServicio> listaServicios) {
+		this.listaServicios = listaServicios;
+	}
+	
+	public CReportePagos getReportePagosAnterior() {
+		return reportePagosAnterior;
+	}
+	public void setReportePagosAnterior(CReportePagos reportePagosAnterior) {
+		this.reportePagosAnterior = reportePagosAnterior;
 	}
 	//=====================constructores======
 	@Init
@@ -122,23 +124,117 @@ public class reportePagosVM {
 		fechaInicio="";
 		fechaFinal="";
 		reportePagosDAO=new CReportePagosDAO();
-		reportePagosMuestraAnterior=new CReportePagosMuestra();
+		reportePagosAnterior=new CReportePagos();
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 	}
 	//====================metodos============
 	@Command
-	public void habilitarPasajerosPOP(@BindingParam("cpasajero") CReportePagosMuestra pasajero)
+	@NotifyChange("listaDestinos")
+	public void habilitarDestinosPOP(@BindingParam("cdestino") CReportePagos destino)
 	{
-		if(!pasajero.getCodReserva().equals(reportePagosMuestraAnterior.getCodReserva())){
-			pasajero.setVisiblepasajerospop(true);
-			reportePagosMuestraAnterior.setVisiblepasajerospop(false);
-			reportePagosMuestraAnterior=pasajero;
+		if(!destino.getCodReserva().equals(reportePagosAnterior.getCodReserva()))
+		{
+			reportePagosDAO.asignarDestinosReserva(reportePagosDAO.recuperarDestinosReservaBD(destino.getCodReserva()));
+			this.setListaDestinos(reportePagosDAO.getListaDestinosReserva());
+			destino.setListaDestinos(this.getListaDestinos());
+			if(this.getListaDestinos().isEmpty()){
+				destino.setVisibleDestinospop(false);
+				destino.setColornoExisteListaDestinos("background: #DA0613;");
+			}
+			else{
+				destino.setVisibleDestinospop(true);
+				destino.setColornoExisteListaDestinos("background: #3BA420;");
+			}
+			reportePagosAnterior.setVisibleDestinospop(false);
+			reportePagosAnterior=destino;
+		}
+		else{
+			destino.setVisibleDestinospop(true);
+		}
+		BindUtils.postNotifyChange(null, null, destino,"visibleDestinospop");
+		BindUtils.postNotifyChange(null, null, destino,"listaDestinos");
+		BindUtils.postNotifyChange(null, null, destino,"colornoExisteLista");
+	}
+	@Command
+	@NotifyChange("listaHoteles")
+	public void habilitarHotelesPOP(@BindingParam("chotel") CReportePagos hotel)
+	{
+		if(!hotel.getCodReserva().equals(reportePagosAnterior.getCodReserva()))
+		{
+			reportePagosDAO.asignarHotelesReserva(reportePagosDAO.recuperarHotelesReservaBD(hotel.getCodReserva(),hotel.getCodCategoria()));
+			this.setListaHoteles(reportePagosDAO.getListaHotelesReserva());
+			hotel.setListaHoteles(this.getListaHoteles());
+			if(this.getListaHoteles().isEmpty()){
+				hotel.setVisibleHotelespop(false);
+				hotel.setColornoExisteListaHoteles("background: #DA0613;");
+			}
+			else{
+				hotel.setVisibleHotelespop(true);
+				hotel.setColornoExisteListaHoteles("background: #3BA420;");
+			}
+			reportePagosAnterior.setVisibleHotelespop(false);
+			reportePagosAnterior=hotel;
+		}
+		else {
+			hotel.setVisibleHotelespop(true);
+		}
+		BindUtils.postNotifyChange(null, null, hotel,"visibleHotelespop");
+		BindUtils.postNotifyChange(null, null, hotel,"listaHoteles");
+		BindUtils.postNotifyChange(null, null, hotel,"colornoExisteListaHoteles");
+	}
+	@Command
+	@NotifyChange("listaServicios")
+	public void habilitarServiciosPOP(@BindingParam("cservicio") CReportePagos servicio)
+	{
+		if(!servicio.getCodReserva().equals(reportePagosAnterior.getCodReserva()))
+		{
+			reportePagosDAO.asignarServiciosReserva(reportePagosDAO.recuperarServiciosReservaBD(servicio.getCodReserva()));
+			this.setListaServicios(reportePagosDAO.getListaServiciosReserva());
+			servicio.setListaServicios(this.getListaServicios());
+			if(this.getListaServicios().isEmpty()){
+				servicio.setVisibleServiciospop(false);
+				servicio.setColornoExisteListaServicios("background: #DA0613;");
+			}
+			else{
+				servicio.setVisibleServiciospop(true);
+				servicio.setColornoExisteListaServicios("background: #3BA420;");
+			}
+			reportePagosAnterior.setVisibleServiciospop(false);
+			reportePagosAnterior=servicio;
+		}else{
+			servicio.setVisibleServiciospop(true);
+		}
+		BindUtils.postNotifyChange(null, null, servicio,"visibleServiciospop");
+		BindUtils.postNotifyChange(null, null, servicio,"listaServicios");
+		BindUtils.postNotifyChange(null, null, servicio,"colornoExisteListaServicios");
+	}
+	
+	@Command
+	@NotifyChange("listaPasajeros")
+	public void habilitarPasajerosPOP(@BindingParam("cpasajero") CReportePagos pasajero)
+	{
+		if(!pasajero.getCodReserva().equals(reportePagosAnterior.getCodReserva())){
+			reportePagosDAO.asignarPasajerosReserva(reportePagosDAO.recuperarPasajerosReservaBD(pasajero.getCodReserva()));
+			this.setListaPasajeros(reportePagosDAO.getListaPasajerosReserva());
+			pasajero.setListaPasajeros(this.getListaPasajeros());
+			if(this.getListaPasajeros().isEmpty()){
+				pasajero.setVisiblepasajerospop(false);
+				pasajero.setColornoExisteListaPasajeros("background: #DA0613;");
+			}
+			else{
+				pasajero.setVisiblepasajerospop(true);
+				pasajero.setColornoExisteListaPasajeros("background: #3BA420;");
+			}
+			reportePagosAnterior.setVisiblepasajerospop(false);
+			reportePagosAnterior=pasajero;
 		}
 		else{
 			pasajero.setVisiblepasajerospop(true);
 		}
 		BindUtils.postNotifyChange(null, null, pasajero,"visiblepasajerospop");
+		BindUtils.postNotifyChange(null, null, pasajero,"listaPasajeros");
+		BindUtils.postNotifyChange(null, null, pasajero,"colornoExisteListaPasajeros");
 	}
 	@Command
 	public void recuperarFechaDatebox(@BindingParam("fecha")String fecha,@BindingParam("id")String id)
@@ -169,7 +265,7 @@ public class reportePagosVM {
 	}
 	
 	@Command
-	@NotifyChange({"listaReportePagos","listanuevaReportePagos","listaPasajeros"})
+	@NotifyChange("listaReportePagos")
 	public void Buscar_Pagos(@BindingParam("componente")Component componente)
 	{
 		if(fechaInicio.isEmpty() || fechaFinal.isEmpty())
@@ -206,70 +302,6 @@ public class reportePagosVM {
 			reportePagosDAO.asignarVisaListaReportePagos(reportePagosDAO.recuperarPagosVisaBD(fecha1, fecha2,NombrePago));
 			reportePagosDAO.asignarVisaListaReportePagos(reportePagosDAO.recuperarPagosPaypalBD(fecha1,fecha2,NombrePago));
 			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
-			System.out.println("entro aqui 2");
-			System.out.println("entro aqui 3");
-			String codReservaAnterior="";
-			int factorIncremento=0;
-			System.out.println("el nro de filas es:"+listaReportePagos.size());
-			listanuevaReportePagos=new ArrayList<CReportePagosMuestra>();
-			for(int i=0;i<listaReportePagos.size();i=i+factorIncremento)
-			{	
-				factorIncremento=0;
-				codReservaAnterior=listaReportePagos.get(i).getCodReserva();
-				int contador=i;
-				System.out.println("el valor del contador:"+contador);
-				String pasajeroAnterior="";
-				System.out.println("el valor de reserva anterior es:"+codReservaAnterior);
-				listaPasajeros=new ArrayList<CPasajero>();
-				if(listaReportePagos.get(contador).getNombres()!=null)
-				{
-					listaPasajeros.add(new CPasajero(listaReportePagos.get(contador).getTipoDocumento(),listaReportePagos.get(contador).getApellidos(),
-							listaReportePagos.get(contador).getNombres(),listaReportePagos.get(contador).getNombrePais(),
-							listaReportePagos.get(contador).getEdad(),listaReportePagos.get(contador).getNroDoc(),listaReportePagos.get(contador).getSexo()));
-				}
-				pasajeroAnterior=listaReportePagos.get(contador).getNombres();
-				while((contador<listaReportePagos.size()) && (listaReportePagos.get(contador).getCodReserva().equals(codReservaAnterior)))
-				{
-					if(listaReportePagos.get(contador).getNombres()==null){
-						System.out.println("sale este null");
-						pasajeroAnterior = listaReportePagos.get(contador).getNombres();
-					}else if(!listaReportePagos.get(contador).getNombres().equals(pasajeroAnterior)) {
-						pasajeroAnterior = listaReportePagos.get(contador).getNombres();
-						listaPasajeros.add(new CPasajero(listaReportePagos.get(contador).getTipoDocumento(),listaReportePagos.get(contador).getApellidos(),
-								listaReportePagos.get(contador).getNombres(),listaReportePagos.get(contador).getNombrePais(),
-								listaReportePagos.get(contador).getEdad(),listaReportePagos.get(contador).getNroDoc(),listaReportePagos.get(contador).getSexo()));
-					}
-					contador++;
-					factorIncremento++;
-				}
-				double impuesto=Double.valueOf(listaReportePagos.get(i).getImpuesto().toString())*100;
-				double valorImpuesto=(impuesto*(listaReportePagos.get(i).getImporte().doubleValue()))/100;
-				String impuestoCadena=String.valueOf(impuesto);
-				double porcentaje=Double.valueOf(listaReportePagos.get(i).getPorcentaje().toString())*100;
-				double total=listaReportePagos.get(i).getImporte().doubleValue()+valorImpuesto;
-				reportepagosMuestra=new CReportePagosMuestra();
-				reportepagosMuestra.setCodPago(listaReportePagos.get(i).getCodPago());
-				reportepagosMuestra.setCodReserva(listaReportePagos.get(i).getCodReserva());
-				reportepagosMuestra.setFechaInicio(listaReportePagos.get(i).getFechaInicio());
-				reportepagosMuestra.setFechaFin(listaReportePagos.get(i).getFechaFin());
-				reportepagosMuestra.setFecha(listaReportePagos.get(i).getFecha());
-				reportepagosMuestra.setNombrePaquete(listaReportePagos.get(i).getNombrePaquete());
-				reportepagosMuestra.setNroPersonas(listaReportePagos.get(i).getNroPersonas());
-				reportepagosMuestra.setImporte(listaReportePagos.get(i).getImporte());
-				reportepagosMuestra.setPorcentaje(porcentaje);
-				reportepagosMuestra.setFormaPago(listaReportePagos.get(i).getFormaPago());
-				reportepagosMuestra.setEstado(listaReportePagos.get(i).getEstado());
-				reportepagosMuestra.setFechayhoraTransaccion(listaReportePagos.get(i).getFechayhoraTransaccion());
-				reportepagosMuestra.setCodTransaccion(listaReportePagos.get(i).getCodTransaccion());
-				reportepagosMuestra.setNombreCliente(listaReportePagos.get(i).getNombreCliente());
-				reportepagosMuestra.setNroTarjeta(listaReportePagos.get(i).getNroTarjeta());
-				reportepagosMuestra.setEstadoReserva(listaReportePagos.get(i).getEstadoReserva());
-				reportepagosMuestra.setListaPasajeros(listaPasajeros);
-				reportepagosMuestra.setMontoTotal(total);
-				reportepagosMuestra.setImpuesto(impuestoCadena);
-				reportepagosMuestra.setValorImpuesto(valorImpuesto);
-				listanuevaReportePagos.add(reportepagosMuestra);
-			}
 		}else{
 			Clients.showNotification("Eliga un ESTADO DE PAGO", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
 		}

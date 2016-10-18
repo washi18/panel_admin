@@ -133,7 +133,7 @@ public class CReporteReservaDAO extends CConexion{
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
-			listaHotelesReserva.add(new CHotel((String)row.get("chotel"),(Number)row.get("npreciosimple"),(Number)row.get("npreciodoble"),(Number)row.get("npreciotriple"),(int)row.get("ndestinocod")));
+			listaHotelesReserva.add(new CHotel((String)row.get("chotel"),(Number)row.get("npreciosimple"),(Number)row.get("npreciodoble"),(Number)row.get("npreciotriple"),(String)row.get("cdestino")));
 		}
 	}
 }

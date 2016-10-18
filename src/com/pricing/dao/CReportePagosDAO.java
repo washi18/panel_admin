@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.pricing.model.CDestino;
 import com.pricing.model.CHotel;
+import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
@@ -15,6 +16,10 @@ public class CReportePagosDAO  extends CConexion{
 	//==============atributos===================
 	private ArrayList<CReportePagos> listaReportePagos;
 	private CReportePagos reportePagos;
+	private ArrayList<CDestino> listaDestinosReserva;
+	private ArrayList<CHotel> listaHotelesReserva;
+	private ArrayList<CServicio> listaServiciosReserva;
+	private ArrayList<CPasajero> listaPasajerosReserva;
 	//=================getter and setter=============
 	public ArrayList<CReportePagos> getListaReportePagos() {
 		return listaReportePagos;
@@ -27,6 +32,32 @@ public class CReportePagosDAO  extends CConexion{
 	}
 	public void setReportePagos(CReportePagos reportePagos) {
 		this.reportePagos = reportePagos;
+	}
+	
+	public ArrayList<CDestino> getListaDestinosReserva() {
+		return listaDestinosReserva;
+	}
+	public void setListaDestinosReserva(ArrayList<CDestino> listaDestinosReserva) {
+		this.listaDestinosReserva = listaDestinosReserva;
+	}
+	public ArrayList<CHotel> getListaHotelesReserva() {
+		return listaHotelesReserva;
+	}
+	public void setListaHotelesReserva(ArrayList<CHotel> listaHotelesReserva) {
+		this.listaHotelesReserva = listaHotelesReserva;
+	}
+	public ArrayList<CServicio> getListaServiciosReserva() {
+		return listaServiciosReserva;
+	}
+	public void setListaServiciosReserva(ArrayList<CServicio> listaServiciosReserva) {
+		this.listaServiciosReserva = listaServiciosReserva;
+	}
+	
+	public ArrayList<CPasajero> getListaPasajerosReserva() {
+		return listaPasajerosReserva;
+	}
+	public void setListaPasajerosReserva(ArrayList<CPasajero> listaPasajerosReserva) {
+		this.listaPasajerosReserva = listaPasajerosReserva;
 	}
 	//=====================constructores==========
 	public CReportePagosDAO()
@@ -52,13 +83,35 @@ public class CReportePagosDAO  extends CConexion{
 		String[] values={fechaInicio,fechaFinal,estado};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarPagosPaypalEntreFechasBD",values);
 	}
+	public List recuperarDestinosReservaBD(String codReserva)
+	{
+		String[] values={codReserva};
+		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscardestinosreserva",values);
+	}
+	
+	public List recuperarHotelesReservaBD(String codReserva,int codCategoriaHotel)
+	{
+		Object[] values={codReserva,codCategoriaHotel};
+		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarhotelesreserva",values);
+	}
+	
+	public List recuperarServiciosReservaBD(String codReserva)
+	{
+		String[] values={codReserva};
+		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarserviciosreserva",values);
+	}
+	public List recuperarPasajerosReservaBD(String codReserva)
+	{
+		String []values={codReserva};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_buscarpasajerosreserva",values);
+	}
 	public void asignarVisaListaReportePagos(List lista)
 	{
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
 			listaReportePagos.add(new CReportePagos((String)row.get("creservacod"),(Date)row.get("dfechainicio"), 
-					(Date)row.get("dfechafin"),(Date)row.get("dfecha"),
+					(Date)row.get("dfechafin"),(Date)row.get("dfecha"),(int)row.get("categoriahotelcod"),
 					(String)row.get("ctituloidioma1"),(int)row.get("nnropersonas"),
 					(Number)row.get("nimporte"),(Number)row.get("nporcentaje"),(String)row.get("formapago"),
 					(String)row.get("estado"),(Date)row.get("fechayhora_initx"),(String)row.get("codtransaccion"),
@@ -68,6 +121,45 @@ public class CReportePagosDAO  extends CConexion{
 					(String)row.get("cabrevtipodoc"),(String)row.get("cnrodoc"),
 					(String)row.get("cnombreesp"),
 					(String)row.get("nro_tarjeta"),(String)row.get("cestado"),(String)row.get("impuesto")));
+		}
+	}
+	public void asignarDestinosReserva(List lista)
+	{
+		System.out.println("entro aqui DAO 2");
+		listaDestinosReserva=new ArrayList<CDestino>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaDestinosReserva.add(new CDestino((String)row.get("cdestino"),(int)row.get("ndestinocod"),(int)row.get("ncodpostal")));
+		}
+		System.out.println("termino aqui DAO 2");
+	}
+	public void asignarServiciosReserva(List lista)
+	{
+		listaServiciosReserva=new ArrayList<CServicio>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaServiciosReserva.add(new CServicio((String)row.get("cservicioindioma1"),(Number)row.get("nprecioservicio")));
+		}
+	}
+	public void asignarHotelesReserva(List lista)
+	{
+		listaHotelesReserva=new ArrayList<CHotel>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaHotelesReserva.add(new CHotel((String)row.get("chotel"),(Number)row.get("npreciosimple"),(Number)row.get("npreciodoble"),(Number)row.get("npreciotriple"),(String)row.get("cdestino")));
+		}
+	}
+	public void asignarPasajerosReserva(List lista)
+	{
+		listaPasajerosReserva=new ArrayList<CPasajero>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaPasajerosReserva.add(new CPasajero((String)row.get("cabrevtipodoc"),(String)row.get("capellidos"),
+					(String)row.get("cnombres"),(String)row.get("cnombreesp"),(int)row.get("nedad"),(String)row.get("cnrodoc"),(String)row.get("csexo")));
 		}
 	}
 }
