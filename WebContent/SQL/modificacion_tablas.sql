@@ -2,8 +2,10 @@
 --TABLA TPAQUETE--
 ALTER TABLE tpaquete ADD COLUMN nDiaCaminoInka int DEFAULT 0
 ALTER TABLE tpaquete alter COLUMN nDiaCaminoInka drop DEFAULT
-
-SELECT  * from tdestinohotel  
+--TABLA HOTEL--
+ALTER TABLE thotel  ADD COLUMN nDestinoCod int DEFAULT 1
+ALTER TABLE thotel alter COLUMN nDestinoCod drop DEFAULT
+ALTER TABLE thotel ADD FOREIGN KEY(nDestinoCod) REFERENCES tdestino(nDestinoCod);
 --TABLA TPAQUETEDESTINO--
 ALTER TABLE tpaquetedestino ADD COLUMN nNoches int DEFAULT 1
 ALTER TABLE tpaquetedestino alter COLUMN nNoches drop DEFAULT

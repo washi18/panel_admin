@@ -22,7 +22,7 @@ public class CHotel
 	private Number nPrecioDoble;// decimal(10,2),			--precio del hotel con habitacion doble
 	private Number nPrecioTriple;// decimal(10,2),			--precio del hotel con habitacion triple
 	private boolean bEstado;// boolean,				--estado del hotel (si trabaja o no con nuestros paquetes)
-	private int codDestino;
+	private int nDestinoCod;//int
 	private boolean editable;
 	private String categoria;
 	private boolean visibleEspanol;
@@ -238,11 +238,11 @@ public class CHotel
 	public void setEstado_desactivo(boolean estado_desactivo) {
 		this.estado_desactivo = estado_desactivo;
 	}
-	public int getCodDestino() {
-		return codDestino;
+	public int getnDestinoCod() {
+		return nDestinoCod;
 	}
-	public void setCodDestino(int codDestino) {
-		this.codDestino = codDestino;
+	public void setnDestinoCod(int nDestinoCod) {
+		this.nDestinoCod = nDestinoCod;
 	}
 	//======================================
 	public CHotel() {
@@ -261,7 +261,7 @@ public class CHotel
 		this.nPrecioSimple_text="0.00";
 		this.nPrecioDoble_text="0.00";
 		this.nPrecioTriple_text="0.00";
-		this.codDestino=0;
+		this.nDestinoCod=0;
 	}
 	public CHotel(String cHotel){
 		this.cHotel=cHotel;
@@ -278,7 +278,7 @@ public class CHotel
 			String cDescripcionIdioma2, String cDescripcionIdioma3,
 			String cDescripcionIdioma4, String cDescripcionIdioma5,
 			String cUrl, int categoriaHotelCod, Number nPrecioSimple,
-			Number nPrecioDoble, Number nPrecioTriple, boolean bEstado) {
+			Number nPrecioDoble, Number nPrecioTriple, boolean bEstado,int nDestinoCod) {
 		
 		/*******************************/
 		simbolos= new DecimalFormatSymbols();
@@ -309,7 +309,7 @@ public class CHotel
 		this.nPrecioTriple_text=df.format(nPrecioTriple.doubleValue());
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
-		this.codDestino=0;
+		this.nDestinoCod=nDestinoCod;
 		/*******Activar la categoria seleccionada*********/
 		darColor_estado_hotel();
 		activarCategoria();

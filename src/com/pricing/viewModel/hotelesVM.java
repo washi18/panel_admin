@@ -1,10 +1,8 @@
 package com.pricing.viewModel;
 
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
@@ -15,19 +13,15 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Div;
 
 import com.pricing.dao.CDestinoDAO;
-import com.pricing.dao.CDestinoHotelDAO;
 import com.pricing.dao.CHotelDAO;
 import com.pricing.model.CDestino;
-import com.pricing.model.CDestinoHotel;
 import com.pricing.model.CHotel;
-import com.pricing.model.CServicio;
 
 public class hotelesVM 
 {
@@ -46,8 +40,6 @@ public class hotelesVM
 	private CHotelDAO hotelDao;
 	private CDestinoDAO destinoDao;
 	private ArrayList<CDestino> listaDestinos;
-	private CDestinoHotelDAO destinoHotelDao;
-	private int codDestino;
 	/**=====================**/
 	/**==GETTER AND SETTER==**/
 	/**=====================**/
@@ -100,7 +92,6 @@ public class hotelesVM
 		oHotelUpdate=new CHotel();
 		hotelDao=new CHotelDAO();
 		destinoDao=new CDestinoDAO();
-		destinoHotelDao=new CDestinoHotelDAO();
 		listaDestinos=new ArrayList<CDestino>();
 		listaHoteles=new ArrayList<CHotel>();
 		/*Asignacion de hoteles*/
@@ -136,12 +127,12 @@ public class hotelesVM
 	@Command
 	public void selectDestino(@BindingParam("codDestino")String codDestino)
 	{
-		oHotel.setCodDestino(Integer.parseInt(codDestino));
+		oHotel.setnDestinoCod(Integer.parseInt(codDestino));
 	}
 	@Command
 	public void selectDestino_update(@BindingParam("codDestino")String codDestino,@BindingParam("hotel")CHotel hotel)
 	{
-		hotel.setCodDestino(Integer.parseInt(codDestino));
+		hotel.setnDestinoCod(Integer.parseInt(codDestino));
 	}
 	@Command
 	@NotifyChange({"oHotel","listaHoteles"})
@@ -169,7 +160,7 @@ public class hotelesVM
 		oHotel.setcHotel(oHotel.getcHotel().toUpperCase());
 		boolean valido=true;
 		/**Empezamos realizando las validaciones respectivas**/
-		if(oHotel.getCodDestino()==0)
+		if(oHotel.getnDestinoCod()==0)
 		{
 			Clients.showNotification("Se tiene que elegir un destino para el hotel", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
 			valido=false;
@@ -207,10 +198,6 @@ public class hotelesVM
 			return;
 		/**Actualizar datos de la etiqueta en la BD**/
 		boolean correcto=hotelDao.isOperationCorrect(hotelDao.modificarHotel(hotel));
-		if(hotel.getCodDestino()!=0)
-		{
-			List l=destinoHotelDao.insertarDestinoHotel(hotel.getCodDestino(),hotel.getnHotelCod());
-		}
 		if(correcto)
 			Clients.showNotification("El Hotel se actualizo correctamente", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
 		else

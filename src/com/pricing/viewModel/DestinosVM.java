@@ -11,12 +11,8 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.Clients;
 
 import com.pricing.dao.CDestinoDAO;
-import com.pricing.dao.CDestinoHotelDAO;
 import com.pricing.model.CCodigoPostal;
 import com.pricing.model.CDestino;
-import com.pricing.model.CDestinoHotel;
-import com.pricing.model.CHotel;
-import com.pricing.model.CServicio;
 
 public class DestinosVM {
 	/*====atributos=====*/

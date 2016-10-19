@@ -50,7 +50,7 @@ public class CHotelDAO extends CConexion
 				(String)row.get("cdescripcionidioma5"),(String)row.get("curl"),
 				(int)row.get("categoriahotelcod"),(Number) row.get("npreciosimple"),
 				(Number)row.get("npreciodoble"),(Number)row.get("npreciotriple"),
-				(boolean)row.get("bestado")); 
+				(boolean)row.get("bestado"),(int)row.get("ndestinocod")); 
 	}
 	public List recuperarHotelesBD()
 	{
@@ -68,7 +68,7 @@ public class CHotelDAO extends CConexion
 					(String)row.get("cdescripcionidioma5"),(String)row.get("curl"),
 					(int)row.get("categoriahotelcod"),(Number) row.get("npreciosimple"),
 					(Number)row.get("npreciodoble"),(Number)row.get("npreciotriple"),
-					(boolean)row.get("bestado")));
+					(boolean)row.get("bestado"),(int)row.get("ndestinocod")));
 		}
 	}
 	public List insertarHotel(CHotel hotel)
@@ -76,7 +76,7 @@ public class CHotelDAO extends CConexion
 		Object[] values={hotel.getcHotel(),hotel.getcDescripcionIdioma1(),hotel.getcDescripcionIdioma2(),
 				hotel.getcDescripcionIdioma3(),hotel.getcDescripcionIdioma4(),hotel.getcDescripcionIdioma5(),
 				hotel.getcUrl(),hotel.getCategoriaHotelCod(),hotel.getnPrecioSimple().doubleValue(),hotel.getnPrecioDoble().doubleValue(),
-				hotel.getnPrecioTriple().doubleValue(),hotel.getCodDestino()};
+				hotel.getnPrecioTriple().doubleValue(),hotel.getnDestinoCod()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarHotel", values);
 	}
 	public List modificarHotel(CHotel hotel)

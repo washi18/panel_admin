@@ -211,6 +211,32 @@ $$
 	order by ndestinocod;
 $$
   LANGUAGE sql;
+/*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_MostrarHotelesDestino
++++++++++++++++++++++++++++++++++++++++++++++++++*/ 
+  create or replace function Pricing_sp_MostrarHotelesDestino
+  (
+  	codDestino int
+  )
+  returns setof thotel as
+  $$
+  	select * from thotel
+  	where ndestinocod=$1;
+  $$
+  language sql;
+  /*+++++++++++++++++++++++++++++++++++++++++++++++++
+Nombre		:Pricing_sp_MostrarDestino
++++++++++++++++++++++++++++++++++++++++++++++++++*/ 
+  create or replace function Pricing_sp_MostrarDestino
+  (
+  	codDestino int
+  )
+  returns setof tdestino as
+  $$
+  	select * from tdestino
+  	where ndestinocod=$1;
+  $$
+  language sql;
  /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_MostrarTodasReservas
 +++++++++++++++++++++++++++++++++++++++++++++++++*/ 
