@@ -2,6 +2,9 @@ package com.pricing.model;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
+import java.util.ArrayList;
+
+import com.pricing.dao.CDestinoDAO;
 
 public class CHotel 
 {
@@ -46,6 +49,8 @@ public class CHotel
 	public String COLOR_TRANSPARENT="background:transparent;";
 	private boolean estado_activo;
 	private boolean estado_desactivo;
+	private CDestinoDAO destinoDao;
+	private ArrayList<CDestino> listaDestinos;
 	//================================
 	public int getnHotelCod() {
 		return nHotelCod;
@@ -252,6 +257,12 @@ public class CHotel
 	public void setNombreDestino(String nombreDestino) {
 		this.nombreDestino = nombreDestino;
 	}
+	public ArrayList<CDestino> getListaDestinos() {
+		return listaDestinos;
+	}
+	public void setListaDestinos(ArrayList<CDestino> listaDestinos) {
+		this.listaDestinos = listaDestinos;
+	}
 	//======================================
 	public CHotel() {
 		// TODO Auto-generated constructor stub
@@ -319,6 +330,12 @@ public class CHotel
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
 		this.nDestinoCod=nDestinoCod;
+		this.destinoDao=new CDestinoDAO();
+		this.listaDestinos=new ArrayList<CDestino>();
+		/**Recuperando la lista de destinos para este hotel**/
+		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
+		setListaDestinos(destinoDao.getListaDestinos());
+		this.nombreDestino=recuperarElNombreDeDestino(nDestinoCod);
 		/*******Activar la categoria seleccionada*********/
 		darColor_estado_hotel();
 		activarCategoria();
@@ -366,5 +383,18 @@ public class CHotel
 			case 7:cat="LUJO SUPERIOR";break;
 		}
 		return cat;
+	}
+	public String recuperarElNombreDeDestino(int nDestinoCod)
+	{
+		String nombre="";
+		for(CDestino destino:listaDestinos)
+		{
+			if(destino.getnDestinoCod()==nDestinoCod)
+			{
+				nombre=destino.getcDestino();
+				break;
+			}
+		}
+		return nombre;
 	}
 }

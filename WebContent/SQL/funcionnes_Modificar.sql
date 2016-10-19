@@ -294,7 +294,8 @@ create or replace function Pricing_sp_ModificarHotel
   preciosimple decimal(10,2),
   preciodoble decimal(10,2),
   preciotriple decimal(10,2),
-  estado boolean
+  estado boolean,
+  codDestino int
 )
 returns table(resultado varchar(20),
 		mensaje varchar(200),
@@ -313,9 +314,10 @@ begin
                           npreciosimple=$10,
                           npreciodoble=$11,
                           npreciotriple=$12,
-                          bestado=$13
+                          bestado=$13,
+                          ndestinocod=$14
                       where nhotelcod=$1;
-        resultado='correcto';
+    resultado='correcto';
 	mensaje='Datos Actualizados Correctamente';
 	return Query select resultado,mensaje,codHotel;
 end

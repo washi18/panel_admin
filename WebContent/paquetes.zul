@@ -211,8 +211,8 @@
 				    		<div zclass="div_numeracion">
 								<label value="@bind(each.cPaqueteCod)"/>
 							</div>
-							<div zclass="div_contenedor_datos_paquete" width="97%">
-							      <div sclass="div_contenedor_info_paquete">
+							<div sclass="div_contenedor_info_paquete">
+							      <div zclass="div_contenedor_datos_paquete">
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" height="30px" sclass="estilo_nombre_paquete"
 					    					value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')" />
@@ -242,6 +242,7 @@
 					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
 					    			</div>
 					    		</div>
+					    		<space/>
 					    		<div zclass="div_contenedor_datos_paquete" visible="@bind(each.conDestino)">
 					    			<listbox model="@bind(each.listaDestinos)">
 					    				<listhead>
@@ -258,7 +259,8 @@
 					    				</template>
 					    			</listbox>
 					    		</div>
-					    		<div zclass="div_contenedor_datos_paquete">
+					    		<space/>
+					    		<div zclass="div_contenedor_datos_paquete" visible="@bind(each.conServicio)">
 					    			<listbox model="@bind(each.listaServicios)">
 					    				<listhead>
 					    					<listheader label="SERVICIOS"/>
@@ -274,12 +276,21 @@
 					    				</template>
 					    			</listbox>
 					    		</div>
-					    		<div sclass="estilo_contenedor_costo">
+					    		<div sclass="estilo_contenedor_costo_paquete" visible="@bind(each.sinDescuento)">
+					    			<div sclass="horizontal_icons_personas">
+						    			<span zclass="icon-man"></span>
+						    			<label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+						    			<label value="@bind(each.nPrecioUno)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+						    		  </div>
+					    		</div>
+					    		<div sclass="estilo_contenedor_costo_paquete" visible="@bind(each.conDescuento)">
 					    		  <div sclass="horizontal_icons_personas">
 					    			<span zclass="icon-man"></span>
-					    			<label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    			<label value="@bind(each.nPrecioUno)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    		  </div>
+					    			<div>
+					    				<label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    				<label value="@bind(each.nPrecioUno)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			</div>
+					    		</div>
 					    		  <div sclass="horizontal_icons_personas">
 					    		    <div>
 						    			<span zclass="icon-man"></span>

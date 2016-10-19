@@ -22,7 +22,6 @@
 	font-size: 16px;
 	font-weight: bold;
 }
-
 .descripcion_costado_paquete{
 		display: flex;
 		display: -webkit-flex;
@@ -31,8 +30,15 @@
 		display: -o-flex;
 }	
 .div_contenedor_datos_paquete{
-	display: flex;
-	width: 97%;
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 33.33%;
+}
+@media (max-width:768px){
+	.div_contenedor_datos_paquete{
+		width: 100%;
+	}
 }
 
 .div_content_datos_listaPaq{
@@ -79,7 +85,21 @@
 }
 
 .div_contenedor_info_paquete {
-	width: 80%;
+	width: 100%;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+}
+@media (max-width:768px){
+	.div_contenedor_info_paquete {
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}	
 }
 .div_content_actualizar {
 	display: flex;
@@ -509,4 +529,8 @@
 	.btn_actualizar_paquete_responsive{
 		display: none !important;
 	}
+}
+/**CONTENEDOR DE PRECIOS EN LA LISTA DE PAQUETES**/
+.estilo_contenedor_costo_paquete{
+	background: #1a1a1a;
 }

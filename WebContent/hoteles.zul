@@ -108,6 +108,10 @@
 					    			<div sclass="estilo_start_descripcion">
 					    				<label width="100%" sclass="estilo_nombre_hotel"
 					    					value="@bind(each.cHotel) @save(each.cHotel,before='actualizarHotel')" />
+					    				<div>
+					    					<label value="DESTINO: " sclass="lbl_subtitle_destino_Hotel"/>
+					    					<label value="@bind(each.nombreDestino)" sclass="lbl_subtitle_destino_Hotel"/>
+					    				</div>
 					    				<div sclass="descripcion_costado">
 						    				<image src="img/eticket.png"></image>
 						    				<space></space>
@@ -160,7 +164,7 @@
 				    		<div zclass="div_content_datos_lista">
 				    			<div>
 									<label value="DESTINO: " zclass="lbl_llenar_datos"/>
-									<combobox model="@load(vmHotel.listaDestinos)" readonly="true" onSelect="@command('selectDestino_update',codDestino=self.selectedItem.value,hotel=each)" sclass="cbox_llenar_datos">
+									<combobox  value="@bind(each.nombreDestino)" model="@load(each.listaDestinos)" readonly="true" onSelect="@command('selectDestino_update',codDestino=self.selectedItem.value,hotel=each)" sclass="cbox_llenar_datos">
 										<template name="model" var="dest">
 											<comboitem label="@load(dest.cDestino)" value="@load(dest.nDestinoCod)"/>
 										</template>

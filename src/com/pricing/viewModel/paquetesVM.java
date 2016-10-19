@@ -381,6 +381,7 @@ public class paquetesVM
 						if(!servicio.isSeleccionado())
 						{
 							/**ELIMINAR**/
+							paquete.setConServicio(false);
 							b=paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteServicio(ps.getCodPaqueteServicio()));
 						}
 						break;
@@ -388,6 +389,7 @@ public class paquetesVM
 				}
 				if(servicio.isSeleccionado() && !estaRegistrado)
 				{
+					paquete.setConServicio(true);
 					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(paquete.getcPaqueteCod(), servicio.getnServicioCod()));
 				}
 			}
@@ -480,6 +482,7 @@ public class paquetesVM
 						if(!servicio.isSeleccionado())
 						{
 							/**ELIMINAR**/
+							paquete.setConServicio(false);
 							b=paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteServicio(ps.getCodPaqueteServicio()));
 						}
 						break;
@@ -487,6 +490,7 @@ public class paquetesVM
 				}
 				if(servicio.isSeleccionado() && !estaRegistrado)
 				{
+					paquete.setConServicio(true);
 					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(paquete.getcPaqueteCod(), servicio.getnServicioCod()));
 				}
 			}
@@ -538,6 +542,7 @@ public class paquetesVM
 						if(!servicio.isSeleccionado())
 						{
 							/**ELIMINAR**/
+							paquete.setConServicio(false);
 							b=paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteServicio(ps.getCodPaqueteServicio()));
 						}
 						break;
@@ -545,6 +550,7 @@ public class paquetesVM
 				}
 				if(servicio.isSeleccionado() && !estaRegistrado)
 				{
+					paquete.setConServicio(true);
 					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(paquete.getcPaqueteCod(), servicio.getnServicioCod()));
 				}
 			}
@@ -1127,6 +1133,8 @@ public class paquetesVM
 			oPaquete.setManejo_camino_inca(true);
 			oPaquete.setManejo_propio(false);
 			oPaquete.setManejo_normal(false);
+			oPaquete.setConDestino(false);
+			oPaquete.setSinDestino(true);
 		}
 		else if(opcion.equals("MANEJO_PROPIO"))
 		{
@@ -1214,6 +1222,8 @@ public class paquetesVM
 		BindUtils.postNotifyChange(null, null, paquete, "manejo_camino_inca");
 		BindUtils.postNotifyChange(null, null, paquete, "manejo_propio");
 		BindUtils.postNotifyChange(null, null, paquete, "manejo_normal");
+		BindUtils.postNotifyChange(null, null, paquete, "conDestino");
+		BindUtils.postNotifyChange(null, null, paquete, "sinDestino");
 		inicializarOpcionesPaquete_update(paquete);
 	}
 	public void inicializarOpcionesPaquete()
@@ -1466,5 +1476,6 @@ public class paquetesVM
 		BindUtils.postNotifyChange(null, null, p, "editable");
 		BindUtils.postNotifyChange(null, null, p, "listaServicios");
 		BindUtils.postNotifyChange(null, null, p, "listaDestinos");
+		BindUtils.postNotifyChange(null, null, p, "conServicio");
 	}
 }

@@ -52,6 +52,7 @@ public class CPaquete
 	private boolean manejoPropio_conCaminoInka;
 	private boolean conDestino;
 	private boolean sinDestino;
+	private boolean conServicio;
 	private boolean conDescuento;
 	private boolean sinDescuento;
 	private int nroDestinosSelect;
@@ -382,6 +383,12 @@ public class CPaquete
 	public void setEstado_desactivo(boolean estado_desactivo) {
 		this.estado_desactivo = estado_desactivo;
 	}
+	public boolean isConServicio() {
+		return conServicio;
+	}
+	public void setConServicio(boolean conServicio) {
+		this.conServicio = conServicio;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -577,13 +584,18 @@ public class CPaquete
 			}
 		}
 		
-		for(CPaqueteServicio PServicio:listaPaqueteServicios)
+		if(listaPaqueteServicios.size()>0)
 		{
-			for(CServicio servicio:listaServicios)
+			conServicio=true;
+			for(CPaqueteServicio PServicio:listaPaqueteServicios)
 			{
-				if(PServicio.getnServicioCod()==servicio.getnServicioCod())
-					servicio.setSeleccionado(true);
+				for(CServicio servicio:listaServicios)
+				{
+					if(PServicio.getnServicioCod()==servicio.getnServicioCod())
+						servicio.setSeleccionado(true);
+				}
 			}
-		}
+		}else
+			conServicio=false;
 	}
 }
