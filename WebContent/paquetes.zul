@@ -277,58 +277,70 @@
 					    			</listbox>
 					    		</div>
 					    		<div sclass="estilo_contenedor_costo_paquete" visible="@bind(each.sinDescuento)">
-					    			<div sclass="horizontal_icons_personas">
-						    			<span zclass="icon-man"></span>
-						    			<label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-						    			<label value="@bind(each.nPrecioUno)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			<div zclass="div_content_costo">
+						    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+						    			<div zclass="space_barra"/>
+						    			<div zclass="div_content_monto_paquete">
+						    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
+						    				<label value="@bind(each.nPrecioUno)" sclass="lbl_estilos_txt_monto"/>
+						    			</div>
 						    		  </div>
 					    		</div>
 					    		<div sclass="estilo_contenedor_costo_paquete" visible="@bind(each.conDescuento)">
-					    		  <div sclass="horizontal_icons_personas">
-					    			<span zclass="icon-man"></span>
-					    			<div>
-					    				<label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    				<label value="@bind(each.nPrecioUno)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		  <div zclass="div_content_costo">
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<div zclass="space_barra"/>
+					    			<div zclass="div_content_monto_paquete">
+					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
+					    				<label value="@bind(each.nPrecioUno)" sclass="lbl_estilos_txt_monto"/>
 					    			</div>
-					    		</div>
-					    		  <div sclass="horizontal_icons_personas">
-					    		    <div>
-						    			<span zclass="icon-man"></span>
-						    			<span zclass="icon-man"></span>
+					    		  </div>
+					    		  <separator/>
+					    		  <div zclass="div_content_costo">
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<div zclass="space_barra"/>
+					    			<div zclass="div_content_monto_paquete">
+					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
+					    				<label value="@bind(each.nPrecioDos)" sclass="lbl_estilos_txt_monto"/>
 					    			</div>
-					    			<label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    			<label value="@bind(each.nPrecioDos)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
 					    		  </div>
-					    		  <div sclass="horizontal_icons_personas">
-					    		    <div>
-						    			<span zclass="icon-man"></span>
-						    			<span zclass="icon-man"></span>
-						    			<span zclass="icon-man"></span>
-					    		    </div>	
-					    		    <label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    			<label value="@bind(each.nPrecioTres)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    		  <separator/>
+					    		  <div zclass="div_content_costo">
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<div zclass="space_barra"/>
+					    			<div zclass="div_content_monto_paquete">
+					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
+					    				<label value="@bind(each.nPrecioTres)" sclass="lbl_estilos_txt_monto"/>
+					    			</div>
 					    		  </div>
-					    		  <div sclass="horizontal_icons_personas">
-					    		   <div >
-						    		    <span zclass="icon-man"></span>
-						    		    <span zclass="icon-man"></span>
-						    		    <span zclass="icon-man"></span>
-						    		    <span zclass="icon-man"></span>
-					    		    </div>
-					    		    <label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    			<label value="@bind(each.nPrecioCuatro)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    		   </div>
-					    		   <div sclass="horizontal_icons_personas">
-					    		    <div>
-						    		    <span zclass="icon-man"></span>
-						    		    <span zclass="icon-man"></span>
-						    		    <span zclass="icon-man"></span>
-						    		    <span zclass="icon-man"></span>
-						    		    <span zclass="icon-man"></span>
-					    		    </div>
-					    		    <label value="$ " style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    			<label value="@bind(each.nPrecioCinco)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
-					    		   </div>
+					    		  <separator/>
+					    		  <div zclass="div_content_costo">
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<div zclass="space_barra"/>
+					    			<div zclass="div_content_monto_paquete">
+					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
+					    				<label value="@bind(each.nPrecioCuatro)" sclass="lbl_estilos_txt_monto"/>
+					    			</div>
+					    		  </div>
+					    		  <separator/>
+					    		  <div zclass="div_content_costo">
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
+					    			<div zclass="space_barra"/>
+					    			<div zclass="div_content_monto_paquete">
+					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
+					    				<label value="@bind(each.nPrecioCinco)" sclass="lbl_estilos_txt_monto"/>
+					    			</div>
+					    		  </div>
 					    		</div>
 					    	   </div>
 					    	</div>
