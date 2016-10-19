@@ -29,6 +29,7 @@ public class CReporteReserva {
 	private String colornoExisteListaDestinos;
 	private String colornoExisteListaHoteles;
 	private String colornoExisteListaServicios;
+	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
 	//=======getter and setter===========
 	public String getCodReserva() {
 		return CodReserva;
@@ -187,6 +188,14 @@ public class CReporteReserva {
 	}
 	public void setColornoExisteListaServicios(String colornoExisteListaServicios) {
 		this.colornoExisteListaServicios = colornoExisteListaServicios;
+	}
+	
+	public ArrayList<CDestinoConHoteles> getListaDestinosconHoteles() {
+		return listaDestinosconHoteles;
+	}
+	public void setListaDestinosconHoteles(
+			ArrayList<CDestinoConHoteles> listaDestinosconHoteles) {
+		this.listaDestinosconHoteles = listaDestinosconHoteles;
 	}
 	//=============metodos constructores===============
 	public CReporteReserva()

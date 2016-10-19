@@ -71,19 +71,70 @@
    padding: 10px;
    box-sizing:border-box;
    box-shadow: 0 1px 4px rgba(41,51,57,.5);
-   background: rgba(0,0,0,0.1);
-   display: flex;
-   display: -webkit-flex;
-   display: -moz-flex;
-   display: -ms-flex;
-   display: -o-flex;
-   flex-direction: column;
-   justify-content: center !important;
-   align-items: center;
-   width: 34%; 
+   background: rgba(0,0,0,0.1); 
 }
+
+.estilo_datos_pop_reserva {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center; 
+	-ms-align-items: center; 
+	-o-align-items: center;    
+	justify-content: end;
+	-webkit-justify-content: flex-end;
+	-ms-justify-content: flex-end;
+	-moz-justify-content: flex-end;
+	-o-justify-content: flex-end;
+	color: black;
+	font-size:15px;
+	font-weight: bold;
+}
+
+.estilo_texto_pop {
+	color: black;
+	font-size:12px;
+	font-weight: bold;
+}
+
+.estilo_content_boton_pop{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center; 
+	-ms-align-items: center; 
+	-o-align-items: center;    
+	justify-content: end;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	-o-justify-content: center;
+	border: none;
+	border-radius: 3px;
+	background: #3BA420;
+	cursor: pointer;
+	color: white;
+	font-size: 13px;
+	text-shadow: none;
+	height: 30px;
+	font-weight: bold; 
+	
+}
+
+.estilo_content_boton_pop:FOCUS{
+	background: #3BA420;
+}
+
 .div_content_info_listRepReserva{
-	width: 25% ;
+	width: 60% ;
 }
 
 .div_contenedor_datos_listRepReserva{
@@ -99,7 +150,7 @@
 	font-weight: bold;
 	font-size: 13px;
 	color: black;
-	width: 25%;
+	width: 40%;
 	display: flex;
 	display: -webkit-flex;
    	display: -moz-flex;
@@ -141,7 +192,14 @@
 }
 
 .div_destinos{
-	width:25%;
+	width:100%;
+	text-align: right;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
 }
 
 .div_content_destino .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content{

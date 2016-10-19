@@ -1,0 +1,56 @@
+.seccion {border:1px solid #4AAFE3;
+border-radius: 4px;}
+.usuarioInput{
+			border:2px solid #4AAFE3;
+			background:none;
+			text-align: center;
+			color: #FFFFFF;
+			font-family:Verdana;}
+.usuarioInput:hover{
+border-color : red;
+}
+.claveInput{border:2px solid #4AAFE3;
+			background:none;
+			text-align: center;
+			color: #FFFFFF;
+			font-family:Verdana;}
+.claveInput:hover{
+border-color : red;
+}
+.boton {border-radius: 5px;
+		background:#82C45A;
+		color: #FFFFFF;
+		font-family:Verdana;
+		}
+.boton:hover {
+		border :normal;
+		border-color : #FFFF33;
+        color: #FFFFFF;
+        background:#82C45A;
+        .verGradient(#5E94B8, #5E94B8);
+        .boxShadow(inset 0 -2px 0 #436983); 
+    	}
+.boton:focus {
+        border :normal;
+		border-color : #FFFF33;
+        color: #FFFFFF;
+        background:#82C45A;
+        .verGradient(#5E94B8, #5E94B8);
+        .boxShadow(inset 0 -2px 0 #436983);
+    }
+.boton:active {
+        border :normal;
+		border-color : #FFFF33;
+        color: #FFFFFF;
+        background:#FF3333;
+        .verGradient(#5E94B8, #5E94B8);
+        .boxShadow(inset 0 -2px 0 #436983);
+  }
+ .boton[disabled] {
+        border :normal;
+		border-color : #FFFFFF;
+        color: #FFFFFF;
+        background:#999999;
+        .verGradient(#5E94B8, #5E94B8);
+        .boxShadow(inset 0 -2px 0 #436983);
+    }

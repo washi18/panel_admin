@@ -12,9 +12,9 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.util.Clients;
 import com.pricing.dao.CReporteReservaDAO;
 import com.pricing.model.CDestino;
+import com.pricing.model.CDestinoConHoteles;
 import com.pricing.model.CHotel;
 import com.pricing.model.CPasajero;
-import com.pricing.model.CReportePagosMuestra;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
@@ -27,8 +27,10 @@ public class reporteReservasVM {
 	private String FechaFinal;
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CHotel> listaHoteles;
+	private ArrayList<CHotel> listaHotelesTemp;
 	private ArrayList<CServicio> listaServicios;
 	private ArrayList<CSubServicio> listasubServicios;
+	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
 	private CReporteReserva reporteReservaAnterior;
 	
 	//=======getter and setter=====
@@ -101,6 +103,23 @@ public class reporteReservasVM {
 	public void setReporteReservaAnterior(CReporteReserva reporteReservaAnterior) {
 		this.reporteReservaAnterior = reporteReservaAnterior;
 	}
+	
+	public ArrayList<CDestinoConHoteles> getListaDestinosconHoteles() {
+		return listaDestinosconHoteles;
+	}
+
+	public void setListaDestinosconHoteles(
+			ArrayList<CDestinoConHoteles> listaDestinosconHoteles) {
+		this.listaDestinosconHoteles = listaDestinosconHoteles;
+	}
+
+	public ArrayList<CHotel> getListaHotelesTemp() {
+		return listaHotelesTemp;
+	}
+
+	public void setListaHotelesTemp(ArrayList<CHotel> listaHotelesTemp) {
+		this.listaHotelesTemp = listaHotelesTemp;
+	}
 
 	//======metodos=====
 	@Init
@@ -118,57 +137,74 @@ public class reporteReservasVM {
 	
 	@Command
 	@NotifyChange("listaDestinos")
-	public void habilitarDestinosPOP(@BindingParam("creserva") CReporteReserva servicio)
+	public void habilitarDestinosPOP(@BindingParam("creserva") CReporteReserva destinos)
 	{
-		if(!servicio.getCodReserva().equals(reporteReservaAnterior.getCodReserva()))
+		if(!destinos.getCodReserva().equals(reporteReservaAnterior.getCodReserva()))
 		{
-			reporteReservaDAO.asignarDestinosReserva(reporteReservaDAO.recuperarDestinosReservaBD(servicio.getCodReserva()));
+			reporteReservaDAO.asignarDestinosReserva(reporteReservaDAO.recuperarDestinosReservaBD(destinos.getCodReserva()));
 			this.setListaDestinos(reporteReservaDAO.getListaDestinosReserva());
-			servicio.setListaDestinos(this.getListaDestinos());
+			destinos.setListaDestinos(this.getListaDestinos());
 			if(this.getListaDestinos().isEmpty()){
-				servicio.setVisibleDestinospop(false);
-				servicio.setColornoExisteListaDestinos("background: #DA0613;");
+				destinos.setVisibleDestinospop(false);
+				destinos.setColornoExisteListaDestinos("background: #DA0613;");
 			}
 			else{
-				servicio.setVisibleDestinospop(true);
-				servicio.setColornoExisteListaDestinos("background: #3BA420;");
+				destinos.setVisibleDestinospop(true);
+				destinos.setColornoExisteListaDestinos("background: #3BA420;");
 			}
 			reporteReservaAnterior.setVisibleDestinospop(false);
-			reporteReservaAnterior=servicio;
+			reporteReservaAnterior=destinos;
 		}
 		else{
-			servicio.setVisibleDestinospop(true);
+			destinos.setVisibleDestinospop(true);
 		}
-		BindUtils.postNotifyChange(null, null, servicio,"visibleDestinospop");
-		BindUtils.postNotifyChange(null, null, servicio,"listaDestinos");
-		BindUtils.postNotifyChange(null, null, servicio,"colornoExisteLista");
+		BindUtils.postNotifyChange(null, null, destinos,"visibleDestinospop");
+		BindUtils.postNotifyChange(null, null, destinos,"listaDestinos");
+		BindUtils.postNotifyChange(null, null, destinos,"colornoExisteLista");
 	}
 	@Command
 	@NotifyChange("listaHoteles")
-	public void habilitarHotelesPOP(@BindingParam("creserva") CReporteReserva servicio)
+	public void habilitarHotelesPOP(@BindingParam("creserva") CReporteReserva hoteles)
 	{
-		if(!servicio.getCodReserva().equals(reporteReservaAnterior.getCodReserva()))
+		reporteReservaDAO.asignarHotelesReserva(reporteReservaDAO.recuperarHotelesReservaBD(hoteles.getCodReserva(),hoteles.getCodCategoria()));
+		this.setListaHoteles(reporteReservaDAO.getListaHotelesReserva());
+		int valorincremento;
+		for(int i=0; i<listaHoteles.size();i=i+valorincremento)
+        {
+        	String DestinoAnterior=listaHoteles.get(i).getNombreDestino();
+        	int contador=i;
+        	valorincremento=0;
+        	listaHotelesTemp=new ArrayList<CHotel>();
+        	while(listaHoteles.get(contador).getNombreDestino().equals(DestinoAnterior))
+        	{
+        		listaHotelesTemp.add(new CHotel(listaHoteles.get(contador).getcHotel()));
+        		valorincremento++;
+        		contador++;
+        	}
+        	listaDestinosconHoteles.add(new CDestinoConHoteles(listaHoteles.get(i).getNombreDestino(),listaHotelesTemp));
+        	hoteles.setListaDestinosconHoteles(listaDestinosconHoteles);
+        }
+		hoteles.setListaHoteles(this.getListaHoteles());
+		
+		if(!hoteles.getCodReserva().equals(reporteReservaAnterior.getCodReserva()))
 		{
-			reporteReservaDAO.asignarHotelesReserva(reporteReservaDAO.recuperarHotelesReservaBD(servicio.getCodReserva(),servicio.getCodCategoria()));
-			this.setListaHoteles(reporteReservaDAO.getListaHotelesReserva());
-			servicio.setListaHoteles(this.getListaHoteles());
 			if(this.getListaHoteles().isEmpty()){
-				servicio.setVisibleHotelespop(false);
-				servicio.setColornoExisteListaHoteles("background: #DA0613;");
+				hoteles.setVisibleHotelespop(false);
+				hoteles.setColornoExisteListaHoteles("background: #DA0613;");
 			}
 			else{
-				servicio.setVisibleHotelespop(true);
-				servicio.setColornoExisteListaHoteles("background: #3BA420;");
+				hoteles.setVisibleHotelespop(true);
+				hoteles.setColornoExisteListaHoteles("background: #3BA420;");
 			}
 			reporteReservaAnterior.setVisibleHotelespop(false);
-			reporteReservaAnterior=servicio;
+			reporteReservaAnterior=hoteles;
 		}
 		else {
-			servicio.setVisibleHotelespop(true);
+			hoteles.setVisibleHotelespop(true);
 		}
-		BindUtils.postNotifyChange(null, null, servicio,"visibleHotelespop");
-		BindUtils.postNotifyChange(null, null, servicio,"listaHoteles");
-		BindUtils.postNotifyChange(null, null, servicio,"colornoExisteListaHoteles");
+		BindUtils.postNotifyChange(null, null, hoteles,"visibleHotelespop");
+		BindUtils.postNotifyChange(null, null, hoteles,"listaHoteles");
+		BindUtils.postNotifyChange(null, null, hoteles,"colornoExisteListaHoteles");
 	}
 	@Command
 	@NotifyChange("listaServicios")
