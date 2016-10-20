@@ -524,3 +524,26 @@ $$
 
 
   select Pricing_sp_BuscarPasajerosReserva('R000000002');
+  
+  
+  /*======estadistica======*/
+  
+  create or replace function Pricing_sp_listaPagosVisa()
+  returns table(formapago varchar(20),nropagos bigint) as
+  $$
+  	select  formapago,count(*)
+  	from tpagovisa
+  	group by formapago;
+  $$
+  language sql;
+
+
+  create or replace function Pricing_sp_listaPagosPaypal()
+  returns table(formapago varchar(20),nropagos bigint) as
+  $$
+  	select  formapago,count(*)
+  	from tpagopaypal
+  	group by formapago;
+  $$
+  language sql;
+

@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.pricing.model.CDestino;
 import com.pricing.model.CHotel;
+import com.pricing.model.CPago;
 import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
 import com.pricing.model.CReporteReserva;
@@ -20,6 +21,7 @@ public class CReportePagosDAO  extends CConexion{
 	private ArrayList<CHotel> listaHotelesReserva;
 	private ArrayList<CServicio> listaServiciosReserva;
 	private ArrayList<CPasajero> listaPasajerosReserva;
+	private ArrayList<CPago> listaPagos;
 	//=================getter and setter=============
 	public ArrayList<CReportePagos> getListaReportePagos() {
 		return listaReportePagos;
@@ -59,11 +61,19 @@ public class CReportePagosDAO  extends CConexion{
 	public void setListaPasajerosReserva(ArrayList<CPasajero> listaPasajerosReserva) {
 		this.listaPasajerosReserva = listaPasajerosReserva;
 	}
+	
+	public ArrayList<CPago> getListaPagos() {
+		return listaPagos;
+	}
+	public void setListaPagos(ArrayList<CPago> listaPagos) {
+		this.listaPagos = listaPagos;
+	}
 	//=====================constructores==========
 	public CReportePagosDAO()
 	{
 		super();
 		this.listaReportePagos = new ArrayList<CReportePagos>();
+		this.listaPagos=new ArrayList<CPago>();
 	}
 	public CReportePagosDAO(ArrayList<CReportePagos> listaReportePagos,
 			CReportePagos reportePagos) {
@@ -87,6 +97,14 @@ public class CReportePagosDAO  extends CConexion{
 	{
 		String[] values={codReserva};
 		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscardestinosreserva",values);
+	}
+	public List recuperarTodoPagosVisaBD()
+	{
+		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_listapagosvisa");
+	}
+	public List recuperarTodoPagosPaypalBD()
+	{
+		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_listapagospaypal");
 	}
 	
 	public List recuperarHotelesReservaBD(String codReserva,int codCategoriaHotel)
@@ -121,6 +139,16 @@ public class CReportePagosDAO  extends CConexion{
 					(String)row.get("cabrevtipodoc"),(String)row.get("cnrodoc"),
 					(String)row.get("cnombreesp"),
 					(String)row.get("nro_tarjeta"),(String)row.get("cestado"),(String)row.get("impuesto")));
+		}
+	}
+	
+	public void asignarListaPagos(List lista)
+	{
+		System.out.println("entra aqui..?");
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaPagos.add(new CPago((String)row.get("formapago"),(long)row.get("nropagos")));
 		}
 	}
 	public void asignarDestinosReserva(List lista)
