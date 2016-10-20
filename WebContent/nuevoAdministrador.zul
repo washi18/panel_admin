@@ -1,0 +1,55 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+  <div apply="org.zkoss.bind.BindComposer">
+     <div style="display: flex;">
+       <label value="USUARIO:"></label>
+       <textbox placeholder="Ingrese Usuario"></textbox>
+     </div>
+     <div style="display: flex;">
+       <label value="PASSWORD:"></label>
+       <textbox placeholder="Ingrese Password"></textbox>
+     </div>
+     <div style="display: flex;">
+       <label value="PERFIL:"></label>
+       <combobox>
+          <comboitem label="super Administrador"></comboitem>
+          <comboitem label="Administrador"></comboitem>
+          <comboitem label="Sub Administrador"></comboitem>
+       </combobox>
+     </div>
+     <div style="display: flex;">
+       <label value="NOMBRES:"></label>
+       <textbox placeholder="Ingrese Nombre"></textbox>
+     </div>
+     <div style="display: flex;">
+       <label value="FECHA NACIMIENTO:"></label>
+       <datebox></datebox>
+     </div>
+     <div style="display: flex;">
+       <label value="CELULAR:"></label>
+       <textbox placeholder="Ingrese Nro Celular"></textbox>
+     </div>
+     <div>
+       <label value="No tendra accesos a:"></label>
+       <div>
+        <custom-attributes org.zkoss.zul.listbox.groupSelect="true" />
+       	<radiogroup>
+       		<radio label="Etiquetas"></radio>
+       		<radio label="Paquetes"></radio>
+       		<radio label="Actualizar Disponibilidad"></radio>
+       		<radio label="Servicios"></radio>
+       		<radio label="Sub Servicios"></radio>
+       		<radio label="Impuestos"></radio>
+       		<radio label="Hoteles"></radio>
+       		<radio label="Destinos"></radio>
+       		<radio label="Reporte de Reservas"></radio>
+       		<radio label="Reporte de Pagos"></radio>
+       	</radiogroup>
+       </div>
+       <textbox placeholder="Ingrese Nro Celular"></textbox>
+     </div>
+     <div>
+     	<button label="Agregar"></button>
+     </div>
+  </div>
+</zk>

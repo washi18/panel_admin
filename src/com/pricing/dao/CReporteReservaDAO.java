@@ -9,6 +9,7 @@ import com.pricing.model.CDestino;
 import com.pricing.model.CHotel;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
+import com.pricing.model.CSubServicio;
 
 public class CReporteReservaDAO extends CConexion{
 	//====================atributos======================
@@ -16,6 +17,7 @@ public class CReporteReservaDAO extends CConexion{
 	private ArrayList<CDestino> listaDestinosReserva;
 	private ArrayList<CHotel> listaHotelesReserva;
 	private ArrayList<CServicio> listaServiciosReserva;
+	private ArrayList<CSubServicio> listaSubServiciosReserva;
 	private CReporteReserva reporteReserva;
 
 	
@@ -61,6 +63,14 @@ public class CReporteReservaDAO extends CConexion{
 		super();
 		this.listaReporteReservas = listaReporteReservas;
 	}
+	
+	public ArrayList<CSubServicio> getListaSubServiciosReserva() {
+		return listaSubServiciosReserva;
+	}
+	public void setListaSubServiciosReserva(
+			ArrayList<CSubServicio> listaSubServiciosReserva) {
+		this.listaSubServiciosReserva = listaSubServiciosReserva;
+	}
 	//=====================otros metodos=========================
 	public List recuperarReporteReservasBD(String FechaIni,String FechaFin)
 	{
@@ -86,6 +96,11 @@ public class CReporteReservaDAO extends CConexion{
 		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarserviciosreserva",values);
 	}
 	
+	public List recuperarSubServiciosReservaBD(String codReserva)
+	{
+		String[] values={codReserva};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_buscarsubserviciosreserva",values);
+	}
 	public void asignarListaReporteReservas(List lista)
 	{
 		System.out.println("entro aqui DAO");
@@ -134,6 +149,15 @@ public class CReporteReservaDAO extends CConexion{
 		{
 			Map row=(Map)lista.get(i);
 			listaHotelesReserva.add(new CHotel((String)row.get("chotel"),(Number)row.get("npreciosimple"),(Number)row.get("npreciodoble"),(Number)row.get("npreciotriple"),(String)row.get("cdestino")));
+		}
+	}
+	public void asignarSubServiciosReserva(List lista)
+	{
+		listaSubServiciosReserva=new ArrayList<CSubServicio>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaSubServiciosReserva.add(new CSubServicio((String)row.get("csubservicioindioma1"),(Number)row.get("nprecioservicio"),(String)row.get("cservicioindioma1")));
 		}
 	}
 }

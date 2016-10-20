@@ -14,6 +14,7 @@ import org.zkoss.zk.ui.util.Clients;
 import com.pricing.dao.CReportePagosDAO;
 import com.pricing.dao.CReporteReservaDAO;
 import com.pricing.model.CDestino;
+import com.pricing.model.CDestinoConHoteles;
 import com.pricing.model.CHotel;
 import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
@@ -36,6 +37,8 @@ public class reportePagosVM {
 	private ArrayList<CHotel> listaHoteles;
 	private ArrayList<CServicio> listaServicios;
 	private CReportePagos reportePagosAnterior;
+	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
+	private ArrayList<CHotel> listaHotelesTemp;
 	//===============getter and setter=======
 	public String getFechaInicio() {
 		return fechaInicio;
@@ -112,6 +115,20 @@ public class reportePagosVM {
 	public void setReportePagosAnterior(CReportePagos reportePagosAnterior) {
 		this.reportePagosAnterior = reportePagosAnterior;
 	}
+	
+	public ArrayList<CDestinoConHoteles> getListaDestinosconHoteles() {
+		return listaDestinosconHoteles;
+	}
+	public void setListaDestinosconHoteles(
+			ArrayList<CDestinoConHoteles> listaDestinosconHoteles) {
+		this.listaDestinosconHoteles = listaDestinosconHoteles;
+	}
+	public ArrayList<CHotel> getListaHotelesTemp() {
+		return listaHotelesTemp;
+	}
+	public void setListaHotelesTemp(ArrayList<CHotel> listaHotelesTemp) {
+		this.listaHotelesTemp = listaHotelesTemp;
+	}
 	//=====================constructores======
 	@Init
 	public void initVM()
@@ -133,11 +150,11 @@ public class reportePagosVM {
 	@NotifyChange("listaDestinos")
 	public void habilitarDestinosPOP(@BindingParam("cdestino") CReportePagos destino)
 	{
+		reportePagosDAO.asignarDestinosReserva(reportePagosDAO.recuperarDestinosReservaBD(destino.getCodReserva()));
+		this.setListaDestinos(reportePagosDAO.getListaDestinosReserva());
+		destino.setListaDestinos(this.getListaDestinos());
 		if(!destino.getCodReserva().equals(reportePagosAnterior.getCodReserva()))
 		{
-			reportePagosDAO.asignarDestinosReserva(reportePagosDAO.recuperarDestinosReservaBD(destino.getCodReserva()));
-			this.setListaDestinos(reportePagosDAO.getListaDestinosReserva());
-			destino.setListaDestinos(this.getListaDestinos());
 			if(this.getListaDestinos().isEmpty()){
 				destino.setVisibleDestinospop(false);
 				destino.setColornoExisteListaDestinos("background: #DA0613;");
@@ -157,41 +174,60 @@ public class reportePagosVM {
 		BindUtils.postNotifyChange(null, null, destino,"colornoExisteLista");
 	}
 	@Command
-	@NotifyChange("listaHoteles")
-	public void habilitarHotelesPOP(@BindingParam("chotel") CReportePagos hotel)
+	@NotifyChange({"listaHoteles","listaHotelesTemp","listaDestinosconHoteles"})
+	public void habilitarHotelesPOP(@BindingParam("chotel") CReportePagos reserva)
 	{
-		if(!hotel.getCodReserva().equals(reportePagosAnterior.getCodReserva()))
+		System.out.println("el valor de codCategoria es:"+reserva.getCodCategoria());
+		reportePagosDAO.asignarHotelesReserva(reportePagosDAO.recuperarHotelesReservaBD(reserva.getCodReserva(),reserva.getCodCategoria()));
+		this.setListaHoteles(reportePagosDAO.getListaHotelesReserva());
+		int valorincremento;
+		listaDestinosconHoteles=new ArrayList<CDestinoConHoteles>();
+		for(int i=0; i<listaHoteles.size();i=i+valorincremento)
+        {
+        	String DestinoAnterior=listaHoteles.get(i).getNombreDestino();
+        	int contador=i;
+        	valorincremento=0;
+        	listaHotelesTemp=new ArrayList<CHotel>();
+        	while(contador<listaHoteles.size() && listaHoteles.get(contador).getNombreDestino().equals(DestinoAnterior))
+        	{
+        		listaHotelesTemp.add(new CHotel(listaHoteles.get(contador).getcHotel(),listaHoteles.get(contador).getnPrecioSimple()));
+        		valorincremento++;
+        		contador++;
+        		System.out.println("el valor de contador es:"+contador);
+        	}
+        	listaDestinosconHoteles.add(new CDestinoConHoteles(listaHoteles.get(i).getNombreDestino().toString(),listaHotelesTemp));
+        }
+		reserva.setListaDestinosconHoteles(listaDestinosconHoteles);
+		
+		if(!reserva.getCodReserva().equals(reportePagosAnterior.getCodReserva()))
 		{
-			reportePagosDAO.asignarHotelesReserva(reportePagosDAO.recuperarHotelesReservaBD(hotel.getCodReserva(),hotel.getCodCategoria()));
-			this.setListaHoteles(reportePagosDAO.getListaHotelesReserva());
-			hotel.setListaHoteles(this.getListaHoteles());
-			if(this.getListaHoteles().isEmpty()){
-				hotel.setVisibleHotelespop(false);
-				hotel.setColornoExisteListaHoteles("background: #DA0613;");
+			if(this.getListaDestinosconHoteles().isEmpty()){
+				reserva.setVisibleHotelespop(false);
+				reserva.setColornoExisteListaHoteles("background: #DA0613;");
 			}
 			else{
-				hotel.setVisibleHotelespop(true);
-				hotel.setColornoExisteListaHoteles("background: #3BA420;");
+				reserva.setVisibleHotelespop(true);
+				reserva.setColornoExisteListaHoteles("background: #3BA420;");
 			}
 			reportePagosAnterior.setVisibleHotelespop(false);
-			reportePagosAnterior=hotel;
+			reportePagosAnterior=reserva;
 		}
 		else {
-			hotel.setVisibleHotelespop(true);
+			reserva.setVisibleHotelespop(true);
 		}
-		BindUtils.postNotifyChange(null, null, hotel,"visibleHotelespop");
-		BindUtils.postNotifyChange(null, null, hotel,"listaHoteles");
-		BindUtils.postNotifyChange(null, null, hotel,"colornoExisteListaHoteles");
+		BindUtils.postNotifyChange(null, null, reserva,"visibleHotelespop");
+		BindUtils.postNotifyChange(null, null, reserva,"colornoExisteListaHoteles");
+		BindUtils.postNotifyChange(null, null, reserva,"listaDestinosconHoteles");
 	}
 	@Command
 	@NotifyChange("listaServicios")
 	public void habilitarServiciosPOP(@BindingParam("cservicio") CReportePagos servicio)
 	{
+		reportePagosDAO.asignarServiciosReserva(reportePagosDAO.recuperarServiciosReservaBD(servicio.getCodReserva()));
+		this.setListaServicios(reportePagosDAO.getListaServiciosReserva());
+		servicio.setListaServicios(this.getListaServicios());
 		if(!servicio.getCodReserva().equals(reportePagosAnterior.getCodReserva()))
 		{
-			reportePagosDAO.asignarServiciosReserva(reportePagosDAO.recuperarServiciosReservaBD(servicio.getCodReserva()));
-			this.setListaServicios(reportePagosDAO.getListaServiciosReserva());
-			servicio.setListaServicios(this.getListaServicios());
 			if(this.getListaServicios().isEmpty()){
 				servicio.setVisibleServiciospop(false);
 				servicio.setColornoExisteListaServicios("background: #DA0613;");
@@ -214,10 +250,10 @@ public class reportePagosVM {
 	@NotifyChange("listaPasajeros")
 	public void habilitarPasajerosPOP(@BindingParam("cpasajero") CReportePagos pasajero)
 	{
+		reportePagosDAO.asignarPasajerosReserva(reportePagosDAO.recuperarPasajerosReservaBD(pasajero.getCodReserva()));
+		this.setListaPasajeros(reportePagosDAO.getListaPasajerosReserva());
+		pasajero.setListaPasajeros(this.getListaPasajeros());
 		if(!pasajero.getCodReserva().equals(reportePagosAnterior.getCodReserva())){
-			reportePagosDAO.asignarPasajerosReserva(reportePagosDAO.recuperarPasajerosReservaBD(pasajero.getCodReserva()));
-			this.setListaPasajeros(reportePagosDAO.getListaPasajerosReserva());
-			pasajero.setListaPasajeros(this.getListaPasajeros());
 			if(this.getListaPasajeros().isEmpty()){
 				pasajero.setVisiblepasajerospop(false);
 				pasajero.setColornoExisteListaPasajeros("background: #DA0613;");

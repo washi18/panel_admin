@@ -281,11 +281,17 @@ public class CHotel
 		this.nPrecioDoble_text="0.00";
 		this.nPrecioTriple_text="0.00";
 		this.nDestinoCod=0;
+		this.nombreDestino="";
 	}
 	public CHotel(String cHotel){
 		this.cHotel=cHotel;
 	}
 	
+	public CHotel(String cHotel,Number precioSimple)
+	{
+		this.cHotel=cHotel;
+		this.nPrecioSimple=precioSimple;
+	}
 	public CHotel(String cHotel,Number precioSimple,Number precioDoble,Number precioTriple, String cDestino)
 	{
 		this.cHotel=cHotel;

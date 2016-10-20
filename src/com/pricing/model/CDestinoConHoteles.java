@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class CDestinoConHoteles 
 {
 	private String destino;
-	private ArrayList<String[]> listaHotelesDestino;
-	private ArrayList<String> listaDestinoHoteles;
 	private ArrayList<CHotel> listaDestinosHoteles;
 	//=================
 	public String getDestino() {
@@ -14,19 +12,6 @@ public class CDestinoConHoteles
 	}
 	public void setDestino(String destino) {
 		this.destino = destino;
-	}
-	public ArrayList<String[]> getListaHotelesDestino() {
-		return listaHotelesDestino;
-	}
-	public void setListaHotelesDestino(ArrayList<String[]> listaHotelesDestino) {
-		this.listaHotelesDestino = listaHotelesDestino;
-	}
-	
-	public ArrayList<String> getListaDestinoHoteles() {
-		return listaDestinoHoteles;
-	}
-	public void setListaDestinoHoteles(ArrayList<String> listaDestinoHoteles) {
-		this.listaDestinoHoteles = listaDestinoHoteles;
 	}
 	
 	public ArrayList<CHotel> getListaDestinosHoteles() {
@@ -38,7 +23,8 @@ public class CDestinoConHoteles
 	//=================
 	public CDestinoConHoteles() {
 		// TODO Auto-generated constructor stub
-		listaHotelesDestino=new ArrayList<String[]>();
+		this.destino="";
+		this.listaDestinosHoteles=null;
 	}
 	/*
 	public CDestinoConHoteles(String destino,

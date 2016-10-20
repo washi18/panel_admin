@@ -21,6 +21,7 @@ public class CReporteReserva {
 	private boolean visibleDestinospop=false;
 	private boolean visibleHotelespop=false;
 	private boolean visibleServiciospop=false;
+	private boolean visibleSubServiciopop=false;
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CHotel> listaHoteles;
 	private ArrayList<CServicio> listaServicios;
@@ -29,7 +30,9 @@ public class CReporteReserva {
 	private String colornoExisteListaDestinos;
 	private String colornoExisteListaHoteles;
 	private String colornoExisteListaServicios;
+	private String colornoExisteListaSubServicios;
 	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
+	private ArrayList<CServicioConSubServicios> listaServicioConSubServicios;
 	//=======getter and setter===========
 	public String getCodReserva() {
 		return CodReserva;
@@ -196,6 +199,28 @@ public class CReporteReserva {
 	public void setListaDestinosconHoteles(
 			ArrayList<CDestinoConHoteles> listaDestinosconHoteles) {
 		this.listaDestinosconHoteles = listaDestinosconHoteles;
+	}
+	
+	public ArrayList<CServicioConSubServicios> getListaServicioConSubServicios() {
+		return listaServicioConSubServicios;
+	}
+	public void setListaServicioConSubServicios(
+			ArrayList<CServicioConSubServicios> listaServicioConSubServicios) {
+		this.listaServicioConSubServicios = listaServicioConSubServicios;
+	}
+	
+	public boolean isVisibleSubServiciopop() {
+		return visibleSubServiciopop;
+	}
+	public void setVisibleSubServiciopop(boolean visibleSubServiciopop) {
+		this.visibleSubServiciopop = visibleSubServiciopop;
+	}
+	public String getColornoExisteListaSubServicios() {
+		return colornoExisteListaSubServicios;
+	}
+	public void setColornoExisteListaSubServicios(
+			String colornoExisteListaSubServicios) {
+		this.colornoExisteListaSubServicios = colornoExisteListaSubServicios;
 	}
 	//=============metodos constructores===============
 	public CReporteReserva()

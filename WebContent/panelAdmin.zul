@@ -26,8 +26,8 @@
 				<menubar sclass="cabezera_menubar">
 					<menu label="Jorge Dueñas">
 						<menupopup>
-							<menuitem label="CambiarCuenta"></menuitem>
-							<menuitem label="Herramientas"></menuitem>
+							<menuitem label="Cambiar Cuenta"></menuitem>
+							<menuitem label="Crear Administrador" href="/nuevoAdministrador.zul"></menuitem>
 							<menuitem label="Cerrar Sesion"></menuitem>
 						</menupopup>
 					</menu>

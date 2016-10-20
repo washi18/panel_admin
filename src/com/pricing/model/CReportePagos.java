@@ -44,6 +44,7 @@ public class CReportePagos {
 	private boolean visibleDestinospop=false;
 	private boolean visibleHotelespop=false;
 	private boolean visibleServiciospop=false;
+	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
 	//===============getter and setter=======
 	public String getCodPago() {
 		return codPago;
@@ -319,6 +320,15 @@ public class CReportePagos {
 	public void setColornoExisteListaPasajeros(String colornoExisteListaPasajeros) {
 		this.colornoExisteListaPasajeros = colornoExisteListaPasajeros;
 	}
+	
+	public ArrayList<CDestinoConHoteles> getListaDestinosconHoteles() {
+		return listaDestinosconHoteles;
+	}
+
+	public void setListaDestinosconHoteles(
+			ArrayList<CDestinoConHoteles> listaDestinosconHoteles) {
+		this.listaDestinosconHoteles = listaDestinosconHoteles;
+	}
 
 	//==================constructores==================
 	public CReportePagos()
@@ -376,6 +386,8 @@ public class CReportePagos {
 		this.nroTarjeta = nroTarjeta;
 		this.estadoReserva=estadoReserva;
 		this.impuesto=impuesto;
+		this.valorImpuesto=(Double.valueOf(impuesto)*importe.doubleValue())/100;
+	    this.montoTotal=importe.doubleValue()+this.valorImpuesto;
 	}
 	
 	

@@ -255,6 +255,16 @@ public class CSubServicio
 	{
 		this.cSubServicioIndioma1=cSubServicioIndioma1;
 	}
+	public CSubServicio(String csubServicioIndioma1,Number nPrecioServicio){
+		this.cSubServicioIndioma1=csubServicioIndioma1;
+		this.nPrecioServicio=nPrecioServicio;
+	}
+	public CSubServicio(String csubServicioIndioma1,Number nPrecioServicio,String cservicioIndioma1)
+	{
+		this.cSubServicioIndioma1=csubServicioIndioma1;
+		this.nPrecioServicio=nPrecioServicio;
+		this.cNombreServicio=cservicioIndioma1;
+	}
 	public CSubServicio(int nSubServicioCod, int nServicioCod,
 			String cSubServicioIndioma1, String cSubServicioIndioma2,
 			String cSubServicioIndioma3, String cSubServicioIndioma4,
