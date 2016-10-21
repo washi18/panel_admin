@@ -524,35 +524,107 @@
 /**CONTENEDOR DE PRECIOS EN LA LISTA DE PAQUETES**/
 .estilo_contenedor_costo_paquete{
 	background: #1a1a1a;
-	padding: 20px 20px;
+	padding: 5px 10px;
 	box-sizing:border-box;
 	border-radius:5px;
-	text-align: center;
 	height: auto;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
 }
-.space_barra{
-	box-sizing: content-box;
-    height: 0;
-    display: block;
-    -webkit-margin-before: 0.5em;
-    -webkit-margin-after: 0.5em;
-    -webkit-margin-start: auto;
-    -webkit-margin-end: auto;
-    border-style: inset;
-    border-width: 1px;
-}
-.div_content_monto_paquete{
-/* 	border-top: 2px solid rgba(0,0,0,0.5); */
-	text-align: center;
-}
-.lbl_estilos_txt_monto{
+.estilo_costo_subtitle{
 	color: white;
-	font-size: 17px;
-	font-weight: bold;	
+	font-size: 16px;
+	font-weight: bold;
 }
-.div_content_costo{
-	background: rgba(255,255,255,0.1);
-	padding: 5px 20px;
-	box-sizing:border-box;
+.estilo_costo_monto{
+	color: #9AFE2E;
+	font-size: 16px;
+	font-weight: bold;
+}
+/**CONTENEDOR DE OPERACIONES DE EDITAR Y ESTADO**/
+@media (max-width:700px){
+	.div_operacion_paquete_responsive{
+		display: flex !important;
+		display: -webkit-flex !important;
+		display: -moz-flex !important;
+		display: -ms-flex !important;
+		display: -o-flex !important;
+	}
+	.div_operacion_paquete_normal{ 
+		display: none !important;
+	}
+}
+@media (min-width:701px){
+	.div_operacion_paquete_normal{ 
+		display: flex !important;
+		display: -webkit-flex !important;
+		display: -moz-flex !important;
+		display: -ms-flex !important;
+		display: -o-flex !important;
+	}
+	.div_operacion_paquete_responsive{
+		display: none !important;	
+	}
+}
+/**LISTA DE SERVICIOS Y DESTINOS EN CADA PAQUETE**/
+.list_paquete_servicios_destinos.z-listbox{
 	border-radius:5px;
+	border: none;
+}
+.list_paquete_servicios_destinos.z-listbox .z-listbox-header table tbody tr,
+.list_paquete_servicios_destinos.z-listbox .z-listbox-header table tbody tr .z-listheader{
+	border-radius:5px;
+	border: none;
+}
+.list_paquete_servicios_destinos.z-listbox .z-listbox-header table tbody tr th .z-listheader-content{
+	background: #2f2f2f;
+	border:none;
+	border-radius:5px;
+	color:white;
+	font-size:16px;
+	font-weight:bold;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.list_paquete_servicios_destinos.z-listbox .z-listbox-body table tbody .z-listitem,
+.list_paquete_servicios_destinos.z-listbox .z-listbox-body table tbody .z-listitem .z-listcell{
+	background: transparent;
+}
+.list_paquete_servicios_destinos.z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content{
+	position: relative;
+	color: #053351;
+}
+.list_paquete_servicios_destinos.z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content div{
+	margin-left: 25px;
+}
+.list_paquete_servicios_destinos.z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content:BEFORE {
+	content: '';
+	position: absolute;
+	height: 15px;
+	width: 15px;
+	background: #053351;
+	border-radius:50%;
+	left: 10px;
+	top: 8px;
 }

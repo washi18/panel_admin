@@ -227,13 +227,47 @@
 					    			<div>
 					    				<label value="@bind(each.cDisponibilidad)" style="font-style: italic; font-weight: bold;"></label>
 					    			</div>
-					    			<div>
-					    				<label value="$500 /noche" sclass="estilo_costo"></label>
-					    				<label value="$400 /noche" sclass="estilo_costo"></label>
-					    				<label value="$300 /noche" sclass="estilo_costo"></label>
+					    			<div visible="@bind(each.sinDescuento)">
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="1P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioUno)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
 					    			</div>
-					    			<div
-					    				zclass="div_operacion_etiqueta">
+					    			<div visible="@bind(each.conDescuento)">
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="1P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioUno)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="2P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioDos)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="3P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioTres)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="4P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioCuatro)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="5P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioCinco)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    			</div>
+					    			<div zclass="div_operacion_paquete_normal">
 					    				<button label="Editar"
 					    					onClick="@command('Editar',paquete=each)"
 					    					zclass="btn_editar" />
@@ -242,9 +276,9 @@
 					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
 					    			</div>
 					    		</div>
-					    		<space/>
+					    		<separator spacing="4px" visible="@bind(each.conDestino)"/>
 					    		<div zclass="div_contenedor_datos_paquete" visible="@bind(each.conDestino)">
-					    			<listbox model="@bind(each.listaDestinos)">
+					    			<listbox model="@bind(each.listaDestinos)" sclass="list_paquete_servicios_destinos">
 					    				<listhead>
 					    					<listheader label="DESTINOS"/>
 					    				</listhead>
@@ -259,9 +293,9 @@
 					    				</template>
 					    			</listbox>
 					    		</div>
-					    		<space/>
+					    		<separator spacing="4px" visible="@bind(each.conServicio)"/>
 					    		<div zclass="div_contenedor_datos_paquete" visible="@bind(each.conServicio)">
-					    			<listbox model="@bind(each.listaServicios)">
+					    			<listbox model="@bind(each.listaServicios)" sclass="list_paquete_servicios_destinos">
 					    				<listhead>
 					    					<listheader label="SERVICIOS"/>
 					    				</listhead>
@@ -276,71 +310,14 @@
 					    				</template>
 					    			</listbox>
 					    		</div>
-					    		<div sclass="estilo_contenedor_costo_paquete" visible="@bind(each.sinDescuento)">
-					    			<div zclass="div_content_costo">
-						    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-						    			<div zclass="space_barra"/>
-						    			<div zclass="div_content_monto_paquete">
-						    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
-						    				<label value="@bind(each.nPrecioUno)" sclass="lbl_estilos_txt_monto"/>
-						    			</div>
-						    		  </div>
-					    		</div>
-					    		<div sclass="estilo_contenedor_costo_paquete" visible="@bind(each.conDescuento)">
-					    		  <div zclass="div_content_costo">
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<div zclass="space_barra"/>
-					    			<div zclass="div_content_monto_paquete">
-					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
-					    				<label value="@bind(each.nPrecioUno)" sclass="lbl_estilos_txt_monto"/>
-					    			</div>
-					    		  </div>
-					    		  <separator/>
-					    		  <div zclass="div_content_costo">
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<div zclass="space_barra"/>
-					    			<div zclass="div_content_monto_paquete">
-					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
-					    				<label value="@bind(each.nPrecioDos)" sclass="lbl_estilos_txt_monto"/>
-					    			</div>
-					    		  </div>
-					    		  <separator/>
-					    		  <div zclass="div_content_costo">
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<div zclass="space_barra"/>
-					    			<div zclass="div_content_monto_paquete">
-					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
-					    				<label value="@bind(each.nPrecioTres)" sclass="lbl_estilos_txt_monto"/>
-					    			</div>
-					    		  </div>
-					    		  <separator/>
-					    		  <div zclass="div_content_costo">
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<div zclass="space_barra"/>
-					    			<div zclass="div_content_monto_paquete">
-					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
-					    				<label value="@bind(each.nPrecioCuatro)" sclass="lbl_estilos_txt_monto"/>
-					    			</div>
-					    		  </div>
-					    		  <separator/>
-					    		  <div zclass="div_content_costo">
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<span zclass="icon-man" sclass="lbl_estilos_txt_monto"/>
-					    			<div zclass="space_barra"/>
-					    			<div zclass="div_content_monto_paquete">
-					    				<label value="$ " sclass="lbl_estilos_txt_monto"/>
-					    				<label value="@bind(each.nPrecioCinco)" sclass="lbl_estilos_txt_monto"/>
-					    			</div>
-					    		  </div>
+					    		<separator spacing="2px"/>
+					    		<div zclass="div_operacion_paquete_responsive">
+					    			<button label="Editar"
+					    					onClick="@command('Editar',paquete=each)"
+					    					zclass="btn_editar" />
+					    			<separator spacing="2px"></separator>
+					    			<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)"/>
+					    			<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
 					    		</div>
 					    	   </div>
 					    	</div>

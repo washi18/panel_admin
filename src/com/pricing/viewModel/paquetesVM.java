@@ -440,17 +440,14 @@ public class paquetesVM
 			{
 				for(CDestino destino:paquete.getListaDestinos())
 				{
-					System.out.println("Soy el destino-> "+destino.getcDestino());
 					boolean estaRegistrado=false;
 					for(CPaqueteDestino pd:paquete.getListaPaqueteDestinos())
 					{
 						if(pd.getnDestinoCod()==destino.getnDestinoCod())
 						{
-							System.out.println("Soy el destino-> "+destino.getcDestino()+" y estoy en este paquete");
 							estaRegistrado=true;
 							if(!destino.isSeleccionado())
 							{
-								System.out.println("Soy el destino-> "+destino.getcDestino()+" me van a eliminar");
 								/**ELIMINAR**/
 								b=paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteDestino(pd.getCodPaqueteDestino()));
 							}else
@@ -460,10 +457,8 @@ public class paquetesVM
 					}
 					if(destino.isSeleccionado() && !estaRegistrado)
 					{
-						System.out.println("Soy el destino-> "+destino.getcDestino()+" me van a isertar por que no estoy en este paq");
 						b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteDestino(paquete.getcPaqueteCod(), destino.getnDestinoCod(),destino.getnNoches(),destino.getnOrdenItinerario(),destino.isConCaminoInka()));
 					}
-					System.out.println("<-------------------------------------> ");
 				}
 			}
 			if(paquete.isSinDestino())
