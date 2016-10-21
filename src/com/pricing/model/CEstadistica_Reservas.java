@@ -1,116 +1,251 @@
 package com.pricing.model;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.ngi.zhighcharts.SimpleExtXYModel;
+import org.ngi.zhighcharts.ZGauge;
 import org.ngi.zhighcharts.ZHighCharts;
 import org.zkoss.util.logging.Log;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.SimplePieModel;
 import org.zkoss.zul.Window;
-public class CEstadistica_Reservas extends Window implements EventListener {
-protected Log logger = Log.lookup(this.getClass());
-	
-	//Stacked area
-	private ZHighCharts chartComp13;
-	private SimpleExtXYModel dataChartModel13 = new SimpleExtXYModel();
-		
 
-	// date format used to capture date time
+import com.pricing.dao.CReporteReservaDAO;
+public class CEstadistica_Reservas extends Window implements EventListener {
+	protected Log logger = Log.lookup(this.getClass());
+
+	// Stacked column
+	private ZHighCharts chartComp28;
+	private SimpleExtXYModel dataChartModel28 = new SimpleExtXYModel();
+	
+	// Stacked and grouped column
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
+    private CReporteReservaDAO reporteReservaDao;
+    private ArrayList<CEstadistica_Paquete> listaPaquetesMasVendidos;
+    private ArrayList<CEstadistica_Paquete> masVendidoEnero;
+    private ArrayList<CEstadistica_Paquete> masVendidoFebrero;
+    private ArrayList<CEstadistica_Paquete> masVendidoMarzo;
+    private ArrayList<CEstadistica_Paquete> masVendidoAbril;
+    private ArrayList<CEstadistica_Paquete> masVendidoMayo;
+    private ArrayList<CEstadistica_Paquete> masVendidoJunio;
+    private ArrayList<CEstadistica_Paquete> masVendidoJulio;
+    private ArrayList<CEstadistica_Paquete> masVendidoAgosto;
+    private ArrayList<CEstadistica_Paquete> masVendidoSetiembre;
+    private ArrayList<CEstadistica_Paquete> masVendidoOctubre;
+    private ArrayList<CEstadistica_Paquete> masVendidoNoviembre;
+    private ArrayList<CEstadistica_Paquete> masVendidoDiciembre;
+    
+    //===============getter and setter======
+	
+	public CReporteReservaDAO getReporteReservaDao() {
+		return reporteReservaDao;
+	}
+
+	public void setReporteReservaDao(CReporteReservaDAO reporteReservaDao) {
+		this.reporteReservaDao = reporteReservaDao;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getListaPaquetesMasVendidos() {
+		return listaPaquetesMasVendidos;
+	}
+
+	public void setListaPaquetesMasVendidos(
+			ArrayList<CEstadistica_Paquete> listaPaquetesMasVendidos) {
+		this.listaPaquetesMasVendidos = listaPaquetesMasVendidos;
+	}
+	
+	
+	public ArrayList<CEstadistica_Paquete> getMasVendidoEnero() {
+		return masVendidoEnero;
+	}
+
+	public void setMasVendidoEnero(ArrayList<CEstadistica_Paquete> masVendidoEnero) {
+		this.masVendidoEnero = masVendidoEnero;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoFebrero() {
+		return masVendidoFebrero;
+	}
+
+	public void setMasVendidoFebrero(
+			ArrayList<CEstadistica_Paquete> masVendidoFebrero) {
+		this.masVendidoFebrero = masVendidoFebrero;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoMarzo() {
+		return masVendidoMarzo;
+	}
+
+	public void setMasVendidoMarzo(ArrayList<CEstadistica_Paquete> masVendidoMarzo) {
+		this.masVendidoMarzo = masVendidoMarzo;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoAbril() {
+		return masVendidoAbril;
+	}
+
+	public void setMasVendidoAbril(ArrayList<CEstadistica_Paquete> masVendidoAbril) {
+		this.masVendidoAbril = masVendidoAbril;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoMayo() {
+		return masVendidoMayo;
+	}
+
+	public void setMasVendidoMayo(ArrayList<CEstadistica_Paquete> masVendidoMayo) {
+		this.masVendidoMayo = masVendidoMayo;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoJunio() {
+		return masVendidoJunio;
+	}
+
+	public void setMasVendidoJunio(ArrayList<CEstadistica_Paquete> masVendidoJunio) {
+		this.masVendidoJunio = masVendidoJunio;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoJulio() {
+		return masVendidoJulio;
+	}
+
+	public void setMasVendidoJulio(ArrayList<CEstadistica_Paquete> masVendidoJulio) {
+		this.masVendidoJulio = masVendidoJulio;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoAgosto() {
+		return masVendidoAgosto;
+	}
+
+	public void setMasVendidoAgosto(ArrayList<CEstadistica_Paquete> masVendidoAgosto) {
+		this.masVendidoAgosto = masVendidoAgosto;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoSetiembre() {
+		return masVendidoSetiembre;
+	}
+
+	public void setMasVendidoSetiembre(
+			ArrayList<CEstadistica_Paquete> masVendidoSetiembre) {
+		this.masVendidoSetiembre = masVendidoSetiembre;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoOctubre() {
+		return masVendidoOctubre;
+	}
+
+	public void setMasVendidoOctubre(
+			ArrayList<CEstadistica_Paquete> masVendidoOctubre) {
+		this.masVendidoOctubre = masVendidoOctubre;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoNoviembre() {
+		return masVendidoNoviembre;
+	}
+
+	public void setMasVendidoNoviembre(
+			ArrayList<CEstadistica_Paquete> masVendidoNoviembre) {
+		this.masVendidoNoviembre = masVendidoNoviembre;
+	}
+
+	public ArrayList<CEstadistica_Paquete> getMasVendidoDiciembre() {
+		return masVendidoDiciembre;
+	}
+
+	public void setMasVendidoDiciembre(
+			ArrayList<CEstadistica_Paquete> masVendidoDiciembre) {
+		this.masVendidoDiciembre = masVendidoDiciembre;
+	}
+
+	public CEstadistica_Reservas()
+	{
+	    reporteReservaDao=new CReporteReservaDAO();
+	    masVendidoEnero=new ArrayList<CEstadistica_Paquete>();
+		Calendar fechaActual=Calendar.getInstance();
+		int anio=fechaActual.get(Calendar.YEAR);
+		String anioActual=String.valueOf(anio).toString();
+		System.out.println("el anio es es:"+anioActual);
+		reporteReservaDao.asignarPaquetesmasVendidos(reporteReservaDao.recuperarPaquetesMasVendidos(anioActual));
+		this.setListaPaquetesMasVendidos(reporteReservaDao.getMasVendidosxMeses());
+		int factorIncremento=0;
+		for(int i=0;i<listaPaquetesMasVendidos.size();i=i+factorIncremento)
+		{
+			String nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+			int contador=i;
+			int total=0;
+			while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior))
+			{
+				 total+=listaPaquetesMasVendidos.get(contador).getNroVentas();
+				 contador++;
+				 factorIncremento++;
+			}
+			masVendidoEnero.add(new CEstadistica_Paquete(listaPaquetesMasVendidos.get(i).getNombrePaquete(), total));
+		}
+	}
 	
 	public void onCreate() throws Exception {
 
 		//================================================================================
-	    // Stacked area
+	    // Stacked and grouped column
 	    //================================================================================
 
-		
-		chartComp13 = (ZHighCharts) getFellow("chartComp13");
-		chartComp13.setType("area");
-		chartComp13.setTitle("Cantidad de reservas en los ultimos tiempos");
-		chartComp13.setSubTitle("Source: WebPage");
-		chartComp13.setxAxisOptions("{" +
-					"categories: [" +
-						"'2016', " +
-						"'2017', " +
-						"'2018', " +
-						"'2019', " +
-						"'2020', " +
-						"'2021', " +
-						"'2022'" +
-					"]," +
-					"tickmarkPlacement: 'on'," +
-					"title: {" +
-						"enabled: false" +
+		chartComp28 = (ZHighCharts) getFellow("chartComp28");
+		chartComp28.setType("column");
+		chartComp28.setTitle("Paquetes mas vendidos durante el anio");
+		chartComp28.setxAxisOptions("{" +
+				"categories: [" +
+					"'Enero'," +
+					"'Febrero', " +
+					"'Marzo', " +
+					"'Abril', " +
+					"'Mayo', " +
+					"'Junio', " +
+					"'Julio', " +
+					"'Agosto', " +
+					"'Setiembre', " +
+					"'Noviembre', " +
+					"'Diciembre'," +
+				"]" +
+			"}");
+		chartComp28.setyAxisOptions("{" +
+					"min: 0," +
+					"allowDecimals: false," +
+				"}");
+		chartComp28.setYAxisTitle("Cantidad de paquetes");
+		chartComp28.setTooltipFormatter("function formatTooltip(obj){ " +
+					"return '<b>'+ obj.x +'</b><br/>" +
+					"'+obj.series.name +': '+ obj.y +'<br/>" +
+					"'+'Total: '+ obj.point.stackTotal;" +
+				"}");
+		chartComp28.setPlotOptions("{" +
+					"column: {" +
+						"stacking: 'normal'" +
 					"}" +
 				"}");
-		chartComp13.setyAxisOptions("{" +
-					"labels: {" +
-						"formatter: function() {" +
-							"return this.value / 100;" +
-						"}" +
-					"}" +
-				"}");
-		chartComp13.setTooltipFormatter("function formatTooltip(obj){" +
-					"return ''+obj.x +': '+ Highcharts.numberFormat(obj.y, 0, ',') +' reservas-pagos';" +
-				"}");
-		chartComp13.setYAxisTitle("Reservas-Pagos");
-		chartComp13.setLegend("{" +
-					"layout: 'vertical'," +
-					"align: 'left'," +
-					"verticalAlign: 'top'," +
-					"x: 100, " +
-					"y: 70," +
-					"floating: true," +
-					"backgroundColor: '#3BA420'," +
-					"borderWidth: 1" +
-				"}");
-		chartComp13.setPlotOptions("{" +
-					"area: {" +
-						"stacking: 'normal'," +
-						"lineColor: '#3BA420', " +
-						"lineWidth: 1," +
-						"marker: {" +
-							"lineWidth: 1, " +
-							"lineColor: '#3BA420'" +
-						"}" +
-					"}" +
-				"}");
-				
-		chartComp13.setModel(dataChartModel13);
 		
-		//Adding some data to the model
-
-		dataChartModel13.addValue("Reservas", 0, 502);
-		dataChartModel13.addValue("Reservas", 1, 635);
-		dataChartModel13.addValue("Reservas", 2, 809);
-		dataChartModel13.addValue("Reservas", 3, 947);
-		dataChartModel13.addValue("Reservas", 4, 1402);
-		dataChartModel13.addValue("Reservas", 5, 3634);
-		dataChartModel13.addValue("Reservas", 6, 5268);
+		chartComp28.setModel(dataChartModel28);
 		
-		dataChartModel13.addValue("Pagos", 0, 106);
-		dataChartModel13.addValue("Pagos", 1, 107);
-		dataChartModel13.addValue("Pagos", 2, 111);
-		dataChartModel13.addValue("Pagos", 3, 133);
-		dataChartModel13.addValue("Pagos", 4, 224);
-		dataChartModel13.addValue("Pagos", 5, 767);
-		dataChartModel13.addValue("Pagos", 6, 1766);
-					
+		Number Johndata28 [] = { masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()};
+		for(int i = 0; i < Johndata28.length; i++)
+			dataChartModel28.addValue("John", i, Johndata28[i]);
+		
+		Map style = new HashMap();
+		style.put("stack", "male");
+		chartComp28.setSeriesOptions("", style);
 	}
-	
+
 	@Override
 	public void onEvent(Event arg0) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	/**
-	 * internal method to convert date&amp;time from string to epoch milliseconds
+	 * internal method to convert date&time from string to epoch milliseconds
 	 * 
 	 * @param date
 	 * @return

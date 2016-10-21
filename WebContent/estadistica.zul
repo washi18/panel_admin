@@ -1,11 +1,22 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
+<div>
 	<window title="Formas de pago" border="normal" width="100%"
     	use="com.pricing.model.Estadisticas">
     	<zhighcharts id="chartComp2" />
 	</window>
 	<window title="Cantida de reservas" border="normal" width="100%"
 			use="com.pricing.model.CEstadistica_Reservas">
-		<zhighcharts id="chartComp13" />
+		<div >
+			<combobox>
+			  <comboitem label="fecha1"></comboitem>
+			  <comboitem label="fecha2"></comboitem>
+			  <comboitem label="fecha3"></comboitem>
+			  <comboitem label="fecha4"></comboitem>
+			  <comboitem label="fecha5"></comboitem>
+			</combobox>
+		</div>
+		<zhighcharts id="chartComp28" />
 	</window>
+</div>
 </zk>
