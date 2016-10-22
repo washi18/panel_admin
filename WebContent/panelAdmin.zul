@@ -1,4 +1,4 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="PANEL ADMIN" contentType="text/html;charset=UTF-8"?>
 <?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
 <zk>
 	<style src="css/style_zk.css"/>
@@ -7,7 +7,7 @@
 	<style src="css/Estilos_Panel_Admi.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
-		 zclass="contenedor_admin">
+		 zclass="contenedor_admin" visible="@bind(vmAdmin.cargarAdmin)">
 		<div sclass="contendor_cabezera" width="100%" height="90px">
 			<label value="Admin" sclass="logoAdmi"></label>
 			<div sclass="contenedor_desplegable">
@@ -21,13 +21,13 @@
 				</button>
 			</div>
 			<div sclass="cabezera">
-				<image sclass="style_foto_admin" src="http://api.randomuser.me/portraits/thumb/men/10.jpg"/>
+				<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
 				<space></space>
 				<menubar sclass="cabezera_menubar">
-					<menu label="Jorge Dueñas">
+					<menu label="@bind(vmAdmin.oUsuario.cNombres)">
 						<menupopup>
 							<menuitem label="Cambiar Cuenta"></menuitem>
-							<menuitem label="Crear Administrador" href="/nuevoAdministrador.zul"></menuitem>
+							<menuitem label="Crear Usuario" href="/nuevoAdministrador.zul" visible="@bind(vmAdmin.oAcceso.accesoCrearNuevoUser)"></menuitem>
 							<menuitem label="Cerrar Sesion"></menuitem>
 						</menupopup>
 					</menu>
@@ -48,25 +48,25 @@
 									</div>
 								</div>
 								<div id="d_config" visible="false">
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoUpdateDisdo)">
 										<div id="itemDisponibilidad" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-accessibility estilos-iconos"/>
 											<label value="Actualizar Disponibilidad" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)">
 										<div id="itemEtiqueta" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-bookmark estilos-iconos"/>
 											<label value="Etiquetas" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)">
 										<div id="itemImpuesto" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-coin-dollar estilos-iconos"/>
 											<label value="Impuestos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoCodVisa)">
 										<div id="itemVisa" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-package estilos-iconos"/>
 											<label value="Codigos de Visa" sclass="lbls_mantenimientos"/>
@@ -81,7 +81,7 @@
 									</div>
 								</div>
 								<div id="d_usuarios" visible="false">
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoRegUsuarios)">
 										<div id="itemUsuario" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-profile estilos-iconos"/>
 											<label value="Registro de Usuarios" sclass="lbls_mantenimientos"/>
@@ -96,37 +96,37 @@
 									</div>
 								</div>
 								<div id="d_paquete" visible="false">
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoCategorias)">
 										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-profile estilos-iconos"/>
 											<label value="Categorias" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)">
 										<div id="itemPaquete" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-package estilos-iconos"/>
 											<label value="Paquetes" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoServicios)">
 										<div id="itemServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-cogs estilos-iconos"/>
 											<label value="Servicios" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)">
 										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-tree estilos-iconos"/>
 											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoHoteles)">
 										<div id="itemHoteles" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-office estilos-iconos"/>
 											<label value="Hoteles" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoDestinos)">
 										<div id="itemDestinos" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-airplane estilos-iconos"/>
 											<label value="Destinos" sclass="lbls_mantenimientos"/>
@@ -141,19 +141,13 @@
 									</div>
 								</div>
 								<div id="d_reporte" visible="false">
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemCategorias" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Categorias" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)">
 										<div id="itemReporteReservas" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-profile estilos-iconos"/>
 											<label value="Reporte de reservas" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)">
 										<div id="itemReportePagos" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-profile estilos-iconos"/>
 											<label value="Reporte de pagos" sclass="lbls_mantenimientos"/>
@@ -177,13 +171,13 @@
 			</div >
 			<div zclass="contenedor_botones" height="auto">
 			    <div id="div_config_perfil" width="100%" visible="false" zclass="div_perfil_responsive">
-			    	<image sclass="style_foto_admin" src="http://api.randomuser.me/portraits/thumb/men/10.jpg"/>
+			    	<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
 					<space></space>
 					<menubar sclass="cabezera_menubar">
-						<menu label="Jorge Dueñas">
+						<menu label="@bind(vmAdmin.oUsuario.cNombres)">
 							<menupopup>
-								<menuitem label="CambiarCuenta"></menuitem>
-								<menuitem label="Herramientas"></menuitem>
+								<menuitem label="Cambiar Cuenta"></menuitem>
+								<menuitem label="Crear Usuario" visible="@bind(vmAdmin.oAcceso.accesoCrearNuevoUser)"></menuitem>
 								<menuitem label="Cerrar Sesion"></menuitem>
 							</menupopup>
 						</menu>
@@ -195,16 +189,16 @@
 						<div  width="100%" height="auto">
 							<div sclass="estilo_tabbox visible_peque" width="100%">
 								<div>
-									<button id="tabDisponibilidad" zclass="btn_opciones_config" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleDisponibilidad)"></button>
-									<button id="tabEtiqueta" zclass="btn_opciones_config" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleEtiqueta)"></button>
-									<button id="tabPaquete" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visiblePaquetes)"></button>
-									<button id="tabServicio" zclass="btn_opciones_config" label="Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleServicios)"></button>
-									<button id="tabSubServicio" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleSubServicios)"></button>
-									<button id="tabImpuesto" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabHotel" zclass="btn_opciones_config" label="Hoteles" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabDestino" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabReporteReserva" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabReportePagos" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabDisponibilidad" visible="@bind(vmAdmin.oAcceso.accesoUpdateDisdo)" zclass="btn_opciones_config" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleDisponibilidad)"></button>
+									<button id="tabEtiqueta" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)" zclass="btn_opciones_config" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleEtiqueta)"></button>
+									<button id="tabPaquete" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visiblePaquetes)"></button>
+									<button id="tabServicio" visible="@bind(vmAdmin.oAcceso.accesoServicios)" zclass="btn_opciones_config" label="Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleServicios)"></button>
+									<button id="tabSubServicio" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleSubServicios)"></button>
+									<button id="tabImpuesto" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabHotel" visible="@bind(vmAdmin.oAcceso.accesoHoteles)" zclass="btn_opciones_config" label="Hoteles" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabDestino" visible="@bind(vmAdmin.oAcceso.accesoDestinos)" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabReporteReserva" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="tabReportePagos" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
@@ -247,16 +241,16 @@
 							</div>
 							<div sclass="estilo_tabbox visible_grande"  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
 								<div>
-									<button id="btnDisponibilidad" zclass="btn_opciones_config" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnEtiquetas" zclass="btn_opciones_config" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnPaquetes" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnServicios" zclass="btn_opciones_config" label="Servicios"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnSubServicios" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnImpuestos" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnHoteles" zclass="btn_opciones_config" label="Hoteles"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnDestinos" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnReporteReservas" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnReportePagos" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnDisponibilidad" visible="@bind(vmAdmin.oAcceso.accesoUpdateDisdo)" zclass="btn_opciones_config" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnEtiquetas" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)" zclass="btn_opciones_config" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnPaquetes" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnServicios" visible="@bind(vmAdmin.oAcceso.accesoServicios)" zclass="btn_opciones_config" label="Servicios"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnSubServicios" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnImpuestos" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnHoteles" visible="@bind(vmAdmin.oAcceso.accesoHoteles)" zclass="btn_opciones_config" label="Hoteles"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnDestinos" visible="@bind(vmAdmin.oAcceso.accesoDestinos)" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnReporteReservas" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnReportePagos" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">

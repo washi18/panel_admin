@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -13,10 +15,15 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Div;
+
+import pe.com.erp.crypto.Encryptar;
 
 import com.pricing.dao.CDestinoDAO;
 import com.pricing.dao.CHotelDAO;
@@ -94,6 +101,18 @@ public class hotelesVM
 		destinoDao=new CDestinoDAO();
 		listaDestinos=new ArrayList<CDestino>();
 		listaHoteles=new ArrayList<CHotel>();
+		/*****************************/
+		Encryptar encrip= new Encryptar();
+//		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
+		Execution exec = Executions.getCurrent();
+		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
+	    String user=(String)ses.getAttribute("usuario");
+	    String pas=(String)ses.getAttribute("clave");
+	    if(user!=null && pas!=null)
+	    	recuperarHoteles();
+	}
+	public void recuperarHoteles()
+	{
 		/*Asignacion de hoteles*/
 		hotelDao.asignarListaHoteles(hotelDao.recuperarHotelesBD());
 		setListaHoteles(hotelDao.getListaHoteles());

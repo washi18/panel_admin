@@ -5,6 +5,8 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -14,6 +16,9 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
@@ -23,6 +28,8 @@ import org.zkoss.zul.Div;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Image;
 import org.zkoss.zul.Messagebox;
+
+import pe.com.erp.crypto.Encryptar;
 
 import com.pricing.dao.CServicioDAO;
 import com.pricing.model.CHotel;
@@ -130,6 +137,18 @@ public class subServicioVM
 		listaServiciosNew=new ArrayList<CServicio>();
 		listaSubServiciosconServiciosNombre=new ArrayList<CSubServicio>();
 		listaSubServicios=new ArrayList<CSubServicio>();
+		/*****************************/
+		Encryptar encrip= new Encryptar();
+//		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
+		Execution exec = Executions.getCurrent();
+		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
+	    String user=(String)ses.getAttribute("usuario");
+	    String pas=(String)ses.getAttribute("clave");
+	    if(user!=null && pas!=null)
+	    	recuperarSubServicios();
+	}
+	public void recuperarSubServicios()
+	{
 		/**Obtencion de las etiquetas de la base de datos**/
 		servicioDao.asignarListaSubServicios(servicioDao.recuperarTodosSubServiciosBD());
 		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosconSubServiciosBD());
@@ -139,7 +158,6 @@ public class subServicioVM
 		setListaServiciosNew(servicioDao.getListaServicios());
 		setListaSubServiciosconServiciosNombre(servicioDao.getListaSubServiciosconServiciosNombre());
 	}
-	
 	@Command
 	@NotifyChange({"oSubServicioNew","listaSubServicios"})
 	public void InsertarSubServicio(@BindingParam("componente")Component componente)

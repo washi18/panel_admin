@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import javax.servlet.http.HttpSession;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -14,22 +15,33 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Textbox;
+import org.zkoss.zul.Window;
 
+import pe.com.erp.crypto.Encryptar;
+
+import com.pricing.dao.CUsuarioLoginDAO;
 import com.pricing.extras.lectorPDF;
+import com.pricing.model.CAcceso;
+import com.pricing.model.CUsuarioLogin;
 import com.pricing.util.Util;
 
 public class panelAdminVM
 {
+	private boolean cargarAdmin;
 	//==============TABBOX LAPTOP============
 	private boolean visibleConfiguracion;
 	//==============VARIABLES INTERFACES==============
@@ -45,7 +57,6 @@ public class panelAdminVM
 	private boolean visibleReportPagos;
 	private boolean visibleEstadisticaPagos;
 	private boolean visibleEstadisticaPaquetesmasVendidos;
-	
 	//===============VARIABLES SUBITEMS================
 	private boolean openItemConfig;
 	private boolean openItemUsuarios;
@@ -68,7 +79,10 @@ public class panelAdminVM
 	private boolean seleccionDestinos;
 	private boolean seleccionReportReservas;
 	private boolean seleccionReportPagos;
-	
+	//======================================
+	private CUsuarioLoginDAO usuarioDao;
+	private CAcceso oAcceso;
+	private CUsuarioLogin oUsuario;
 	//=================GET Y SET SELECCION TABS=======
 	public boolean isVisibleConfiguracion() {
 		return visibleConfiguracion;
@@ -290,15 +304,66 @@ public class panelAdminVM
 	public void setSeleccionReportPagos(boolean seleccionReportPagos) {
 		this.seleccionReportPagos = seleccionReportPagos;
 	}
+	public CAcceso getoAcceso() {
+		return oAcceso;
+	}
+	public void setoAcceso(CAcceso oAcceso) {
+		this.oAcceso = oAcceso;
+	}
+	public CUsuarioLogin getoUsuario() {
+		return oUsuario;
+	}
+	public void setoUsuario(CUsuarioLogin oUsuario) {
+		this.oUsuario = oUsuario;
+	}
+	public boolean isCargarAdmin() {
+		return cargarAdmin;
+	}
+	public void setCargarAdmin(boolean cargarAdmin) {
+		this.cargarAdmin = cargarAdmin;
+	}
 	@Init
 	public void Inicializar() {
+		cargarAdmin=false;
+		try
+		{
+			Encryptar encrip= new Encryptar();
+//			System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
+			Execution exec = Executions.getCurrent();
+			HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
+		    String user=(String)ses.getAttribute("usuario");
+		    String pas=(String)ses.getAttribute("clave");
+		    int perfil=(int)ses.getAttribute("perfil");
+		    /******************************************/
+		    iniciarPanelAdministrador(user,pas,perfil);
+		}
+		catch(Exception e)
+		{
+			irALogin();
+		}
+	}
+	public void irALogin()
+	{
+		Executions.getCurrent().sendRedirect("/login.zul");
+	}
+	public void iniciarPanelAdministrador(String usuario,String password,int codPerfil)
+	{
+		cargarAdmin=true;
+		usuarioDao=new CUsuarioLoginDAO();
+		oAcceso=new CAcceso();
+		oUsuario=new CUsuarioLogin();
+		usuarioDao.asignarAccesosUsuario(usuarioDao.recuperarAccesosUsuario(codPerfil));
+		setoAcceso(usuarioDao.getoAcceso());
+		
+		usuarioDao.asignarUsuario(usuarioDao.recuperarUsuario(usuario, password));
+		setoUsuario(usuarioDao.getoUsuario());
+		/********************************/
 		seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 		seleccionHoteles=seleccionDestinos=false;
 		visibleDisponibilidad=visibleEtiqueta = visiblePaquetes = visibleServicios = visibleSubServicios = visibleImpuestos =false;
 		visibleHoteles=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 		visibleConfiguracion=visibleDestinos=visibleReportReservas=visibleReportPagos=false;
 	}
-
 	//================CAMBIO DE VISIBILIDAD========
 	@Command
 	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes","visibleDestinos","visibleServicios", "visibleSubServicios",

@@ -4,12 +4,17 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.annotation.Wire;
@@ -17,6 +22,8 @@ import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Listbox;
 import org.zkoss.zul.Messagebox;
+
+import pe.com.erp.crypto.Encryptar;
 
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.dao.CServicioDAO;
@@ -80,6 +87,18 @@ public class servicioVM {
 		oServicioUpdate=new CServicio();
 		servicioDao=new CServicioDAO();
 		listaServicios=new ArrayList<CServicio>();
+		/*****************************/
+		Encryptar encrip= new Encryptar();
+//		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
+		Execution exec = Executions.getCurrent();
+		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
+	    String user=(String)ses.getAttribute("usuario");
+	    String pas=(String)ses.getAttribute("clave");
+	    if(user!=null && pas!=null)
+	    	recuperarServicios();
+	}
+	public void recuperarServicios()
+	{
 		/**Obtencion de las etiquetas de la base de datos**/
 		servicioDao.asignarListaServicios(servicioDao.recuperarTodosServiciosBD());
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
