@@ -43,6 +43,8 @@ public class panelAdminVM
 	private boolean visibleDestinos;
 	private boolean visibleReportReservas;
 	private boolean visibleReportPagos;
+	private boolean visibleEstadisticaPagos;
+	private boolean visibleEstadisticaPaquetesmasVendidos;
 	
 	//===============VARIABLES SUBITEMS================
 	private boolean openItemConfig;
@@ -70,6 +72,19 @@ public class panelAdminVM
 	//=================GET Y SET SELECCION TABS=======
 	public boolean isVisibleConfiguracion() {
 		return visibleConfiguracion;
+	}
+	public boolean isVisibleEstadisticaPagos() {
+		return visibleEstadisticaPagos;
+	}
+	public void setVisibleEstadisticaPagos(boolean visibleEstadisticaPagos) {
+		this.visibleEstadisticaPagos = visibleEstadisticaPagos;
+	}
+	public boolean isVisibleEstadisticaPaquetesmasVendidos() {
+		return visibleEstadisticaPaquetesmasVendidos;
+	}
+	public void setVisibleEstadisticaPaquetesmasVendidos(
+			boolean visibleEstadisticaPaquetesmasVendidos) {
+		this.visibleEstadisticaPaquetesmasVendidos = visibleEstadisticaPaquetesmasVendidos;
 	}
 	public void setVisibleConfiguracion(boolean visibleConfiguracion) {
 		this.visibleConfiguracion = visibleConfiguracion;
@@ -280,7 +295,7 @@ public class panelAdminVM
 		seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 		seleccionHoteles=seleccionDestinos=false;
 		visibleDisponibilidad=visibleEtiqueta = visiblePaquetes = visibleServicios = visibleSubServicios = visibleImpuestos =false;
-		visibleHoteles=false;
+		visibleHoteles=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 		visibleConfiguracion=visibleDestinos=visibleReportReservas=visibleReportPagos=false;
 	}
 
@@ -289,7 +304,8 @@ public class panelAdminVM
 	@NotifyChange({ "visibleEtiqueta", "visiblePaquetes","visibleDestinos","visibleServicios", "visibleSubServicios",
 		"visibleImpuestos", "visibleMenu", "visibleDisponibilidad","visibleReportReservas","visibleReportPagos",
 		"seleccionDisponibilidad","seleccionEtiquetas", "seleccionPaquetes", "seleccionServicios", "seleccionSubServicios", "seleccionImpuestos",
-		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos","seleccionReportReservas","seleccionReportPagos"})
+		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos","seleccionReportReservas",
+		"seleccionReportPagos","visibleEstadisticaPaquetesmasVendidos","visibleEstadisticaPagos"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
 		visibleConfiguracion=true;	
 		if (cambios.equals("itemDisponibilidad") || cambios.equals("btnDisponibilidad") || cambios.equals("tabDisponibilidad") ) {
@@ -355,6 +371,22 @@ public class panelAdminVM
 			else if (cambios.equals("itemRepotePagos") || cambios.equals("btnReportePagos") || cambios.equals("tabReportePagos")) {
 				visibleReportPagos=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
+				visibleSubServicios=false;
+				seleccionReportPagos=true;
+				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
+			}else if (cambios.equals("itemEstadisticaPagos")) {
+				visibleEstadisticaPagos=true;
+				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=visibleEstadisticaPaquetesmasVendidos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
+				visibleSubServicios=false;
+				seleccionReportPagos=true;
+				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
+				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
+			}else if (cambios.equals("itemEstadisticaPaquetesmasVendidos")) {
+				visibleEstadisticaPaquetesmasVendidos=true;
+				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=visibleEstadisticaPagos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
 				visibleSubServicios=false;
 				seleccionReportPagos=true;

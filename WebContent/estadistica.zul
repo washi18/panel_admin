@@ -1,22 +1,21 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
-<div>
-	<window title="Formas de pago" border="normal" width="100%"
-    	use="com.pricing.model.Estadisticas">
-    	<zhighcharts id="chartComp2" />
-	</window>
-	<window title="Cantida de reservas" border="normal" width="100%"
-			use="com.pricing.model.CEstadistica_Reservas">
-		<div >
+<style src="css/estilo_Estadisticas.css"></style>
+<style src="css/formas_generales.css"></style>
+<div >
+		<div sclass="div_list_cell"  style="display: flex; align-items: center;">
+		    <label value="Ingrese Año: " style="font-size: 13px; color: black; font-weight: bold;"></label>
 			<combobox>
-			  <comboitem label="fecha1"></comboitem>
-			  <comboitem label="fecha2"></comboitem>
-			  <comboitem label="fecha3"></comboitem>
-			  <comboitem label="fecha4"></comboitem>
-			  <comboitem label="fecha5"></comboitem>
+			  <comboitem label="2016"></comboitem>
 			</combobox>
 		</div>
-		<zhighcharts id="chartComp28" />
-	</window>
+		<space orient="horizontal"></space>
+		<div sclass="div_list_cell_estadisticas">
+			<div width="100%" use="com.pricing.model.CEstadistica_Reservas">
+				<div style="display: flex; justify-content: center;">
+			 		<zhighcharts id="chartComp28" />
+			 	</div>
+			</div>
+		</div>
 </div>
 </zk>

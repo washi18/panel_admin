@@ -1,4 +1,5 @@
 package com.pricing.model;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -39,7 +40,59 @@ public class CEstadistica_Reservas extends Window implements EventListener {
     private ArrayList<CEstadistica_Paquete> masVendidoOctubre;
     private ArrayList<CEstadistica_Paquete> masVendidoNoviembre;
     private ArrayList<CEstadistica_Paquete> masVendidoDiciembre;
+    private long sumasMeses[]=new long[12];
+	private String nombresPaquetes[]={" "," "," "," "," "," "," "," "," "," "," "," "};
     
+    //=====meses del anio=====
+    String eneroInicio;
+	String eneroFinal;
+	String febreroInicio;
+	String febreroFinal;
+	String marzoInicio;
+	String marzoFinal;
+	String abrilInicio;
+	String abrilFinal;
+	String mayoInicio;
+	String mayoFinal;
+	String junioInicio;
+	String junioFinal;
+	String julioInicio;
+	String julioFinal;
+	String agostoInicio;
+	String agostoFinal;
+	String setiembreInicio;
+	String setiembreFinal;
+	String octubreInicio;
+	String octubreFinal;
+	String noviembreInicio;
+	String noviembreFinal;
+	String diciembreInicio;
+	String diciembreFinal;
+	//=====en formato date==========
+	Date EneroInicio=null;
+	Date EneroFinal=null;
+	Date FebreroInicio=null;
+	Date FebreroFinal=null;
+	Date MarzoInicio=null;
+	Date MarzoFinal=null;
+	Date AbrilInicio=null;
+	Date AbrilFinal=null;
+	Date MayoInicio=null;
+	Date MayoFinal=null;
+	Date JunioInicio=null;
+	Date JunioFinal=null;
+	Date JulioInicio=null;
+	Date JulioFinal=null;
+	Date AgostoInicio=null;
+	Date AgostoFinal=null;
+	Date SetiembreInicio=null;
+	Date SetiembreFinal=null;
+	Date OctubreInicio=null;
+	Date OctubreFinal=null;
+	Date NoviembreInicio=null;
+	Date NoviembreFinal=null;
+	Date DiciembreInicio=null;
+	Date DiciembreFinal=null;
     //===============getter and setter======
 	
 	public CReporteReservaDAO getReporteReservaDao() {
@@ -171,19 +224,286 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 		System.out.println("el anio es es:"+anioActual);
 		reporteReservaDao.asignarPaquetesmasVendidos(reporteReservaDao.recuperarPaquetesMasVendidos(anioActual));
 		this.setListaPaquetesMasVendidos(reporteReservaDao.getMasVendidosxMeses());
+		System.out.println("el tamanio de la lista mas vendidos es:"+listaPaquetesMasVendidos.size());
 		int factorIncremento=0;
-		for(int i=0;i<listaPaquetesMasVendidos.size();i=i+factorIncremento)
+		asignarAnioMeses(anioActual);
+		//======meses del anio con inicio y fin=====
+		String nombrePaqueteAnterior=listaPaquetesMasVendidos.get(0).getNombrePaquete();
+		int mesAnterior=listaPaquetesMasVendidos.get(0).getFechaPago().getMonth();
+		int sumaEnero=0,sumaFebrero=0,sumaMarzo=0,sumaAbril=0,sumaMayo=0,sumaJunio,sumaJulio,sumaAgosto,sumaSetiembre,sumaOctubre,sumaNoviembre,sumaDiciembre=0;
+		for(int i=0;i<listaPaquetesMasVendidos.size();i++)
 		{
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(EneroInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(EneroFinal))
+			{
+				System.out.println("Estamos en enero");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[0]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[0]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[0]){
+						sumasMeses[0]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[0]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(FebreroInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(FebreroFinal))
+			{
+				System.out.println("Estamos en febrero");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[1]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[1]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[1]){
+						sumasMeses[1]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[1]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(MarzoInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(MarzoFinal))
+			{
+				System.out.println("Estamos en marzo");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[2]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[2]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[2]){
+						sumasMeses[2]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[2]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(AbrilInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(AbrilFinal))
+			{
+				System.out.println("Estamos en abril");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[3]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[3]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[3]){
+						sumasMeses[3]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[3]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(MayoInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(MayoFinal))
+			{
+				System.out.println("Estamos en mayo");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[4]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[4]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[4]){
+						sumasMeses[4]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[4]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(JunioInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(JunioFinal))
+			{
+				System.out.println("Estamos en junio");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[5]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[5]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[5]){
+						sumasMeses[5]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[5]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(JulioInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(JulioFinal))
+			{
+				System.out.println("Estamos en julio");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[6]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[6]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[6]){
+						sumasMeses[6]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[6]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(AgostoInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(AgostoFinal))
+			{
+				System.out.println("Estamos en agosto");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[7]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[7]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[7]){
+						sumasMeses[7]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[7]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(SetiembreInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(SetiembreFinal))
+			{
+				System.out.println("Estamos en setiembre");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[8]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[8]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[8]){
+						sumasMeses[8]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[8]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(OctubreInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(OctubreFinal))
+			{
+				System.out.println("Estamos en octubre");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[9]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[9]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[9]){
+						sumasMeses[9]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[9]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(NoviembreInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(NoviembreFinal))
+			{
+				System.out.println("Estamos en noviembre");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[10]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[10]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[10]){
+						sumasMeses[10]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[10]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}else
+			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(DiciembreInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(DiciembreFinal))
+			{
+				System.out.println("Estamos en diciembre");
+				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
+					sumasMeses[11]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombresPaquetes[11]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				}else
+				{
+					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[11]){
+						sumasMeses[11]=listaPaquetesMasVendidos.get(i).getNroVentas();
+						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						nombresPaquetes[11]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					}
+				}
+			}
+			/*
 			String nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+			int mesAnterior=listaPaquetesMasVendidos.get(i).getFechaPago().getMonth();
 			int contador=i;
 			int total=0;
 			while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior))
 			{
-				 total+=listaPaquetesMasVendidos.get(contador).getNroVentas();
+				
+				if(listaPaquetesMasVendidos.get(contador).getFechaPago().getMonth()==mesAnterior)
+				{
+					total+=listaPaquetesMasVendidos.get(contador).getNroVentas();
+				}
+				else {
+					
+					break;
+				}
 				 contador++;
 				 factorIncremento++;
 			}
-			masVendidoEnero.add(new CEstadistica_Paquete(listaPaquetesMasVendidos.get(i).getNombrePaquete(), total));
+			masVendidoEnero.add(new CEstadistica_Paquete(listaPaquetesMasVendidos.get(i).getNombrePaquete(), total));*/
+		}
+	}
+	
+	public void asignarAnioMeses(String anioActual)
+	{
+		SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
+		eneroInicio=anioActual+"-01-01";
+		eneroFinal=anioActual+"-01-31";
+		febreroInicio=anioActual+"-02-01";
+		febreroFinal=anioActual+"-02-31";
+		marzoInicio=anioActual+"-03-01";
+		marzoFinal=anioActual+"-03-31";
+		abrilInicio=anioActual+"-04-01";
+		abrilFinal=anioActual+"-04-31";
+		mayoInicio=anioActual+"-05-01";
+		mayoFinal=anioActual+"-05-31";
+		junioInicio=anioActual+"-06-01";
+		junioFinal=anioActual+"-06-31";
+		julioInicio=anioActual+"-07-01";
+		julioFinal=anioActual+"-07-31";
+		agostoInicio=anioActual+"-08-01";
+		agostoFinal=anioActual+"-08-31";
+		setiembreInicio=anioActual+"-09-01";
+		setiembreFinal=anioActual+"-09-31";
+		octubreInicio=anioActual+"-10-01";
+		octubreFinal=anioActual+"-10-31";
+		noviembreInicio=anioActual+"-11-01";
+		noviembreFinal=anioActual+"-11-31";
+		diciembreInicio=anioActual+"-12-01";
+		diciembreFinal=anioActual+"-12-31";
+		
+		try {
+			 EneroInicio=formato.parse(eneroInicio);
+			EneroFinal=formato.parse(eneroFinal);
+			FebreroInicio=formato.parse(febreroInicio);
+			FebreroFinal=formato.parse(febreroFinal);
+			MarzoInicio=formato.parse(marzoInicio);
+			MarzoFinal=formato.parse(marzoFinal);
+			AbrilInicio=formato.parse(abrilInicio);
+			AbrilFinal=formato.parse(abrilFinal);
+		    MayoInicio=formato.parse(mayoInicio);
+			MayoFinal=formato.parse(mayoFinal);
+			JunioInicio=formato.parse(junioInicio);
+			JunioFinal=formato.parse(junioFinal);
+			JulioInicio=formato.parse(julioInicio);
+			JulioFinal=formato.parse(julioFinal);
+			AgostoInicio=formato.parse(agostoInicio);
+			AgostoFinal=formato.parse(agostoFinal);
+			SetiembreInicio=formato.parse(setiembreInicio);
+			SetiembreFinal=formato.parse(setiembreFinal);
+			OctubreInicio=formato.parse(octubreInicio);
+			OctubreFinal=formato.parse(octubreFinal);
+			NoviembreInicio=formato.parse(noviembreInicio);
+			NoviembreFinal=formato.parse(noviembreFinal);
+			DiciembreInicio=formato.parse(diciembreInicio);
+			DiciembreFinal=formato.parse(diciembreFinal);
+			
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 	}
 	
@@ -207,6 +527,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 					"'Julio', " +
 					"'Agosto', " +
 					"'Setiembre', " +
+					"'Octubre', " +
 					"'Noviembre', " +
 					"'Diciembre'," +
 				"]" +
@@ -218,7 +539,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 		chartComp28.setYAxisTitle("Cantidad de paquetes");
 		chartComp28.setTooltipFormatter("function formatTooltip(obj){ " +
 					"return '<b>'+ obj.x +'</b><br/>" +
-					"'+obj.series.name +': '+ obj.y +'<br/>" +
+					"'+obj.series.name+': '+ obj.y +'<br/>" +
 					"'+'Total: '+ obj.point.stackTotal;" +
 				"}");
 		chartComp28.setPlotOptions("{" +
@@ -228,14 +549,115 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				"}");
 		
 		chartComp28.setModel(dataChartModel28);
-		
-		Number Johndata28 [] = { masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()};
-		for(int i = 0; i < Johndata28.length; i++)
-			dataChartModel28.addValue("John", i, Johndata28[i]);
-		
-		Map style = new HashMap();
-		style.put("stack", "male");
-		chartComp28.setSeriesOptions("", style);
+		//==================enero==================
+				Number enero [] = { sumasMeses[0],0,0,0,0,0,0,0,0,0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < enero.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[0], i, enero[i]);
+				
+				Map style = new HashMap();
+				style.put("stack", "enero");
+				chartComp28.setSeriesOptions(nombresPaquetes[0], style);
+				//==================febrero==================
+				Number febrero [] = { 0,sumasMeses[1],0,0,0,0,0,0,0,0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < febrero.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[1], i, febrero[i]);
+				
+				style = new HashMap();
+				style.put("stack", "febrero");
+				chartComp28.setSeriesOptions(nombresPaquetes[1], style);
+				//==================febrero==================
+				Number marzo [] = { 0,0,sumasMeses[2],0,0,0,0,0,0,0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < marzo.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[2], i, marzo[i]);
+				
+				style = new HashMap();
+				style.put("stack", "marzo");
+				chartComp28.setSeriesOptions(nombresPaquetes[2], style);
+				//==================febrero==================
+				Number abril [] = { 0,0,0,sumasMeses[3],0,0,0,0,0,0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < abril.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[3], i, abril[i]);
+				
+				style = new HashMap();
+				style.put("stack", "abril");
+				chartComp28.setSeriesOptions(nombresPaquetes[3], style);
+				//==================febrero==================
+				Number mayo [] = { 0,0,0,0,sumasMeses[4],0,0,0,0,0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < mayo.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[4], i, mayo[i]);
+				
+				style = new HashMap();
+				style.put("stack", "mayo");
+				chartComp28.setSeriesOptions(nombresPaquetes[4], style);
+				//==================febrero==================
+				Number junio [] = { 0,0,0,0,0,sumasMeses[5],0,0,0,0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < junio.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[5], i, junio[i]);
+				
+				style = new HashMap();
+				style.put("stack", "junio");
+				chartComp28.setSeriesOptions(nombresPaquetes[5], style);
+				//==================febrero==================
+				Number julio [] = { 0,0,0,0,0,0,
+						sumasMeses[6],0,0,0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < julio.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[6], i, julio[i]);
+				
+				style = new HashMap();
+				style.put("stack", "julio");
+				chartComp28.setSeriesOptions(nombresPaquetes[6], style);
+				//==================febrero==================
+				Number agosto [] = { 0,0,0,0,0,0,0,sumasMeses[7],0,0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < agosto.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[7], i, agosto[i]);
+				
+				style = new HashMap();
+				style.put("stack", "agosto");
+				chartComp28.setSeriesOptions(nombresPaquetes[7], style);
+				//==================febrero==================
+				Number setiembre [] = { 0,0,0,0,0,0,0,0,sumasMeses[8],0,0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < setiembre.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[8], i, setiembre[i]);
+				
+				style = new HashMap();
+				style.put("stack", "setiembre");
+				chartComp28.setSeriesOptions(nombresPaquetes[8], style);
+				//==================febrero==================
+				Number octubre [] = {0,0,0,0,0,0,0,0,0,sumasMeses[9],0,0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < octubre.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[9], i, octubre[i]);
+				
+				style = new HashMap();
+				style.put("stack", "octubre");
+				chartComp28.setSeriesOptions(nombresPaquetes[9], style);
+				//==================febrero==================
+				Number noviembre [] = { 0,0,0,0,0,0,0,0,0,0,sumasMeses[10],0};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < noviembre.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[10], i, noviembre[i]);
+				
+				style = new HashMap();
+				style.put("stack", "noviembre");
+				chartComp28.setSeriesOptions(nombresPaquetes[10], style);
+				//==================febrero==================
+				Number diciembre [] = { 0,0,0,0,0,0,0,0,0,0,0,sumasMeses[11]};
+				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				for(int i = 0; i < diciembre.length; i++)
+				dataChartModel28.addValue(nombresPaquetes[11], i, diciembre[i]);
+				
+				 style = new HashMap();
+				style.put("stack", "diciembre");
+				chartComp28.setSeriesOptions(nombresPaquetes[11], style);
 	}
 
 	@Override

@@ -159,6 +159,18 @@
 											<label value="Reporte de pagos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemEstadisticaPagos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Estadistica Pagos" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemEstadisticaPaquetesmasVendidos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Paquetes mas Vendidos" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -225,6 +237,12 @@
 									<div visible="@bind(vmAdmin.visibleReportPagos)">
 										<include src="reporte_pagos.zul"/>
 									</div>
+									<div visible="@bind(vmAdmin.visibleEstadisticaPagos)">
+										<include src="estadistica_Pagos.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
+										<include src="estadistica.zul"/>
+									</div>
 								</div>
 							</div>
 							<div sclass="estilo_tabbox visible_grande"  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
@@ -270,6 +288,12 @@
 									</div>
 									<div visible="@bind(vmAdmin.visibleReportPagos)">
 										<include src="reporte_pagos.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleEstadisticaPagos)">
+										<include src="estadistica_Pagos.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
+										<include src="estadistica.zul"/>
 									</div>
 								</div>
 							</div>

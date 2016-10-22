@@ -58,7 +58,7 @@ public class Estadisticas extends Window implements EventListener{
         //================================================================================
         chartComp2 = (ZHighCharts) getFellow("chartComp2");
         chartComp2.setTitle("Formas de pago");
-        chartComp2.setSubTitle("------------porcentaje de pago---------------");
+        chartComp2.setSubTitle("");
         chartComp2.setType("pie");
         chartComp2.setTooltipFormatter("function formatTooltip(obj){" +
                     "return obj.key + '<br />Forma Pago: <b>'+obj.y+'%</b>'" +
