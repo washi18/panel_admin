@@ -5,13 +5,20 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Set;
 
+import javax.servlet.http.HttpSession;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zk.ui.util.Clients;
+
+import pe.com.erp.crypto.Encryptar;
 
 import com.pricing.dao.CDestinoDAO;
 import com.pricing.dao.CEtiquetaDAO;
@@ -143,6 +150,18 @@ public class paquetesVM
 		listaPaquetes=new ArrayList<CPaquete>();
 		listaDestinos=new ArrayList<CDestino>();
 		listaServicios=new ArrayList<CServicio>();
+		/*****************************/
+		Encryptar encrip= new Encryptar();
+//		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
+		Execution exec = Executions.getCurrent();
+		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
+	    String user=(String)ses.getAttribute("usuario");
+	    String pas=(String)ses.getAttribute("clave");
+	    if(user!=null && pas!=null)
+	    	recuperarPaquetes();
+	}
+	public void recuperarPaquetes()
+	{
 		/**Obtencion de los paquetes existente desde la base de datos**/
 		paqueteDao.asignarListaPaquetes(paqueteDao.recuperarPaquetesBD());
 		setListaPaquetes(paqueteDao.getListaPaquetes());

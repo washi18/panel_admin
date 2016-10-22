@@ -133,14 +133,11 @@ public class LoginVM {
 				String user=encrip.encrypt( tbNombreUsuario);
 				String clave=encrip.encrypt(tbContrasenia);
 				int codPerfil=(int)ResultadosLogin[3];
-//			    ses.setAttribute("usuario", user);
-//			    ses.setAttribute("clave", clave);
 				seshttp.setAttribute("usuario", tbNombreUsuario);
 				seshttp.setAttribute("clave", tbContrasenia);
-//			    exec.sendRedirect("ValidarSesion/ServletSesion", false);
-//				exec.sendRedirect("../GPS/", false);
+				seshttp.setAttribute("perfil", codPerfil);
 			    
-				Executions.getCurrent().sendRedirect("http://localhost:8080/panel_admin/?var3="+codPerfil);
+				Executions.getCurrent().sendRedirect("/panelAdmin.zul");
 //				exec.sendRedirect("../panel_admin/?var3="+codPerfil,false);
 //			    exec.setVoided(true);
 		    }else{				

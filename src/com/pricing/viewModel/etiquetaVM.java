@@ -2,12 +2,19 @@ package com.pricing.viewModel;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Execution;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zul.Messagebox;
+
+import pe.com.erp.crypto.Encryptar;
 
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.model.CEtiqueta;
@@ -122,6 +129,18 @@ public class etiquetaVM
 		oEtiqueta=new CEtiqueta();
 		etiquetaDao=new CEtiquetaDAO();
 		listaEtiquetas=new ArrayList<CEtiqueta>();
+		/*****************************/
+		Encryptar encrip= new Encryptar();
+//		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
+		Execution exec = Executions.getCurrent();
+		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
+	    String user=(String)ses.getAttribute("usuario");
+	    String pas=(String)ses.getAttribute("clave");
+	    if(user!=null && pas!=null)
+	    	recuperarEtiquetas();
+	}
+	public void recuperarEtiquetas()
+	{
 		/**Obtencion de las etiquetas de la base de datos**/
 		etiquetaDao.asignarListaEtiquetas(etiquetaDao.recuperarEtiquetasBD());
 		/**Asignacion de las etiquetas a la listaEtiquetas**/

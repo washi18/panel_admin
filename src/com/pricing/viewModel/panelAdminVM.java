@@ -41,6 +41,7 @@ import com.pricing.util.Util;
 
 public class panelAdminVM
 {
+	private boolean cargarAdmin;
 	//==============TABBOX LAPTOP============
 	private boolean visibleConfiguracion;
 	//==============VARIABLES INTERFACES==============
@@ -54,7 +55,6 @@ public class panelAdminVM
 	private boolean visibleDestinos;
 	private boolean visibleReportReservas;
 	private boolean visibleReportPagos;
-	
 	//===============VARIABLES SUBITEMS================
 	private boolean openItemConfig;
 	private boolean openItemUsuarios;
@@ -301,35 +301,39 @@ public class panelAdminVM
 	public void setoUsuario(CUsuarioLogin oUsuario) {
 		this.oUsuario = oUsuario;
 	}
+	public boolean isCargarAdmin() {
+		return cargarAdmin;
+	}
+	public void setCargarAdmin(boolean cargarAdmin) {
+		this.cargarAdmin = cargarAdmin;
+	}
 	@Init
 	public void Inicializar() {
-//		try
-//		{
+		cargarAdmin=false;
+		try
+		{
 			Encryptar encrip= new Encryptar();
 //			System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
 			Execution exec = Executions.getCurrent();
 			HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
-//		    String var1=exec.getParameter("var1");
-//		    String var2=exec.getParameter("var2");
-		    int var3=Integer.parseInt(exec.getParameter("var3"));
-//		    System.out.println("--> "+var1+" --> "+var2);
 		    String user=(String)ses.getAttribute("usuario");
 		    String pas=(String)ses.getAttribute("clave");
-		    System.out.println("--> "+user+" --> "+pas);
-		    iniciarPanelAdministrador(user,pas,var3);
-//		}
-//		catch(Exception e)
-//		{
-			System.out.println("Hay un null");
-//			irALogin();
-//		}
+		    int perfil=(int)ses.getAttribute("perfil");
+		    /******************************************/
+		    iniciarPanelAdministrador(user,pas,perfil);
+		}
+		catch(Exception e)
+		{
+			irALogin();
+		}
 	}
 	public void irALogin()
 	{
-		Executions.getCurrent().sendRedirect("http://localhost:8080/panel_admin/login.zul");
+		Executions.getCurrent().sendRedirect("/login.zul");
 	}
 	public void iniciarPanelAdministrador(String usuario,String password,int codPerfil)
 	{
+		cargarAdmin=true;
 		usuarioDao=new CUsuarioLoginDAO();
 		oAcceso=new CAcceso();
 		oUsuario=new CUsuarioLogin();

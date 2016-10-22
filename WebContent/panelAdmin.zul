@@ -1,4 +1,4 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="PANEL ADMIN" contentType="text/html;charset=UTF-8"?>
 <?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
 <zk>
 	<style src="css/style_zk.css"/>
@@ -7,7 +7,7 @@
 	<style src="css/Estilos_Panel_Admi.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
-		 zclass="contenedor_admin">
+		 zclass="contenedor_admin" visible="@bind(vmAdmin.cargarAdmin)">
 		<div sclass="contendor_cabezera" width="100%" height="90px">
 			<label value="Admin" sclass="logoAdmi"></label>
 			<div sclass="contenedor_desplegable">
@@ -21,7 +21,7 @@
 				</button>
 			</div>
 			<div sclass="cabezera">
-				<image sclass="style_foto_admin" src="http://api.randomuser.me/portraits/thumb/men/10.jpg"/>
+				<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
 				<space></space>
 				<menubar sclass="cabezera_menubar">
 					<menu label="@bind(vmAdmin.oUsuario.cNombres)">
@@ -159,7 +159,7 @@
 			</div >
 			<div zclass="contenedor_botones" height="auto">
 			    <div id="div_config_perfil" width="100%" visible="false" zclass="div_perfil_responsive">
-			    	<image sclass="style_foto_admin" src="http://api.randomuser.me/portraits/thumb/men/10.jpg"/>
+			    	<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
 					<space></space>
 					<menubar sclass="cabezera_menubar">
 						<menu label="@bind(vmAdmin.oUsuario.cNombres)">
