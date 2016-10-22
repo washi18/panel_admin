@@ -25,13 +25,14 @@ public class ServicioAutentificacion {
     public Object[] login(String us,String password)
     {
     	//===Se crea un arreglo de objeto para poder almacenar datos necesarios
-    	Object[] Respuesta=new Object[3];
+    	Object[] Respuesta=new Object[4];
     	//------------------------------
     	usuarioDAO.getUsuario().setcUsuarioCod(us);
     	usuarioDAO.getUsuario().setcClave(password);
     	Map user=(Map)usuarioDAO.validarLogin().get(0);
     	Respuesta[1]=user.get("resultado").toString();
     	Respuesta[2]=user.get("mensaje").toString();
+    	Respuesta[3]=Integer.parseInt(user.get("nperfilcod").toString());
     	//=========
     	Session sesion=Sessions.getCurrent();
     	if(Respuesta[1].toString().equals("correcto")){

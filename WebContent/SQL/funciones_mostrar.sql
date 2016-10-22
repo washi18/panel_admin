@@ -246,6 +246,27 @@ $$
 	select * from treserva;
 $$
 LANGUAGE SQL;
+/*+++++++++++++++++++++++++++++++++++++++++++++++*/
+create or replace function Pricing_sp_MostrarAcceso
+(
+	codPerfil int
+)
+returns setof tacceso as
+$$
+	select * from tacceso where nperfilcod=$1;
+$$
+LANGUAGE SQL;
+/*++++++++++++++++++++++++++++++++++++++++++++++++*/
+create or replace function Pricing_sp_MostrarUser
+(
+	usuario varchar(150),
+	pass varchar(128)
+)
+returns setof tusuario as
+$$
+	select * from tusuario where cusuariocod=$1 and cclave=$2;
+$$
+LANGUAGE SQL;
  /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_BuscarReservasEntreFechas
 Detalle     : Esta fue la primera version que recupera todo en golpe pero fue reemplazada
@@ -374,7 +395,7 @@ Nombre		:Pricing_sp_BuscarReserva
 Detalle     :Realiza la busqueda general de datos de la reserva
 +++++++++++++++++++++++++++++++++++++++++++++++++*/  
   /*****martes****/
-  CREATE OR REPLACE function AG_sp_ValidarLogin
+  CREATE OR REPLACE function Pricing_sp_ValidarLogin
 (
 	pcUsuarioCod varchar(150),
 	pcClave varchar(128)

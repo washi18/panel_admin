@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -46,9 +47,12 @@ public class LoginVM {
 	private String tbContrasenia;
 	private String lblMensaje;
 	ServicioAutentificacion auth;
+	HttpSession seshttp;
 	boolean falloAutenticasion=false;
 	@Wire("#tbUserName")
 	Textbox tbUserName;
+	@Wire("#tbUserPass")
+	Textbox tbUserPass;
 	
 	public ServicioAutentificacion getAuth() {
 		return auth;
@@ -111,7 +115,7 @@ public class LoginVM {
 	}
 	@NotifyChange({"falloAutenticasion","lblMensaje"})
 	@Command
-	public void doLogin()
+	public void doLogin(@BindingParam("componente")Component comp)
 	{		 
 		try
 		{
@@ -125,55 +129,54 @@ public class LoginVM {
 			{
 				System.out.println("Entre----->");
 				Execution exec = Executions.getCurrent();
-				HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
+				seshttp = (HttpSession)Sessions.getCurrent().getNativeSession();
 				String user=encrip.encrypt( tbNombreUsuario);
 				String clave=encrip.encrypt(tbContrasenia);
-			    ses.setAttribute("usuario", user);
-			    ses.setAttribute("clave", clave);
+				int codPerfil=(int)ResultadosLogin[3];
+//			    ses.setAttribute("usuario", user);
+//			    ses.setAttribute("clave", clave);
+				seshttp.setAttribute("usuario", tbNombreUsuario);
+				seshttp.setAttribute("clave", tbContrasenia);
 //			    exec.sendRedirect("ValidarSesion/ServletSesion", false);
 //				exec.sendRedirect("../GPS/", false);
-			   
-				exec.sendRedirect("../panel_admin/?var1="+user+"&var2="+clave,false);
-			    exec.setVoided(true);
+			    
+				Executions.getCurrent().sendRedirect("http://localhost:8080/panel_admin/?var3="+codPerfil);
+//				exec.sendRedirect("../panel_admin/?var3="+codPerfil,false);
+//			    exec.setVoided(true);
 		    }else{				
 				tbUserName.setFocus(true);
 				falloAutenticasion=true;
 				lblMensaje=ResultadosLogin[2].toString();
+				Clients.showNotification(lblMensaje, comp, true);
 			}
 		 }
 		 catch (Exception e){
 			e.printStackTrace();
-			Clients.showNotification("TIENE PROBLEMAS DE CONEXION : "+e.getMessage(), true);
+//			Clients.showNotification("TIENE PROBLEMAS DE CONEXION : "+e.getMessage(),comp, true);
+			Clients.showNotification("INGRESE USUARIO Y CONTRASEÑA",comp, true);
 		 }
 	}
-	public void enviarEmail(){
-		
-	}
-	public BufferedImage newimg(String url) 
+	@Command
+	public void onfocusTxtUsuario()
+    {
+		limpiarPlaceTxtUsuario();	
+    }
+	@Command
+	public void limpiarPlaceTxtUsuario()
 	{
-		try
-		{
-	    BufferedImage before = ImageIO.read(new File(url));
-	    float wf = 88/((float)before.getWidth());
-	    float hf = 88/((float)before.getHeight());
-	    BufferedImage after = new BufferedImage(88, 88, BufferedImage.TYPE_INT_ARGB);
-	    AffineTransform at = new AffineTransform();
-	    at.scale(wf, hf);
-	    AffineTransformOp scaleOp = 
-	    new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
-	    after = scaleOp.filter(before, after);
-	    Ellipse2D circle= new Ellipse2D.Float(0,0,88,88);
-	    BufferedImage out = new BufferedImage( 88, 88, after.getType() );
-	    Graphics g = out.getGraphics();
-	    g.setClip( circle );
-	    g.drawImage( after, 0, 0,null );
-	    g.dispose();
-	    //foto=out;
-	    return out;
-	    }
-		catch(Exception Ex){
-			return null;
-		}
+		tbUserName.setPlaceholder("");
+		tbUserPass.setPlaceholder("");
+	}
+	@Command
+	public void setPlaceTxtUsuario()
+	{
+		tbUserName.setPlaceholder("USUARIO");
+		tbUserPass.setPlaceholder("CONTRASEÑA");
+	}
+	@Command
+	public void onChangeTxtUsuario(@BindingParam("usuario")String usr)
+	{
+		tbNombreUsuario=usr;
 	}
 }
 

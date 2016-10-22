@@ -17,8 +17,7 @@ public class CUsuarioLogin implements Serializable {
     private Date dFechaFin;
     private String cNroDoc;
     private String cNombres;
-    private boolean bEsRepLeg;
-    private char cSexo;
+    private String cSexo;
     private Date dFechaNac;
     private String cCelular;
     //=====GETTER AND SETTER====
@@ -70,18 +69,6 @@ public class CUsuarioLogin implements Serializable {
 	public void setcNroDoc(String cNroDoc) {
 		this.cNroDoc = cNroDoc;
 	}
-	public boolean isbEsRepLeg() {
-		return bEsRepLeg;
-	}
-	public void setbEsRepLeg(boolean bEsRepLeg) {
-		this.bEsRepLeg = bEsRepLeg;
-	}
-	public char getcSexo() {
-		return cSexo;
-	}
-	public void setcSexo(char cSexo) {
-		this.cSexo = cSexo;
-	}
 	public Date getdFechaNac() {
 		return dFechaNac;
 	}
@@ -107,6 +94,12 @@ public class CUsuarioLogin implements Serializable {
 	public void setImgUsuario(String imgUsuario) {
 		this.imgUsuario = imgUsuario;
 	}
+	public String getcSexo() {
+		return cSexo;
+	}
+	public void setcSexo(String cSexo) {
+		this.cSexo = cSexo;
+	}
 	//=====CONSTRUCTORES=====
 	public CUsuarioLogin()
 	{
@@ -117,15 +110,14 @@ public class CUsuarioLogin implements Serializable {
 		this.nPerfilCod =0;
 		this.cNroDoc ="";
 		this.cNombres ="";
-		this.bEsRepLeg =false;
-		this.cSexo =' ';
+		this.cSexo ="";
 		this.cCelular ="";
 		this.imgUsuario="";
 	}
 	public CUsuarioLogin(String cResultado, String cMensaje,
 			String cUsuarioCod, String cClave, int nPerfilCod,
 			Date dFechaInicio, Date dFechaFin, String cNroDoc, String cNombres,
-			boolean bEsRepLeg, char cSexo, Date dFechaNac, String cCelular) {
+			String cSexo, Date dFechaNac, String cCelular) {
 		this.cResultado = cResultado;
 		this.cMensaje = cMensaje;
 		this.cUsuarioCod = cUsuarioCod;
@@ -135,7 +127,6 @@ public class CUsuarioLogin implements Serializable {
 		this.dFechaFin = dFechaFin;
 		this.cNroDoc = cNroDoc;
 		this.cNombres = cNombres;
-		this.bEsRepLeg = bEsRepLeg;
 		this.cSexo = cSexo;
 		this.dFechaNac = dFechaNac;
 		this.cCelular = cCelular;
