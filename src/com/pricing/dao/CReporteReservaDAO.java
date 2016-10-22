@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pricing.model.CDestino;
+import com.pricing.model.CEstadistica_Paquete;
 import com.pricing.model.CHotel;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
@@ -19,6 +20,7 @@ public class CReporteReservaDAO extends CConexion{
 	private ArrayList<CServicio> listaServiciosReserva;
 	private ArrayList<CSubServicio> listaSubServiciosReserva;
 	private CReporteReserva reporteReserva;
+	private ArrayList<CEstadistica_Paquete> masVendidosxMeses;
 
 	
 	//=======================getter and setter==============
@@ -53,6 +55,14 @@ public class CReporteReservaDAO extends CConexion{
 	}
 	public void setListaServiciosReserva(ArrayList<CServicio> listaServiciosReserva) {
 		this.listaServiciosReserva = listaServiciosReserva;
+	}
+	
+	public ArrayList<CEstadistica_Paquete> getMasVendidosxMeses() {
+		return masVendidosxMeses;
+	}
+	public void setMasVendidosxMeses(
+			ArrayList<CEstadistica_Paquete> masVendidosxMeses) {
+		this.masVendidosxMeses = masVendidosxMeses;
 	}
 	//===================contructores====================
 	public CReporteReservaDAO() {
@@ -94,6 +104,12 @@ public class CReporteReservaDAO extends CConexion{
 	{
 		String[] values={codReserva};
 		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarserviciosreserva",values);
+	}
+	
+	public List recuperarPaquetesMasVendidos(String fecha)
+	{
+		String[] values={fecha};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarPaquetesMas",values);
 	}
 	
 	public List recuperarSubServiciosReservaBD(String codReserva)
@@ -159,5 +175,17 @@ public class CReporteReservaDAO extends CConexion{
 			Map row=(Map)lista.get(i);
 			listaSubServiciosReserva.add(new CSubServicio((String)row.get("csubservicioindioma1"),(Number)row.get("nprecioservicio"),(String)row.get("cservicioindioma1")));
 		}
+	}
+	
+	public void asignarPaquetesmasVendidos(List lista)
+	{
+		System.out.println("entra aqui 1");
+		masVendidosxMeses=new ArrayList<CEstadistica_Paquete>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			masVendidosxMeses.add(new CEstadistica_Paquete((String)row.get("ctituloidioma1"),(long)row.get("nrovendidos"),(Date)row.get("fecha")));
+		}
+		System.out.println("entra aqui 2");
 	}
 }

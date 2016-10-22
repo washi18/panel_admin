@@ -567,4 +567,64 @@ $$
   	group by formapago;
   $$
   language sql;
+  
+  
+  
+  /*hoy viernes*
+   */
+  
+  create or replace function Pricing_sp_BuscarPaquetesMasVendidos
+(
+	fechaInicio varchar(12),
+	fechaFin varchar(12)
+)
+RETURNS table (ctituloidioma1 varchar(200),nrovendidos bigint) AS
+$$
+	select p.ctituloidioma1,count(*) as nrovendidos
+			from treserva as r 
+			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
+			left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
+			left join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
+			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd'))
+			group by p.cpaquetecod
+			order by nrovendidos desc
+			limit 1 offset 0;
+$$
+  LANGUAGE sql;
+
+
+
+  select Pricing_sp_BuscarPaquetesMasVendidos('2016-07-01','2016-07-30');
+
+
+select pricing_sp_buscarpaquetesmasvendidos('2016-07-01','2016-07-31')
+create or replace function Pricing_sp_BuscarPaquetesMas
+(
+	fechaanio varchar(12)
+)
+RETURNS table (ctituloidioma1 varchar(200),nrovendidos bigint,fecha timestamp) AS
+$$
+	SELECT p.ctituloidioma1,
+                CASE WHEN to_date($1||''||'-01-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-01-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-02-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-02-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-03-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-03-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-04-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-04-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-05-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-05-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-06-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-06-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-07-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-07-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-08-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-08-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-09-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-09-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-10-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-10-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-11-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-11-31','yyy-MM-dd') THEN count(*)
+			WHEN to_date($1||''||'-12-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-12-31','yyy-MM-dd') THEN count(*)
+		END as nrovendidos,r.dfecha
+               from treserva as r 
+			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
+			left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
+			left join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
+			where p.ctituloidioma1 != ''
+			group by p.cpaquetecod,r.dfecha
+			order by nrovendidos desc;
+$$
+  LANGUAGE sql;
 
