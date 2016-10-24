@@ -4,26 +4,29 @@ import java.util.ArrayList;
 
 public class CDestinoConHoteles 
 {
-	private String destino;
+	private CDestino oDestino;
 	private ArrayList<CHotel> listaDestinosHoteles;
 	//=================
-	public String getDestino() {
-		return destino;
-	}
-	public void setDestino(String destino) {
-		this.destino = destino;
-	}
 	
 	public ArrayList<CHotel> getListaDestinosHoteles() {
 		return listaDestinosHoteles;
 	}
+	
+	public CDestino getoDestino() {
+		return oDestino;
+	}
+
+	public void setoDestino(CDestino oDestino) {
+		this.oDestino = oDestino;
+	}
+
 	public void setListaDestinosHoteles(ArrayList<CHotel> listaDestinosHoteles) {
 		this.listaDestinosHoteles = listaDestinosHoteles;
 	}
 	//=================
 	public CDestinoConHoteles() {
 		// TODO Auto-generated constructor stub
-		this.destino="";
+		this.oDestino=null;
 		this.listaDestinosHoteles=null;
 	}
 	/*
@@ -34,9 +37,9 @@ public class CDestinoConHoteles
 	}
 	*/
 	
-	public CDestinoConHoteles(String destino, ArrayList<CHotel> listaDestinoHoteles)
+	public CDestinoConHoteles(CDestino destino, ArrayList<CHotel> listaDestinoHoteles)
 	{
-		this.destino = destino;
+		this.oDestino = destino;
 		this.listaDestinosHoteles=listaDestinoHoteles;
 	}
 }

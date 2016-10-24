@@ -389,7 +389,7 @@ public class panelAdminVM
 		visibleConfiguracion=true;	
 		if (cambios.equals("itemDisponibilidad") || cambios.equals("btnDisponibilidad") || cambios.equals("tabDisponibilidad") ) {
 				visibleDisponibilidad=true;
-				visibleActividades=false;
+				visibleActividades=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=visibleReportReservas=visibleHoteles=false;
 				visibleSubServicios=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				seleccionDisponibilidad=true;
@@ -399,7 +399,7 @@ public class panelAdminVM
 				visibleEtiqueta = true;
 				visibleDisponibilidad=visiblePaquetes=visibleServicios=visibleSubServicios=visibleReportReservas=visibleHoteles=false;
 				visibleImpuestos=visibleDestinos=visibleReportPagos=false;
-				visibleActividades=false;
+				visibleActividades=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				seleccionActividades=false;
 				seleccionEtiquetas=true;
 				seleccionDisponibilidad=seleccionImpuestos=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
@@ -407,7 +407,7 @@ public class panelAdminVM
 				visiblePaquetes=true;
 				visibleDisponibilidad=visibleEtiqueta=visibleServicios=visibleReportReservas=visibleHoteles=false;
 				visibleSubServicios=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
-				visibleActividades=false;
+				visibleActividades=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				seleccionActividades=false;
 				seleccionPaquetes=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionServicios=seleccionSubServicios=false;
@@ -415,7 +415,7 @@ public class panelAdminVM
 				visibleServicios=true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleReportReservas=visibleHoteles=false;
 				visibleSubServicios=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
-				visibleActividades=false;
+				visibleActividades=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				seleccionActividades=false;
 				seleccionServicios=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionSubServicios=false;
@@ -423,7 +423,7 @@ public class panelAdminVM
 				visibleSubServicios =true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleHoteles=false;
 				visibleImpuestos=visibleDestinos=visibleReportPagos=false;
-				visibleActividades=false;
+				visibleActividades=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				seleccionActividades=false;
 				seleccionSubServicios=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionImpuestos=seleccionPaquetes=seleccionServicios=false;
@@ -433,7 +433,7 @@ public class panelAdminVM
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
 				visibleActividades=true;
 				seleccionActividades=true;
-				visibleSubServicios=false;
+				visibleSubServicios=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				seleccionReportPagos=false;
 				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
@@ -442,7 +442,7 @@ public class panelAdminVM
 				visibleImpuestos=true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleHoteles=false;
 				visibleSubServicios=visibleDestinos=visibleReportPagos=false;
-				visibleActividades=false;
+				visibleActividades=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				seleccionActividades=false;
 				seleccionImpuestos=true;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
@@ -450,7 +450,7 @@ public class panelAdminVM
 				visibleHoteles=true;
 				visibleImpuestos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleReportPagos=false;
-				visibleSubServicios=visibleDestinos=false;
+				visibleSubServicios=visibleDestinos=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				visibleActividades=false;
 				seleccionActividades=false;
 				seleccionHoteles=true;
@@ -460,7 +460,7 @@ public class panelAdminVM
 				visibleDestinos=true;
 				visibleHoteles=visibleImpuestos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
-				visibleSubServicios=visibleReportPagos=false;
+				visibleSubServicios=visibleReportPagos=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				visibleActividades=false;
 				seleccionActividades=false;
 				seleccionDestinos=true;
@@ -470,7 +470,7 @@ public class panelAdminVM
 				visibleReportReservas=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;
-				visibleActividades=false;
+				visibleActividades=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				seleccionActividades=false;
 				seleccionReportReservas=true;
 				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
@@ -480,7 +480,7 @@ public class panelAdminVM
 				visibleReportPagos=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
-				visibleActividades=false;
+				visibleActividades=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 				seleccionActividades=false;
 				visibleSubServicios=false;
 				seleccionReportPagos=true;

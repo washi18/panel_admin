@@ -17,7 +17,6 @@
 			</div>
 			<div sclass="estilo_div_estado_pagos">
 				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
-					<radio id="rdPagoPendiente" label="Pagos pendientes" value="PagosPendientes" checked="@bind(vmPagos.estadoPagoPendiente)" onCheck="@command('seleccion_radio',radio=self.id)" width="33%"/>
 					<radio id="rdPagoParcial" label="Pagos Parciales" value="PagosParciales" checked="@bind(vmPagos.estadoPagoParcial)" onCheck="@command('seleccion_radio',radio=self.id)" width="33%"/>
 					<radio id="rdPagoTotal" label="Pagos totales" value="PagosTotales" checked="@bind(vmPagos.estadoPagoTotal)" onCheck="@command('seleccion_radio',radio=self.id)" width="33%"/>
 				</radiogroup>

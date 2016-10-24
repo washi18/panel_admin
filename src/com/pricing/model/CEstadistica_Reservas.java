@@ -549,6 +549,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				"}");
 		
 		chartComp28.setModel(dataChartModel28);
+		
 		//==================enero==================
 				Number enero [] = { sumasMeses[0],0,0,0,0,0,0,0,0,0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -557,7 +558,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				Map style = new HashMap();
 				style.put("stack", "enero");
-				chartComp28.setSeriesOptions(nombresPaquetes[0], style);
+				chartComp28.setSeriesOptions("enero", style);
 				//==================febrero==================
 				Number febrero [] = { 0,sumasMeses[1],0,0,0,0,0,0,0,0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -566,7 +567,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "febrero");
-				chartComp28.setSeriesOptions(nombresPaquetes[1], style);
+				chartComp28.setSeriesOptions("febrero", style);
 				//==================febrero==================
 				Number marzo [] = { 0,0,sumasMeses[2],0,0,0,0,0,0,0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -575,7 +576,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "marzo");
-				chartComp28.setSeriesOptions(nombresPaquetes[2], style);
+				chartComp28.setSeriesOptions("marzo", style);
 				//==================febrero==================
 				Number abril [] = { 0,0,0,sumasMeses[3],0,0,0,0,0,0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -584,7 +585,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "abril");
-				chartComp28.setSeriesOptions(nombresPaquetes[3], style);
+				chartComp28.setSeriesOptions("abril", style);
 				//==================febrero==================
 				Number mayo [] = { 0,0,0,0,sumasMeses[4],0,0,0,0,0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -593,7 +594,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "mayo");
-				chartComp28.setSeriesOptions(nombresPaquetes[4], style);
+				chartComp28.setSeriesOptions("mayo", style);
 				//==================febrero==================
 				Number junio [] = { 0,0,0,0,0,sumasMeses[5],0,0,0,0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -602,7 +603,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "junio");
-				chartComp28.setSeriesOptions(nombresPaquetes[5], style);
+				chartComp28.setSeriesOptions("junio", style);
 				//==================febrero==================
 				Number julio [] = { 0,0,0,0,0,0,
 						sumasMeses[6],0,0,0,0,0};
@@ -612,7 +613,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "julio");
-				chartComp28.setSeriesOptions(nombresPaquetes[6], style);
+				chartComp28.setSeriesOptions("julio", style);
 				//==================febrero==================
 				Number agosto [] = { 0,0,0,0,0,0,0,sumasMeses[7],0,0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -621,7 +622,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "agosto");
-				chartComp28.setSeriesOptions(nombresPaquetes[7], style);
+				chartComp28.setSeriesOptions("agosto", style);
 				//==================febrero==================
 				Number setiembre [] = { 0,0,0,0,0,0,0,0,sumasMeses[8],0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -630,7 +631,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "setiembre");
-				chartComp28.setSeriesOptions(nombresPaquetes[8], style);
+				chartComp28.setSeriesOptions("setiembre", style);
 				//==================febrero==================
 				Number octubre [] = {0,0,0,0,0,0,0,0,0,sumasMeses[9],0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -639,7 +640,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "octubre");
-				chartComp28.setSeriesOptions(nombresPaquetes[9], style);
+				chartComp28.setSeriesOptions("octubre", style);
 				//==================febrero==================
 				Number noviembre [] = { 0,0,0,0,0,0,0,0,0,0,sumasMeses[10],0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -648,7 +649,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				style = new HashMap();
 				style.put("stack", "noviembre");
-				chartComp28.setSeriesOptions(nombresPaquetes[10], style);
+				chartComp28.setSeriesOptions("noviembre", style);
 				//==================febrero==================
 				Number diciembre [] = { 0,0,0,0,0,0,0,0,0,0,0,sumasMeses[11]};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
@@ -657,7 +658,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				
 				 style = new HashMap();
 				style.put("stack", "diciembre");
-				chartComp28.setSeriesOptions(nombresPaquetes[11], style);
+				chartComp28.setSeriesOptions("diciembre", style);
 	}
 
 	@Override

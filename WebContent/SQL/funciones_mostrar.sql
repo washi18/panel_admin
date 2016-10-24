@@ -367,7 +367,7 @@ $$
 Nombre		:Pricing_sp_BuscarServiciosReserva
 Detalle     :Realiza la busqueda de servicios de acuerdo ala reserva donde se encuentre
 +++++++++++++++++++++++++++++++++++++++++++++++++*/
-  create or replace function Pricing_sp_BuscarServiciosReserva
+  create or replace function Pricing_sp_BuscarsubServiciosReserva
 (
   codReserva varchar(12)
 )
@@ -400,11 +400,10 @@ $$
 			inner join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
 			inner join tpaquetedestino as pd on(p.cpaquetecod=pd.cpaquetecod)
 			inner join tdestino as d on(pd.ndestinocod=d.ndestinocod)
-			inner join tdestinohotel as dh on(d.ndestinocod=dh.ndestinocod)
-			inner join thotel as h on(dh.nhotelcod=h.nhotelcod)
+			inner join thotel as h on (h.ndestinocod=d.ndestinocod)
 			where (rp.creservacod=$1 and d.bestado=true and h.categoriahotelcod=$2)
 			group by h.chotel, h.npreciosimple,h.npreciodoble,h.npreciotriple,d.cdestino
-			order by h.chotel;
+			order by d.cdestino;
 $$
   LANGUAGE sql;
  /*+++++++++++++++++++++++++++++++++++++++++++++++++
@@ -589,33 +588,7 @@ $$
   
   /*hoy viernes*
    */
-  
-  create or replace function Pricing_sp_BuscarPaquetesMasVendidos
-(
-	fechaInicio varchar(12),
-	fechaFin varchar(12)
-)
-RETURNS table (ctituloidioma1 varchar(200),nrovendidos bigint) AS
-$$
-	select p.ctituloidioma1,count(*) as nrovendidos
-			from treserva as r 
-			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
-			left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
-			left join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
-			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd'))
-			group by p.cpaquetecod
-			order by nrovendidos desc
-			limit 1 offset 0;
-$$
-  LANGUAGE sql;
-
-
-
-  select Pricing_sp_BuscarPaquetesMasVendidos('2016-07-01','2016-07-30');
-
-
-select pricing_sp_buscarpaquetesmasvendidos('2016-07-01','2016-07-31')
-create or replace function Pricing_sp_BuscarPaquetesMas
+create or replace function Pricing_sp_BuscarPaquetesMasVendidos
 (
 	fechaanio varchar(12)
 )

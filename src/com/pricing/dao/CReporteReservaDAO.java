@@ -109,7 +109,7 @@ public class CReporteReservaDAO extends CConexion{
 	public List recuperarPaquetesMasVendidos(String fecha)
 	{
 		String[] values={fecha};
-		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarPaquetesMas",values);
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarPaquetesMasVendidos",values);
 	}
 	
 	public List recuperarSubServiciosReservaBD(String codReserva)

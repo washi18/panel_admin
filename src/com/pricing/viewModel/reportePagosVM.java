@@ -167,7 +167,14 @@ public class reportePagosVM {
 			reportePagosAnterior=destino;
 		}
 		else{
-			destino.setVisibleDestinospop(true);
+			if(this.getListaDestinos().isEmpty()){
+				destino.setVisibleDestinospop(false);
+				destino.setColornoExisteListaDestinos("background: #DA0613;");
+			}
+			else{
+				destino.setVisibleDestinospop(true);
+				destino.setColornoExisteListaDestinos("background: #3BA420;");
+			}
 		}
 		BindUtils.postNotifyChange(null, null, destino,"visibleDestinospop");
 		BindUtils.postNotifyChange(null, null, destino,"listaDestinos");
@@ -213,7 +220,14 @@ public class reportePagosVM {
 			reportePagosAnterior=reserva;
 		}
 		else {
-			reserva.setVisibleHotelespop(true);
+			if(this.getListaDestinosconHoteles().isEmpty()){
+				reserva.setVisibleHotelespop(false);
+				reserva.setColornoExisteListaHoteles("background: #DA0613;");
+			}
+			else{
+				reserva.setVisibleHotelespop(true);
+				reserva.setColornoExisteListaHoteles("background: #3BA420;");
+			}
 		}
 		BindUtils.postNotifyChange(null, null, reserva,"visibleHotelespop");
 		BindUtils.postNotifyChange(null, null, reserva,"colornoExisteListaHoteles");
@@ -239,7 +253,14 @@ public class reportePagosVM {
 			reportePagosAnterior.setVisibleServiciospop(false);
 			reportePagosAnterior=servicio;
 		}else{
-			servicio.setVisibleServiciospop(true);
+			if(this.getListaServicios().isEmpty()){
+				servicio.setVisibleServiciospop(false);
+				servicio.setColornoExisteListaServicios("background: #DA0613;");
+			}
+			else{
+				servicio.setVisibleServiciospop(true);
+				servicio.setColornoExisteListaServicios("background: #3BA420;");
+			}
 		}
 		BindUtils.postNotifyChange(null, null, servicio,"visibleServiciospop");
 		BindUtils.postNotifyChange(null, null, servicio,"listaServicios");
@@ -266,7 +287,14 @@ public class reportePagosVM {
 			reportePagosAnterior=pasajero;
 		}
 		else{
-			pasajero.setVisiblepasajerospop(true);
+			if(this.getListaPasajeros().isEmpty()){
+				pasajero.setVisiblepasajerospop(false);
+				pasajero.setColornoExisteListaPasajeros("background: #DA0613;");
+			}
+			else{
+				pasajero.setVisiblepasajerospop(true);
+				pasajero.setColornoExisteListaPasajeros("background: #3BA420;");
+			}
 		}
 		BindUtils.postNotifyChange(null, null, pasajero,"visiblepasajerospop");
 		BindUtils.postNotifyChange(null, null, pasajero,"listaPasajeros");
@@ -282,21 +310,17 @@ public class reportePagosVM {
 	}
 	
 	@Command
-	@NotifyChange({"estadoPagoParcial","estadoPagoPendiente","estadoPagoTotal"})
+	@NotifyChange({"estadoPagoParcial","estadoPagoTotal"})
 	public void seleccion_radio(@BindingParam("radio")String idRadio)
 	{
-		if(idRadio.equals("rdPagoPendiente"))
-		{
-			estadoPagoPendiente=true;
-			estadoPagoParcial=estadoPagoTotal=false;
-		}else if(idRadio.equals("rdPagoParcial"))
+		if(idRadio.equals("rdPagoParcial"))
 		{
 			estadoPagoParcial=true;
-			estadoPagoPendiente=estadoPagoTotal=false;
+			estadoPagoTotal=false;
 		}else if(idRadio.equals("rdPagoTotal"))
 		{
 			estadoPagoTotal=true;
-			estadoPagoParcial=estadoPagoPendiente=false;
+			estadoPagoParcial=false;
 		}
 	}
 	
@@ -308,7 +332,7 @@ public class reportePagosVM {
 		{
 			Clients.showNotification("Las fechas DESDE-HASTA son obligatorias ", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
 		}
-		else if(estadoPagoParcial==true || estadoPagoPendiente==true || estadoPagoTotal==true)
+		else if(estadoPagoParcial==true || estadoPagoTotal==true)
 		{
 			//-------despedasando la fecha desde------
 			String diaStart=fechaInicio.substring(0,2);
@@ -323,10 +347,7 @@ public class reportePagosVM {
 			String fecha2=anioEnd+"-"+mesEnd+"-"+diaEnd;
 			/****Validando la fecha****/
 			String NombrePago="";
-			if(estadoPagoPendiente)
-			{
-				NombrePago="PENDIENTE DE PAGO";
-			}else if(estadoPagoParcial){
+			if(estadoPagoParcial){
 				NombrePago="PAGO PARCIAL";
 			}else if(estadoPagoTotal){
 				NombrePago="PAGO TOTAL";
