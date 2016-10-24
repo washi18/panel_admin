@@ -35,3 +35,19 @@ begin
 end
 $$
 language plpgsql;
+--Eliminar PAQUETE ACTIVIDAD
+create or replace function Pricing_sp_EliminarPaqueteActividad
+(
+	codpa int
+)
+returns table (resultado varchar(20),mensaje varchar(200),codPaqueteAct int)as
+$$
+begin
+	codPaqueteAct=$1;
+	delete from tpaqueteactividad where npaqueteactividad=$1;
+	resultado='correcto';
+	mensaje='Datos Eliminados Correctamente';
+	return Query select resultado,mensaje,codPaqueteAct;
+end 
+$$
+language plpgsql;

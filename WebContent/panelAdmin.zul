@@ -178,19 +178,19 @@
 					<div sclass="contenedor_botones" width="100%">
 						<div  width="100%" height="auto">
 							<div sclass="estilo_tabbox visible_peque" width="100%">
-								<div>
-									<button id="tabDisponibilidad" visible="@bind(vmAdmin.oAcceso.accesoUpdateDisdo)" zclass="btn_opciones_config" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleDisponibilidad)"></button>
-									<button id="tabEtiqueta" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)" zclass="btn_opciones_config" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleEtiqueta)"></button>
-									<button id="tabPaquete" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visiblePaquetes)"></button>
-									<button id="tabServicio" visible="@bind(vmAdmin.oAcceso.accesoServicios)" zclass="btn_opciones_config" label="Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleServicios)"></button>
-									<button id="tabSubServicio" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleSubServicios)"></button>
-									<button id="tabActividad" visible="@bind(vmAdmin.oAcceso.accesoCategorias)" zclass="btn_opciones_config" label="Actividades" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabImpuesto" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabHotel" visible="@bind(vmAdmin.oAcceso.accesoHoteles)" zclass="btn_opciones_config" label="Hoteles" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabDestino" visible="@bind(vmAdmin.oAcceso.accesoDestinos)" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabReporteReserva" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="tabReportePagos" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-								</div>
+<!-- 								<div> -->
+<!-- 									<button id="tabDisponibilidad" visible="@bind(vmAdmin.oAcceso.accesoUpdateDisdo)" zclass="btn_opciones_config" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleDisponibilidad)"></button> -->
+<!-- 									<button id="tabEtiqueta" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)" zclass="btn_opciones_config" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleEtiqueta)"></button> -->
+<!-- 									<button id="tabPaquete" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visiblePaquetes)"></button> -->
+<!-- 									<button id="tabServicio" visible="@bind(vmAdmin.oAcceso.accesoServicios)" zclass="btn_opciones_config" label="Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleServicios)"></button> -->
+<!-- 									<button id="tabSubServicio" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleSubServicios)"></button> -->
+<!-- 									<button id="tabActividad" visible="@bind(vmAdmin.oAcceso.accesoCategorias)" zclass="btn_opciones_config" label="Actividades" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="tabImpuesto" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="tabHotel" visible="@bind(vmAdmin.oAcceso.accesoHoteles)" zclass="btn_opciones_config" label="Hoteles" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="tabDestino" visible="@bind(vmAdmin.oAcceso.accesoDestinos)" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="tabReporteReserva" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="tabReportePagos" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 								</div> -->
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
 										<include src="UpdateDispo.zul"/>	
@@ -228,19 +228,19 @@
 								</div>
 							</div>
 							<div sclass="estilo_tabbox visible_grande"  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
-								<div>
-									<button id="btnDisponibilidad" visible="@bind(vmAdmin.oAcceso.accesoUpdateDisdo)" zclass="btn_opciones_config" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnEtiquetas" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)" zclass="btn_opciones_config" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnPaquetes" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnServicios" visible="@bind(vmAdmin.oAcceso.accesoServicios)" zclass="btn_opciones_config" label="Servicios"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnSubServicios" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnActividades" visible="@bind(vmAdmin.oAcceso.accesoCategorias)" zclass="btn_opciones_config" label="Actividades" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnImpuestos" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnHoteles" visible="@bind(vmAdmin.oAcceso.accesoHoteles)" zclass="btn_opciones_config" label="Hoteles"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnDestinos" visible="@bind(vmAdmin.oAcceso.accesoDestinos)" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnReporteReservas" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-									<button id="btnReportePagos" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
-								</div>
+<!-- 								<div> -->
+<!-- 									<button id="btnDisponibilidad" visible="@bind(vmAdmin.oAcceso.accesoUpdateDisdo)" zclass="btn_opciones_config" label="Actualizar Disponibilidad" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnEtiquetas" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)" zclass="btn_opciones_config" label="Etiquetas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnPaquetes" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnServicios" visible="@bind(vmAdmin.oAcceso.accesoServicios)" zclass="btn_opciones_config" label="Servicios"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnSubServicios" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnActividades" visible="@bind(vmAdmin.oAcceso.accesoCategorias)" zclass="btn_opciones_config" label="Actividades" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnImpuestos" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnHoteles" visible="@bind(vmAdmin.oAcceso.accesoHoteles)" zclass="btn_opciones_config" label="Hoteles"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnDestinos" visible="@bind(vmAdmin.oAcceso.accesoDestinos)" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnReporteReservas" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)" zclass="btn_opciones_config" label="Reporte Reservas" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 									<button id="btnReportePagos" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)" zclass="btn_opciones_config" label="Reporte Pagos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button> -->
+<!-- 								</div> -->
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
 										<include src="UpdateDispo.zul"/>	

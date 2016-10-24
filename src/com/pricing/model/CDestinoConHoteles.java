@@ -4,27 +4,29 @@ import java.util.ArrayList;
 
 public class CDestinoConHoteles 
 {
-	private String destino;
-	private ArrayList<CHotel> listaDestinosHoteles;
+	private CDestino oDestino;
+	private ArrayList<CHotel> listaHoteles;
 	//=================
-	public String getDestino() {
-		return destino;
+	public CDestino getoDestino() {
+		return oDestino;
 	}
-	public void setDestino(String destino) {
-		this.destino = destino;
+
+	public void setoDestino(CDestino oDestino) {
+		this.oDestino = oDestino;
 	}
-	
-	public ArrayList<CHotel> getListaDestinosHoteles() {
-		return listaDestinosHoteles;
+
+	public ArrayList<CHotel> getListaHoteles() {
+		return listaHoteles;
 	}
-	public void setListaDestinosHoteles(ArrayList<CHotel> listaDestinosHoteles) {
-		this.listaDestinosHoteles = listaDestinosHoteles;
+
+	public void setListaHoteles(ArrayList<CHotel> listaHoteles) {
+		this.listaHoteles = listaHoteles;
 	}
 	//=================
 	public CDestinoConHoteles() {
 		// TODO Auto-generated constructor stub
-		this.destino="";
-		this.listaDestinosHoteles=null;
+		this.oDestino=new CDestino();
+		this.listaHoteles=new ArrayList<CHotel>();;
 	}
 	/*
 	public CDestinoConHoteles(String destino,
@@ -33,10 +35,9 @@ public class CDestinoConHoteles
 		this.listaHotelesDestino = listaHotelesDestino;
 	}
 	*/
-	
-	public CDestinoConHoteles(String destino, ArrayList<CHotel> listaDestinoHoteles)
+	public CDestinoConHoteles(CDestino destino, ArrayList<CHotel> listaHoteles)
 	{
-		this.destino = destino;
-		this.listaDestinosHoteles=listaDestinoHoteles;
+		this.oDestino = destino;
+		this.listaHoteles=listaHoteles;
 	}
 }

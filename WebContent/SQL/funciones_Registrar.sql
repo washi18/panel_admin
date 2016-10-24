@@ -108,6 +108,30 @@ begin
 end
 $$
 language plpgsql;
+/*++++++++++++++++++++++++++++++++++++++++++*/
+create or replace function Pricing_sp_RegistrarPaqueteActividad
+(
+	codpaquete varchar(10),
+	codActividad int
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		codPaqueteAct int) as
+$$
+begin
+	codPaqueteAct=(select max( npaqueteactividad ) from tpaqueteactividad);
+	if(codPaqueteAct is null)then
+		codPaqueteAct=1;
+	else
+		codPaqueteAct=codPaqueteAct+1;
+	end if;
+	insert into tpaqueteactividad values(codPaqueteAct,$1,$2);
+	resultado='correcto';
+	mensaje='Datos Registrados Correctamente';
+	return Query select resultado,mensaje,codPaqueteAct;
+end
+$$
+language plpgsql;
 /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_RegistrarPaqueteCatHotel
 Utilizado en	:Aplicacion Web FootPathPeru
