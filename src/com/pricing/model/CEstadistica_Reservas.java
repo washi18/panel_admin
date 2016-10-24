@@ -40,7 +40,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
     private ArrayList<CEstadistica_Paquete> masVendidoOctubre;
     private ArrayList<CEstadistica_Paquete> masVendidoNoviembre;
     private ArrayList<CEstadistica_Paquete> masVendidoDiciembre;
-    private long sumasMeses[]=new long[12];
+    private long sumasMeses[]={0,0,0,0,0,0,0,0,0,0,0,0};
 	private String nombresPaquetes[]={" "," "," "," "," "," "," "," "," "," "," "," "};
     
     //=====meses del anio=====
@@ -336,12 +336,14 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 					sumasMeses[6]+=listaPaquetesMasVendidos.get(i).getNroVentas();
 					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
 					nombresPaquetes[6]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					System.out.println("vaklor de suma if: julio"+sumasMeses[6]);
 				}else
 				{
 					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[6]){
 						sumasMeses[6]=listaPaquetesMasVendidos.get(i).getNroVentas();
 						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
 						nombresPaquetes[6]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+						System.out.println("vaklor de suma else: julio"+sumasMeses[6]);
 					}
 				}
 			}else
@@ -352,6 +354,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 					sumasMeses[7]+=listaPaquetesMasVendidos.get(i).getNroVentas();
 					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
 					nombresPaquetes[7]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					System.out.println("vaklor de suma: agosto"+sumasMeses[7]);
 				}else
 				{
 					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[7]){
@@ -552,6 +555,7 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 		
 		//==================enero==================
 				Number enero [] = { sumasMeses[0],0,0,0,0,0,0,0,0,0,0,0};
+				System.out.println("suma mese julio"+sumasMeses[0]);
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
 				for(int i = 0; i < enero.length; i++)
 				dataChartModel28.addValue(nombresPaquetes[0], i, enero[i]);
@@ -605,9 +609,9 @@ public class CEstadistica_Reservas extends Window implements EventListener {
 				style.put("stack", "junio");
 				chartComp28.setSeriesOptions("junio", style);
 				//==================febrero==================
-				Number julio [] = { 0,0,0,0,0,0,
-						sumasMeses[6],0,0,0,0,0};
+				Number julio [] = { 0,0,0,0,0,0,sumasMeses[6],0,0,0,0,0};
 				/*masVendidoEnero.get(0).getNroVentas(), masVendidoFebrero.get(0).getNroVentas()*/
+				System.out.println("suma mese julio"+sumasMeses[6]);
 				for(int i = 0; i < julio.length; i++)
 				dataChartModel28.addValue(nombresPaquetes[6], i, julio[i]);
 				

@@ -595,7 +595,7 @@
 				    				</template>
 				    			</listbox>
 				    		</div>
-				    		<space></space>
+				    		<separator spacing="4px"/>
 				    		<div zclass="div_content_datos_listaPaq">
 				    			<div zclass="div_contiene_title">
 									<label value="SERVICIOS" zclass="title_contiene_paquete"/>
@@ -615,7 +615,7 @@
 				    				</template>
 				    			</listbox>
 				    		</div>
-				    		<space></space>
+				    		<separator spacing="4px"/>
 				    		<div zclass="div_content_datos_listaPaq">
 				    			<div zclass="div_contiene_title">
 									<label value="ACTIVIDADES" zclass="title_contiene_paquete"/>

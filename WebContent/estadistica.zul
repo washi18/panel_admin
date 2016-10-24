@@ -13,7 +13,7 @@
 		<div sclass="div_list_cell_estadisticas">
 			<div width="100%" use="com.pricing.model.CEstadistica_Reservas">
 				<div width="100%">
-			 		<zhighcharts  id="chartComp28" width="60%"/>
+			 		<zhighcharts  id="chartComp28" width="66%"/>
 			 	</div>
 			</div>
 		</div>

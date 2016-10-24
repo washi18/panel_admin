@@ -476,7 +476,7 @@ public class panelAdminVM
 				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
-			else if (cambios.equals("itemRepotePagos") || cambios.equals("btnReportePagos") || cambios.equals("tabReportePagos")) {
+			else if (cambios.equals("itemRepotePagos")) {
 				visibleReportPagos=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
@@ -493,7 +493,7 @@ public class panelAdminVM
 				visibleActividades=false;
 				seleccionActividades=false;
 				visibleSubServicios=false;
-				seleccionReportPagos=true;
+				seleccionReportPagos=false;
 				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}else if (cambios.equals("itemEstadisticaPaquetesmasVendidos")) {
@@ -503,7 +503,7 @@ public class panelAdminVM
 				visibleActividades=false;
 				seleccionActividades=false;
 				visibleSubServicios=false;
-				seleccionReportPagos=true;
+				seleccionReportPagos=false;
 				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}

@@ -692,6 +692,14 @@ public class paquetesVM
 		/*RECUPERAMOS LAS NUEVAS ACTIVIDADES EN EL PAQUETE*/
 		paqueteActividadDaoUpdate.asignarListaPaqueteActividaes(paqueteActividadDaoUpdate.recuperarPaqueteActividades(paquete.getcPaqueteCod()));
 		paquete.setListaPaqueteActividades(paqueteActividadDaoUpdate.getListaPaqueteActividades());
+		if(paquete.getListaActividades().size()>0)
+			paquete.setConActividad(true);
+		else
+			paquete.setConActividad(false);
+		if(paquete.getListaPaqueteServicios().size()>0)
+			paquete.setConServicio(true);
+		else
+			paquete.setConServicio(false);
 		Clients.showNotification("El paquete se actualizó correctamente", Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 		paquete.setEditable(false);
 		refrescaFilaTemplate(paquete);
@@ -1261,7 +1269,8 @@ public class paquetesVM
 		else
 			actividad.setSeleccionado(true);
 	}
-	@Command void selectActividades_update(@BindingParam("act")CActividad actividad)
+	@Command 
+	public void selectActividades_update(@BindingParam("act")CActividad actividad)
 	{
 		if(actividad.isSeleccionado())
 			actividad.setSeleccionado(false);

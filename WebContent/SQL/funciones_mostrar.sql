@@ -15,7 +15,13 @@ $$
 	select * from tpaquete where cpaquetecod=$1 and bestado=true;
 $$
   LANGUAGE sql;
-  
+/*+++++++++++++++++++++++++++++++++++++++++++++++*/
+  create or replace function Pricing_sp_MostrarPaqueteActividades(codPaquete varchar(10))
+  RETURNS SETOF tpaqueteactividad AS
+$$
+	select * from tpaqueteactividad where cpaquetecod=$1;
+$$
+  LANGUAGE sql;
 /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_MostrarImpuesto
 Utilizado en	:Aplicacion Web FootPathPeru
