@@ -1,4 +1,31 @@
-﻿CREATE TABLE TAcceso
+CREATE TABLE TActividad
+(
+  nActividadCod int NOT NULL,
+  cActividadIdioma1 varchar(200),
+  cActividadIdioma2 varchar(200),
+  cActividadIdioma3 varchar(200),
+  cActividadIdioma4 varchar(200),
+  cActividadIdioma5 varchar(200),
+  cDescripcionIdioma1 text,
+  cDescripcionIdioma2 text,
+  cDescripcionIdioma3 text,
+  cDescripcionIdioma4 text,
+  cDescripcionIdioma5 text,
+  cUrlImg varchar(200),
+  nPrecioActividad decimal(10,2),
+  bEstado boolean,
+  primary key(nActividadCod)
+);
+CREATE TABLE TPaqueteActividad
+(
+	nPaqueteActividad int not null,
+	cPaqueteCod varchar(10),
+	nActividadCod int,
+	primary key(nPaqueteActividad),
+	foreign key(cPaqueteCod)references TPaquete,
+	foreign key(nActividadCod)references TActividad
+);
+CREATE TABLE TAcceso
 (
 	nAccesoCod int,
 	nPerfilCod int,

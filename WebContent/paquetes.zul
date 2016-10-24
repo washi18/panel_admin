@@ -196,6 +196,26 @@
 							</template>
 						</listbox>
 					</div>
+					<div zclass="div_content_datos_paquete">
+						<div zclass="div_contiene_title">
+							<label value="ACTIVIDADES" zclass="title_contiene_paquete"/>
+						</div>
+						<separator bar="true"/>
+						<listbox model="@load(vmPaquete.listaActividades)" sclass="dest_serv_list">
+							<listhead>
+								<listheader/>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<div zclass="div_list_content_destino_servicio" width="100%">
+											<checkbox label="@load(each.cActividadIdioma1)" width="100%" sclass="select_dest_serv" onClick="@command('selectActividades',actividad=each)"/>
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -304,6 +324,23 @@
 					    						<listcell visible="@bind(servicio.seleccionado)">
 					    							<div>
 					    								<label value="@bind(servicio.cServicioIndioma1)"/>
+					    							</div>
+					    						</listcell>
+					    					</listitem>
+					    				</template>
+					    			</listbox>
+					    		</div>
+					    		<separator spacing="4px" visible="@bind(each.conActividad)"/>
+					    		<div zclass="div_contenedor_datos_paquete" visible="@bind(each.conActividad)">
+					    			<listbox model="@bind(each.listaActividades)" sclass="list_paquete_servicios_destinos">
+					    				<listhead>
+					    					<listheader label="ACTIVIDADES"/>
+					    				</listhead>
+					    				<template name="model" var="actividad">
+					    					<listitem>
+					    						<listcell visible="@bind(actividad.seleccionado)">
+					    							<div>
+					    								<label value="@bind(actividad.cActividadIdioma1)"/>
 					    							</div>
 					    						</listcell>
 					    					</listitem>
@@ -572,6 +609,26 @@
 				    						<listcell>
 				    							<div zclass="div_list_content_destino_servicio" width="100%">
 													<checkbox label="@bind(servicio.cServicioIndioma1)" checked="@load(servicio.seleccionado)" width="100%" sclass="select_dest_serv" onClick="@command('selectServicios_update',serv=servicio)"/>
+												</div>
+				    						</listcell>
+				    					</listitem>
+				    				</template>
+				    			</listbox>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_datos_listaPaq">
+				    			<div zclass="div_contiene_title">
+									<label value="ACTIVIDADES" zclass="title_contiene_paquete"/>
+								</div>
+				    			<listbox model="@bind(each.listaActividades)" sclass="dest_serv_list">
+				    				<listhead>
+				    					<listheader></listheader>
+				    				</listhead>
+				    				<template name="model" var="actividad">
+				    					<listitem>
+				    						<listcell>
+				    							<div zclass="div_list_content_destino_servicio" width="100%">
+													<checkbox label="@bind(actividad.cActividadIdioma1)" checked="@load(actividad.seleccionado)" width="100%" sclass="select_dest_serv" onClick="@command('selectActividades_update',act=actividad)"/>
 												</div>
 				    						</listcell>
 				    					</listitem>

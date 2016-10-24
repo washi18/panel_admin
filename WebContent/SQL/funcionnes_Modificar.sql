@@ -54,6 +54,47 @@ begin
 end
 $$
 LANGUAGE plpgsql;
+/*++++++++++++++++++++++++++++++++++++++++*/
+create or replace function Pricing_sp_ModificarActividad
+(
+  codActi int,
+  cactidioma1 varchar(200),
+  cactidioma2 varchar(200),
+  cactidioma3 varchar(200),
+  cactidioma4 varchar(200),
+  cactidioma5 varchar(200),
+  descripcionidioma1 text,
+  descripcionidioma2 text,
+  descripcionidioma3 text,
+  descripcionidioma4 text,
+  descripcionidioma5 text,
+  urlimg varchar(200),
+  nprecioact decimal(10,2),
+  estado boolean
+)
+RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codAct int) as
+$$
+begin
+	codAct=$1;
+	update tactividad set cactividadidioma1=$2,
+			  cactividadidioma2=$3,
+			  cactividadidioma3=$4,
+			  cactividadidioma4=$5,
+			  cactividadidioma5=$6,
+			  cdescripcionidioma1=$7,
+			  cdescripcionidioma2=$8,
+			  cdescripcionidioma3=$9,
+			  cdescripcionidioma4=$10,
+			  cdescripcionidioma5=$11,
+			  curlimg=$12,
+			  nprecioactividad=$13,
+			  bestado=$14 where nactividadcod=$1;
+	resultado='correcto';
+	mensaje='Datos Actualizados Correctamente';
+	return Query select resultado,mensaje,codAct;
+end
+$$
+language plpgsql;
   /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_ModificarEtiqueta
 Utilizado en	:Aplicacion Web FootPathPeru

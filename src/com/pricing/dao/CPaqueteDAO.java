@@ -35,7 +35,7 @@ public class CPaqueteDAO extends CConexion
 		super();
 		this.oPaquete=paquete;
 	}
-	//===========================
+	/**METODOS DE PAQUETE**/
 	public List recuperarPaqueteBD(String codigoPaquete)
 	{
 		Object[] value={codigoPaquete};
@@ -90,6 +90,7 @@ public class CPaqueteDAO extends CConexion
 				paquete.getnDiaCaminoInka()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaquete", values);
 	}
+	/**METODOS DE PAQUETE SERVICIO**/
 	public List insertarPaqueteServicio(String codPaquete,int codServicio)
 	{
 		Object[] values={codPaquete,codServicio};
@@ -100,6 +101,18 @@ public class CPaqueteDAO extends CConexion
 		Object[] values={codPS};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_EliminarPaqueteServicio", values);
 	}
+	/**METODOS DE PAQUETE ACTIVIDAD**/
+	public List insertarPaqueteActividad(String codPaquete,int codActividad)
+	{
+		Object[] values={codPaquete,codActividad};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaqueteActividad", values);
+	}
+	public List eliminarPaqueteActividad(int codPA)
+	{
+		Object[] values={codPA};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_EliminarPaqueteActividad", values);
+	}
+	/**METODOS DE PAQUETE DESTINO**/
 	public List eliminarPaqueteDestino(int codPD)
 	{
 		Object[] values={codPD};
@@ -115,6 +128,7 @@ public class CPaqueteDAO extends CConexion
 		Object[] values={codpd,noches,ordenItinerario,conCaminoInka};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarPaqueteDestino", values);
 	}
+	/**METODOS DE PAQUETE CATEGORIA HOTEL**/
 	public List insertarPaqueteCatHotel(String codPaquete)
 	{
 		Object[] values={codPaquete};

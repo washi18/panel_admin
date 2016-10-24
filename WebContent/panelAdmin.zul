@@ -23,15 +23,16 @@
 			<div sclass="cabezera">
 				<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
 				<space></space>
+				<label value="@bind(vmAdmin.oUsuario.cNombres)" zclass="lbl_nombre_usuario"/>
 				<menubar sclass="cabezera_menubar">
-					<menu label="@bind(vmAdmin.oUsuario.cNombres)">
-						<menupopup>
-							<menuitem label="Cambiar Cuenta"></menuitem>
-							<menuitem label="Crear Usuario" href="/nuevoAdministrador.zul" visible="@bind(vmAdmin.oAcceso.accesoCrearNuevoUser)"></menuitem>
-							<menuitem label="Cerrar Sesion"></menuitem>
+					<menu label="MI CUENTA">
+						<menupopup sclass="cabecera_menubar_menupopup">
+							<menuitem iconSclass="icon-user" label="Cambiar Cuenta"/>
+							<menuitem iconSclass="icon-user" label="Crear Usuario" visible="@bind(vmAdmin.oAcceso.accesoCrearNuevoUser)"/>
+							<menuitem iconSclass="icon-user" label="Cerrar Sesion"/>
 						</menupopup>
 					</menu>
-					<menu label="Mensajes"></menu>
+					<menu label="MENSAJES"></menu>
 				</menubar>
 			</div>
 		</div>
@@ -96,12 +97,6 @@
 									</div>
 								</div>
 								<div id="d_paquete" visible="false">
-									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoCategorias)">
-										<div onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Categorias" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)">
 										<div id="itemPaquete" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-package estilos-iconos"/>
@@ -118,6 +113,12 @@
 										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-tree estilos-iconos"/>
 											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoCategorias)">
+										<div id="itemActividad" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Actividades" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoHoteles)">
@@ -153,18 +154,6 @@
 											<label value="Reporte de pagos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemEstadisticaPagos" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Estadistica Pagos" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemEstadisticaPaquetesmasVendidos" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Paquetes mas Vendidos" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -173,15 +162,16 @@
 			    <div id="div_config_perfil" width="100%" visible="false" zclass="div_perfil_responsive">
 			    	<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
 					<space></space>
+					<label value="@bind(vmAdmin.oUsuario.cNombres)"/>
 					<menubar sclass="cabezera_menubar">
-						<menu label="@bind(vmAdmin.oUsuario.cNombres)">
-							<menupopup>
-								<menuitem label="Cambiar Cuenta"></menuitem>
-								<menuitem label="Crear Usuario" visible="@bind(vmAdmin.oAcceso.accesoCrearNuevoUser)"></menuitem>
-								<menuitem label="Cerrar Sesion"></menuitem>
+						<menu label="MI CUENTA">
+							<menupopup sclass="cabecera_menubar_menupopup">
+								<menuitem iconSclass="icon-user" label="Cambiar Cuenta"/>
+								<menuitem iconSclass="icon-user" label="Crear Usuario" visible="@bind(vmAdmin.oAcceso.accesoCrearNuevoUser)"/>
+								<menuitem iconSclass="icon-user" label="Cerrar Sesion"/>
 							</menupopup>
 						</menu>
-						<menu label="Mensajes"></menu>
+						<menu label="MENSAJES"></menu>
 					</menubar>
 			    </div>
 				<div  width="100%" height="auto" sclass="estilo_tabbox">
@@ -194,6 +184,7 @@
 									<button id="tabPaquete" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visiblePaquetes)"></button>
 									<button id="tabServicio" visible="@bind(vmAdmin.oAcceso.accesoServicios)" zclass="btn_opciones_config" label="Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleServicios)"></button>
 									<button id="tabSubServicio" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)" focus="@load(vmAdmin.visibleSubServicios)"></button>
+									<button id="tabActividad" visible="@bind(vmAdmin.oAcceso.accesoCategorias)" zclass="btn_opciones_config" label="Actividades" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="tabImpuesto" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="tabHotel" visible="@bind(vmAdmin.oAcceso.accesoHoteles)" zclass="btn_opciones_config" label="Hoteles" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="tabDestino" visible="@bind(vmAdmin.oAcceso.accesoDestinos)" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
@@ -216,6 +207,9 @@
 									<div visible="@bind(vmAdmin.visibleSubServicios)">
 										<include src="subServicios.zul"/>
 									</div>
+									<div visible="@bind(vmAdmin.visibleActividades)">
+										<include src="actividades.zul"/>
+									</div>
 									<div visible="@bind(vmAdmin.visibleImpuestos)">
 										<include src="impuestos.zul"/>
 									</div>
@@ -231,12 +225,6 @@
 									<div visible="@bind(vmAdmin.visibleReportPagos)">
 										<include src="reporte_pagos.zul"/>
 									</div>
-									<div visible="@bind(vmAdmin.visibleEstadisticaPagos)">
-										<include src="estadistica_Pagos.zul"/>
-									</div>
-									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
-										<include src="estadistica.zul"/>
-									</div>
 								</div>
 							</div>
 							<div sclass="estilo_tabbox visible_grande"  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
@@ -246,6 +234,7 @@
 									<button id="btnPaquetes" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)" zclass="btn_opciones_config" label="Paquetes" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="btnServicios" visible="@bind(vmAdmin.oAcceso.accesoServicios)" zclass="btn_opciones_config" label="Servicios"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="btnSubServicios" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)" zclass="btn_opciones_config" label="Sub Servicios" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
+									<button id="btnActividades" visible="@bind(vmAdmin.oAcceso.accesoCategorias)" zclass="btn_opciones_config" label="Actividades" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="btnImpuestos" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)" zclass="btn_opciones_config" label="Impuestos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="btnHoteles" visible="@bind(vmAdmin.oAcceso.accesoHoteles)" zclass="btn_opciones_config" label="Hoteles"  onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
 									<button id="btnDestinos" visible="@bind(vmAdmin.oAcceso.accesoDestinos)" zclass="btn_opciones_config" label="Destinos" onClick="@command('Cambio',cambioInterfaz=self.id)"></button>
@@ -268,6 +257,9 @@
 									<div visible="@bind(vmAdmin.visibleSubServicios)">
 										<include src="subServicios.zul"/>
 									</div>
+									<div visible="@bind(vmAdmin.visibleActividades)">
+										<include src="actividades.zul"/>
+									</div>
 									<div visible="@bind(vmAdmin.visibleImpuestos)">
 										<include src="impuestos.zul"/>
 									</div>
@@ -282,12 +274,6 @@
 									</div>
 									<div visible="@bind(vmAdmin.visibleReportPagos)">
 										<include src="reporte_pagos.zul"/>
-									</div>
-									<div visible="@bind(vmAdmin.visibleEstadisticaPagos)">
-										<include src="estadistica_Pagos.zul"/>
-									</div>
-									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
-										<include src="estadistica.zul"/>
 									</div>
 								</div>
 							</div>

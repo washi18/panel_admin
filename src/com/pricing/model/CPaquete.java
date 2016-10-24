@@ -4,7 +4,9 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 
+import com.pricing.dao.CActividadDAO;
 import com.pricing.dao.CDestinoDAO;
+import com.pricing.dao.CPaqueteActividadDAO;
 import com.pricing.dao.CPaqueteDestinoDAO;
 import com.pricing.dao.CPaqueteServicioDAO;
 import com.pricing.dao.CServicioDAO;
@@ -53,6 +55,7 @@ public class CPaquete
 	private boolean conDestino;
 	private boolean sinDestino;
 	private boolean conServicio;
+	private boolean conActividad;
 	private boolean conDescuento;
 	private boolean sinDescuento;
 	private int nroDestinosSelect;
@@ -67,12 +70,16 @@ public class CPaquete
 	private boolean editable;
 	private CDestinoDAO destinoDao;
 	private CServicioDAO servicioDao;
+	private CActividadDAO actividadDao;
 	private CPaqueteDestinoDAO paqueteDestinoDao;
 	private CPaqueteServicioDAO paqueteServicioDao;
+	private CPaqueteActividadDAO paqueteActividadDao;
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CServicio> listaServicios;
+	private ArrayList<CActividad> listaActividades;
 	private ArrayList<CPaqueteDestino> listaPaqueteDestinos;
 	private ArrayList<CPaqueteServicio> listaPaqueteServicios;
+	private ArrayList<CPaqueteActividad> listaPaqueteActividades;
 	//==========================
 	public String getcPaqueteCod() {
 		return cPaqueteCod;
@@ -311,6 +318,19 @@ public class CPaquete
 			ArrayList<CPaqueteServicio> listaPaqueteServicios) {
 		this.listaPaqueteServicios = listaPaqueteServicios;
 	}
+	public ArrayList<CActividad> getListaActividades() {
+		return listaActividades;
+	}
+	public void setListaActividades(ArrayList<CActividad> listaActividades) {
+		this.listaActividades = listaActividades;
+	}
+	public ArrayList<CPaqueteActividad> getListaPaqueteActividades() {
+		return listaPaqueteActividades;
+	}
+	public void setListaPaqueteActividades(
+			ArrayList<CPaqueteActividad> listaPaqueteActividades) {
+		this.listaPaqueteActividades = listaPaqueteActividades;
+	}
 	public boolean isConDestino() {
 		return conDestino;
 	}
@@ -388,6 +408,12 @@ public class CPaquete
 	}
 	public void setConServicio(boolean conServicio) {
 		this.conServicio = conServicio;
+	}
+	public boolean isConActividad() {
+		return conActividad;
+	}
+	public void setConActividad(boolean conActividad) {
+		this.conActividad = conActividad;
 	}
 	//=========================================
 	public CPaquete() {
@@ -476,24 +502,34 @@ public class CPaquete
 		/***Recuperando lo que contiene el paquete***/
 		destinoDao=new CDestinoDAO();
 		servicioDao=new CServicioDAO();
+		actividadDao=new CActividadDAO();
 		paqueteDestinoDao=new CPaqueteDestinoDAO();
 		paqueteServicioDao=new CPaqueteServicioDAO();
+		paqueteActividadDao=new CPaqueteActividadDAO();
 		listaDestinos=new ArrayList<CDestino>();
 		listaServicios=new ArrayList<CServicio>();
+		listaActividades=new ArrayList<CActividad>();
 		listaPaqueteDestinos=new ArrayList<CPaqueteDestino>();
 		listaPaqueteServicios=new ArrayList<CPaqueteServicio>();
+		listaPaqueteActividades=new ArrayList<CPaqueteActividad>();
 		//RECUPERAR LISTA DESTINOS
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
 		setListaDestinos(destinoDao.getListaDestinos());
 		//RECUPERAR LISTA SERVICIOS
 		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosBD());
 		setListaServicios(servicioDao.getListaServicios());
+		//RECUPERAR LISTA ACTIVIDADES
+		actividadDao.asignarListaActividades(actividadDao.recuperarActividadesBD());
+		setListaActividades(actividadDao.getListaActividades());
 		//RECUPERAR LISTA PAQUETE-DESTINOS
 		paqueteDestinoDao.asignarListaPaqueteDestinos(paqueteDestinoDao.recuperarPaqueteDestinos(cPaqueteCod));
 		setListaPaqueteDestinos(paqueteDestinoDao.getListaPaqueteDestinos());
 		//RECUPERAR LISTA PAQUETE-SERVICIOS
 		paqueteServicioDao.asignarListaPaqueteServicios(paqueteServicioDao.recuperarPaqueteServiciosBD(cPaqueteCod));
 		setListaPaqueteServicios(paqueteServicioDao.getListaPaqueteServicios());
+		//RECUPERAR LISTA PAQUETE-ACTIVIDADES
+		paqueteActividadDao.asignarListaPaqueteActividaes(paqueteActividadDao.recuperarPaqueteActividades(cPaqueteCod));
+		setListaPaqueteActividades(paqueteActividadDao.getListaPaqueteActividades());
 		/***INICIALIZAMOS LOS ESTADOS DE LOS DESTINOS Y SERVICIOS DEL PAQUETE**/
 		inicializarEstadosDeDestinosYServicios();
 		determinarTipoDeManejoPaquete(cDisponibilidad);
@@ -597,5 +633,20 @@ public class CPaquete
 			}
 		}else
 			conServicio=false;
+		
+		if(listaPaqueteActividades.size()>0)
+		{
+			conActividad=true;
+			for(CPaqueteActividad PA:listaPaqueteActividades)
+			{
+				for(CActividad act:listaActividades)
+				{
+					if(PA.getnActividadCod()==act.getnActividadCod())
+						act.setSeleccionado(true);
+				}
+			}
+		}
+		else
+			conActividad=false;
 	}
 }

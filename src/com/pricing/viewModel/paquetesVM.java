@@ -20,15 +20,19 @@ import org.zkoss.zk.ui.util.Clients;
 
 import pe.com.erp.crypto.Encryptar;
 
+import com.pricing.dao.CActividadDAO;
 import com.pricing.dao.CDestinoDAO;
 import com.pricing.dao.CEtiquetaDAO;
+import com.pricing.dao.CPaqueteActividadDAO;
 import com.pricing.dao.CPaqueteDAO;
 import com.pricing.dao.CPaqueteDestinoDAO;
 import com.pricing.dao.CPaqueteServicioDAO;
 import com.pricing.dao.CServicioDAO;
+import com.pricing.model.CActividad;
 import com.pricing.model.CDestino;
 import com.pricing.model.CEtiqueta;
 import com.pricing.model.CPaquete;
+import com.pricing.model.CPaqueteActividad;
 import com.pricing.model.CPaqueteDestino;
 import com.pricing.model.CPaqueteServicio;
 import com.pricing.model.CServicio;
@@ -47,14 +51,17 @@ public class paquetesVM
 	private CPaqueteDAO paqueteDao;
 	private CPaqueteDestinoDAO paqueteDestinoDaoUpdate;
 	private CPaqueteServicioDAO paqueteServicioDaoUpdate;
+	private CPaqueteActividadDAO paqueteActividadDaoUpdate;
 	private ArrayList<CPaquete> listaPaquetes;
 	private boolean visibleGeneral=true;
 	private boolean visibleDescripcion=false;
 	private boolean select_manejo;
 	private CDestinoDAO destinoDao;
 	private CServicioDAO servicioDao;
+	private CActividadDAO actividadDao;
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CServicio> listaServicios;
+	private ArrayList<CActividad> listaActividades;
 	/**
 	 * GETTER AND SETTER
 	 */
@@ -127,6 +134,12 @@ public class paquetesVM
 		this.select_manejo = select_manejo;
 	}
 
+	public ArrayList<CActividad> getListaActividades() {
+		return listaActividades;
+	}
+	public void setListaActividades(ArrayList<CActividad> listaActividades) {
+		this.listaActividades = listaActividades;
+	}
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
 	 */
@@ -144,12 +157,15 @@ public class paquetesVM
 		oPaqueteUpdate=new CPaquete();
 		servicioDao=new CServicioDAO();
 		destinoDao=new CDestinoDAO();
+		actividadDao=new CActividadDAO();
 		paqueteDao=new CPaqueteDAO();
 		paqueteDestinoDaoUpdate=new CPaqueteDestinoDAO();
 		paqueteServicioDaoUpdate=new CPaqueteServicioDAO();
+		paqueteActividadDaoUpdate=new CPaqueteActividadDAO();
 		listaPaquetes=new ArrayList<CPaquete>();
 		listaDestinos=new ArrayList<CDestino>();
 		listaServicios=new ArrayList<CServicio>();
+		listaActividades=new ArrayList<CActividad>();
 		/*****************************/
 		Encryptar encrip= new Encryptar();
 //		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
@@ -171,6 +187,9 @@ public class paquetesVM
 		/**Obtencion de los destinos desde la base de datos**/
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
 		setListaDestinos(destinoDao.getListaDestinos());
+		/**Obtencion de las actividades desde la base de datos**/
+		actividadDao.asignarListaActividades(actividadDao.recuperarActividadesBD());
+		setListaActividades(actividadDao.getListaActividades());
 	}
 	@Command
 	public void insertarPaquete(@BindingParam("componente")Component comp)
@@ -196,6 +215,13 @@ public class paquetesVM
 				if(servicio.isSeleccionado())
 				{
 					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(codPaquete, servicio.getnServicioCod()));
+				}
+			}
+			for(CActividad act:listaActividades)
+			{
+				if(act.isSeleccionado())
+				{
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteActividad(codPaquete, act.getnActividadCod()));
 				}
 			}
 		}else if(oPaquete.isManejo_propio())
@@ -250,6 +276,13 @@ public class paquetesVM
 					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(codPaquete, servicio.getnServicioCod()));
 				}
 			}
+			for(CActividad act:listaActividades)
+			{
+				if(act.isSeleccionado())
+				{
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteActividad(codPaquete, act.getnActividadCod()));
+				}
+			}
 			boolean r=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteCatHotel(codPaquete));
 		}else if(oPaquete.isManejo_normal())
 		{
@@ -271,6 +304,13 @@ public class paquetesVM
 					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(codPaquete, servicio.getnServicioCod()));
 				}
 			}
+			for(CActividad act:listaActividades)
+			{
+				if(act.isSeleccionado())
+				{
+					boolean b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteActividad(codPaquete, act.getnActividadCod()));
+				}
+			}
 			boolean r=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteCatHotel(codPaquete));
 		}
 		Clients.showNotification("El paquete se inserto correctamente", Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
@@ -285,6 +325,9 @@ public class paquetesVM
 		/**Obtencion de los destinos desde la base de datos**/
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
 		setListaDestinos(destinoDao.getListaDestinos());
+		/**Obtencion de las actividades desde la base de datos**/
+		actividadDao.asignarListaActividades(actividadDao.recuperarActividadesBD());
+		setListaActividades(actividadDao.getListaActividades());
 		refrescarSistema();
 	}
 	public void refrescarSistema()
@@ -293,6 +336,7 @@ public class paquetesVM
 		BindUtils.postNotifyChange(null, null, this,"listaDestinos");
 		BindUtils.postNotifyChange(null, null, this,"listaServicios");
 		BindUtils.postNotifyChange(null, null, this,"listaPaquetes");
+		BindUtils.postNotifyChange(null, null, this,"listaActividades");
 	}
 	public boolean validoParaInsertar(Component comp)
 	{
@@ -412,6 +456,29 @@ public class paquetesVM
 					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(paquete.getcPaqueteCod(), servicio.getnServicioCod()));
 				}
 			}
+			for(CActividad actividad:paquete.getListaActividades())
+			{
+				boolean estaRegistrado=false;
+				for(CPaqueteActividad pa:paquete.getListaPaqueteActividades())
+				{
+					if(pa.getnActividadCod()==actividad.getnActividadCod())
+					{
+						estaRegistrado=true;
+						if(!actividad.isSeleccionado())
+						{
+							/**ELIMINAR**/
+							paquete.setConActividad(false);
+							b=paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteActividad(pa.getnPaqueteActividad()));
+						}
+						break;
+					}
+				}
+				if(actividad.isSeleccionado() && !estaRegistrado)
+				{
+					paquete.setConActividad(true);
+					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteActividad(paquete.getcPaqueteCod(), actividad.getnActividadCod()));
+				}
+			}
 			if(paquete.isSinDestino())
 			{
 				for(CPaqueteDestino pd:paquete.getListaPaqueteDestinos())
@@ -508,6 +575,29 @@ public class paquetesVM
 					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(paquete.getcPaqueteCod(), servicio.getnServicioCod()));
 				}
 			}
+			for(CActividad actividad:paquete.getListaActividades())
+			{
+				boolean estaRegistrado=false;
+				for(CPaqueteActividad pa:paquete.getListaPaqueteActividades())
+				{
+					if(pa.getnActividadCod()==actividad.getnActividadCod())
+					{
+						estaRegistrado=true;
+						if(!actividad.isSeleccionado())
+						{
+							/**ELIMINAR**/
+							paquete.setConActividad(false);
+							b=paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteActividad(pa.getnPaqueteActividad()));
+						}
+						break;
+					}
+				}
+				if(actividad.isSeleccionado() && !estaRegistrado)
+				{
+					paquete.setConActividad(true);
+					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteActividad(paquete.getcPaqueteCod(), actividad.getnActividadCod()));
+				}
+			}
 			boolean r=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteCatHotel(paquete.getcPaqueteCod()));
 		}else if(paquete.isManejo_normal())
 		{
@@ -568,6 +658,29 @@ public class paquetesVM
 					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteServicio(paquete.getcPaqueteCod(), servicio.getnServicioCod()));
 				}
 			}
+			for(CActividad actividad:paquete.getListaActividades())
+			{
+				boolean estaRegistrado=false;
+				for(CPaqueteActividad pa:paquete.getListaPaqueteActividades())
+				{
+					if(pa.getnActividadCod()==actividad.getnActividadCod())
+					{
+						estaRegistrado=true;
+						if(!actividad.isSeleccionado())
+						{
+							/**ELIMINAR**/
+							paquete.setConActividad(false);
+							b=paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteActividad(pa.getnPaqueteActividad()));
+						}
+						break;
+					}
+				}
+				if(actividad.isSeleccionado() && !estaRegistrado)
+				{
+					paquete.setConActividad(true);
+					b=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteActividad(paquete.getcPaqueteCod(), actividad.getnActividadCod()));
+				}
+			}
 			boolean r=paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteCatHotel(paquete.getcPaqueteCod()));
 		}
 		/*RECUPERAMOS LOS NUEVOS DESTINOS EN EL PAQUETE*/
@@ -576,6 +689,9 @@ public class paquetesVM
 		/*RECUPERAMOS LOS NUEVOS SERVICIOS EN EL PAQUETE*/
 		paqueteServicioDaoUpdate.asignarListaPaqueteServicios(paqueteServicioDaoUpdate.recuperarPaqueteServiciosBD(paquete.getcPaqueteCod()));
 		paquete.setListaPaqueteServicios(paqueteServicioDaoUpdate.getListaPaqueteServicios());
+		/*RECUPERAMOS LAS NUEVAS ACTIVIDADES EN EL PAQUETE*/
+		paqueteActividadDaoUpdate.asignarListaPaqueteActividaes(paqueteActividadDaoUpdate.recuperarPaqueteActividades(paquete.getcPaqueteCod()));
+		paquete.setListaPaqueteActividades(paqueteActividadDaoUpdate.getListaPaqueteActividades());
 		Clients.showNotification("El paquete se actualizó correctamente", Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 		paquete.setEditable(false);
 		refrescaFilaTemplate(paquete);
@@ -1074,10 +1190,10 @@ public class paquetesVM
 		BindUtils.postNotifyChange(null, null, destino, "nNoches");
 		BindUtils.postNotifyChange(null, null, paquete, "manejoPropio_conCaminoInka");
 		BindUtils.postNotifyChange(null, null, paquete, "dias_noches");
-		for(CDestino dest:paquete.getListaDestinos())
-			if(dest.isSeleccionado())
-				System.out.println("Iti: "+dest.getnOrdenItinerario());
-		System.out.println("===========================");
+//		for(CDestino dest:paquete.getListaDestinos())
+//			if(dest.isSeleccionado())
+//				System.out.println("Iti: "+dest.getnOrdenItinerario());
+//		System.out.println("===========================");
 	}
 	@Command
 	@NotifyChange("oPaquete")
@@ -1136,6 +1252,21 @@ public class paquetesVM
 			servicio.setSeleccionado(false);
 		else
 			servicio.setSeleccionado(true);
+	}
+	@Command
+	public void selectActividades(@BindingParam("actividad")CActividad actividad)
+	{
+		if(actividad.isSeleccionado())
+			actividad.setSeleccionado(false);
+		else
+			actividad.setSeleccionado(true);
+	}
+	@Command void selectActividades_update(@BindingParam("act")CActividad actividad)
+	{
+		if(actividad.isSeleccionado())
+			actividad.setSeleccionado(false);
+		else
+			actividad.setSeleccionado(true);
 	}
 	@Command
 	@NotifyChange({"select_manejo","oPaquete"})
@@ -1490,6 +1621,8 @@ public class paquetesVM
 		BindUtils.postNotifyChange(null, null, p, "editable");
 		BindUtils.postNotifyChange(null, null, p, "listaServicios");
 		BindUtils.postNotifyChange(null, null, p, "listaDestinos");
+		BindUtils.postNotifyChange(null, null, p, "listaActividades");
 		BindUtils.postNotifyChange(null, null, p, "conServicio");
+		BindUtils.postNotifyChange(null, null, p, "conActividad");
 	}
 }

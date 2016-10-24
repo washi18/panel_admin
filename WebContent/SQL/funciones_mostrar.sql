@@ -76,7 +76,24 @@ $$
 	order by nserviciocod;
 $$
   LANGUAGE sql;
-/*+++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*+++++++++++++++++++++++++++++++++++++++++++++++*/
+create or replace function Pricing_sp_MostrarTodasActividades()
+RETURNS SETOF tactividad AS
+$$
+	select * from tactividad
+	order by nactividadcod;
+$$
+  LANGUAGE sql;
+/*+++++++++++++++++++++++++++++++++++++*/
+ create or replace function Pricing_sp_MostrarActividades()
+RETURNS SETOF tactividad AS
+$$
+	select * from tactividad
+	where bestado=true
+	order by nactividadcod;
+$$
+  LANGUAGE sql;
+ /*+++++++++++++++++++++++++++++++++++++++++++++++++*/
 CREATE OR REPLACE function Pricing_sp_MostrarServiciosconSubServicios
 ()
 returns setof tservicio as 

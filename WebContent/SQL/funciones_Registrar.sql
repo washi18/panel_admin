@@ -363,11 +363,48 @@ create or replace function Pricing_sp_RegistrarServicio
 returns table(resultado varchar(20),mensaje varchar(200),codServicio int)as
 $$
 begin
-        codServicio=(select max( nserviciocod ) from tservicio)+1;
-        insert into tservicio values(codServicio,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$15,$16);
+        codServicio=(select max( nserviciocod ) from tservicio);
+        if(codServicio is null)then
+        	codServicio=1;
+        else
+        	codServicio=codServicio+1;
+        end if;
+        insert into tservicio values(codServicio,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16);
         resultado='correcto';
         mensaje='Datos Registrados Correctamente';
         return Query select resultado,mensaje,codServicio;
+end
+$$
+language plpgsql;
+--**Resgistrar Actividad**--
+create or replace function Pricing_sp_RegistrarActividad
+(
+  cactidioma1 varchar(200),
+  cactidioma2 varchar(200),
+  cactidioma3 varchar(200),
+  cactidioma4 varchar(200),
+  cactidioma5 varchar(200),
+  descripcionidioma1 text,
+  descripcionidioma2 text,
+  descripcionidioma3 text,
+  descripcionidioma4 text,
+  descripcionidioma5 text,
+  urlimg varchar(200),
+  nprecioact decimal(10,2)
+)
+returns table(resultado varchar(20),mensaje varchar(200),codActividad int)as
+$$
+begin
+        codActividad=(select max( nactividadcod ) from tactividad);
+        if(codActividad is null)then
+        	codActividad=1;
+        else
+        	codActividad=codActividad+1;
+        end if;
+        insert into tactividad values(codActividad,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,true);
+        resultado='correcto';
+        mensaje='Datos Registrados Correctamente';
+        return Query select resultado,mensaje,codActividad;
 end
 $$
 language plpgsql;
