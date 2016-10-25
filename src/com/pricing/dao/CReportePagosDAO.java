@@ -182,6 +182,7 @@ public class CReportePagosDAO  extends CConexion{
 	}
 	public void asignarPasajerosReserva(List lista)
 	{
+		System.out.println("entro a pasajero");
 		listaPasajerosReserva=new ArrayList<CPasajero>();
 		for(int i=0;i<lista.size();i++)
 		{
@@ -189,5 +190,6 @@ public class CReportePagosDAO  extends CConexion{
 			listaPasajerosReserva.add(new CPasajero((String)row.get("cabrevtipodoc"),(String)row.get("capellidos"),
 					(String)row.get("cnombres"),(String)row.get("cnombreesp"),(int)row.get("nedad"),(String)row.get("cnrodoc"),(String)row.get("csexo")));
 		}
+		System.out.println("entro a pasajero fin");
 	}
 }

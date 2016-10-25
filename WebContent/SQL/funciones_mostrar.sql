@@ -623,3 +623,37 @@ $$
 $$
   LANGUAGE sql;
 
+  
+  insert into tpasajero values(144,'R000000012',2,'73077307',3,'quispe ttito','Juan',11,'M',19,'Doc_36_1.jpeg'),
+				(145,'R000000013',2,'73077307',3,'mamani ttito','Jose',4,'F',23,'Doc_37_1.jpeg'),
+				(146,'R000000014',2,'73077307',3,'guzman ttito','Oscar',1,'M',29,'Doc_37_1.jpeg'),
+				(147,'R000000018',2,'73077307',3,'blas ttito','Juan',2,'F',22,'Doc_36_1.jpeg'),
+				(148,'R000000019',2,'73077307',3,'aimituma ttito','Pedro',11,'M',19,'Doc_38_1.jpeg');
+
+
+
+
+codreservapservicio bigint NOT NULL DEFAULT nextval('seq_reservaps'::regclass),
+  codpaqueteservicio integer,
+  creservacod character varying(12),
+  nroprestacionservicio numeric(10,2),
+  precioprestacionservicio numeric(10,2),
+
+  insert into treservapaqueteservicio values(128,1,'R000000021',5.00,70),(129,8,'R000000022',5.00,70),(130,2,'R000000023',5.00,70),(131,4,'R000000024',5.00,70),
+						(132,6,'R000000025',5.00,70),(133,10,'R000000026',5.00,70),(134,14,'R000000027',5.00,70),(135,16,'R000000028',5.00,70);
+
+  126	51	R000000020	4.00	60.00
+
+
+    insert into treserva values('R000000021','2016-08-12 09:38:37','2016-11-03','2016-11-06','jason','julian@gmail.com','98756433',567.00,3,'nada x el momento','PAGO PARCIAL'),
+			     ('R000000022','2016-03-20 09:38:37','2016-11-03','2016-11-06','pedro','juan@gmail.com','98756433',3.00,3,'nada x el momento','PAGO PARCIAL'),
+			     ('R000000023','2016-03-23 09:38:37','2016-11-03','2016-11-06','jose','jose@gmail.com','98756433',567.00,3,'nada x el momento','PAGO PARCIAL'),
+			     ('R000000024','2016-03-25 09:38:37','2016-11-03','2016-11-06','oscar','oscar@gmail.com','98756433',267.00,3,'nada x el momento','PAGO PARCIAL'),
+			     ('R000000025','2016-01-20 09:38:37','2016-11-03','2016-11-06','pedro','pedro@gmail.com','98756433',567.00,3,'nada x el momento','PAGO PARCIAL'),
+			     ('R000000026','2016-01-23 09:38:37','2016-11-03','2016-11-06','bran','bran@gmail.com','98756433',667.00,3,'nada x el momento','PAGO TOTAL'),
+			     ('R000000027','2016-11-12 09:38:37','2016-11-03','2016-11-06','franklin','frank@gmail.com','98756433',267.00,3,'nada x el momento','PAGO TOTAL'),
+			     ('R000000028','2016-11-14 09:38:37','2016-11-03','2016-11-06','cesar','cesar@gmail.com','98756433',767.00,3,'nada x el momento','PAGO TOTAL'),
+			     ('R000000030','2016-01-22 09:38:37','2016-11-03','2016-11-06','reinaldo','roanldo@gmail.com','98756433',167.00,3,'nada x el momento','PAGO TOTAL')
+
+
+delete from treservapaqueteservicio where codreservapservicio=121;

@@ -271,6 +271,7 @@ public class reportePagosVM {
 	@NotifyChange("listaPasajeros")
 	public void habilitarPasajerosPOP(@BindingParam("cpasajero") CReportePagos pasajero)
 	{
+		System.out.println("entro a pasajeroVM");
 		reportePagosDAO.asignarPasajerosReserva(reportePagosDAO.recuperarPasajerosReservaBD(pasajero.getCodReserva()));
 		this.setListaPasajeros(reportePagosDAO.getListaPasajerosReserva());
 		pasajero.setListaPasajeros(this.getListaPasajeros());
@@ -299,6 +300,7 @@ public class reportePagosVM {
 		BindUtils.postNotifyChange(null, null, pasajero,"visiblepasajerospop");
 		BindUtils.postNotifyChange(null, null, pasajero,"listaPasajeros");
 		BindUtils.postNotifyChange(null, null, pasajero,"colornoExisteListaPasajeros");
+		System.out.println("entro a pasajeroVM fin");
 	}
 	@Command
 	public void recuperarFechaDatebox(@BindingParam("fecha")String fecha,@BindingParam("id")String id)

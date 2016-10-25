@@ -2,18 +2,19 @@
 <zk>
 <style src="css/estilo_Estadisticas.css"></style>
 <style src="css/formas_generales.css"></style>
-<div >
+<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmEst') @init('com.pricing.model.CEstadistica_Reservas')">
 		<div sclass="div_list_cell"  style="display: flex; align-items: center;">
 		    <label value="Ingrese Año: " style="font-size: 13px; color: black; font-weight: bold;"></label>
-			<combobox>
+			<combobox onSelect="@command('asignarAnio',anio=self.selectedItem.label)">
 			  <comboitem label="2016"></comboitem>
 			</combobox>
 		</div>
 		<space orient="horizontal"></space>
 		<div sclass="div_list_cell_estadisticas">
 			<div width="100%" use="com.pricing.model.CEstadistica_Reservas">
-				<div width="100%">
-			 		<zhighcharts  id="chartComp28" width="66%"/>
+				<div width="100%" style="display:flex;" height="500px">
+			 		<zhighcharts  id="chartComp28" width="75%" height="500px"/>
 			 	</div>
 			</div>
 		</div>

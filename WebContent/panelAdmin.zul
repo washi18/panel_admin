@@ -163,7 +163,7 @@
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)">
 										<div id="itemEstadisticaPaquetesmasVendidos" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Estadistica Paquetes mas vendidos" sclass="lbls_mantenimientos"/>
+											<label value="Paquetes mas vendidos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 								</div>

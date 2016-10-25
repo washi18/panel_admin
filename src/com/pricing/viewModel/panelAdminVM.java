@@ -476,7 +476,7 @@ public class panelAdminVM
 				seleccionHoteles=seleccionImpuestos=seleccionDestinos=false;
 				seleccionDisponibilidad=seleccionEtiquetas=seleccionPaquetes=seleccionServicios=seleccionSubServicios=false;
 			}
-			else if (cambios.equals("itemRepotePagos")) {
+			else if (cambios.equals("itemReportePagos")) {
 				visibleReportPagos=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;

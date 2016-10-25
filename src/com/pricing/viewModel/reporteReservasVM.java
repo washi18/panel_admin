@@ -177,7 +177,14 @@ public class reporteReservasVM {
 			reporteReservaAnterior=destinos;
 		}
 		else{
-			destinos.setVisibleDestinospop(true);
+			if(this.getListaDestinos().isEmpty()){
+				destinos.setVisibleDestinospop(false);
+				destinos.setColornoExisteListaDestinos("background: #DA0613;");
+			}
+			else{
+				destinos.setVisibleDestinospop(true);
+				destinos.setColornoExisteListaDestinos("background: #3BA420;");
+			}
 		}
 		BindUtils.postNotifyChange(null, null, destinos,"visibleDestinospop");
 		BindUtils.postNotifyChange(null, null, destinos,"listaDestinos");
@@ -224,6 +231,14 @@ public class reporteReservasVM {
 		}
 		else {
 			hoteles.setVisibleHotelespop(true);
+			if(this.getListaServicioconSubServicios().isEmpty()){
+				hoteles.setVisibleSubServiciopop(false);
+				hoteles.setColornoExisteListaSubServicios("background: #DA0613;");
+			}
+			else{
+				hoteles.setVisibleSubServiciopop(true);
+				hoteles.setColornoExisteListaSubServicios("background: #3BA420;");
+			}
 		}
 		BindUtils.postNotifyChange(null, null, hoteles,"visibleSubServiciopop");
 		BindUtils.postNotifyChange(null, null, hoteles,"colornoExisteListaSubServicios");
@@ -274,7 +289,14 @@ public class reporteReservasVM {
 			reporteReservaAnterior=reserva;
 		}
 		else {
-			reserva.setVisibleHotelespop(true);
+			if(this.getListaDestinosconHoteles().isEmpty()){
+				reserva.setVisibleHotelespop(false);
+				reserva.setColornoExisteListaHoteles("background: #DA0613;");
+			}
+			else{
+				reserva.setVisibleHotelespop(true);
+				reserva.setColornoExisteListaHoteles("background: #3BA420;");
+			}
 		}
 		BindUtils.postNotifyChange(null, null, reserva,"visibleHotelespop");
 		BindUtils.postNotifyChange(null, null, reserva,"colornoExisteListaHoteles");
@@ -301,7 +323,14 @@ public class reporteReservasVM {
 			reporteReservaAnterior.setVisibleServiciospop(false);
 			reporteReservaAnterior=servicio;
 		}else{
-			servicio.setVisibleServiciospop(true);
+			if(this.getListaServicios().isEmpty()){
+				servicio.setVisibleServiciospop(false);
+				servicio.setColornoExisteListaServicios("background: #DA0613;");
+			}
+			else{
+				servicio.setVisibleServiciospop(true);
+				servicio.setColornoExisteListaServicios("background: #3BA420;");
+			}
 		}
 		BindUtils.postNotifyChange(null, null, servicio,"visibleServiciospop");
 		BindUtils.postNotifyChange(null, null, servicio,"listaServicios");
