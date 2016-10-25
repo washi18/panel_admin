@@ -72,6 +72,50 @@ begin
 end
 $$
 language plpgsql;
+/********************************/
+create or replace function Pricing_sp_RegistrarAcceso
+(
+	nPerfilCod int,
+	accesoIdiomas boolean,
+	accesoUpdateDispo boolean,
+	accesoEtiqueta boolean,
+	accesoImpuesto boolean,
+	accesoVisa boolean,
+	accesoPaypal boolean,
+	accesoMasterdCard boolean,
+	accesoWesternUnion boolean,
+	accesoRegUsuarios boolean,
+	accesoCrearNuevoUser boolean,
+	accesoPaquetes boolean,
+	accesoServicios boolean,
+	accesoSubServicios boolean,
+	accesoActividades boolean,
+	accesoHoteles boolean,
+	accesoDestinos boolean,
+	accesoReporReservas boolean,
+	accesoReporPagos boolean,
+	accesoEstadPagos boolean,
+	accesoEstadPaquMasVendidos boolean
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		codAcceso int) as
+$$
+begin
+	codAcceso=(select max( naccesocod ) from tacceso);
+	if(codAcceso is null)then
+		codAcceso=1;
+	else
+		codAcceso=codAcceso+1;
+	end if;
+	insert into tacceso values(codAcceso,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,
+							$16,$17,$18,$19,$20,$21);
+	resultado='correcto';
+	mensaje='Datos Registrados Correctamente';
+	return Query select resultado,mensaje,codAcceso;
+end
+$$
+language plpgsql;
 /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_RegistrarPaqueteDestino
 Utilizado en	:Aplicacion Web FootPathPeru
@@ -353,11 +397,13 @@ create or replace function Pricing_sp_RegistrarSubServicio
 returns table(resultado varchar(20),mensaje varchar(200),codSubServicio int)as
 $$
 begin
-	codSubServicio=(select max( nsubserviciocod ) from tsubservicio)+1;
-	insert into TSubServicio (nsubserviciocod,nserviciocod,csubservicioidioma1,csubservicioidioma2,csubservicioidioma3,
-	                csubservicioidioma4,csubservicioidioma5,cdescripcionidioma1,cdescripcionidioma2,cdescripcionidioma3,
-			cdescripcionidioma4,cdescripcionidioma5,curlimg,clink,nprecioservicio,bestado)
-			values(codSubServicio,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,true);
+	codSubServicio=(select max( nsubserviciocod ) from tsubservicio);
+	if(codSubServicio is null)then
+		codSubServicio=1;
+	else
+		codSubServicio=codSubServicio+1;
+	end if;
+	insert into TSubServicio values(codSubServicio,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,true);
 	resultado='correcto';
 	mensaje='Datos Registrados Correctamente';
 	return Query select resultado,mensaje,codSubServicio;

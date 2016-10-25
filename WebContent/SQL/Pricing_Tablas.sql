@@ -29,20 +29,26 @@ CREATE TABLE TAcceso
 (
 	nAccesoCod int,
 	nPerfilCod int,
-	accesoUpdateDisdo boolean,
+	accesoIdiomas boolean,
+	accesoUpdateDispo boolean,
 	accesoEtiqueta boolean,
 	accesoImpuesto boolean,
-	accesoCodVisa boolean,
+	accesoVisa boolean,
+	accesoPaypal boolean,
+	accesoMasterdCard boolean,
+	accesoWesternUnion boolean,
 	accesoRegUsuarios boolean,
 	accesoCrearNuevoUser boolean,
-	accesoCategorias boolean,
 	accesoPaquetes boolean,
 	accesoServicios boolean,
 	accesoSubServicios boolean,
+	accesoActividades boolean,
 	accesoHoteles boolean,
 	accesoDestinos boolean,
 	accesoReporReservas boolean,
 	accesoReporPagos boolean,
+	accesoEstadPagos boolean,
+	accesoEstadPaquMasVendidos boolean,
 	foreign key (nPerfilCod)references TPerfil,
 	primary key (nAccesoCod)
 );
@@ -73,7 +79,7 @@ insert into tusuario values('43997550','12345',1,'codigo.png','73077306','WASHIN
 				('73077307','12345',2,'codigo.png','73077307','FRANKLIN AIMITUMA SUYO','M','2013-12-21','987564328'),
 				('45789976','12345',3,'codigo.png','73077307','JASON','M','2013-12-21','987564328')
 insert into tperfil values(1,'SUPER ADMINISTRADOR'),(2,'ADMINISTRADOR'),(3,'SUB ADMINISTRADOR')
-insert into tacceso values(1,1,true,true,false,true,true,true,true,true,true,true,true,true,true,true),
-			  (2,2,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
-			  (3,3,true,true,false,true,false,false,true,true,true,true,true,true,false,false)
+insert into tacceso values(1,1,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
+			  (2,2,false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true),
+			  (3,3,false,true,false,false,false,false,false,false,true,true,false,true,false,false,true,true,false,false,false,false)
 select * from tacceso
