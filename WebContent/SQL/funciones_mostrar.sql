@@ -270,6 +270,13 @@ $$
 $$
 LANGUAGE SQL;
 /*+++++++++++++++++++++++++++++++++++++++++++++++*/
+create or replace function Pricing_sp_MostrarPerfiles()
+returns setof tperfil as
+$$
+	select * from tperfil order by nperfilcod;
+$$
+LANGUAGE SQL;
+/*+++++++++++++++++++++++++++++++++++++++++++++++*/
 create or replace function Pricing_sp_MostrarAcceso
 (
 	codPerfil int

@@ -482,19 +482,19 @@
 	 box-sizing: border-box;
 	 transition: all 500ms ease;
 }
-.btn_opciones_config:HOVER:before{
+.btn_opciones_config:before{
 	left: 7px;
 }
-.btn_opciones_config:focus:before{
+.btn_opciones_config:before{
 	left: 7px;
 }
-.btn_opciones_config:HOVER{
+.btn_opciones_config{
 	background: #2f2f2f;
 	border-radius: 5px;
 	color: white !important;
 }
 
-.btn_opciones_config:FOCUS{
+.btn_opciones_config{
 	background: #2f2f2f;
 	border-radius: 5px;
 	color: white !important;
