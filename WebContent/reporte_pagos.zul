@@ -10,15 +10,17 @@
 					<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
 					<datebox id="db_desde" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
 				</div>
+				<space orient="horizontal"></space>
 				<div width="80%">
 					<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
 					<datebox id="db_hasta" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
 				</div>
 			</div>
+			<space orient="horizontal"></space>
 			<div sclass="estilo_div_estado_pagos">
 				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
-					<radio id="rdPagoParcial" label="Pagos Parciales" value="PagosParciales" checked="@bind(vmPagos.estadoPagoParcial)" onCheck="@command('seleccion_radio',radio=self.id)" width="33%"/>
-					<radio id="rdPagoTotal" label="Pagos totales" value="PagosTotales" checked="@bind(vmPagos.estadoPagoTotal)" onCheck="@command('seleccion_radio',radio=self.id)" width="33%"/>
+					<radio id="rdPagoParcial" label="Pagos Parciales" value="PagosParciales" checked="@bind(vmPagos.estadoPagoParcial)" onCheck="@command('seleccion_radio',radio=self.id)" width="50%"/>
+					<radio id="rdPagoTotal" label="Pagos totales" value="PagosTotales" checked="@bind(vmPagos.estadoPagoTotal)" onCheck="@command('seleccion_radio',radio=self.id)" width="50%"/>
 				</radiogroup>
 			</div>
 			<space></space>
@@ -32,7 +34,7 @@
 				<listitem>
 					<listcell>
 				    	<div width="100%" zclass="div_list_cell">
-						    <div zclass="div_numeracion" width="auto">
+						    <div zclass="div_numeracion_reporte_pagos" width="auto">
 								<label value="@load(each.codReserva)"/>
 							</div>
 							<div sclass="div_contenedor_datos" >
@@ -90,7 +92,7 @@
 					    		</div>
 					    		<space orient="vertical"></space>
 					    		<div width="46%">
-					    		  <window visible="@load(each.visiblepasajerospop)" mode="popup" position="parent" width="32%" zclass="estilo_win_popup">
+					    		  <window visible="@load(each.visiblepasajerospop)" mode="popup" position="parent" zclass="estilo_win_popup">
 					    			<div sclass="div_pasajeros" width="100%">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none;" model="@load(each.listaPasajeros)" width="100%"> 
@@ -100,7 +102,7 @@
 					    					<template name="model" var="pasajero">
 					    					<listitem>
 					    						<listcell>
-					    						<div zclass="div_list_cell" width="100%">
+					    						<div zclass="div_list_cell_pagos" width="100%">
 					    							<div sclass="estilo_contenidos_centrados" width="10%">
 					    								<label value="■"></label>
 					    								<space></space>
@@ -138,7 +140,7 @@
 					    				</div>
 					    			</div>
 					    			</window>
-					    			<window visible="@load(each.visibleHotelespop)" mode="popup" position="parent" width="32%" zclass="estilo_win_popup">
+					    			<window visible="@load(each.visibleHotelespop)" mode="popup" position="parent" zclass="estilo_win_popup">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaDestinosconHoteles)" >  
 					    					<listhead>
@@ -155,7 +157,7 @@
 						    						    <template name="model" var="lista">
 						    						    	<listitem>
 						    						    	  <listcell>
-						    						    	     <div zclass="div_list_cell">
+						    						    	     <div zclass="div_list_cell_pagos">
 						    						    	     	<label value="■"></label>
 					    											<space></space>
 						    						    	     	<label value="@load(lista.cHotel)" sclass="estilo_texto_pop_hoteles" width="50%"></label>
@@ -175,7 +177,7 @@
 					    				</listbox>
 					    			</div>
 					    		  </window>
-					    		  <window visible="@load(each.visibleDestinospop)" mode="popup" position="parent" width="32%" zclass="estilo_win_popup">
+					    		  <window visible="@load(each.visibleDestinospop)" mode="popup" position="parent" zclass="estilo_win_popup">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none; overflow:auto;" model="@load(each.listaDestinos)"> 
 					    					<listhead> 
@@ -185,7 +187,7 @@
 					    					<template name="model" var="destino">
 					    					<listitem>
 					    						<listcell>
-					    							<div style="display:flex; align-items: center;" width="100%" zclass="div_list_cell">
+					    							<div width="100%" zclass="div_list_cell_pagos">
 					    								<label value="■"></label>
 					    								<space></space>
 					    								<label value="@load(destino.cDestino)" width="50%" sclass="estilo_texto_pop"></label>
@@ -199,7 +201,7 @@
 					    				</listbox>
 					    			</div>
 					    			</window>
-					    			<window visible="@load(each.visibleServiciospop)" mode="popup" position="parent" width="32%" zclass="estilo_win_popup">
+					    			<window visible="@load(each.visibleServiciospop)" mode="popup" position="parent" zclass="estilo_win_popup">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaServicios)"> 
 					    					<listhead>
@@ -209,7 +211,7 @@
 					    					<template name="model" var="servicio">
 					    					<listitem>
 					    						<listcell>
-					    							<div style="display:flex; align-items: center;" width="100%" zclass="div_list_cell">
+					    							<div width="100%" zclass="div_list_cell_pagos">
 					    								<label value="■"></label>
 					    								<space></space>
 					    								<label value="@load(servicio.cServicioIndioma1)" width="50%" sclass="estilo_texto_pop"></label>
@@ -226,9 +228,9 @@
 					    		  </window>
 					    		  </div>
 					    		<space></space>
-					    		<div width="24%">
+					    		<div sclass="contendor_montos">
 					    			<div sclass="estilo_pagos"  width="100%">
-					    				<div zclass="div_numeracion" width="25%">
+					    				<div zclass="div_numeracion_reporte_pagos">
 											<label value="@load(each.formaPago)"/>
 										</div>
 										<div>
@@ -243,10 +245,11 @@
 						    			<div sclass="estilo_monto_persona">
 						    				<div sclass="estilo_columnas_precios_etiqueta" width="70%">
 						    					<div style="display: flex;">
-							    					<label value="Pago Parcial"></label>
-							    					<label value="("></label>
-							    					<label value="@load(each.porcentaje)"></label>
-							    					<label value="%)"></label>
+							    					<label value="Pago"></label>
+							    					<label value="Parcial" visible="@bind(vmPagos.visiblePagoParcial)"></label>
+							    					<label value="(" visible="@bind(vmPagos.visiblePagoParcial)"></label>
+							    					<label value="@load(each.porcentaje)" visible="@bind(vmPagos.visiblePagoParcial)"></label>
+							    					<label value="%)" visible="@bind(vmPagos.visiblePagoParcial)"></label>
 						    					</div>
 						    					<div style="display: flex;">
 							    					<label value="Impuesto"></label>

@@ -64,6 +64,9 @@
 	justify-content: start !important;
 	padding: 4px;
 	background: lightgray;
+	border-radius: 3px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
 }
 
 .estilo_contenedor_estadoPago{
@@ -141,7 +144,7 @@
 }
 
 .div_content_info_listRepReserva{
-	width: 60% ;
+	width: 45% ;
 }
 
 .div_contenedor_datos_listRepReserva{
@@ -157,7 +160,7 @@
 	font-weight: bold;
 	font-size: 13px;
 	color: black;
-	width: 40%;
+	width: 30%;
 	display: flex;
 	display: -webkit-flex;
    	display: -moz-flex;
@@ -226,6 +229,7 @@
 	display: -ms-flex;
 	display: -o-flex;
 	flex-direction: column;
+	width: 70%;
 }
 .estilo_columnas_precios{
 	text-align: right;
@@ -235,6 +239,7 @@
 	display: -ms-flex;
 	display: -o-flex;
 	flex-direction: column;
+	width: 30%;
 }
 
 .estilo_monto_persona {
@@ -253,6 +258,23 @@
 	color: #069;
 	font-size: 16px;
 	font-weight: bold;
+}
+
+.contendor_montos {
+	width: 25% ;
+}
+
+.div_list_cell_reserva {
+	border: 1px solid rgba(0,0,0,0.1);
+	padding: 10px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.1);
+    display:flex;
+    display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
 }
 
 /********************* ESTILO LISTBOX **************************/
@@ -300,6 +322,14 @@
 	   flex-direction: column;
 	   width: 100% ;
 }
+.estilo_win_popup_reserva {
+	border: 0.3px solid rgba(0,0,0,0.1);
+	padding: 2px;
+	box-sizing:border-box;
+    box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.1);
+    width: 30%;
+}
 
 .div_numeracion_reporte_reserva{
 	background: #053351;
@@ -346,6 +376,12 @@
 
 @media only screen and (max-width: 416px)
 {
+	.estilo_win_popup_reserva {
+		width: 77% !important;
+	}
+	.contendor_montos {
+		width: 100% !important;
+	}
 	.estilo_nombre_paquete_reserva {
 		font-size: 14px;
 	}

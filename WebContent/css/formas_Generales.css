@@ -454,7 +454,7 @@
 	font-size: 18px;
 	font-weight: bold;
 }
-@media (max-width:400px){
+@media (max-width:416px){
 	.btn_editar,
 	.btn_activo,
 	.btn_actualizar{

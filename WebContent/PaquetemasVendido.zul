@@ -1,0 +1,10 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<div sclass="div_list_cell_estadisticas">
+	<div width="100%" use="com.pricing.model.CEstadistica_Reservas">
+		<div width="100%" style="display:flex;" height="500px">
+			 <zhighcharts  id="chartComp28" width="75%" height="500px"/>
+		</div>
+	</div>
+</div>
+</zk>

@@ -10,6 +10,7 @@
 					<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
 					<datebox id="db_desde" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
 				</div>
+				<space orient="horizontal"></space>
 				<div width="80%">
 					<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
 					<datebox id="db_hasta" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
@@ -97,7 +98,7 @@
 					    		<space></space>
 					    		<div zclass="div_content_info_listRepReserva">
 					    		 <div>
-					    		  <window visible="@load(each.visibleHotelespop)" mode="popup" position="parent" width="30%" zclass="estilo_win_popup">
+					    		  <window visible="@load(each.visibleHotelespop)" mode="popup" position="parent" zclass="estilo_win_popup_reserva">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaDestinosconHoteles)" >  
 					    					<listhead>
@@ -114,7 +115,7 @@
 						    						    <template name="model" var="lista">
 						    						    	<listitem>
 						    						    	  <listcell>
-						    						    	     <div zclass="div_list_cell">
+						    						    	     <div zclass="div_list_cell_reserva">
 						    						    	     	<label value="■"></label>
 					    											<space></space>
 						    						    	     	<label value="@load(lista.cHotel)" sclass="estilo_texto_pop_hoteles" width="50%"></label>
@@ -134,7 +135,7 @@
 					    				</listbox>
 					    			</div>
 					    		  </window>
-					    		  <window visible="@load(each.visibleDestinospop)" mode="popup" position="parent" width="30%" zclass="estilo_win_popup">
+					    		  <window visible="@load(each.visibleDestinospop)" mode="popup" position="parent" zclass="estilo_win_popup_reserva">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none; overflow:auto;" model="@load(each.listaDestinos)"> 
 					    					<listhead> 
@@ -144,7 +145,7 @@
 					    					<template name="model" var="destino">
 					    					<listitem>
 					    						<listcell>
-					    							<div style="display:flex; align-items: center;" width="100%" zclass="div_list_cell">
+					    							<div  width="100%" zclass="div_list_cell_reserva">
 					    								<label value="■"></label>
 					    								<space></space>
 					    								<label value="@load(destino.cDestino)" width="50%" sclass="estilo_texto_pop"></label>
@@ -158,7 +159,7 @@
 					    				</listbox>
 					    			</div>
 					    			</window>
-					    			<window visible="@load(each.visibleServiciospop)" mode="popup" position="parent" width="30%" zclass="estilo_win_popup">
+					    			<window visible="@load(each.visibleServiciospop)" mode="popup" position="parent" zclass="estilo_win_popup_reserva">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaServicios)"> 
 					    					<listhead>
@@ -168,7 +169,7 @@
 					    					<template name="model" var="servicio">
 					    					<listitem>
 					    						<listcell>
-					    							<div style="display:flex; align-items: center;" width="100%" zclass="div_list_cell">
+					    							<div width="100%" zclass="div_list_cell_reserva">
 					    								<label value="■"></label>
 					    								<space></space>
 					    								<label value="@load(servicio.cServicioIndioma1)" width="50%" sclass="estilo_texto_pop"></label>
@@ -183,7 +184,7 @@
 					    				</listbox>
 					    			</div>
 					    		  </window>
-					    		  <window visible="@load(each.visibleSubServiciopop)" mode="popup" position="parent" width="30%" zclass="estilo_win_popup">
+					    		  <window visible="@load(each.visibleSubServiciopop)" mode="popup" position="parent" zclass="estilo_win_popup_reserva">
 					    			<div width="100%" sclass="div_content_destino">
 					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaServicioConSubServicios)" >  
 					    					<listhead>
@@ -200,7 +201,7 @@
 						    						    <template name="model" var="listaS">
 						    						    	<listitem>
 						    						    	  <listcell>
-						    						    	     <div zclass="div_list_cell">
+						    						    	     <div zclass="div_list_cell_reserva">
 						    						    	     	<label value="■"></label>
 					    											<space></space>
 						    						    	     	<label value="@load(listaS.cSubServicioIndioma1)" sclass="estilo_texto_pop_hoteles" width="50%"></label>
@@ -223,9 +224,9 @@
 					    		  </div>
 					    		</div>
 					    		<space></space>
-					    		<div width="34%">
+					    		<div sclass="contendor_montos">
 						    		<div sclass="estilo_contenedor_estadoPago" width="100%">
-						    		    <div zclass="div_numeracion" width="45%">
+						    		    <div zclass="div_numeracion_reporte_reserva" width="100px">
 											<label value="@load(each.categoria)"/>
 										</div>
 						    		    <div>

@@ -243,6 +243,9 @@
 									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
 										<include src="estadistica.zul"/>
 									</div>
+									<div visible="false">
+										<include src="PaquetemasVendido.zul"/>
+									</div>
 								</div>
 							</div>
 							<div sclass="estilo_tabbox visible_grande"  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
@@ -298,6 +301,9 @@
 									</div>
 									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
 										<include src="estadistica.zul"/>
+									</div>
+									<div visible="false">
+										<include src="PaquetemasVendido.zul"/>
 									</div>
 								</div>
 							</div>

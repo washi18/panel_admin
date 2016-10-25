@@ -30,6 +30,7 @@ public class reportePagosVM {
 	private boolean estadoPagoPendiente;
 	private boolean estadoPagoParcial;
 	private boolean estadoPagoTotal;
+	private boolean visiblePagoParcial;
 	private String fechaInicio;
 	private String fechaFinal;
 	private ArrayList<CPasajero> listaPasajeros;
@@ -129,6 +130,13 @@ public class reportePagosVM {
 	public void setListaHotelesTemp(ArrayList<CHotel> listaHotelesTemp) {
 		this.listaHotelesTemp = listaHotelesTemp;
 	}
+	
+	public boolean isVisiblePagoParcial() {
+		return visiblePagoParcial;
+	}
+	public void setVisiblePagoParcial(boolean visiblePagoParcial) {
+		this.visiblePagoParcial = visiblePagoParcial;
+	}
 	//=====================constructores======
 	@Init
 	public void initVM()
@@ -136,6 +144,7 @@ public class reportePagosVM {
 		estadoPagoParcial=false;
 		estadoPagoPendiente=false;
 		estadoPagoTotal=false;
+		visiblePagoParcial=true;
 		/**Inicializando los objetos**/
 		listaReportePagos=new ArrayList<CReportePagos>();
 		fechaInicio="";
@@ -146,6 +155,7 @@ public class reportePagosVM {
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 	}
 	//====================metodos============
+	
 	@Command
 	@NotifyChange("listaDestinos")
 	public void habilitarDestinosPOP(@BindingParam("cdestino") CReportePagos destino)
@@ -327,7 +337,7 @@ public class reportePagosVM {
 	}
 	
 	@Command
-	@NotifyChange("listaReportePagos")
+	@NotifyChange({"listaReportePagos","visiblePagoParcial"})
 	public void Buscar_Pagos(@BindingParam("componente")Component componente)
 	{
 		if(fechaInicio.isEmpty() || fechaFinal.isEmpty())
@@ -352,6 +362,7 @@ public class reportePagosVM {
 			if(estadoPagoParcial){
 				NombrePago="PAGO PARCIAL";
 			}else if(estadoPagoTotal){
+				visiblePagoParcial=false;
 				NombrePago="PAGO TOTAL";
 			}
 			listaReportePagos.clear();

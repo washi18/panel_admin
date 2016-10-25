@@ -7,6 +7,9 @@
 	justify-content: center !important;
 	padding: 4px;
 	background: lightgray;
+	border-radius: 3px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
 }
 
 .intervalo_fechas{
@@ -57,6 +60,7 @@
 	box-sizing:border-box;
     box-shadow: 0 3px 4px rgba(41,51,57,.5);
     background: rgba(0,0,0,0.1);
+    width: 30%;
 }
 
 .div_pasajeros {
@@ -101,9 +105,68 @@
 	align-items: center;
 }
 
+.div_numeracion_reporte_pagos{
+	background: #053351;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	width: 20%;
+	height: 26px;
+	padding: 2px;
+	position: relative;
+	top: -15px;
+	left: -15px;
+	display: flex;
+	justify-content:center;
+	align-items:center;
+}
+.div_numeracion_reporte_pagos:AFTER{
+	content: '';
+	border-bottom:13px solid #053351;
+	border-top:13px solid #053351;
+/* 	border-left:10px solid #2f2f2f; */
+	border-right:10px solid transparent;
+	top:0;
+	right: -10px;
+	position: absolute;
+}
+.div_numeracion_reporte_pagos:BEFORE {
+	content: '';
+	border-bottom:13px solid transparent;
+	border-top:13px solid gray;
+	border-left:5px solid transparent;
+	top:26px;
+	left:0;
+	position: absolute;
+}
+.contendor_montos {
+	width: 25% ;
+}
+
+.div_list_cell_pagos{
+	border: 1px solid rgba(0,0,0,0.1);
+	padding: 10px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.1);
+    display:flex;
+    display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+
 @media only screen and (max-width: 416px)
 {
-	
+	.contendor_montos {
+		width: 100% !important;
+	}
+	.div_numeracion_reporte_pagos {
+		width: 30% !important;
+	}
+	.estilo_win_popup {
+		width: 80% ;
+	}	
 	.div_pasajeros {
 		width: 100% !important;
 	}
