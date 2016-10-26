@@ -625,6 +625,7 @@ $$
 			inner join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
 			inner join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
 			inner join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
+			where r.cestado='PAGO TOTAL'
 			group by p.ctituloidioma1,p.cpaquetecod,r.dfecha
 			order by p.ctituloidioma1,nrovendidos desc
 $$

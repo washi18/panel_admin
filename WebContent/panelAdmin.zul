@@ -157,13 +157,13 @@
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)">
 										<div id="itemEstadisticaPagos" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Estadistica Pagos" sclass="lbls_mantenimientos"/>
+											<label value="Formas de Pago" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)">
 										<div id="itemEstadisticaPaquetesmasVendidos" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="icon-profile estilos-iconos"/>
-											<label value="Paquetes mas vendidos" sclass="lbls_mantenimientos"/>
+											<label value="Top Paquetes" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 								</div>
@@ -243,9 +243,6 @@
 									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
 										<include src="estadistica.zul"/>
 									</div>
-									<div visible="false">
-										<include src="PaquetemasVendido.zul"/>
-									</div>
 								</div>
 							</div>
 							<div sclass="estilo_tabbox visible_grande"  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
@@ -301,9 +298,6 @@
 									</div>
 									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
 										<include src="estadistica.zul"/>
-									</div>
-									<div visible="false">
-										<include src="PaquetemasVendido.zul"/>
 									</div>
 								</div>
 							</div>

@@ -167,13 +167,6 @@ public class CReporteReserva {
 		PrecioTotal = precioTotal;
 	}
 	
-	public String getColornoExisteLista() {
-		return colornoExisteListaDestinos;
-	}
-	public void setColornoExisteLista(String colornoExisteLista) {
-		this.colornoExisteListaDestinos = colornoExisteLista;
-	}
-	
 	public String getColornoExisteListaDestinos() {
 		return colornoExisteListaDestinos;
 	}

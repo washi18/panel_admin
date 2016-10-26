@@ -83,7 +83,7 @@
 							    			<span sclass="icon-cogs estilos-iconos"></span>
 							    		</div>
 							    		<space orient="vertical"></space>
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarPasajerosPOP',cpasajero=each)" style="@bind(each.colornoExisteListaServicios)">
+							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarPasajerosPOP',cpasajero=each)" style="@bind(each.colornoExisteListaPasajeros)">
 							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
 							    			<space orient="vertical"></space>
 							    			<span sclass="icon-users estilos-iconos"></span>

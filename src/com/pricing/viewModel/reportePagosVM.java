@@ -188,7 +188,7 @@ public class reportePagosVM {
 		}
 		BindUtils.postNotifyChange(null, null, destino,"visibleDestinospop");
 		BindUtils.postNotifyChange(null, null, destino,"listaDestinos");
-		BindUtils.postNotifyChange(null, null, destino,"colornoExisteLista");
+		BindUtils.postNotifyChange(null, null, destino,"colornoExisteListaDestinos");
 	}
 	@Command
 	@NotifyChange({"listaHoteles","listaHotelesTemp","listaDestinosconHoteles"})

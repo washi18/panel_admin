@@ -2,13 +2,13 @@
 <zk>
 <style src="css/estilo_Estaditicas.css"></style>
 <div>
-	<div sclass="div_list_cell"  style="display: flex; align-items: center;">
-			    <label value="Ingrese Año: " style="font-size: 13px; color: black; font-weight: bold;"></label>
-				<combobox>
-				  <comboitem label="2016"></comboitem>
-				</combobox>
-	</div>
-	<space orient="horizontal"></space>
+<!-- 	<div sclass="div_list_cell"  style="display: flex; align-items: center;"> -->
+<!-- 			    <label value="Ingrese Año: " style="font-size: 13px; color: black; font-weight: bold;"></label> -->
+<!-- 				<combobox> -->
+<!-- 				  <comboitem label="2016"></comboitem> -->
+<!-- 				</combobox> -->
+<!-- 	</div> -->
+<!-- 	<space orient="horizontal"></space> -->
 	<div sclass="div_list_cell_estadisticas">
 		<div width="100%" use="com.pricing.model.Estadisticas">
 	    	<div style="display: flex; justify-content: center;">
