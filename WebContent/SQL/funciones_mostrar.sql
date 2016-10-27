@@ -627,7 +627,7 @@ $$
 			inner join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
 			where r.cestado='PAGO TOTAL'
 			group by p.ctituloidioma1,p.cpaquetecod,r.dfecha
-			order by p.ctituloidioma1,nrovendidos desc
+			order by p.ctituloidioma1,nrovendidos asc
 $$
   LANGUAGE sql;
 

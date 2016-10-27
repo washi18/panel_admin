@@ -15,62 +15,18 @@ import com.pricing.dao.CReporteReservaDAO;
 import com.pricing.model.CEstadistica_Paquete;
 
 public class CEstadisticaReservaVM {
+	SimpleDateFormat df=new SimpleDateFormat("MM");
 	private ArrayList<String> listaAnios;
 	private boolean visibleGrafico;
 	private String anio="";
-	private long[] sumasMeses;
-	private String[] nombresPaquetes={"","","","","","","","","","","",""};
+	private long[] top1Paquetes={0,0,0,0,0,0,0,0,0,0,0,0};
+	private long[] top2Paquetes={0,0,0,0,0,0,0,0,0,0,0,0};
+	private long[] top3Paquetes={0,0,0,0,0,0,0,0,0,0,0,0};
+	private String[] nombrestop1Paquetes={"","","","","","","","","","","",""};
+	private String[] nombrestop2Paquetes={"","","","","","","","","","","",""};
+	private String[] nombrestop3Paquetes={"","","","","","","","","","","",""};
 	private CReporteReservaDAO reporteReservaDao;
     private ArrayList<CEstadistica_Paquete> listaPaquetesMasVendidos;
-    String eneroInicio;
-   	String eneroFinal;
-   	String febreroInicio;
-   	String febreroFinal;
-   	String marzoInicio;
-   	String marzoFinal;
-   	String abrilInicio;
-   	String abrilFinal;
-   	String mayoInicio;
-   	String mayoFinal;
-   	String junioInicio;
-   	String junioFinal;
-   	String julioInicio;
-   	String julioFinal;
-   	String agostoInicio;
-   	String agostoFinal;
-   	String setiembreInicio;
-   	String setiembreFinal;
-   	String octubreInicio;
-   	String octubreFinal;
-   	String noviembreInicio;
-   	String noviembreFinal;
-   	String diciembreInicio;
-   	String diciembreFinal;
-   	//=====en formato date==========
-   	Date EneroInicio=null;
-   	Date EneroFinal=null;
-   	Date FebreroInicio=null;
-   	Date FebreroFinal=null;
-   	Date MarzoInicio=null;
-   	Date MarzoFinal=null;
-   	Date AbrilInicio=null;
-   	Date AbrilFinal=null;
-   	Date MayoInicio=null;
-   	Date MayoFinal=null;
-   	Date JunioInicio=null;
-   	Date JunioFinal=null;
-   	Date JulioInicio=null;
-   	Date JulioFinal=null;
-   	Date AgostoInicio=null;
-   	Date AgostoFinal=null;
-   	Date SetiembreInicio=null;
-   	Date SetiembreFinal=null;
-   	Date OctubreInicio=null;
-   	Date OctubreFinal=null;
-   	Date NoviembreInicio=null;
-   	Date NoviembreFinal=null;
-   	Date DiciembreInicio=null;
-   	Date DiciembreFinal=null;
        //===============getter and setter======
    	
    	public CReporteReservaDAO getReporteReservaDao() {
@@ -116,20 +72,53 @@ public class CEstadisticaReservaVM {
 		this.anio = anio;
 	}
 	
-	public long[] getSumasMeses() {
-		return sumasMeses;
+
+	public long[] getTop1Paquetes() {
+		return top1Paquetes;
 	}
 
-	public void setSumasMeses(long[] sumasMeses) {
-		this.sumasMeses = sumasMeses;
+	public void setTop1Paquetes(long[] top1Paquetes) {
+		this.top1Paquetes = top1Paquetes;
 	}
 
-	public String[] getNombresPaquetes() {
-		return nombresPaquetes;
+	public long[] getTop2Paquetes() {
+		return top2Paquetes;
 	}
 
-	public void setNombresPaquetes(String[] nombresPaquetes) {
-		this.nombresPaquetes = nombresPaquetes;
+	public void setTop2Paquetes(long[] top2Paquetes) {
+		this.top2Paquetes = top2Paquetes;
+	}
+
+	public long[] getTop3Paquetes() {
+		return top3Paquetes;
+	}
+
+	public void setTop3Paquetes(long[] top3Paquetes) {
+		this.top3Paquetes = top3Paquetes;
+	}
+
+	public String[] getNombrestop1Paquetes() {
+		return nombrestop1Paquetes;
+	}
+
+	public void setNombrestop1Paquetes(String[] nombrestop1Paquetes) {
+		this.nombrestop1Paquetes = nombrestop1Paquetes;
+	}
+
+	public String[] getNombrestop2Paquetes() {
+		return nombrestop2Paquetes;
+	}
+
+	public void setNombrestop2Paquetes(String[] nombrestop2Paquetes) {
+		this.nombrestop2Paquetes = nombrestop2Paquetes;
+	}
+
+	public String[] getNombrestop3Paquetes() {
+		return nombrestop3Paquetes;
+	}
+
+	public void setNombrestop3Paquetes(String[] nombrestop3Paquetes) {
+		this.nombrestop3Paquetes = nombrestop3Paquetes;
 	}
 
 	//==============metodos=======
@@ -138,7 +127,6 @@ public class CEstadisticaReservaVM {
 	{
 		/**Inicializando los objetos**/
 		listaAnios=new ArrayList<String>();
-		sumasMeses=new long[12];
 		visibleGrafico=false;
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
@@ -163,7 +151,7 @@ public class CEstadisticaReservaVM {
 		procesarPaquetesMasVendidos();
 	}
 	
-	@NotifyChange({"nombresPaquetes","sumasMeses"})
+	@NotifyChange({"nombrestop1Paquetes","nombrestop2Paquetes","nombrestop3Paquetes","top1Paquetes","top2Paquetes","top3Paquetes"})
 	public void procesarPaquetesMasVendidos()
 	{
 		reporteReservaDao=new CReporteReservaDAO();
@@ -171,268 +159,388 @@ public class CEstadisticaReservaVM {
 		reporteReservaDao.asignarPaquetesmasVendidos(reporteReservaDao.recuperarPaquetesMasVendidos(this.anio));
 		this.setListaPaquetesMasVendidos(reporteReservaDao.getMasVendidosxMeses());
 		System.out.println("el tamanio de la lista mas vendidos es:"+listaPaquetesMasVendidos.size());
-		asignarAnioMeses(this.anio);
 		//======meses del anio con inicio y fin=====
 		String nombrePaqueteAnterior=listaPaquetesMasVendidos.get(0).getNombrePaquete();
-		for(int i=0;i<listaPaquetesMasVendidos.size();i++)
+		int factorIncremento;
+		for(int i=0;i<listaPaquetesMasVendidos.size();i=i+factorIncremento)
 		{
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(EneroInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(EneroFinal))
+			factorIncremento=0;
+			if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("01"))
 			{
 				System.out.println("Estamos en enero");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[0]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[0]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
+				long auxCambio;
+				String auxNombreCambio="";
+				int contador=i;
+				nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				nombrestop2Paquetes[0]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("01")))
 				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[0]){
-						sumasMeses[0]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[0]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					top2Paquetes[0]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					contador++;
+					factorIncremento++;
+				}
+				System.out.println("valor de contador"+contador);
+				System.out.println("valor de factor incrmento"+factorIncremento);
+				if(top2Paquetes[0]>top1Paquetes[0]){
+					auxCambio=top1Paquetes[0];
+					auxNombreCambio=nombrestop1Paquetes[0];
+					top1Paquetes[0]=top2Paquetes[0];
+					nombrestop1Paquetes[0]=nombrestop2Paquetes[0];
+					top2Paquetes[0]=auxCambio;
+					nombrestop2Paquetes[0]=auxNombreCambio;
+				}
+				else {
+					if(top2Paquetes[0]>top3Paquetes[0]){
+						top3Paquetes[0]=top2Paquetes[0];
+						nombrestop3Paquetes[0]=nombrestop2Paquetes[0];
 					}
 				}
 			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(FebreroInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(FebreroFinal))
-			{
-				System.out.println("Estamos en febrero");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[1]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[1]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("02"))
 				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[1]){
-						sumasMeses[1]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[1]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[1]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("02")))
+					{
+						top2Paquetes[1]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
+					}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[1]>top1Paquetes[1]){
+						auxCambio=top1Paquetes[1];
+						auxNombreCambio=nombrestop1Paquetes[1];
+						top1Paquetes[1]=top2Paquetes[1];
+						nombrestop1Paquetes[1]=nombrestop2Paquetes[1];
+						top2Paquetes[1]=auxCambio;
+						nombrestop2Paquetes[1]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[1]>top3Paquetes[1]){
+						top3Paquetes[1]=top2Paquetes[1];
+						nombrestop3Paquetes[1]=nombrestop2Paquetes[1];
+						}
+					}
+			}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("03"))
+				{
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[2]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("03")))
+					{
+						top2Paquetes[2]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
+					}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[2]>top1Paquetes[2]){
+						auxCambio=top1Paquetes[2];
+						auxNombreCambio=nombrestop1Paquetes[2];
+						top1Paquetes[2]=top2Paquetes[2];
+						nombrestop1Paquetes[2]=nombrestop2Paquetes[2];
+						top2Paquetes[2]=auxCambio;
+						nombrestop2Paquetes[2]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[2]>top3Paquetes[2]){
+						top3Paquetes[2]=top2Paquetes[2];
+						nombrestop3Paquetes[2]=nombrestop2Paquetes[2];
+						}
+					}
+			}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("04"))
+				{
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[3]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("01")))
+					{
+						top2Paquetes[3]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
+					}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[3]>top1Paquetes[3]){
+						auxCambio=top1Paquetes[3];
+						auxNombreCambio=nombrestop1Paquetes[3];
+						top1Paquetes[3]=top2Paquetes[3];
+						nombrestop1Paquetes[3]=nombrestop2Paquetes[3];
+						top2Paquetes[3]=auxCambio;
+						nombrestop2Paquetes[3]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[3]>top3Paquetes[3]){
+						top3Paquetes[3]=top2Paquetes[3];
+						nombrestop3Paquetes[3]=nombrestop2Paquetes[3];
+						}
+					}
+			}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("05"))
+				{
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[4]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("05")))
+					{
+						top2Paquetes[4]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
+					}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[4]>top1Paquetes[4]){
+						auxCambio=top1Paquetes[4];
+						auxNombreCambio=nombrestop1Paquetes[4];
+						top1Paquetes[4]=top2Paquetes[4];
+						nombrestop1Paquetes[4]=nombrestop2Paquetes[4];
+						top2Paquetes[4]=auxCambio;
+						nombrestop2Paquetes[4]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[4]>top3Paquetes[4]){
+						top3Paquetes[4]=top2Paquetes[4];
+						nombrestop3Paquetes[4]=nombrestop2Paquetes[4];
+						}
+					}
+			}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("06"))
+				{
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[5]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("06")))
+					{
+						top2Paquetes[5]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
+					}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[5]>top1Paquetes[5]){
+						auxCambio=top1Paquetes[5];
+						auxNombreCambio=nombrestop1Paquetes[5];
+						top1Paquetes[5]=top2Paquetes[5];
+						nombrestop1Paquetes[5]=nombrestop2Paquetes[5];
+						top2Paquetes[5]=auxCambio;
+						nombrestop2Paquetes[5]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[5]>top3Paquetes[5]){
+						top3Paquetes[5]=top2Paquetes[5];
+						nombrestop3Paquetes[5]=nombrestop2Paquetes[5];
+						}
+					}
+			}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("07"))
+				{
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[6]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("07")))
+					{
+						top2Paquetes[6]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
+					}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[6]>top1Paquetes[6]){
+						auxCambio=top1Paquetes[6];
+						auxNombreCambio=nombrestop1Paquetes[6];
+						top1Paquetes[6]=top2Paquetes[6];
+						nombrestop1Paquetes[6]=nombrestop2Paquetes[6];
+						top2Paquetes[6]=auxCambio;
+						nombrestop2Paquetes[6]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[6]>top3Paquetes[6]){
+						top3Paquetes[6]=top2Paquetes[6];
+						nombrestop3Paquetes[6]=nombrestop2Paquetes[6];
+						}
+					}
+			}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("08"))
+				{
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[7]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("08")))
+					{
+						top2Paquetes[7]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
+					}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[7]>top1Paquetes[7]){
+						auxCambio=top1Paquetes[7];
+						auxNombreCambio=nombrestop1Paquetes[7];
+						top1Paquetes[7]=top2Paquetes[7];
+						nombrestop1Paquetes[7]=nombrestop2Paquetes[7];
+						top2Paquetes[7]=auxCambio;
+						nombrestop2Paquetes[7]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[7]>top3Paquetes[7]){
+						top3Paquetes[7]=top2Paquetes[7];
+						nombrestop3Paquetes[7]=nombrestop2Paquetes[7];
+						}
+					}
+			}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("09"))
+				{
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[8]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("09")))
+					{
+						top2Paquetes[8]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
+					}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[8]>top1Paquetes[8]){
+						auxCambio=top1Paquetes[8];
+						auxNombreCambio=nombrestop1Paquetes[8];
+						top1Paquetes[8]=top2Paquetes[8];
+						nombrestop1Paquetes[8]=nombrestop2Paquetes[8];
+						top2Paquetes[8]=auxCambio;
+						nombrestop2Paquetes[8]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[8]>top3Paquetes[8]){
+						top3Paquetes[8]=top2Paquetes[8];
+						nombrestop3Paquetes[8]=nombrestop2Paquetes[8];
+						}
+					}
+			}else
+			if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("10"))
+				{
+				System.out.println("Estamos en enero");
+				long auxCambio;
+				String auxNombreCambio="";
+				int contador=i;
+				nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				nombrestop2Paquetes[9]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+				while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("10")))
+				{
+					top2Paquetes[9]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					contador++;
+					factorIncremento++;
+				}
+				System.out.println("valor de contador"+contador);
+				System.out.println("valor de factor incrmento"+factorIncremento);
+				if(top2Paquetes[9]>top1Paquetes[9]){
+					auxCambio=top1Paquetes[9];
+					auxNombreCambio=nombrestop1Paquetes[9];
+					top1Paquetes[9]=top2Paquetes[9];
+					nombrestop1Paquetes[9]=nombrestop2Paquetes[9];
+					top2Paquetes[9]=auxCambio;
+					nombrestop2Paquetes[9]=auxNombreCambio;
+				}
+				else {
+					if(top2Paquetes[9]>top3Paquetes[9]){
+					top3Paquetes[9]=top2Paquetes[9];
+					nombrestop3Paquetes[9]=nombrestop2Paquetes[9];
 					}
 				}
 			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(MarzoInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(MarzoFinal))
-			{
-				System.out.println("Estamos en marzo");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[2]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[2]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("11"))
 				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[2]){
-						sumasMeses[2]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[2]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
+					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[10]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("11")))
+					{
+						top2Paquetes[10]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
 					}
-				}
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[10]>top1Paquetes[10]){
+						auxCambio=top1Paquetes[10];
+						auxNombreCambio=nombrestop1Paquetes[10];
+						top1Paquetes[10]=top2Paquetes[10];
+						nombrestop1Paquetes[10]=nombrestop2Paquetes[10];
+						top2Paquetes[10]=auxCambio;
+						nombrestop2Paquetes[10]=auxNombreCambio;
+					}
+					else {
+						if(top2Paquetes[10]>top3Paquetes[10]){
+						top3Paquetes[10]=top2Paquetes[10];
+						nombrestop3Paquetes[10]=nombrestop2Paquetes[10];
+						}
+					}
 			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(AbrilInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(AbrilFinal))
-			{
-				System.out.println("Estamos en abril");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[3]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[3]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
+				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("12"))
 				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[3]){
-						sumasMeses[3]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[3]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					}
-				}
-			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(MayoInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(MayoFinal))
-			{
-				System.out.println("Estamos en mayo");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[4]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+					System.out.println("Estamos en enero");
+					long auxCambio;
+					String auxNombreCambio="";
+					int contador=i;
 					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[4]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
-				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[4]){
-						sumasMeses[4]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[4]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					nombrestop2Paquetes[11]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("12")))
+					{
+						top2Paquetes[11]+=listaPaquetesMasVendidos.get(i).getNroVentas();
+						contador++;
+						factorIncremento++;
 					}
-				}
-			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(JunioInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(JunioFinal))
-			{
-				System.out.println("Estamos en junio");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[5]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[5]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
-				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[5]){
-						sumasMeses[5]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[5]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
+					System.out.println("valor de contador"+contador);
+					System.out.println("valor de factor incrmento"+factorIncremento);
+					if(top2Paquetes[11]>top1Paquetes[11]){
+						auxCambio=top1Paquetes[11];
+						auxNombreCambio=nombrestop1Paquetes[11];
+						top1Paquetes[11]=top2Paquetes[11];
+						nombrestop1Paquetes[11]=nombrestop2Paquetes[11];
+						top2Paquetes[11]=auxCambio;
+						nombrestop2Paquetes[11]=auxNombreCambio;
 					}
-				}
-			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(JulioInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(JulioFinal))
-			{
-				System.out.println("Estamos en julio");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[6]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[6]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					System.out.println("vaklor de suma if: julio"+sumasMeses[6]);
-				}else
-				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[6]){
-						sumasMeses[6]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[6]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						System.out.println("vaklor de suma else: julio"+sumasMeses[6]);
+					else {
+						if(top2Paquetes[11]>top3Paquetes[11]){
+						top3Paquetes[11]=top2Paquetes[11];
+						nombrestop3Paquetes[11]=nombrestop2Paquetes[11];
+						}
 					}
-				}
-			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(AgostoInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(AgostoFinal))
-			{
-				System.out.println("Estamos en agosto");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[7]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[7]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					System.out.println("vaklor de suma: agosto"+sumasMeses[7]);
-				}else
-				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[7]){
-						sumasMeses[7]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[7]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					}
-				}
-			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(SetiembreInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(SetiembreFinal))
-			{
-				System.out.println("Estamos en setiembre");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[8]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[8]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
-				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[8]){
-						sumasMeses[8]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[8]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					}
-				}
-			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(OctubreInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(OctubreFinal))
-			{
-				System.out.println("Estamos en octubre");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[9]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[9]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
-				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[9]){
-						sumasMeses[9]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[9]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					}
-				}
-			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(NoviembreInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(NoviembreFinal))
-			{
-				System.out.println("Estamos en noviembre");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[10]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[10]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
-				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[10]){
-						sumasMeses[10]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[10]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					}
-				}
-			}else
-			if(listaPaquetesMasVendidos.get(i).getFechaPago().after(DiciembreInicio) && listaPaquetesMasVendidos.get(i).getFechaPago().before(DiciembreFinal))
-			{
-				System.out.println("Estamos en diciembre");
-				if(listaPaquetesMasVendidos.get(i).getNombrePaquete().equals(nombrePaqueteAnterior)){
-					sumasMeses[11]+=listaPaquetesMasVendidos.get(i).getNroVentas();
-					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					nombresPaquetes[11]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-				}else
-				{
-					if(listaPaquetesMasVendidos.get(i).getNroVentas()>sumasMeses[11]){
-						sumasMeses[11]=listaPaquetesMasVendidos.get(i).getNroVentas();
-						nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-						nombresPaquetes[11]=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					}
-				}
 			}
 		}
 	}
-	public void asignarAnioMeses(String anioActual)
-	{
-		SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
-		eneroInicio=anioActual+"-01-01";
-		eneroFinal=anioActual+"-01-31";
-		febreroInicio=anioActual+"-02-01";
-		febreroFinal=anioActual+"-02-31";
-		marzoInicio=anioActual+"-03-01";
-		marzoFinal=anioActual+"-03-31";
-		abrilInicio=anioActual+"-04-01";
-		abrilFinal=anioActual+"-04-31";
-		mayoInicio=anioActual+"-05-01";
-		mayoFinal=anioActual+"-05-31";
-		junioInicio=anioActual+"-06-01";
-		junioFinal=anioActual+"-06-31";
-		julioInicio=anioActual+"-07-01";
-		julioFinal=anioActual+"-07-31";
-		agostoInicio=anioActual+"-08-01";
-		agostoFinal=anioActual+"-08-31";
-		setiembreInicio=anioActual+"-09-01";
-		setiembreFinal=anioActual+"-09-31";
-		octubreInicio=anioActual+"-10-01";
-		octubreFinal=anioActual+"-10-31";
-		noviembreInicio=anioActual+"-11-01";
-		noviembreFinal=anioActual+"-11-31";
-		diciembreInicio=anioActual+"-12-01";
-		diciembreFinal=anioActual+"-12-31";
-		
-		try {
-			 EneroInicio=formato.parse(eneroInicio);
-			EneroFinal=formato.parse(eneroFinal);
-			FebreroInicio=formato.parse(febreroInicio);
-			FebreroFinal=formato.parse(febreroFinal);
-			MarzoInicio=formato.parse(marzoInicio);
-			MarzoFinal=formato.parse(marzoFinal);
-			AbrilInicio=formato.parse(abrilInicio);
-			AbrilFinal=formato.parse(abrilFinal);
-		    MayoInicio=formato.parse(mayoInicio);
-			MayoFinal=formato.parse(mayoFinal);
-			JunioInicio=formato.parse(junioInicio);
-			JunioFinal=formato.parse(junioFinal);
-			JulioInicio=formato.parse(julioInicio);
-			JulioFinal=formato.parse(julioFinal);
-			AgostoInicio=formato.parse(agostoInicio);
-			AgostoFinal=formato.parse(agostoFinal);
-			SetiembreInicio=formato.parse(setiembreInicio);
-			SetiembreFinal=formato.parse(setiembreFinal);
-			OctubreInicio=formato.parse(octubreInicio);
-			OctubreFinal=formato.parse(octubreFinal);
-			NoviembreInicio=formato.parse(noviembreInicio);
-			NoviembreFinal=formato.parse(noviembreFinal);
-			DiciembreInicio=formato.parse(diciembreInicio);
-			DiciembreFinal=formato.parse(diciembreFinal);
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-	}
 	
-	@NotifyChange("anio")
+	@NotifyChange({"anio","grafica"})
 	public SimpleCategoryModel getGrafica(){
         System.out.println("entra aqui grafica..?");
         String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
@@ -440,41 +548,66 @@ public class CEstadisticaReservaVM {
         SimpleCategoryModel demoModel = new SimpleCategoryModel();
             for(int j=0; j<12; j++){               
                 if(j==0) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==1) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==2) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==3) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==4) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==5) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==6) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==7) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==8) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==9) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==10) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
                 if(j==11) {
-                    demoModel.setValue(this.nombresPaquetes[j], meses[j], this.sumasMeses[j]);
+                    demoModel.setValue(this.nombrestop1Paquetes[j], meses[j], this.top1Paquetes[j]);
+                    demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
+                    demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
+                System.out.println("termina grafica..?");
             }
         return demoModel;
     }
