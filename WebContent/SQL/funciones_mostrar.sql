@@ -665,3 +665,22 @@ codreservapservicio bigint NOT NULL DEFAULT nextval('seq_reservaps'::regclass),
 
 
 delete from treservapaqueteservicio where codreservapservicio=121;
+
+
+
+  create or replace function Pricing_sp_listaFormaPagos
+  (
+	anio varchar(4)
+  )
+  returns table(formapago varchar(20),fechaPago timestamp) as
+  $$
+	select  formapago,fechayhora_initx
+	   from tpagovisa
+  	   where to_date($1||''||'-01-01','yyy-MM-dd') <= fechayhora_initx AND fechayhora_initx <=  to_date($1||''||'-21-31','yyy-MM-dd')
+  	   
+	union all
+	   select  formapago,fechayhora_initx
+  	   from tpagopaypal
+  	   where to_date($1||''||'-01-01','yyy-MM-dd') <= fechayhora_initx AND fechayhora_initx <=  to_date($1||''||'-21-31','yyy-MM-dd')
+  $$
+  language sql;

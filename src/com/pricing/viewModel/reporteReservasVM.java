@@ -1,5 +1,6 @@
 package com.pricing.viewModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -35,6 +36,7 @@ public class reporteReservasVM {
 	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
 	private ArrayList<CServicioConSubServicios> listaServicioconSubServicios;
 	private CReporteReserva reporteReservaAnterior;
+	private SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 	
 	//=======getter and setter=====
 	
@@ -339,12 +341,13 @@ public class reporteReservasVM {
 	
 	@Command
 	@NotifyChange({"FechaInicio","FechaFinal"})
-	public void recuperarFechaDatebox(@BindingParam("fecha")String fecha,@BindingParam("id")String id)
+	public void recuperarFechaDatebox(@BindingParam("fecha")Date fecha,@BindingParam("id")String id)
 	{
+		SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd");
 		if(id.equals("db_desde"))
-			FechaInicio=fecha;
+			FechaInicio=df.format(fecha);
 		else
-			FechaFinal=fecha;
+			FechaFinal=df.format(fecha);
 	}
 	
 	@Command
@@ -357,21 +360,21 @@ public class reporteReservasVM {
 		}
 		else
 		{
-			//-------despedasando la fecha desde------
-			String diaStart=FechaInicio.substring(0,2);
-			String mesStart=cambiarFormatoMes(FechaInicio.substring(3,6));
-			String anioStart=FechaInicio.substring(7,11);
-			//-------despedasando la fecha hasta------
-			String diaEnd=FechaFinal.substring(0,2);
-			String mesEnd=cambiarFormatoMes(FechaFinal.substring(3,6));
-			String anioEnd=FechaFinal.substring(7,11);
-			/*************Fecha Inicio*******************/
-			String fecha1=anioStart+"-"+mesStart+"-"+diaStart;
-			String fecha2=anioEnd+"-"+mesEnd+"-"+diaEnd;
+//			//-------despedasando la fecha desde------
+//			String diaStart=FechaInicio.substring(0,2);
+//			String mesStart=cambiarFormatoMes(FechaInicio.substring(3,6));
+//			String anioStart=FechaInicio.substring(7,11);
+//			//-------despedasando la fecha hasta------
+//			String diaEnd=FechaFinal.substring(0,2);
+//			String mesEnd=cambiarFormatoMes(FechaFinal.substring(3,6));
+//			String anioEnd=FechaFinal.substring(7,11);
+//			/*************Fecha Inicio*******************/
+//			String fecha1=anioStart+"-"+mesStart+"-"+diaStart;
+//			String fecha2=anioEnd+"-"+mesEnd+"-"+diaEnd;
 			/****Validando la fecha****/
 			listaReporteReserva.clear();
 			System.out.println("entro aqui 1");
-			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(fecha1,fecha2));
+			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(FechaInicio,FechaFinal));
 			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
 			
 		}
